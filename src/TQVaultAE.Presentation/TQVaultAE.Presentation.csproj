@@ -31,6 +31,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Img\BorderSide.png" />
+	  <None Remove="Resources\Img\BorderTop.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="DDSReader" Version="1.0.8-pre" />
 		<PackageReference Include="Enums.NET" Version="4.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" />
@@ -42,6 +47,11 @@
 		<ProjectReference Include="..\TQVaultAE.Config\TQVaultAE.Config.csproj" />
 		<ProjectReference Include="..\TQVaultAE.Domain\TQVaultAE.Domain.csproj" />
 		<ProjectReference Include="..\TQVaultAE.Logs\TQVaultAE.Logs.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Resources\Img\BorderSide.png"/>
+	  <Resource Include="Resources\Img\BorderTop.png"/>
 	</ItemGroup>
 
 	<ItemGroup>

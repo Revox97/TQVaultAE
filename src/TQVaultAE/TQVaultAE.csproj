@@ -11,12 +11,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Img\BorderBottom.png" />
+    <None Remove="Resources\Img\BorderBottomLeftCorner.png" />
+    <None Remove="Resources\Img\BorderBottomRightCorner.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="app.ico" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TQVaultAE.Presentation\TQVaultAE.Presentation.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Img\BorderBottom.png" />
+    <Resource Include="Resources\Img\BorderBottomLeftCorner.png" />
+    <Resource Include="Resources\Img\BorderBottomRightCorner.png" />
+    <Resource Include="Resources\Img\BorderSide.png" />
+    <Resource Include="Resources\Img\BorderTop.png" />
   </ItemGroup>
 
 </Project>

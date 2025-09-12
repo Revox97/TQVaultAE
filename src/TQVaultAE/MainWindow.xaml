@@ -4,37 +4,98 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TQVaultAE" xmlns:models="clr-namespace:TQVaultAE.Models"
+        xmlns:templates="clr-namespace:TQVaultAE.Components.Templates"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignData models.MainWindowModel}"
         Title="TQVaultAE" MinHeight="400" MinWidth="600" Height="700" Width="1200" WindowStyle="None" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <GroupBox Header="{Binding Title, FallbackValue=TQVaultAE 5.0.0.0}" x:Name="WindowHeaderContainer">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <DockPanel Grid.Row="0" x:Name="ToolBar" Background="Blue" LastChildFill="False">
-                    <Button DockPanel.Dock="Left" Content="Configure"></Button>
-                    <Button DockPanel.Dock="Left" Content="Show Vault"></Button>
-                    <Button DockPanel.Dock="Left" Content="Search"></Button>
-                    <Button DockPanel.Dock="Left" Content="Save"></Button>
-                    <Button DockPanel.Dock="Left" Content="Exit"></Button>
-                    <Label DockPanel.Dock="Right" VerticalAlignment="Center" Foreground="White" Content="Logo Placeholder"></Label>
-                </DockPanel>
-                <Grid Grid.Row="1" x:Name="MainContent" Background="red">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0" x:Name="VaultPanel" Background="Green">
-                        
-                    </Grid>
-                    <Grid Grid.Column="1" x:Name="PlayerPanel" Background="Yellow">
-                        
-                    </Grid>
-                </Grid>
-            </Grid>
-        </GroupBox>
+    <Window.DataContext>
+        <models:MainWindowModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <!--<ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Components/Templates/ButtonTemplate.xaml"/>
+                <ResourceDictionary>
+                    <Style x:Key="Button" TargetType="Button">
+                        <Setter Property="Template" Value="{StaticResource Button}"/>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>-->
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="4"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4"/>
+            <ColumnDefinition Width="25"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="25"/>
+            <ColumnDefinition Width="4"/>
+        </Grid.ColumnDefinitions>
+        <!-- Border top -->
+        <Grid Grid.Row="0" Grid.Column="0">
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" >
+            <Grid.Background>
+                <ImageBrush ImageSource="/Resources/Img/BorderTop.png"
+                            Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" TileMode="None"/>
+            </Grid.Background>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="3"></Grid>
+        <!-- Border left -->
+        <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="0">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Resources/Img/BorderSide.png"
+                            Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" TileMode="None" />
+            </Grid.Background>
+        </Grid>
+        <!-- Border right -->
+        <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="5">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Resources/Img/BorderSide.png"
+                            Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" TileMode="None" />
+            </Grid.Background>
+        </Grid>
+        <!-- Border bottom -->
+        <Grid Grid.Row="3" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Resources/Img/BorderBottomLeftCorner.png"
+                            Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" TileMode="None"/>
+            </Grid.Background>
+        </Grid>
+        <Grid Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Resources/Img/BorderBottom.png"
+                            Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" TileMode="None"/>
+            </Grid.Background>
+        </Grid>
+        <Grid Grid.Row="3" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="2">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Resources/Img/BorderBottomRightCorner.png"
+                            Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" TileMode="None"/>
+            </Grid.Background>
+        </Grid>
+
+        <!-- Content -->
+        <DockPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="ToolBar" Background="Blue" LastChildFill="False">
+            <Button DockPanel.Dock="Left" Content="Configure"></Button>
+            <Button DockPanel.Dock="Left" Content="Show Vault"></Button>
+            <Button DockPanel.Dock="Left" Content="Search"></Button>
+            <Button DockPanel.Dock="Left" Content="Save"></Button>
+            <Button DockPanel.Dock="Left" Content="Exit"></Button>
+            <Label DockPanel.Dock="Right" VerticalAlignment="Center" Foreground="White" Content="Logo Placeholder"></Label>
+        </DockPanel>
+        <Grid Grid.Row="2" Grid.Column="1" x:Name="VaultPanel" Background="Purple">
+                
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="2" x:Name="PlayerPanel" Background="Yellow">
+                
+        </Grid>
     </Grid>
 </Window>
