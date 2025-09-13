@@ -26,6 +26,7 @@
     <None Remove="Resources\Img\MainButtonDown.jpg" />
     <None Remove="Resources\Img\MainButtonOver.jpg" />
     <None Remove="Resources\Img\MainButtonUp.jpg" />
+    <None Remove="Resources\Img\Majestic Chest.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -59,6 +60,7 @@
     <Resource Include="Resources\Img\MainButtonOver.jpg" />
     <Resource Include="Resources\Img\MainButtonUp.jpg" />
     <Resource Include="Resources\Img\MainWindowNewBackground.jpg" />
+    <Resource Include="Resources\Img\Majestic Chest.png" />
   </ItemGroup>
 
 </Project>

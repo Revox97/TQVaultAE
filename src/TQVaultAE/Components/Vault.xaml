@@ -7,6 +7,20 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Label Content="I am a vault" Foreground="White" FontSize="14"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Source="/Resources/Img/Majestic Chest.png" Stretch="Uniform" 
+                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Label Grid.Column="2" Content="This will become the vault drop down" Foreground="White" FontSize="16" VerticalContentAlignment="Center"/>
+        </Grid>
     </Grid>
 </UserControl>
