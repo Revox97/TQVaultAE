@@ -52,6 +52,7 @@
     <Resource Include="Resources\Img\ButtonMinimizeDown.png" />
     <Resource Include="Resources\Img\ButtonMinimizeOver.png" />
     <Resource Include="Resources\Img\ButtonMinimizeUp.png" />
+    <Resource Include="Resources\Img\MainFormNewBackground.jpg" />
   </ItemGroup>
 
 </Project>
