@@ -113,13 +113,12 @@
             <ColumnDefinition Width="4"/>
             <ColumnDefinition Width="25"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="25"/>
             <ColumnDefinition Width="4"/>
         </Grid.ColumnDefinitions>
 
         <!-- Content -->
-        <DockPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="4" x:Name="ToolBar" Background="#362121" LastChildFill="False">
+        <DockPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="3" x:Name="ToolBar" Background="#362121" LastChildFill="False">
             <Button DockPanel.Dock="Left" Content="Configuration" Style="{StaticResource MainButton}" Margin="15 4 2.5 4"/>
             <Button DockPanel.Dock="Left" Content="Show Vault" Style="{StaticResource MainButton}"/>
             <Button DockPanel.Dock="Left" Content="Search" Style="{StaticResource MainButton}"/>
@@ -134,11 +133,10 @@
         </DockPanel>
 
         <!-- Main Content -->
-        <Grid Grid.Row="3" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="VaultPanel"/>
-        <Grid Grid.Row="3" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" x:Name="PlayerPanel"/>
+        <!-- pages in here-->
 
         <!-- Border top -->
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Height="auto">
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Height="auto">
             <Grid.Background>
                 <ImageBrush ImageSource="/Resources/Img/BorderTop.png"
                             Stretch="UniformToFill" AlignmentX="Left" AlignmentY="Center" TileMode="None"/>
@@ -159,10 +157,10 @@
             <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource ButtonMinimize}"/>
             <Button Grid.Row="1" Grid.Column="3" Style="{StaticResource ButtonMaximize}"/>
         </Grid>
-        <Grid Grid.Row="0" Grid.Column="3"></Grid>
+        <!--<Grid Grid.Row="0" Grid.Column="2"></Grid>-->
 
         <!-- Buttons-->
-        <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="2" x:Name="ButtonClose" Style="{StaticResource ButtonClose}" Click="ButtonExit_Click">
+        <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" x:Name="ButtonClose" Style="{StaticResource ButtonClose}" Click="ButtonExit_Click">
         </Button>
         <!-- Border left -->
         <Grid Grid.Row="1" Grid.RowSpan="3" Grid.Column="0">
@@ -172,7 +170,7 @@
             </Grid.Background>
         </Grid>
         <!-- Border right -->
-        <Grid Grid.Row="2" Grid.RowSpan="2" Grid.Column="5">
+        <Grid Grid.Row="2" Grid.RowSpan="2" Grid.Column="4">
             <Grid.Background>
                 <ImageBrush ImageSource="/Resources/Img/BorderSide.png"
                             Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" TileMode="None" />
@@ -185,13 +183,13 @@
                             Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" TileMode="None"/>
             </Grid.Background>
         </Grid>
-        <Grid Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2">
+        <Grid Grid.Row="5" Grid.Column="2">
             <Grid.Background>
                 <ImageBrush ImageSource="/Resources/Img/BorderBottom.png"
                             Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" TileMode="None"/>
             </Grid.Background>
         </Grid>
-        <Grid Grid.Row="4" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="2">
+        <Grid Grid.Row="4" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2">
             <Grid.Background>
                 <ImageBrush ImageSource="/Resources/Img/BorderBottomRightCorner.png"
                             Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" TileMode="None"/>
