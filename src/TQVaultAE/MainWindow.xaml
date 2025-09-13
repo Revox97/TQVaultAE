@@ -6,20 +6,43 @@
         xmlns:local="clr-namespace:TQVaultAE" xmlns:models="clr-namespace:TQVaultAE.Models"
         xmlns:templates="clr-namespace:TQVaultAE.Components.Templates"
         mc:Ignorable="d"
-        Title="TQVaultAE" MinHeight="400" MinWidth="1300" Height="700" Width="1200" 
+        Title="TQVaultAE" MinHeight="800" MinWidth="1300" Height="800" Width="1200" 
         WindowStyle="None" ResizeMode="CanResizeWithGrip" AllowsTransparency="True" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <models:MainWindowModel/>
     </Window.DataContext>
     <Window.Resources>
         <ResourceDictionary>
-            <Style x:Key="MainButton" TargetType="{x:Type Button}">
+            <Style x:Key="Button" TargetType="{x:Type Button}">
+                <Setter Property="BorderThickness" Value="0" />
+                <Style.Triggers>
+                    <!-- TODO Add tq cursors -->
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Cursor" Value="Hand"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="MainButton" TargetType="{x:Type Button}" BasedOn="{StaticResource Button}">
                 <Setter Property="FontSize" Value="15"/>
                 <Setter Property="FontWeight" Value="DemiBold"/>
                 <Setter Property="Width" Value="150"/>
                 <Setter Property="Margin" Value="2.5 4"/>
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <ImageBrush ImageSource="/Resources/Img/MainButtonUp.jpg" Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="/Resources/Img/MainButtonOver.jpg" Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
             </Style>
-            <Style x:Key="ButtonClose" TargetType="{x:Type Button}">
+            <Style x:Key="ButtonClose" TargetType="{x:Type Button}" BasedOn="{StaticResource Button}">
                 <Setter Property="Background">
                     <Setter.Value>
                         <ImageBrush ImageSource="/Resources/Img/ButtonCloseUp.png"
@@ -42,7 +65,7 @@
     </Window.Resources>
     <Grid Margin="0">
         <Grid.Background>
-            <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/MainWindowNewBackground.jpg"/>
+            <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/MainWindowNewBackground.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
@@ -63,21 +86,9 @@
 
         <!-- Content -->
         <DockPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="4" x:Name="ToolBar" Background="#362121" LastChildFill="False">
-            <Button DockPanel.Dock="Left" Content="Configuration" Style="{StaticResource MainButton}">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Resources/Img/MainButtonUp.jpg" Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
-                </Button.Background>
-            </Button>
-            <Button DockPanel.Dock="Left" Content="Show Vault" Style="{StaticResource MainButton}">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Resources/Img/MainButtonUp.jpg" Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
-                </Button.Background>
-            </Button>
-            <Button DockPanel.Dock="Left" Content="Search" Style="{StaticResource MainButton}">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Resources/Img/MainButtonUp.jpg" Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
-                </Button.Background>
-            </Button>
+            <Button DockPanel.Dock="Left" Content="Configuration" Style="{StaticResource MainButton}" Margin="15 4 2.5 4"/>
+            <Button DockPanel.Dock="Left" Content="Show Vault" Style="{StaticResource MainButton}"/>
+            <Button DockPanel.Dock="Left" Content="Search" Style="{StaticResource MainButton}"/>
             <Button DockPanel.Dock="Left" Content="Exit" Style="{StaticResource MainButton}" Click="ButtonExit_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="/Resources/Img/MainButtonUp.jpg" Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
