@@ -110,8 +110,6 @@
                 <RowDefinition Height="1"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.2*"/>
-                <ColumnDefinition Width=".5*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="19"/>
                 <ColumnDefinition Width="2"/>
@@ -120,21 +118,21 @@
                 <ColumnDefinition Width="19"/>
                 <ColumnDefinition Width="31"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="9" Content="TQVaultAE 5.0.0.0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0 -4 0 0" FontSize="10"/>
+            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" Content="TQVaultAE 5.0.0.0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0 -4 0 0" FontSize="10"/>
             <!-- TODO Figure out what this button is for -->
-            <Button Grid.Row="1" Grid.Column="3">
+            <Button Grid.Row="1" Grid.Column="1">
                 <Button.Background>
                     <ImageBrush ImageSource="/Resources/Img/ButtonMaximizeUp.png"
                                 Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
                 </Button.Background>
             </Button>
-            <Button Grid.Row="1" Grid.Column="5">
+            <Button Grid.Row="1" Grid.Column="3">
                 <Button.Background>
                     <ImageBrush ImageSource="/Resources/Img/ButtonMinimizeUp.png"
                                 Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
                 </Button.Background>
             </Button>
-            <Button Grid.Row="1" Grid.Column="7">
+            <Button Grid.Row="1" Grid.Column="5">
                 <Button.Background>
                     <ImageBrush ImageSource="/Resources/Img/ButtonMaximizeUp.png"
                                 Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
