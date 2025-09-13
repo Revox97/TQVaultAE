@@ -6,21 +6,97 @@
              xmlns:local="clr-namespace:TQVaultAE.Components"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/TQVaultAE;component/Components/Templates/ButtonTemplate.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/TQVaultAE;component/Components/Templates/ToggleButtonTemplate.xaml"/>
+                <ResourceDictionary>
+                    <Style x:Key="RotatedAutoSortButton" TargetType="{x:Type Button}">
+                        <Setter Property="Template" Value="{StaticResource ButtonTemplate}"/>
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/rotatedautosortup01.png" TileMode="None" AlignmentX="Right" AlignmentY="Top" Stretch="Uniform"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/rotatedautosortover01.png" TileMode="None" AlignmentX="Right" AlignmentY="Top" Stretch="Uniform"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style x:Key="VaultTabToggleButton" TargetType="{x:Type ToggleButton}">
+                        <Setter Property="Template" Value="{StaticResource ToggleButtonTemplate}"/>
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagdown01.png" 
+                                            TileMode="None" AlignmentX="Center" AlignmentY="Center" Stretch="Fill"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png" 
+                                                    TileMode="None" AlignmentX="Center" AlignmentY="Center" Stretch="Fill"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagover01.png" 
+                                                    TileMode="None" AlignmentX="Center" AlignmentY="Center" Stretch="Fill"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.04*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height=".075*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid>
+        <Button Style="{StaticResource RotatedAutoSortButton}" Grid.Column="0" Grid.Row="1"/>
+        <Grid Grid.Column="1" Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="60"/>
-                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Source="/Resources/Img/Majestic Chest.png" Stretch="Uniform" 
-                   HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <Label Grid.Column="2" Content="This will become the vault drop down" Foreground="White" FontSize="16" VerticalContentAlignment="Center"/>
+            <ToggleButton Style="{StaticResource VaultTabToggleButton}" Grid.Column="0" IsChecked="True"/>
+            <ToggleButton Style="{StaticResource VaultTabToggleButton}" Grid.Column="1"/>
+            <ToggleButton Style="{StaticResource VaultTabToggleButton}" Grid.Column="2"/>
+            <ToggleButton Style="{StaticResource VaultTabToggleButton}" Grid.Column="3"/>
+            <ToggleButton Style="{StaticResource VaultTabToggleButton}" Grid.Column="4"/>
+            <ToggleButton Style="{StaticResource VaultTabToggleButton}" Grid.Column="5"/>
+            <ToggleButton Style="{StaticResource VaultTabToggleButton}" Grid.Column="6"/>
+            <ToggleButton Style="{StaticResource VaultTabToggleButton}" Grid.Column="7"/>
+            <ToggleButton Style="{StaticResource VaultTabToggleButton}" Grid.Column="8"/>
+            <ToggleButton Style="{StaticResource VaultTabToggleButton}" Grid.Column="9"/>
+            <ToggleButton Style="{StaticResource VaultTabToggleButton}" Grid.Column="10"/>
+            <ToggleButton Style="{StaticResource VaultTabToggleButton}" Grid.Column="11"/>
         </Grid>
     </Grid>
 </UserControl>

@@ -23,10 +23,15 @@
     <None Remove="Resources\Img\ButtonMinimizeDown.png" />
     <None Remove="Resources\Img\ButtonMinimizeOver.png" />
     <None Remove="Resources\Img\ButtonMinimizeUp.png" />
+    <None Remove="Resources\Img\inventorybagdown01.png" />
+    <None Remove="Resources\Img\inventorybagover01.png" />
+    <None Remove="Resources\Img\inventorybagup01.png" />
     <None Remove="Resources\Img\MainButtonDown.jpg" />
     <None Remove="Resources\Img\MainButtonOver.jpg" />
     <None Remove="Resources\Img\MainButtonUp.jpg" />
     <None Remove="Resources\Img\Majestic Chest.png" />
+    <None Remove="Resources\Img\rotatedautosortover01.png" />
+    <None Remove="Resources\Img\rotatedautosortup01.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,6 +40,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Converters\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,11 +62,31 @@
     <Resource Include="Resources\Img\ButtonMinimizeDown.png" />
     <Resource Include="Resources\Img\ButtonMinimizeOver.png" />
     <Resource Include="Resources\Img\ButtonMinimizeUp.png" />
+    <Resource Include="Resources\Img\inventorybagdown01.png" />
+    <Resource Include="Resources\Img\inventorybagover01.png" />
+    <Resource Include="Resources\Img\inventorybagup01.png" />
     <Resource Include="Resources\Img\MainButtonDown.jpg" />
     <Resource Include="Resources\Img\MainButtonOver.jpg" />
     <Resource Include="Resources\Img\MainButtonUp.jpg" />
     <Resource Include="Resources\Img\MainWindowNewBackground.jpg" />
     <Resource Include="Resources\Img\Majestic Chest.png" />
+    <Resource Include="Resources\Img\rotatedautosortover01.png" />
+    <Resource Include="Resources\Img\rotatedautosortup01.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
