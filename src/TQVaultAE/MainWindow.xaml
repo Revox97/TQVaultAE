@@ -6,25 +6,41 @@
         xmlns:local="clr-namespace:TQVaultAE" xmlns:models="clr-namespace:TQVaultAE.Models"
         xmlns:templates="clr-namespace:TQVaultAE.Components.Templates"
         mc:Ignorable="d"
-        Title="TQVaultAE" MinHeight="400" MinWidth="600" Height="700" Width="1200" WindowStyle="None" WindowStartupLocation="CenterScreen">
+        Title="TQVaultAE" MinHeight="400" MinWidth="1300" Height="700" Width="1200" 
+        WindowStyle="None" ResizeMode="CanResizeWithGrip" AllowsTransparency="True" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <models:MainWindowModel/>
     </Window.DataContext>
     <Window.Resources>
-        <!--<ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Components/Templates/ButtonTemplate.xaml"/>
-                <ResourceDictionary>
-                    <Style x:Key="Button" TargetType="Button">
-                        <Setter Property="Template" Value="{StaticResource Button}"/>
-                    </Style>
-                </ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>-->
+        <ResourceDictionary>
+            <Style x:Key="ButtonClose" TargetType="{x:Type Button}">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <ImageBrush ImageSource="/Resources/Img/ButtonCloseUp.png"
+                                    TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="/Resources/Img/ButtonCloseOver.png"
+                                            TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Foreground" Value="Transparent"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
     </Window.Resources>
-    <Grid Margin="10">
+    <Grid Margin="0">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Resources/Img/MainForm_NewBackground.jpg"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
+            <RowDefinition Height="11"/>
             <RowDefinition Height="25"/>
             <RowDefinition Height="*" />
             <RowDefinition Height="25"/>
@@ -38,52 +54,9 @@
             <ColumnDefinition Width="25"/>
             <ColumnDefinition Width="4"/>
         </Grid.ColumnDefinitions>
-        <!-- Border top -->
-        <Grid Grid.Row="0" Grid.Column="0">
-        </Grid>
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" >
-            <Grid.Background>
-                <ImageBrush ImageSource="/Resources/Img/BorderTop.png"
-                            Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" TileMode="None"/>
-            </Grid.Background>
-        </Grid>
-        <Grid Grid.Row="0" Grid.Column="3"></Grid>
-        <!-- Border left -->
-        <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="0">
-            <Grid.Background>
-                <ImageBrush ImageSource="/Resources/Img/BorderSide.png"
-                            Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" TileMode="None" />
-            </Grid.Background>
-        </Grid>
-        <!-- Border right -->
-        <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="5">
-            <Grid.Background>
-                <ImageBrush ImageSource="/Resources/Img/BorderSide.png"
-                            Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" TileMode="None" />
-            </Grid.Background>
-        </Grid>
-        <!-- Border bottom -->
-        <Grid Grid.Row="3" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2">
-            <Grid.Background>
-                <ImageBrush ImageSource="/Resources/Img/BorderBottomLeftCorner.png"
-                            Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" TileMode="None"/>
-            </Grid.Background>
-        </Grid>
-        <Grid Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2">
-            <Grid.Background>
-                <ImageBrush ImageSource="/Resources/Img/BorderBottom.png"
-                            Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" TileMode="None"/>
-            </Grid.Background>
-        </Grid>
-        <Grid Grid.Row="3" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="2">
-            <Grid.Background>
-                <ImageBrush ImageSource="/Resources/Img/BorderBottomRightCorner.png"
-                            Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" TileMode="None"/>
-            </Grid.Background>
-        </Grid>
 
         <!-- Content -->
-        <DockPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" x:Name="ToolBar" Background="Blue" LastChildFill="False">
+        <DockPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="4" x:Name="ToolBar" Background="Blue" LastChildFill="False">
             <Button DockPanel.Dock="Left" Content="Configure"></Button>
             <Button DockPanel.Dock="Left" Content="Show Vault"></Button>
             <Button DockPanel.Dock="Left" Content="Search"></Button>
@@ -91,11 +64,89 @@
             <Button DockPanel.Dock="Left" Content="Exit"></Button>
             <Label DockPanel.Dock="Right" VerticalAlignment="Center" Foreground="White" Content="Logo Placeholder"></Label>
         </DockPanel>
-        <Grid Grid.Row="2" Grid.Column="1" x:Name="VaultPanel" Background="Purple">
+        <Grid Grid.Row="3" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="VaultPanel" Background="Purple">
                 
         </Grid>
-        <Grid Grid.Row="2" Grid.Column="2" x:Name="PlayerPanel" Background="Yellow">
+        <Grid Grid.Row="3" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" x:Name="PlayerPanel" Background="Yellow">
                 
+        </Grid>
+
+        <!-- Border top -->
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Height="auto">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Resources/Img/BorderTop.png"
+                            Stretch="UniformToFill" AlignmentX="Left" AlignmentY="Center" TileMode="None"/>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="1"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="19"/>
+                <ColumnDefinition Width="2"/>
+                <ColumnDefinition Width="19"/>
+                <ColumnDefinition Width="2"/>
+                <ColumnDefinition Width="19"/>
+                <ColumnDefinition Width="31"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Row="1" Grid.Column="1">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Resources/Img/ButtonMaximizeUp.png"
+                                Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
+                </Button.Background>
+            </Button>
+            <Button Grid.Row="1" Grid.Column="3">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Resources/Img/ButtonMinimizeUp.png"
+                                Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
+                </Button.Background>
+            </Button>
+            <Button Grid.Row="1" Grid.Column="5">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Resources/Img/ButtonMaximizeUp.png"
+                                Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
+                </Button.Background>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="3"></Grid>
+
+        <!-- Buttons-->
+        <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="2" x:Name="ButtonClose" Style="{StaticResource ButtonClose}" MouseUp="ButtonClose_MouseUp">
+        </Button>
+        <!-- Border left -->
+        <Grid Grid.Row="1" Grid.RowSpan="3" Grid.Column="0">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Resources/Img/BorderSide.png"
+                            Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" TileMode="None" />
+            </Grid.Background>
+        </Grid>
+        <!-- Border right -->
+        <Grid Grid.Row="2" Grid.RowSpan="2" Grid.Column="5">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Resources/Img/BorderSide.png"
+                            Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" TileMode="None" />
+            </Grid.Background>
+        </Grid>
+        <!-- Border bottom -->
+        <Grid Grid.Row="4" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Resources/Img/BorderBottomLeftCorner.png"
+                            Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" TileMode="None"/>
+            </Grid.Background>
+        </Grid>
+        <Grid Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Resources/Img/BorderBottom.png"
+                            Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" TileMode="None"/>
+            </Grid.Background>
+        </Grid>
+        <Grid Grid.Row="4" Grid.RowSpan="2" Grid.Column="4" Grid.ColumnSpan="2">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Resources/Img/BorderBottomRightCorner.png"
+                            Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center" TileMode="None"/>
+            </Grid.Background>
         </Grid>
     </Grid>
 </Window>

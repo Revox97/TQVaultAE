@@ -14,6 +14,15 @@
     <None Remove="Resources\Img\BorderBottom.png" />
     <None Remove="Resources\Img\BorderBottomLeftCorner.png" />
     <None Remove="Resources\Img\BorderBottomRightCorner.png" />
+    <None Remove="Resources\Img\ButtonCloseDown.png" />
+    <None Remove="Resources\Img\ButtonCloseOver.png" />
+    <None Remove="Resources\Img\ButtonCloseUp.png" />
+    <None Remove="Resources\Img\ButtonMaximizeDown.png" />
+    <None Remove="Resources\Img\ButtonMaximizeOver.png" />
+    <None Remove="Resources\Img\ButtonMaximizeUp.png" />
+    <None Remove="Resources\Img\ButtonMinimizeDown.png" />
+    <None Remove="Resources\Img\ButtonMinimizeOver.png" />
+    <None Remove="Resources\Img\ButtonMinimizeUp.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +43,15 @@
     <Resource Include="Resources\Img\BorderBottomRightCorner.png" />
     <Resource Include="Resources\Img\BorderSide.png" />
     <Resource Include="Resources\Img\BorderTop.png" />
+    <Resource Include="Resources\Img\ButtonCloseDown.png" />
+    <Resource Include="Resources\Img\ButtonCloseOver.png" />
+    <Resource Include="Resources\Img\ButtonCloseUp.png" />
+    <Resource Include="Resources\Img\ButtonMaximizeDown.png" />
+    <Resource Include="Resources\Img\ButtonMaximizeOver.png" />
+    <Resource Include="Resources\Img\ButtonMaximizeUp.png" />
+    <Resource Include="Resources\Img\ButtonMinimizeDown.png" />
+    <Resource Include="Resources\Img\ButtonMinimizeOver.png" />
+    <Resource Include="Resources\Img\ButtonMinimizeUp.png" />
   </ItemGroup>
 
 </Project>

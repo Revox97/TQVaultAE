@@ -14,5 +14,10 @@ namespace TQVaultAE
 
 			DataContext = new MainWindowModel();
 		}
+
+		private void ButtonClose_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+		{
+			Application.Current.Shutdown();
+		}
 	}
 }
