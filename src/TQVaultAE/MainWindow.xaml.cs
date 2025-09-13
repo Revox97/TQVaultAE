@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using System.Windows.Navigation;
 using TQVaultAE.Models;
 using TQVaultAE.Pages;
@@ -86,5 +87,11 @@ namespace TQVaultAE
 				return;
 			}
 		}
-	}
+
+		private void BorderTop_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			if (e.ChangedButton == MouseButton.Left)
+				DragMove();
+        }
+    }
 }

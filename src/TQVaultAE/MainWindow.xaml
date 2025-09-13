@@ -123,6 +123,13 @@
                             </Trigger>
                         </Style.Triggers>
                     </Style>
+                    <Style x:Key="BorderTop" TargetType="{x:Type Grid}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -150,8 +157,8 @@
         <!-- Content -->
         <DockPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="3" x:Name="ToolBar" Background="#362121" LastChildFill="False">
             <ToggleButton DockPanel.Dock="Left" Content="Vault" Style="{StaticResource MainToggleButton}" Margin="15 4 2.5 4" x:Name="ButtonVault" Checked="ButtonVault_Checked"/>
-            <ToggleButton DockPanel.Dock="Left" Content="Configuration" Style="{StaticResource MainToggleButton}" x:Name="ButtonConfiguration" Checked="ButtonConfiguration_Checked"/>
             <ToggleButton DockPanel.Dock="Left" Content="Search" Style="{StaticResource MainToggleButton}" x:Name="ButtonSearch" Checked="ButtonSearch_Checked"/>
+            <ToggleButton DockPanel.Dock="Left" Content="Configuration" Style="{StaticResource MainToggleButton}" x:Name="ButtonConfiguration" Checked="ButtonConfiguration_Checked"/>
             <Button DockPanel.Dock="Left" Content="Save" Style="{StaticResource MainButton}"/>
             <StackPanel Orientation="Horizontal" Margin="0 0 30 0" DockPanel.Dock="Right">
                 <Image Source="/Resources/Img/Majestic Chest.png" Margin="-5"></Image>
@@ -165,7 +172,7 @@
         <Frame Name="ContentController" NavigationUIVisibility="Hidden" Grid.Row="3" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="3"/>
 
         <!-- Border top -->
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Height="auto">
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" x:Name="BorderTop" Style="{StaticResource BorderTop}" MouseDown="BorderTop_MouseDown">
             <Grid.Background>
                 <ImageBrush ImageSource="/Resources/Img/BorderTop.png"
                             Stretch="UniformToFill" AlignmentX="Left" AlignmentY="Center" TileMode="None"/>
