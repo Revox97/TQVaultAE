@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:Class="TQVaultAE.Components.Templates.ItemNameLabel">
+    <ControlTemplate TargetType="Label" x:Key="ItemNameLabelTemplate">
+        <ControlTemplate.Resources>
+            <ResourceDictionary>
+                <Style x:Key="Border" TargetType="{x:Type Border}">
+                </Style>
+            </ResourceDictionary>
+        </ControlTemplate.Resources>
+        <Border Style="{StaticResource Border}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
+            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                              Margin="{TemplateBinding Padding}" RecognizesAccessKey="True"/>
+        </Border>
+    </ControlTemplate>
+</ResourceDictionary>
