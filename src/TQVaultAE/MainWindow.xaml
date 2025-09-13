@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TQVaultAE" xmlns:models="clr-namespace:TQVaultAE.Models"
-        xmlns:templates="clr-namespace:TQVaultAE.Components.Templates"
         mc:Ignorable="d"
         Title="TQVaultAE" MinHeight="800" MinWidth="1300" Height="800" Width="1200" 
         WindowStyle="None" ResizeMode="CanResizeWithGrip" AllowsTransparency="True" WindowStartupLocation="CenterScreen">
@@ -13,54 +12,89 @@
     </Window.DataContext>
     <Window.Resources>
         <ResourceDictionary>
-            <Style x:Key="Button" TargetType="{x:Type Button}">
-                <Setter Property="BorderThickness" Value="0" />
-                <Style.Triggers>
-                    <!-- TODO Add tq cursors -->
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Cursor" Value="Hand"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-            <Style x:Key="MainButton" TargetType="{x:Type Button}" BasedOn="{StaticResource Button}">
-                <Setter Property="FontSize" Value="15"/>
-                <Setter Property="FontWeight" Value="DemiBold"/>
-                <Setter Property="Width" Value="150"/>
-                <Setter Property="Margin" Value="2.5 4"/>
-                <Setter Property="Background">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="/Resources/Img/MainButtonUp.jpg" Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
-                    </Setter.Value>
-                </Setter>
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Components/Templates/ButtonTemplate.xaml"/>
+                <ResourceDictionary>
+                    <Style x:Key="MainButton" TargetType="{x:Type Button}">
+                        <Setter Property="Template" Value="{StaticResource ButtonTemplate}"/>
+                        <Setter Property="FontSize" Value="15"/>
+                        <Setter Property="FontWeight" Value="DemiBold"/>
+                        <Setter Property="Width" Value="150"/>
+                        <Setter Property="Margin" Value="2.5 4"/>
                         <Setter Property="Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="/Resources/Img/MainButtonOver.jpg" Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
+                                <ImageBrush ImageSource="/Resources/Img/MainButtonUp.jpg" Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
                             </Setter.Value>
                         </Setter>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-            <Style x:Key="ButtonClose" TargetType="{x:Type Button}" BasedOn="{StaticResource Button}">
-                <Setter Property="Background">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="/Resources/Img/ButtonCloseUp.png"
-                                    TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
-                    </Setter.Value>
-                </Setter>
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/Resources/Img/MainButtonOver.jpg" Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style x:Key="ButtonClose" TargetType="{x:Type Button}">
+                        <Setter Property="Template" Value="{StaticResource ButtonTemplate}"/>
                         <Setter Property="Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="/Resources/Img/ButtonCloseOver.png"
+                                <ImageBrush ImageSource="/Resources/Img/ButtonCloseUp.png"
                                             TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
                             </Setter.Value>
                         </Setter>
-                        <Setter Property="Foreground" Value="Transparent"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/Resources/Img/ButtonCloseOver.png"
+                                                    TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style x:Key="ButtonMinimize" TargetType="{x:Type Button}">
+                        <Setter Property="Template" Value="{StaticResource ButtonTemplate}"/>
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="/Resources/Img/ButtonMinimizeUp.png"
+                                            TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/Resources/Img/ButtonMinimizeOver.png"
+                                                    TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style x:Key="ButtonMaximize" TargetType="{x:Type Button}">
+                        <Setter Property="Template" Value="{StaticResource ButtonTemplate}"/>
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="/Resources/Img/ButtonMaximizeUp.png"
+                                            TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/Resources/Img/ButtonMaximizeOver.png"
+                                                    TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
     <Grid Margin="0">
@@ -89,11 +123,7 @@
             <Button DockPanel.Dock="Left" Content="Configuration" Style="{StaticResource MainButton}" Margin="15 4 2.5 4"/>
             <Button DockPanel.Dock="Left" Content="Show Vault" Style="{StaticResource MainButton}"/>
             <Button DockPanel.Dock="Left" Content="Search" Style="{StaticResource MainButton}"/>
-            <Button DockPanel.Dock="Left" Content="Exit" Style="{StaticResource MainButton}" Click="ButtonExit_Click">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Resources/Img/MainButtonUp.jpg" Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
-                </Button.Background>
-            </Button>
+            <Button DockPanel.Dock="Left" Content="Exit" Style="{StaticResource MainButton}" Click="ButtonExit_Click"/>
             <StackPanel Orientation="Horizontal" Margin="0 0 30 0" DockPanel.Dock="Right">
                 <Image Source="/Resources/Img/Majestic Chest.png" Margin="-5"></Image>
                 <Label VerticalAlignment="Center" Content="TQVault" FontSize="28" FontWeight="DemiBold" Foreground="Gold" VerticalContentAlignment="Center" Margin="0 -5 0 0" ></Label>
@@ -102,12 +132,10 @@
                 <Label Content="Search Bar moves here with new lupen icon" Foreground="White" VerticalContentAlignment="Center" FontSize="16"/>
             </StackPanel>
         </DockPanel>
-        <Grid Grid.Row="3" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="VaultPanel">
-                
-        </Grid>
-        <Grid Grid.Row="3" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" x:Name="PlayerPanel">
-                
-        </Grid>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="3" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="VaultPanel"/>
+        <Grid Grid.Row="3" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" x:Name="PlayerPanel"/>
 
         <!-- Border top -->
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Height="auto">
@@ -128,18 +156,8 @@
                 <ColumnDefinition Width="31"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Content="TQVaultAE 5.0.0.0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0 -4 0 0" FontSize="10"/>
-            <Button Grid.Row="1" Grid.Column="1">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Resources/Img/ButtonMinimizeUp.png"
-                                Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
-                </Button.Background>
-            </Button>
-            <Button Grid.Row="1" Grid.Column="3">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Resources/Img/ButtonMaximizeUp.png"
-                                Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
-                </Button.Background>
-            </Button>
+            <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource ButtonMinimize}"/>
+            <Button Grid.Row="1" Grid.Column="3" Style="{StaticResource ButtonMaximize}"/>
         </Grid>
         <Grid Grid.Row="0" Grid.Column="3"></Grid>
 
