@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TQVaultAE" xmlns:models="clr-namespace:TQVaultAE.Models"
+        xmlns:pages="clr-namespace:TQVaultAE.Pages"
         mc:Ignorable="d"
         Title="TQVaultAE" MinHeight="800" MinWidth="1300" Height="800" Width="1200" 
         WindowStyle="None" ResizeMode="CanResizeWithGrip" AllowsTransparency="True" WindowStartupLocation="CenterScreen">
@@ -14,7 +15,36 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Components/Templates/ButtonTemplate.xaml"/>
+                <ResourceDictionary Source="/Components/Templates/ToggleButtonTemplate.xaml"/>
                 <ResourceDictionary>
+                    <Style x:Key="MainToggleButton" TargetType="{x:Type ToggleButton}">
+                        <Setter Property="Template" Value="{StaticResource ToggleButtonTemplate}"/>
+                        <Setter Property="FontSize" Value="15"/>
+                        <Setter Property="FontWeight" Value="DemiBold"/>
+                        <Setter Property="Width" Value="150"/>
+                        <Setter Property="Margin" Value="2.5 4"/>
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="/Resources/Img/MainButtonUp.jpg" Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/Resources/Img/MainButtonOver.jpg" Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="/Resources/Img/MainButtonDown.jpg" Stretch="UniformToFill" TileMode="None" AlignmentX="Center" AlignmentY="Center"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
                     <Style x:Key="MainButton" TargetType="{x:Type Button}">
                         <Setter Property="Template" Value="{StaticResource ButtonTemplate}"/>
                         <Setter Property="FontSize" Value="15"/>
@@ -119,10 +149,10 @@
 
         <!-- Content -->
         <DockPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="3" x:Name="ToolBar" Background="#362121" LastChildFill="False">
-            <Button DockPanel.Dock="Left" Content="Configuration" Style="{StaticResource MainButton}" Margin="15 4 2.5 4"/>
-            <Button DockPanel.Dock="Left" Content="Show Vault" Style="{StaticResource MainButton}"/>
-            <Button DockPanel.Dock="Left" Content="Search" Style="{StaticResource MainButton}"/>
-            <Button DockPanel.Dock="Left" Content="Exit" Style="{StaticResource MainButton}" Click="ButtonExit_Click"/>
+            <ToggleButton DockPanel.Dock="Left" Content="Vault" Style="{StaticResource MainToggleButton}" Margin="15 4 2.5 4" x:Name="ButtonVault" Checked="ButtonVault_Checked" IsChecked="True"/>
+            <ToggleButton DockPanel.Dock="Left" Content="Configuration" Style="{StaticResource MainToggleButton}" x:Name="ButtonConfiguration" Checked="ButtonConfiguration_Checked"/>
+            <ToggleButton DockPanel.Dock="Left" Content="Search" Style="{StaticResource MainToggleButton}" x:Name="ButtonSearch" Checked="ButtonSearch_Checked"/>
+            <Button DockPanel.Dock="Left" Content="Save" Style="{StaticResource MainButton}"/>
             <StackPanel Orientation="Horizontal" Margin="0 0 30 0" DockPanel.Dock="Right">
                 <Image Source="/Resources/Img/Majestic Chest.png" Margin="-5"></Image>
                 <Label VerticalAlignment="Center" Content="TQVault" FontSize="28" FontWeight="DemiBold" Foreground="Gold" VerticalContentAlignment="Center" Margin="0 -5 0 0" ></Label>
@@ -132,8 +162,10 @@
             </StackPanel>
         </DockPanel>
 
-        <!-- Main Content -->
-        <!-- pages in here-->
+        <!-- Pages -->
+        <Frame Name="contentController" NavigationUIVisibility="Visible">
+            
+        </Frame>
 
         <!-- Border top -->
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Height="auto">
@@ -157,7 +189,6 @@
             <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource ButtonMinimize}"/>
             <Button Grid.Row="1" Grid.Column="3" Style="{StaticResource ButtonMaximize}"/>
         </Grid>
-        <!--<Grid Grid.Row="0" Grid.Column="2"></Grid>-->
 
         <!-- Buttons-->
         <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" x:Name="ButtonClose" Style="{StaticResource ButtonClose}" Click="ButtonExit_Click">
