@@ -23,6 +23,7 @@
     <None Remove="Resources\Img\ButtonMinimizeDown.png" />
     <None Remove="Resources\Img\ButtonMinimizeOver.png" />
     <None Remove="Resources\Img\ButtonMinimizeUp.png" />
+    <None Remove="Resources\Img\MainButtonUp.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,7 +53,8 @@
     <Resource Include="Resources\Img\ButtonMinimizeDown.png" />
     <Resource Include="Resources\Img\ButtonMinimizeOver.png" />
     <Resource Include="Resources\Img\ButtonMinimizeUp.png" />
-    <Resource Include="Resources\Img\MainFormNewBackground.jpg" />
+    <Resource Include="Resources\Img\MainButtonUp.jpg" />
+    <Resource Include="Resources\Img\MainWindowNewBackground.jpg" />
   </ItemGroup>
 
 </Project>
