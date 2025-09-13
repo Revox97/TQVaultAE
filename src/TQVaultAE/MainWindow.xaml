@@ -149,7 +149,7 @@
 
         <!-- Content -->
         <DockPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="3" x:Name="ToolBar" Background="#362121" LastChildFill="False">
-            <ToggleButton DockPanel.Dock="Left" Content="Vault" Style="{StaticResource MainToggleButton}" Margin="15 4 2.5 4" x:Name="ButtonVault" Checked="ButtonVault_Checked" IsChecked="True"/>
+            <ToggleButton DockPanel.Dock="Left" Content="Vault" Style="{StaticResource MainToggleButton}" Margin="15 4 2.5 4" x:Name="ButtonVault" Checked="ButtonVault_Checked"/>
             <ToggleButton DockPanel.Dock="Left" Content="Configuration" Style="{StaticResource MainToggleButton}" x:Name="ButtonConfiguration" Checked="ButtonConfiguration_Checked"/>
             <ToggleButton DockPanel.Dock="Left" Content="Search" Style="{StaticResource MainToggleButton}" x:Name="ButtonSearch" Checked="ButtonSearch_Checked"/>
             <Button DockPanel.Dock="Left" Content="Save" Style="{StaticResource MainButton}"/>
@@ -162,10 +162,7 @@
             </StackPanel>
         </DockPanel>
 
-        <!-- Pages -->
-        <Frame Name="contentController" NavigationUIVisibility="Visible">
-            
-        </Frame>
+        <Frame Name="ContentController" NavigationUIVisibility="Hidden" Grid.Row="3" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="3"/>
 
         <!-- Border top -->
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Height="auto">

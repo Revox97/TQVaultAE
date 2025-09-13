@@ -7,8 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SearchPage">
-
     <Grid>
-        
+        <Label Content="I am a search page" FontSize="20" Foreground="White"/>
     </Grid>
 </Page>

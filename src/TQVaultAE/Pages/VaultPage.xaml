@@ -9,6 +9,6 @@
       Title="VaultPage">
 
     <Grid>
-        
+        <Label Content="I am a vault page" FontSize="20" Foreground="White"/>
     </Grid>
 </Page>

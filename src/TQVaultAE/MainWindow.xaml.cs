@@ -1,6 +1,9 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Navigation;
 using TQVaultAE.Models;
+using TQVaultAE.Pages;
 
 namespace TQVaultAE
 {
@@ -9,10 +12,19 @@ namespace TQVaultAE
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		private readonly VaultPage _vaultPage;
+		private readonly ConfigurationPage _configurationPage;
+		private readonly SearchPage _searchPage;
+
 		public MainWindow()
 		{
 			InitializeComponent();
 			DataContext = new MainWindowModel();
+
+			_vaultPage = new VaultPage();
+			_configurationPage = new ConfigurationPage();
+			_searchPage = new SearchPage();
+			ButtonVault.IsChecked = true;
 		}
 
 		private void ButtonExit_Click(object sender, RoutedEventArgs e)
@@ -29,6 +41,8 @@ namespace TQVaultAE
 
 				if (ButtonSearch is not null)
 					ButtonSearch.IsChecked = false;
+
+				SwitchPage(_vaultPage);
 			}
 		}
 
@@ -40,7 +54,9 @@ namespace TQVaultAE
 					ButtonVault.IsChecked = false;
 
 				if (ButtonConfiguration is not null)
-				ButtonSearch.IsChecked = false;
+					ButtonSearch.IsChecked = false;
+
+				SwitchPage(_configurationPage);
 			}
 		}
 
@@ -53,8 +69,22 @@ namespace TQVaultAE
 
 				if (ButtonConfiguration is not null)
 					ButtonConfiguration.IsChecked = false;
-			}
 
+				SwitchPage(_searchPage);
+			}
+		}
+
+		private void SwitchPage(Page newPage)
+		{
+			try
+			{
+				ContentController.Navigate(newPage);
+			}
+			catch (Exception ex)
+			{
+				// TODO Log Exception
+				return;
+			}
 		}
 	}
 }
