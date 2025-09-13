@@ -5,9 +5,168 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TQVaultAE.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="700" d:DesignWidth="1000"
       Title="ConfigurationPage">
-    <Grid>
-        <Label Content="I am a configuration page" FontSize="20" Foreground="White"/>
+    <Grid Margin="5">
+        <TabControl>
+            <TabControl.Background>
+                <SolidColorBrush Color="#362121" Opacity=".5"/>
+            </TabControl.Background>
+            <TabItem Header="General">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="1">
+                        <GroupBox Header="Startup">
+                            <StackPanel>
+                                <CheckBox Content="Automatically Bypass Title Screen"/>
+                                <CheckBox Content="Preload all vault and character files"/>
+                                <CheckBox Content="Automatically load the last opened character"/>
+                                <CheckBox Content="Automatically load the last opened vault"/>
+                                <TextBox Text="CSV delimiter" />
+                            </StackPanel>
+                        </GroupBox>
+                        <!-- TODO find better header, or distribute to other categories -->
+                        <GroupBox Header="Player">
+                            <StackPanel>
+                                <CheckBox Content="Player equipment ReadOnly"/>
+                                <CheckBox Content="Disable auto stacking"/>
+                                <CheckBox Content="Enable hot reload"/>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Git Backup">
+                            <StackPanel>
+                                <CheckBox Content="Enable Git backup"/>
+                                <!-- TODO what does this option do? -->
+                                <CheckBox Content="Disable legacy backup"/>
+                                <CheckBox Content="Backup player saves"/>
+                                <StackPanel>
+                                    <Label Content="Git repository url"/>
+                                    <TextBox Text=""/>
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="3">
+                        <GroupBox Header="Cheats">
+                            <StackPanel>
+                                <CheckBox Content="Allow cheats"/>
+                                <CheckBox Content="Allow item copying"/>
+                                <CheckBox Content="Allow item editing features"/>
+                                <CheckBox Content="Enable Epic and Legendary affixed"/>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Audio">
+                            <StackPanel>
+                                <CheckBox Content="Enable TQVault sounds"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Game settings">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="1">
+                        <GroupBox Header="Game Paths">
+                            <StackPanel>
+                                <CheckBox Content="Auto detect game path"/>
+                                <StackPanel>
+                                    <Label Content="Titan Quest game path"/>
+                                    <DockPanel FlowDirection="LeftToRight" LastChildFill="True">
+                                        <Button Width="40" DockPanel.Dock="Right" Margin="2.5 0"/>
+                                        <TextBox Text="" DockPanel.Dock="Left" Margin="2.5 0"/>
+                                    </DockPanel>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Immortal Throne game path"/>
+                                    <DockPanel FlowDirection="LeftToRight" LastChildFill="True">
+                                        <Button Width="40" DockPanel.Dock="Right" Margin="2.5 0"/>
+                                        <TextBox Text="" DockPanel.Dock="Left" Margin="2.5 0"/>
+                                    </DockPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Language">
+                            <StackPanel>
+                                <CheckBox Content="Auto detect game language"/>
+                                <Label Content="Game language"/>
+                                <TextBox Text=""/>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="3">
+                        <GroupBox Header="Custom maps">
+                            <StackPanel>
+                                <CheckBox Content="Enable custom maps"/>
+                                <StackPanel>
+                                    <Label Content="Map"/>
+                                    <!-- Add drop down here -->
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="User interface">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="1">
+                        <GroupBox Header="Appearance">
+                            <StackPanel>
+                                <CheckBox Content="Bypass confirmation messages"/>
+                                <CheckBox Content="Enable detailed tooltip view"/>
+                                <CheckBox Content="Enable item requirement restriction"/>
+                                <StackPanel>
+                                    <Label Content="Font face"/>
+                                    <TextBox Text="Font"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Item BG alpha color"/>
+                                    <!-- Add slider here -->
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Vaults">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="1">
+                        <GroupBox Header="VaultPath">
+                            <DockPanel FlowDirection="LeftToRight" LastChildFill="True">
+                                <Button Width="40" DockPanel.Dock="Right" Margin="2.5 0"/>
+                                <TextBox  DockPanel.Dock="Left" Text="" Margin="2.5 0"/>
+                            </DockPanel>
+                        </GroupBox>
+                    </StackPanel>
+                    <!-- TODO make this its own user control -->
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Page>
