@@ -48,14 +48,20 @@
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background">
-                                    <Setter.Value>
-                                        <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagover01.png" 
-                                                    TileMode="None" AlignmentX="Center" AlignmentY="Center" Stretch="Fill"/>
-                                    </Setter.Value>
-                                </Setter>
-                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsChecked" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagover01.png" 
+                                                        TileMode="None" AlignmentX="Center" AlignmentY="Center" Stretch="Fill"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
                         </Style.Triggers>
                     </Style>
                 </ResourceDictionary> 
@@ -82,7 +88,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Border Grid.Column="1" BorderBrush="Gold" BorderThickness="0 0 0 1">
+                <Border Grid.Column="1" BorderBrush="Gold" BorderThickness="0 0 0 2">
                     <Button Style="{StaticResource AutoSortButton}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="90" x:Name="MainAutoSort"/>
                 </Border>
             </Grid>
@@ -93,10 +99,10 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ToggleButton Grid.Column="0" VerticalAlignment="Bottom" Checked="PlayerSack_Checked" x:Name="PlayerSackOne" Style="{StaticResource VaultTabToggleButton}" IsChecked="True"/>
-                <ToggleButton Grid.Column="1" VerticalAlignment="Bottom" Checked="PlayerSack_Checked" x:Name="PlayerSackTwo" Style="{StaticResource VaultTabToggleButton}"/>
-                <ToggleButton Grid.Column="2" VerticalAlignment="Bottom" Checked="PlayerSack_Checked" x:Name="PlayerSackThree" Style="{StaticResource VaultTabToggleButton}"/>
-                <Border Grid.Column="3" BorderBrush="Gold" BorderThickness="0 0 0 1">
+                <ToggleButton Grid.Column="0" VerticalAlignment="Bottom" Checked="PlayerSack_Checked" Unchecked="PlayerSack_Unchecked" x:Name="PlayerSackOne" Style="{StaticResource VaultTabToggleButton}" IsChecked="True"/>
+                <ToggleButton Grid.Column="1" VerticalAlignment="Bottom" Checked="PlayerSack_Checked" Unchecked="PlayerSack_Unchecked" x:Name="PlayerSackTwo" Style="{StaticResource VaultTabToggleButton}"/>
+                <ToggleButton Grid.Column="2" VerticalAlignment="Bottom" Checked="PlayerSack_Checked" Unchecked="PlayerSack_Unchecked" x:Name="PlayerSackThree" Style="{StaticResource VaultTabToggleButton}"/>
+                <Border Grid.Column="3" BorderBrush="Gold" BorderThickness="0 0 0 2">
                     <Button Style="{StaticResource AutoSortButton}" Grid.Column="4" x:Name="AdditionalAutoSort" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
                 </Border>
             </Grid>

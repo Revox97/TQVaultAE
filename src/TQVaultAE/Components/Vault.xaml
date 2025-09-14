@@ -46,14 +46,20 @@
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background">
-                                    <Setter.Value>
-                                        <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagover01.png" 
-                                                    TileMode="None" AlignmentX="Center" AlignmentY="Center" Stretch="Fill"/>
-                                    </Setter.Value>
-                                </Setter>
-                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsChecked" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagover01.png" 
+                                                        TileMode="None" AlignmentX="Center" AlignmentY="Center" Stretch="Fill"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
                         </Style.Triggers>
                     </Style>
                 </ResourceDictionary>
@@ -85,18 +91,18 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ToggleButton Checked="Bag_Checked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="0" IsChecked="True"/>
-            <ToggleButton Checked="Bag_Checked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="1"/>
-            <ToggleButton Checked="Bag_Checked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="2"/>
-            <ToggleButton Checked="Bag_Checked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="3"/>
-            <ToggleButton Checked="Bag_Checked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="4"/>
-            <ToggleButton Checked="Bag_Checked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="5"/>
-            <ToggleButton Checked="Bag_Checked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="6"/>
-            <ToggleButton Checked="Bag_Checked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="7"/>
-            <ToggleButton Checked="Bag_Checked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="8"/>
-            <ToggleButton Checked="Bag_Checked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="9"/>
-            <ToggleButton Checked="Bag_Checked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="10"/>
-            <ToggleButton Checked="Bag_Checked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="11"/>
+            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="0" IsChecked="True"/>
+            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="1"/>
+            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="2"/>
+            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="3"/>
+            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="4"/>
+            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="5"/>
+            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="6"/>
+            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="7"/>
+            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="8"/>
+            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="9"/>
+            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="10"/>
+            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="11"/>
         </Grid>
     </Grid>
 </UserControl>

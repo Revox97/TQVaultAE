@@ -82,13 +82,6 @@ namespace TQVaultAE.Components
 		{
 			if (sender is ToggleButton sackButton)
 			{
-				if (sackButton.IsChecked == false)
-				{
-					sackButton.IsChecked = true;
-					e.Handled = true;
-					return;
-				}
-
 				foreach (FrameworkElement control in TabContainer.Children)
 				{
 					if (control is ToggleButton button && button != sackButton)
@@ -96,6 +89,21 @@ namespace TQVaultAE.Components
 				}
 
 				// TODO Invoke data load
+			}
+		}
+
+		private void Bag_Unchecked(object sender, RoutedEventArgs e)
+		{
+			if (sender is ToggleButton sackButton)
+			{
+				foreach (FrameworkElement control in TabContainer.Children)
+				{
+					if (control is ToggleButton button && button.IsChecked == true)
+						return;
+				}
+
+				sackButton.IsChecked = true;
+				e.Handled = true;
 			}
 		}
 

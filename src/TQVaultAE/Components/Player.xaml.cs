@@ -61,8 +61,6 @@ namespace TQVaultAE.Components
 			MainAutoSort.Height = itemHeight / autoSortScaleY;
 			AdditionalAutoSort.Width = itemHeight * autoSortScaleX;
 			AdditionalAutoSort.Height = itemHeight / autoSortScaleY;
-
-
 		}
 
 		private void CreateMainSackPanel(double cellWidthHeight)
@@ -129,13 +127,6 @@ namespace TQVaultAE.Components
 		{
 			if (sender is ToggleButton sackButton)
 			{
-				if (sackButton.IsChecked == false)
-				{
-					sackButton.IsChecked = true;
-					e.Handled = true;
-					return;
-				}
-
 				foreach (FrameworkElement control in AdditionalSackTabs.Children)
 				{
 					if (control is ToggleButton button && button != sackButton)
@@ -143,6 +134,21 @@ namespace TQVaultAE.Components
 				}
 
 				// TODO Invoke data load
+			}
+		}
+
+		private void PlayerSack_Unchecked(object sender, RoutedEventArgs e)
+		{
+			if (sender is ToggleButton sackButton)
+			{
+				foreach (FrameworkElement control in AdditionalSackTabs.Children)
+				{
+					if (control is ToggleButton button && button.IsChecked == true)
+						return;
+				}
+
+				sackButton.IsChecked = true;
+				e.Handled = true;
 			}
 		}
 	}
