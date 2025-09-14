@@ -6,7 +6,90 @@
              xmlns:local="clr-namespace:TQVaultAE.Components"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/TQVaultAE;component/Components/Templates/ToggleButtonTemplate.xaml"/>
+                <ResourceDictionary>
+                    <Style x:Key="AutoSortButton" TargetType="Button">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/autosortup01.png"
+                                            TileMode="None" AlignmentX="Center" AlignmentY="Center" Stretch="UniformToFill"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <Style x:Key="VaultTabToggleButton" TargetType="{x:Type ToggleButton}">
+                        <Setter Property="Template" Value="{StaticResource ToggleButtonTemplate}"/>
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagdown01.png" 
+                                            TileMode="None" AlignmentX="Center" AlignmentY="Center" Stretch="Fill"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png" 
+                                                    TileMode="None" AlignmentX="Center" AlignmentY="Center" Stretch="Fill"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagover01.png" 
+                                                    TileMode="None" AlignmentX="Center" AlignmentY="Center" Stretch="Fill"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ResourceDictionary> 
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
-        <Label Content="I am a player component" Foreground="White" FontSize="14"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".5*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="PlayerInventory" Loaded="PlayerInventory_Loaded">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width=".5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="1" BorderBrush="Gold" BorderThickness="0 0 0 1">
+                    <Button Style="{StaticResource AutoSortButton}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="90" x:Name="MainAutoSort"/>
+                </Border>
+            </Grid>
+            <Grid Grid.Column="2" Grid.Row="0" x:Name="AdditionalSackTabs">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ToggleButton Grid.Column="0" VerticalAlignment="Bottom" x:Name="PlayerSackOne" Style="{StaticResource VaultTabToggleButton}" IsChecked="True"/>
+                <ToggleButton Grid.Column="1" VerticalAlignment="Bottom" x:Name="PlayerSackTwo" Style="{StaticResource VaultTabToggleButton}"/>
+                <ToggleButton Grid.Column="2" VerticalAlignment="Bottom" x:Name="PlayerSackThree" Style="{StaticResource VaultTabToggleButton}"/>
+                <Border Grid.Column="3" BorderBrush="Gold" BorderThickness="0 0 0 1">
+                    <Button Style="{StaticResource AutoSortButton}" Grid.Column="4" x:Name="AdditionalAutoSort" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+                </Border>
+            </Grid>
+        </Grid>
+        <Grid x:Name="PlayerStash">
+            
+        </Grid>
     </Grid>
 </UserControl>

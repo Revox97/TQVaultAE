@@ -22,5 +22,6 @@
                    HorizontalAlignment="Center" VerticalAlignment="Center" />
             <Label Grid.Column="2" Content="This will become the player drop down" Foreground="White" FontSize="16" VerticalContentAlignment="Center"/>
         </Grid>
+        <local:Player Grid.Row="2"/>
     </Grid>
 </UserControl>

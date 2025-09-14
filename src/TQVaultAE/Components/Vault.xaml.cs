@@ -14,6 +14,7 @@ namespace TQVaultAE.Components
 		private const int Rows = 20;
 		private const int PanelBorderThickness = 2;
 		private ItemsPanel? _panel;
+		private readonly CellWidthController _cellWidthController = CellWidthController.GetInstance();
 
 		private readonly SemaphoreSlim _uiUpdateSemaphore = new(1, 1);
 
@@ -37,6 +38,7 @@ namespace TQVaultAE.Components
 				Container.Children.Remove(_panel);
 
 				double cellWidthHeight = CalculateCellWithHeight();
+
 				_panel = new(cellWidthHeight, Columns, Rows, PanelBorderThickness);
 
 				Container.Children.Add(_panel);
@@ -46,7 +48,9 @@ namespace TQVaultAE.Components
 				Container.ColumnDefinitions[1].Width = new GridLength((cellWidthHeight * Columns) + (PanelBorderThickness * 2));
 
 				// Prevent tabs from growing / shrinking in a weird way
-				Container.RowDefinitions[0].Height = new GridLength(Container.ColumnDefinitions[1].ActualWidth / 12f);
+				double headerCellWidthHeight = Container.ColumnDefinitions[1].ActualWidth / 12f;
+				Container.RowDefinitions[0].Height = new GridLength(headerCellWidthHeight);
+				_cellWidthController.Notify(this, new CellWidthChangedEventArgs(cellWidthHeight, headerCellWidthHeight));
 			}
 			catch (Exception ex)
 			{
