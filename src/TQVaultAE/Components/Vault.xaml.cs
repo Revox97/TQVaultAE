@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using TQVaultAE.Controllers.Observable;
 using TQVaultAE.Models.EventArgs;
 
@@ -76,6 +77,27 @@ namespace TQVaultAE.Components
 		}
 
 		public void Notify(object sender, WindowSizeUpdatedEventArgs e) => CreateItemsPanel();
+
+		private void Bag_Checked(object sender, RoutedEventArgs e)
+		{
+			if (sender is ToggleButton sackButton)
+			{
+				if (sackButton.IsChecked == false)
+				{
+					sackButton.IsChecked = true;
+					e.Handled = true;
+					return;
+				}
+
+				foreach (FrameworkElement control in TabContainer.Children)
+				{
+					if (control is ToggleButton button && button != sackButton)
+						button.IsChecked = false;
+				}
+
+				// TODO Invoke data load
+			}
+		}
 
 		public void Dispose()
 		{

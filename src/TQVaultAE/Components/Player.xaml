@@ -53,6 +53,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height=".5*"/>
+            <RowDefinition Height="5"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid x:Name="PlayerInventory" Loaded="PlayerInventory_Loaded">
@@ -80,15 +81,30 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ToggleButton Grid.Column="0" VerticalAlignment="Bottom" x:Name="PlayerSackOne" Style="{StaticResource VaultTabToggleButton}" IsChecked="True"/>
-                <ToggleButton Grid.Column="1" VerticalAlignment="Bottom" x:Name="PlayerSackTwo" Style="{StaticResource VaultTabToggleButton}"/>
-                <ToggleButton Grid.Column="2" VerticalAlignment="Bottom" x:Name="PlayerSackThree" Style="{StaticResource VaultTabToggleButton}"/>
+                <ToggleButton Grid.Column="0" VerticalAlignment="Bottom" Checked="PlayerSack_Checked" x:Name="PlayerSackOne" Style="{StaticResource VaultTabToggleButton}" IsChecked="True"/>
+                <ToggleButton Grid.Column="1" VerticalAlignment="Bottom" Checked="PlayerSack_Checked" x:Name="PlayerSackTwo" Style="{StaticResource VaultTabToggleButton}"/>
+                <ToggleButton Grid.Column="2" VerticalAlignment="Bottom" Checked="PlayerSack_Checked" x:Name="PlayerSackThree" Style="{StaticResource VaultTabToggleButton}"/>
                 <Border Grid.Column="3" BorderBrush="Gold" BorderThickness="0 0 0 1">
                     <Button Style="{StaticResource AutoSortButton}" Grid.Column="4" x:Name="AdditionalAutoSort" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
                 </Border>
             </Grid>
         </Grid>
-        <Grid x:Name="PlayerStash">
+        <Grid Grid.Row="2" x:Name="PlayerStash">
+            <TabControl Background="Transparent" BorderBrush="Gold" BorderThickness="2">
+                <TabItem Header="Equipment">
+                    
+                </TabItem>
+                <TabItem Header="Storage Area">
+                    
+                </TabItem>
+                <TabItem Header="Transfer Area">
+                    
+                </TabItem>
+                <TabItem Header="Relic Vault">
+                    
+                </TabItem>
+                
+            </TabControl>
             
         </Grid>
     </Grid>

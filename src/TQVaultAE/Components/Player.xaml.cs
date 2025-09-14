@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using TQVaultAE.Controllers.Observable;
 using TQVaultAE.Models.EventArgs;
 
@@ -117,6 +118,27 @@ namespace TQVaultAE.Components
 		{
 			CellWidthController.GetInstance().RemoveObserver(this);
 			GC.SuppressFinalize(this);
+		}
+
+		private void PlayerSack_Checked(object sender, RoutedEventArgs e)
+		{
+			if (sender is ToggleButton sackButton)
+			{
+				if (sackButton.IsChecked == false)
+				{
+					sackButton.IsChecked = true;
+					e.Handled = true;
+					return;
+				}
+
+				foreach (FrameworkElement control in AdditionalSackTabs.Children)
+				{
+					if (control is ToggleButton button && button != sackButton)
+						button.IsChecked = false;
+				}
+
+				// TODO Invoke data load
+			}
 		}
 	}
 }
