@@ -3,7 +3,9 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Navigation;
+using TQVaultAE.Controllers.Observable;
 using TQVaultAE.Models;
+using TQVaultAE.Models.EventArgs;
 using TQVaultAE.Pages;
 
 namespace TQVaultAE
@@ -92,6 +94,11 @@ namespace TQVaultAE
 		{
 			if (e.ChangedButton == MouseButton.Left)
 				DragMove();
+        }
+
+		private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+		{
+			WindowSizeUpdater.GetInstance().Notify(this, new WindowSizeUpdatedEventArgs());
         }
     }
 }

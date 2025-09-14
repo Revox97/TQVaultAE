@@ -8,13 +8,22 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <ResourceDictionary>
-            <Style x:Key="ItemSlot" TargetType="Border">
-                <!-- Replace with item slot background image -->
-                <Setter Property="Background" Value="Green"/>
-                <Setter Property="BorderBrush" Value="Black" />
-                <Setter Property="BorderThickness" Value="1"/>
-            </Style>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <Style x:Key="ItemSlot" TargetType="Border">
+                        <!-- Replace with item slot background image -->
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/StashTabUp.png" 
+                                            TileMode="None" Stretch="Uniform" AlignmentX="Center" AlignmentY="Center"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid x:Name="ItemsPanelContent"></Grid>
+    <Border BorderBrush="Gold" BorderThickness="2 0 0 0">
+        <Grid x:Name="ItemsPanelContent"></Grid>
+    </Border>
 </UserControl>

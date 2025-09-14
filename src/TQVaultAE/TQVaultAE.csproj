@@ -32,6 +32,9 @@
     <None Remove="Resources\Img\Majestic Chest.png" />
     <None Remove="Resources\Img\rotatedautosortover01.png" />
     <None Remove="Resources\Img\rotatedautosortup01.png" />
+    <None Remove="Resources\Img\StashTabDown.png" />
+    <None Remove="Resources\Img\StashTabOver.png" />
+    <None Remove="Resources\Img\StashTabUp.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,7 +42,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Converters\" />
   </ItemGroup>
 
@@ -72,6 +74,9 @@
     <Resource Include="Resources\Img\Majestic Chest.png" />
     <Resource Include="Resources\Img\rotatedautosortover01.png" />
     <Resource Include="Resources\Img\rotatedautosortup01.png" />
+    <Resource Include="Resources\Img\StashTabDown.png" />
+    <Resource Include="Resources\Img\StashTabOver.png" />
+    <Resource Include="Resources\Img\StashTabUp.png" />
   </ItemGroup>
 
   <ItemGroup>

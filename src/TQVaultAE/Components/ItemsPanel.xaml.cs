@@ -8,15 +8,17 @@ namespace TQVaultAE.Components
     /// </summary>
     public partial class ItemsPanel : UserControl
     {
-		private readonly int _width;
-		private readonly int _height;
+		private readonly double _cellWidthHeight;
+		private readonly int _columns;
+		private readonly int _rows;
 
-        public ItemsPanel(int width, int height)
+        public ItemsPanel(double columnWidthHeight, int columns, int rows)
         {
             InitializeComponent();
 
-			_width = width;
-			_height = height;
+			_cellWidthHeight = columnWidthHeight;
+			_columns = columns;
+			_rows = rows;
 			InitializePanel();
 
 			// Set Items
@@ -26,11 +28,12 @@ namespace TQVaultAE.Components
 		{
 			try
 			{
-				for (int i = 0; i < _width; ++i)
-					ItemsPanelContent.RowDefinitions.Add(new RowDefinition());
+				GridLength size = new(_cellWidthHeight);
+				for (int i = 0; i< _columns; ++i)
+					ItemsPanelContent.ColumnDefinitions.Add(new ColumnDefinition() { Width = size });
 
-				for (int i = 0; i< _height; ++i)
-					ItemsPanelContent.ColumnDefinitions.Add(new ColumnDefinition());
+				for (int i = 0; i < _rows; ++i)
+					ItemsPanelContent.RowDefinitions.Add(new RowDefinition() { Height = size });
 
 				InitializeCells();
 			}
