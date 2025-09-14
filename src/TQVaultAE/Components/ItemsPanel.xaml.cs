@@ -12,7 +12,7 @@ namespace TQVaultAE.Components
 		private readonly int _columns;
 		private readonly int _rows;
 
-        public ItemsPanel(double columnWidthHeight, int columns, int rows)
+        public ItemsPanel(double columnWidthHeight, int columns, int rows, int borderThickness)
         {
             InitializeComponent();
 
@@ -20,6 +20,9 @@ namespace TQVaultAE.Components
 			_columns = columns;
 			_rows = rows;
 			InitializePanel();
+
+			ItemsPanelBorder.Height = _cellWidthHeight * _rows + borderThickness;
+			ItemsPanelBorder.Width = _cellWidthHeight * _columns + (borderThickness * 2);
 
 			// Set Items
         }

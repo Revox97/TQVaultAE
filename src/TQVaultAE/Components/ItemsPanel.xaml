@@ -12,18 +12,15 @@
                 <ResourceDictionary>
                     <Style x:Key="ItemSlot" TargetType="Border">
                         <!-- Replace with item slot background image -->
-                        <Setter Property="Background">
-                            <Setter.Value>
-                                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/StashTabUp.png" 
-                                            TileMode="None" Stretch="Uniform" AlignmentX="Center" AlignmentY="Center"/>
-                            </Setter.Value>
-                        </Setter>
+                        <Setter Property="Background" Value="#2A2222"/>
+                        <Setter Property="BorderBrush" Value="#dddddd"/>
+                        <Setter Property="BorderThickness" Value=".2"/>
                     </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Border BorderBrush="Gold" BorderThickness="2 0 0 0">
+    <Border BorderBrush="Gold" BorderThickness="2 0 2 2" x:Name="ItemsPanelBorder" HorizontalAlignment="Left" VerticalAlignment="Top">
         <Grid x:Name="ItemsPanelContent"></Grid>
     </Border>
 </UserControl>

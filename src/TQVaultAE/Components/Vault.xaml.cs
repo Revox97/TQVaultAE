@@ -13,10 +13,10 @@ namespace TQVaultAE.Components
     {
 		private const int Columns = 18;
 		private const int Rows = 20;
-		private const int BorderWidth = 2;
+		private const int BorderThickness = 2;
 		private ItemsPanel? _panel;
 
-		private SemaphoreSlim _uiUpdateSemaphore = new(1, 1);
+		private readonly SemaphoreSlim _uiUpdateSemaphore = new(1, 1);
 
         public Vault()
         {
@@ -38,14 +38,11 @@ namespace TQVaultAE.Components
 				Container.Children.Remove(_panel);
 
 				double cellWidthHeight = CalculateCellWithHeight();
-				_panel = new(cellWidthHeight, Columns, Rows);
+				_panel = new(cellWidthHeight, Columns, Rows, BorderThickness);
 
 				Container.Children.Add(_panel);
 				Grid.SetRow(_panel, 1);
 				Grid.SetColumn(_panel, 1);
-
-				// Update container width to match cells
-				Container.ColumnDefinitions[1].Width = new GridLength(cellWidthHeight * Columns + 4, GridUnitType.Pixel);
 
 				// Prevent tabs from growing / shrinking in a weird way
 				Container.RowDefinitions[0].Height = new GridLength(Container.ColumnDefinitions[1].ActualWidth / 12f);
@@ -66,13 +63,13 @@ namespace TQVaultAE.Components
 			double height = Container.ActualHeight - Container.RowDefinitions[0].ActualHeight;
 			double width = Container.ActualWidth - Container.ColumnDefinitions[0].ActualWidth;
 
-			double targetedCellHeight = (height - (BorderWidth * 2)) / Rows;
+			double targetedCellHeight = (height - (BorderThickness * 2)) / Rows;
 
 			double roundingBuffer = 40;
-			if (targetedCellHeight * Columns <= width - (BorderWidth * 2) - roundingBuffer)
+			if (targetedCellHeight * Columns <= width - (BorderThickness * 2) - roundingBuffer)
 				return targetedCellHeight;
 
-			return (Container.ColumnDefinitions[1].ActualWidth - (BorderWidth * 2)) / Columns;
+			return (Container.ColumnDefinitions[1].ActualWidth - (BorderThickness * 2)) / Columns;
 		}
 
 		void IWindowSizeObserver.Notify(object sender, WindowSizeUpdatedEventArgs e)

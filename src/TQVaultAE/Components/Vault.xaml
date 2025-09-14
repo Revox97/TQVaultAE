@@ -60,7 +60,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid x:Name="Container" Loaded="Container_Loaded" Background="Green">
+    <Grid x:Name="Container" Loaded="Container_Loaded">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"/>
             <ColumnDefinition Width="*"/>
