@@ -53,10 +53,15 @@ namespace TQVaultAE.Components
 			PlayerSackOne.Height = itemHeight;
 			PlayerSackTwo.Height = itemHeight;
 			PlayerSackThree.Height = itemHeight;
-			MainAutoSort.Width = itemHeight * 4;
-			MainAutoSort.Height = itemHeight;
-			AdditionalAutoSort.Width = itemHeight * 4;
-			AdditionalAutoSort.Height = itemHeight;
+
+			double autoSortScaleX = 2.8;
+			double autoSortScaleY = 1.3;
+
+			MainAutoSort.Width = itemHeight * autoSortScaleX;
+			MainAutoSort.Height = itemHeight / autoSortScaleY;
+			AdditionalAutoSort.Width = itemHeight * autoSortScaleX;
+			AdditionalAutoSort.Height = itemHeight / autoSortScaleY;
+
 
 		}
 
