@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using System.Windows.Navigation;
 using TQVaultAE.Controllers.Observable;
 using TQVaultAE.Models;
 using TQVaultAE.Models.EventArgs;
@@ -100,5 +99,22 @@ namespace TQVaultAE
 		{
 			WindowSizeUpdater.GetInstance().Notify(this, new WindowSizeUpdatedEventArgs());
         }
-    }
+
+		private void ButtonMaximize_Click(object sender, RoutedEventArgs e)
+		{
+			if (WindowState == WindowState.Maximized)
+			{
+				WindowState = WindowState.Normal;
+				BorderThickness = new Thickness(0);
+			}
+			else
+			{
+				// TODO Check how to avoid full screen
+				WindowState = WindowState.Maximized;
+				BorderThickness = new Thickness(8);
+			}
+		}
+
+		private void ButtonMinimize_Click(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
+	}
 }
