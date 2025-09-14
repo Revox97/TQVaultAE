@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using TQVaultAE.Controllers.Observable;
 using TQVaultAE.Models.EventArgs;
@@ -13,7 +12,7 @@ namespace TQVaultAE.Components
     {
 		private const int Columns = 18;
 		private const int Rows = 20;
-		private const int BorderThickness = 2;
+		private const int PanelBorderThickness = 2;
 		private ItemsPanel? _panel;
 
 		private readonly SemaphoreSlim _uiUpdateSemaphore = new(1, 1);
@@ -38,11 +37,13 @@ namespace TQVaultAE.Components
 				Container.Children.Remove(_panel);
 
 				double cellWidthHeight = CalculateCellWithHeight();
-				_panel = new(cellWidthHeight, Columns, Rows, BorderThickness);
+				_panel = new(cellWidthHeight, Columns, Rows, PanelBorderThickness);
 
 				Container.Children.Add(_panel);
 				Grid.SetRow(_panel, 1);
 				Grid.SetColumn(_panel, 1);
+
+				Container.ColumnDefinitions[1].Width = new GridLength((cellWidthHeight * Columns) + (PanelBorderThickness * 2));
 
 				// Prevent tabs from growing / shrinking in a weird way
 				Container.RowDefinitions[0].Height = new GridLength(Container.ColumnDefinitions[1].ActualWidth / 12f);
@@ -59,23 +60,18 @@ namespace TQVaultAE.Components
 
 		private double CalculateCellWithHeight()
 		{
-			// TODO figure out how to solve scaling bug (items panel is larger then container
 			double height = Container.ActualHeight - Container.RowDefinitions[0].ActualHeight;
 			double width = Container.ActualWidth - Container.ColumnDefinitions[0].ActualWidth;
 
-			double targetedCellHeight = (height - (BorderThickness * 2)) / Rows;
+			double targetedCellHeight = (height - PanelBorderThickness) / Rows;
 
-			double roundingBuffer = 40;
-			if (targetedCellHeight * Columns <= width - (BorderThickness * 2) - roundingBuffer)
+			if (targetedCellHeight * Columns <= width - (PanelBorderThickness * 2))
 				return targetedCellHeight;
 
-			return (Container.ColumnDefinitions[1].ActualWidth - (BorderThickness * 2)) / Columns;
+			return (width - (PanelBorderThickness * 2)) / Columns;
 		}
 
-		void IWindowSizeObserver.Notify(object sender, WindowSizeUpdatedEventArgs e)
-		{
-			CreateItemsPanel();
-		}
+		public void Notify(object sender, WindowSizeUpdatedEventArgs e) => CreateItemsPanel();
 
 		public void Dispose()
 		{

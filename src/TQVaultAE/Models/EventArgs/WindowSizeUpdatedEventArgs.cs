@@ -1,4 +1,4 @@
 ﻿namespace TQVaultAE.Models.EventArgs
 {
-    internal class WindowSizeUpdatedEventArgs { }
+    public class WindowSizeUpdatedEventArgs { }
 }
