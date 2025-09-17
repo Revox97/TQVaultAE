@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TQVaultAE.Components"
+             xmlns:comp="clr-namespace:TQVaultAE.Components"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -65,11 +66,29 @@
                             </MultiTrigger>
                         </Style.Triggers>
                     </Style>
+                    <Style x:Key="StashTabControl" TargetType="TabControl">
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Padding" Value="15"/>
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/caravan_bg.jpg" 
+                                            TileMode="None" AlignmentX="Left" AlignmentY="Center" Stretch="Fill"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
                     <Style x:Key="TabItem" TargetType="TabItem">
                         <Setter Property="Template" Value="{StaticResource TabItemTemplate}"/>
                         <Setter Property="Foreground" Value="White"/>
                         <Setter Property="FontSize" Value="16"/>
                         <Setter Property="FontWeight" Value="SemiBold"/>
+                    </Style>
+                    <Style x:Key="StashTab" TargetType="{x:Type Grid}">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/StashPanel.png" 
+                                            TileMode="None" AlignmentX="Left" AlignmentY="Center" Stretch="Uniform"/>
+                            </Setter.Value>
+                        </Setter>
                     </Style>
                 </ResourceDictionary> 
             </ResourceDictionary.MergedDictionaries>
@@ -115,18 +134,54 @@
             </Grid>
         </Grid>
         <Grid Grid.Row="2" x:Name="PlayerStash">
-            <TabControl BorderBrush="Gold" BorderThickness="1" Background="Transparent">
+            <TabControl Style="{StaticResource StashTabControl}">
                 <TabItem Header="Equipment" Style="{StaticResource TabItem}">
-                    
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" Style="{StaticResource StashTab}">
+                            
+                        </Grid>
+                        <comp:PlayerStatistics Grid.Column="1"/>
+                    </Grid>
                 </TabItem>
                 <TabItem Header="Storage Area" Style="{StaticResource TabItem}">
-                    
+                    <Grid Style="{StaticResource StashTab}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" Style="{StaticResource StashTab}">
+                            
+                        </Grid>
+                        <comp:PlayerStatistics Grid.Column="1"/>
+                    </Grid>
                 </TabItem>
                 <TabItem Header="Transfer Area" Style="{StaticResource TabItem}">
-                    
+                    <Grid Style="{StaticResource StashTab}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" Style="{StaticResource StashTab}">
+                            
+                        </Grid>
+                        <comp:PlayerStatistics Grid.Column="1"/>
+                    </Grid>
                 </TabItem>
                 <TabItem Header="Relic Vault" Style="{StaticResource TabItem}">
-                    
+                    <Grid Style="{StaticResource StashTab}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" Style="{StaticResource StashTab}">
+                            
+                        </Grid>
+                        <comp:PlayerStatistics Grid.Column="1"/>
+                    </Grid>
                 </TabItem>
             </TabControl>
             
