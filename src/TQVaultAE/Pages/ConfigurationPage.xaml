@@ -75,10 +75,16 @@
                         <Setter Property="Margin" Value="4"/>
                     </Style>
                     <Style x:Key="TabControl" TargetType="{x:Type TabControl}">
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="BorderBrush" Value="Gold"/>
-                        <Setter Property="BorderThickness" Value="2"/>
+                        <Setter Property="BorderThickness" Value="0"/>
                         <Setter Property="Margin" Value="10"/>
+                        <Setter Property="Padding" Value="20"/>
+                        <!-- TODO split this up in four images to remain same size -->
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/caravan_bg.jpg" 
+                                            TileMode="None" AlignmentX="Left" AlignmentY="Center" Stretch="Fill"/>
+                            </Setter.Value>
+                        </Setter>
                     </Style>
                     <Style x:Key="TabItem" TargetType="TabItem">
                         <Setter Property="Template" Value="{StaticResource TabItemTemplate}"/>

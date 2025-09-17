@@ -69,6 +69,7 @@
                     <Style x:Key="StashTabControl" TargetType="TabControl">
                         <Setter Property="BorderThickness" Value="0"/>
                         <Setter Property="Padding" Value="15"/>
+                        <!-- TODO split this up in four images to remain same size -->
                         <Setter Property="Background">
                             <Setter.Value>
                                 <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/caravan_bg.jpg" 
