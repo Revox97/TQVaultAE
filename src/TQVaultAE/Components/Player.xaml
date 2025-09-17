@@ -11,6 +11,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/TQVaultAE;component/Components/Templates/ToggleButtonTemplate.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/TQVaultAE;component/Components/Templates/ButtonTemplate.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/TQVaultAE;component/Components/Templates/TabItemTemplate.xaml"/>
                 <ResourceDictionary>
                     <Style x:Key="AutoSortButton" TargetType="Button">
                         <Setter Property="Template" Value="{StaticResource ButtonTemplate}"/>
@@ -64,6 +65,12 @@
                             </MultiTrigger>
                         </Style.Triggers>
                     </Style>
+                    <Style x:Key="TabItem" TargetType="TabItem">
+                        <Setter Property="Template" Value="{StaticResource TabItemTemplate}"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                    </Style>
                 </ResourceDictionary> 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -108,20 +115,19 @@
             </Grid>
         </Grid>
         <Grid Grid.Row="2" x:Name="PlayerStash">
-            <TabControl Background="Transparent" BorderBrush="Gold" BorderThickness="2">
-                <TabItem Header="Equipment">
+            <TabControl BorderBrush="Gold" BorderThickness="1" Background="Transparent">
+                <TabItem Header="Equipment" Style="{StaticResource TabItem}">
                     
                 </TabItem>
-                <TabItem Header="Storage Area">
+                <TabItem Header="Storage Area" Style="{StaticResource TabItem}">
                     
                 </TabItem>
-                <TabItem Header="Transfer Area">
+                <TabItem Header="Transfer Area" Style="{StaticResource TabItem}">
                     
                 </TabItem>
-                <TabItem Header="Relic Vault">
+                <TabItem Header="Relic Vault" Style="{StaticResource TabItem}">
                     
                 </TabItem>
-                
             </TabControl>
             
         </Grid>
