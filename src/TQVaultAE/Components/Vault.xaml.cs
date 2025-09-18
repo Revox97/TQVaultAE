@@ -9,49 +9,26 @@ namespace TQVaultAE.Components
 	/// <summary>
 	/// Interaction logic for Vault.xaml
 	/// </summary>
-	public partial class Vault : UserControl, IWindowSizeObserver
+	public partial class Vault : UserControl, IContentScaleObserver
     {
 		private const int Columns = 18;
 		private const int Rows = 20;
-		private const int PanelBorderThickness = 2;
 		private ItemsPanel? _panel;
-		private readonly CellWidthController _cellWidthController = CellWidthController.GetInstance();
 
 		private readonly SemaphoreSlim _uiUpdateSemaphore = new(1, 1);
 
         public Vault()
         {
             InitializeComponent();
+			ContentScaleController.GetInstance().AddObserver(this);
         }
 
-		private void Container_Loaded(object sender, RoutedEventArgs e)
+		public void Notify(object sender, ContentScaleUpdatedEventArgs args)
 		{
-			CreateItemsPanel();
-			WindowSizeUpdater.GetInstance().AddObserver(this);
-		}
-
-		private void CreateItemsPanel()
-		{
-			_uiUpdateSemaphore.Wait();
-
 			try
 			{
-				Container.Children.Remove(_panel);
-
-				double cellWidthHeight = CalculateCellWithHeight();
-
-				_panel = new(cellWidthHeight, Columns, Rows, PanelBorderThickness);
-
-				Container.Children.Add(_panel);
-				Grid.SetRow(_panel, 1);
-				Grid.SetColumn(_panel, 1);
-
-				Container.ColumnDefinitions[1].Width = new GridLength((cellWidthHeight * Columns) + (PanelBorderThickness * 2));
-
-				// Prevent tabs from growing / shrinking in a weird way
-				double headerCellWidthHeight = Container.ColumnDefinitions[1].ActualWidth / 12f;
-				Container.RowDefinitions[0].Height = new GridLength(headerCellWidthHeight);
-				_cellWidthController.Notify(this, new CellWidthChangedEventArgs(cellWidthHeight, headerCellWidthHeight));
+				_uiUpdateSemaphore.Wait();
+				CreateItemsPanel(args);
 			}
 			catch (Exception ex)
 			{
@@ -61,22 +38,21 @@ namespace TQVaultAE.Components
 			{
 				_uiUpdateSemaphore.Release();
 			}
-        }
-
-		private double CalculateCellWithHeight()
-		{
-			double height = Container.ActualHeight - Container.RowDefinitions[0].ActualHeight;
-			double width = Container.ActualWidth - Container.ColumnDefinitions[0].ActualWidth;
-
-			double targetedCellHeight = (height - PanelBorderThickness) / Rows;
-
-			if (targetedCellHeight * Columns <= width - (PanelBorderThickness * 2))
-				return targetedCellHeight;
-
-			return (width - (PanelBorderThickness * 2)) / Columns;
 		}
 
-		public void Notify(object sender, WindowSizeUpdatedEventArgs e) => CreateItemsPanel();
+		private void CreateItemsPanel(ContentScaleUpdatedEventArgs args)
+		{
+			Container.Children.Remove(_panel);
+			Thickness thickness = new(2, 0, 2, 2);
+			_panel = new(args.General.ItemCellDimensions.Width, Columns, Rows, new Thickness(2, 0, 2, 2));
+
+			Container.Children.Add(_panel);
+			Grid.SetRow(_panel, 1);
+			Grid.SetColumn(_panel, 1);
+
+			Container.ColumnDefinitions[1].Width = new GridLength(ItemsPanel.CalculateDimensions(args.General.ItemCellDimensions.Width, Columns, Rows, thickness).Width);
+			Container.RowDefinitions[0].Height = new GridLength(args.VaultTab.VaultPanel.ButtonWidthHeight);
+        }
 
 		private void Bag_Checked(object sender, RoutedEventArgs e)
 		{
@@ -109,7 +85,7 @@ namespace TQVaultAE.Components
 
 		public void Dispose()
 		{
-			WindowSizeUpdater.GetInstance().RemoveObserver(this);
+			ContentScaleController.GetInstance().RemoveObserver(this);
 			GC.SuppressFinalize(this);
 		}
 	}

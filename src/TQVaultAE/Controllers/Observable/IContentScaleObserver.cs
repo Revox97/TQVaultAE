@@ -2,7 +2,7 @@
 
 namespace TQVaultAE.Controllers.Observable
 {
-	internal interface IContentScaleObserver
+	internal interface IContentScaleObserver : IDisposable
 	{
 		void Notify(object sender, ContentScaleUpdatedEventArgs args);
 	}

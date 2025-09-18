@@ -20,7 +20,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Border BorderBrush="Gold" BorderThickness="2 0 2 2" x:Name="ItemsPanelBorder" HorizontalAlignment="Left" VerticalAlignment="Top">
+    <Border BorderBrush="Gold" x:Name="ItemsPanelBorder" HorizontalAlignment="Left" VerticalAlignment="Top">
         <Grid x:Name="ItemsPanelContent"></Grid>
     </Border>
 </UserControl>

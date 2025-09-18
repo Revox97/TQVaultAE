@@ -8,8 +8,8 @@
              d:DesignHeight="900" d:DesignWidth="800">
     <UserControl.Resources>
         <Style x:Key="BaseStatLabel" TargetType="{x:Type Label}">
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Padding" Value="1"/>
+            <Setter Property="FontSize" Value="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=FontSize}"/>
+            <Setter Property="Padding" Value="0"/>
         </Style>
         <Style x:Key="TitleStatLabel" TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStatLabel}">
             <Setter Property="Foreground" Value="White"/>

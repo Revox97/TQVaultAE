@@ -1,28 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows.Controls;
+using TQVaultAE.Controllers.Observable;
+using TQVaultAE.Models.EventArgs;
 
 namespace TQVaultAE.Components
 {
-    /// <summary>
-    /// Interaction logic for PlayerStatistics.xaml
-    /// </summary>
-    public partial class PlayerStatistics : UserControl
+	/// <summary>
+	/// Interaction logic for PlayerStatistics.xaml
+	/// </summary>
+	public partial class PlayerStatistics : UserControl, IContentScaleObserver
     {
         public PlayerStatistics()
         {
             InitializeComponent();
+			ContentScaleController.GetInstance().AddObserver(this);
         }
-    }
+
+		public void Notify(object sender, ContentScaleUpdatedEventArgs args)
+		{
+			FontSize = 10;
+		}
+
+		public void Dispose()
+		{
+			ContentScaleController.GetInstance().RemoveObserver(this);
+			GC.SuppressFinalize(this);
+		}
+	}
 }

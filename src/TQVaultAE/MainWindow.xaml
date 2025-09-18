@@ -169,7 +169,7 @@
             </StackPanel>
         </DockPanel>
 
-        <Frame Name="ContentController" NavigationUIVisibility="Hidden" Grid.Row="3" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="3"/>
+        <Frame Loaded="ContentController_Loaded" Name="ContentController" NavigationUIVisibility="Hidden" Grid.Row="3" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="3"/>
 
         <!-- Border top -->
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" x:Name="BorderTop" Style="{StaticResource BorderTop}" MouseDown="BorderTop_MouseDown">

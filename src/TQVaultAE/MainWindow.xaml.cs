@@ -95,15 +95,6 @@ namespace TQVaultAE
 				DragMove();
         }
 
-		private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
-		{
-			WindowSizeUpdater.GetInstance().Notify(this, new WindowSizeUpdatedEventArgs()
-			{
-				ContentWidth = ContentController.ActualWidth,
-				ContentHeight = ContentController.ActualHeight
-			});
-        }
-
 		private void ButtonMaximize_Click(object sender, RoutedEventArgs e)
 		{
 			if (WindowState == WindowState.Maximized)
@@ -120,5 +111,20 @@ namespace TQVaultAE
 		}
 
 		private void ButtonMinimize_Click(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
-	}
+
+		private void ContentController_Loaded(object sender, RoutedEventArgs e)
+		{
+			Window_SizeChanged(sender, null!);
+			WindowSizeUpdater.GetInstance().Notify(this, new WindowSizeUpdatedEventArgs());
+        }
+
+		private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+		{
+			WindowSizeUpdater.GetInstance().Notify(this, new WindowSizeUpdatedEventArgs()
+			{
+				ContentWidth = ContentController.ActualWidth,
+				ContentHeight = ContentController.ActualHeight
+			});
+        }
+    }
 }

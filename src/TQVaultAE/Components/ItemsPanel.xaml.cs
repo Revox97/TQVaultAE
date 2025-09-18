@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Security.Policy;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace TQVaultAE.Components
@@ -12,7 +13,7 @@ namespace TQVaultAE.Components
 		private readonly int _columns;
 		private readonly int _rows;
 
-        public ItemsPanel(double columnWidthHeight, int columns, int rows, int borderThickness)
+        public ItemsPanel(double columnWidthHeight, int columns, int rows, Thickness borderThickness)
         {
             InitializeComponent();
 
@@ -21,11 +22,21 @@ namespace TQVaultAE.Components
 			_rows = rows;
 			InitializePanel();
 
-			ItemsPanelBorder.Height = _cellWidthHeight * _rows + borderThickness;
-			ItemsPanelBorder.Width = _cellWidthHeight * _columns + (borderThickness * 2);
+			Size dimensions = CalculateDimensions(_cellWidthHeight, _columns, _rows, borderThickness);
+			ItemsPanelBorder.Height = dimensions.Height;
+			ItemsPanelBorder.Width = dimensions.Width;
+			ItemsPanelBorder.BorderThickness = borderThickness;
 
 			// Set Items
         }
+
+		public static Size CalculateDimensions(double cellWidthHeight, int columns, int rows, Thickness borderThickness)
+		{
+			double height = (cellWidthHeight * rows) + borderThickness.Top + borderThickness.Bottom;
+			double width = (cellWidthHeight * columns) + borderThickness.Left + borderThickness.Right;
+
+			return new Size(width, height);
+		}
 
 		private void InitializePanel()
 		{

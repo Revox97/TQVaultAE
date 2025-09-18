@@ -2,7 +2,7 @@
 
 namespace TQVaultAE.Models.EventArgs
 {
-	internal class ContentScaleUpdatedEventArgs
+	public class ContentScaleUpdatedEventArgs
 	{
 		public GeneralDimensions General { get; init; }
 		public VaultTabDimensions VaultTab { get; init; }
@@ -10,15 +10,15 @@ namespace TQVaultAE.Models.EventArgs
 		public ConfigurationTabDimensions ConfigurationTab { get; init; }
 	}
 
-	internal record struct GeneralDimensions(int FontSize, Size ItemHightlightLabelDimensions, Size ItemCellDimensions);
+	public record struct GeneralDimensions(int FontSize, Size ItemHightlightLabelDimensions, Size ItemCellDimensions);
 
-	internal record struct VaultTabDimensions(VaultPanelDimensions VaultPanel, PlayerPanelDimensions PlayerPanel, double SpacerWidth);
-	internal record struct VaultPanelDimensions(double AutoSortButtonWidth);
-	internal record struct PlayerPanelDimensions(PlayerInventoryDimensions Inventory);
-	internal record struct PlayerInventoryDimensions(double ButtonHeight);
-	internal record struct PlayerStashDimensions(Size StashDimensions, int HeaderFontSize, PlayerEquipmentDimensions Equipment);
-	internal record struct PlayerEquipmentDimensions(Size EquipmentDimensions, Size StatisticsDimension, int StatisticsFontSize);
+	public record struct VaultTabDimensions(VaultPanelDimensions VaultPanel, PlayerPanelDimensions PlayerPanel, double SpacerWidth);
+	public record struct VaultPanelDimensions(double AutoSortButtonWidth, double ButtonWidthHeight);
+	public record struct PlayerPanelDimensions(PlayerInventoryDimensions Inventory, PlayerStashDimensions Stash, double SpacerHeight);
+	public record struct PlayerInventoryDimensions(double ButtonHeight);
+	public record struct PlayerStashDimensions(Size StashDimensions, int HeaderFontSize, PlayerEquipmentDimensions Equipment);
+	public record struct PlayerEquipmentDimensions(Size EquipmentDimensions, Size StatisticsDimension, int StatisticsFontSize);
 
-	internal record struct SearchTabDimensions();
-	internal record struct ConfigurationTabDimensions();
+	public record struct SearchTabDimensions();
+	public record struct ConfigurationTabDimensions();
 }

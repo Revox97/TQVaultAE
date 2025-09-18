@@ -95,13 +95,13 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
+    <Grid x:Name="PlayerContainer">
         <Grid.RowDefinitions>
-            <RowDefinition Height=".5*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="5"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="PlayerInventory" Loaded="PlayerInventory_Loaded">
+        <Grid x:Name="PlayerInventory">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="5"/>
@@ -136,8 +136,8 @@
         </Grid>
         <Grid Grid.Row="2" x:Name="PlayerStash">
             <TabControl Style="{StaticResource StashTabControl}">
-                <TabItem Header="Equipment" Style="{StaticResource TabItem}">
-                    <Grid>
+                <TabItem Header="Equipment" Style="{StaticResource TabItem}" x:Name="Equipment">
+                    <Grid x:Name="EquipmentContainer" Margin="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
@@ -148,44 +148,10 @@
                         <comp:PlayerStatistics Grid.Column="1"/>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Storage Area" Style="{StaticResource TabItem}">
-                    <Grid Style="{StaticResource StashTab}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" Style="{StaticResource StashTab}">
-                            
-                        </Grid>
-                        <comp:PlayerStatistics Grid.Column="1"/>
-                    </Grid>
-                </TabItem>
-                <TabItem Header="Transfer Area" Style="{StaticResource TabItem}">
-                    <Grid Style="{StaticResource StashTab}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" Style="{StaticResource StashTab}">
-                            
-                        </Grid>
-                        <comp:PlayerStatistics Grid.Column="1"/>
-                    </Grid>
-                </TabItem>
-                <TabItem Header="Relic Vault" Style="{StaticResource TabItem}">
-                    <Grid Style="{StaticResource StashTab}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" Style="{StaticResource StashTab}">
-                            
-                        </Grid>
-                        <comp:PlayerStatistics Grid.Column="1"/>
-                    </Grid>
-                </TabItem>
+                <TabItem x:Name="TabStorageArea" Header="Storage Area" Style="{StaticResource TabItem}"/>
+                <TabItem x:Name="TabTransferArea" Header="Transfer Area" Style="{StaticResource TabItem}"/>
+                <TabItem x:Name="TabRelicVault" Header="Relic Vault" Style="{StaticResource TabItem}"/>
             </TabControl>
-            
         </Grid>
     </Grid>
 </UserControl>

@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using TQVaultAE.Controllers.Observable;
 using TQVaultAE.Models.EventArgs;
 
@@ -7,23 +8,22 @@ namespace TQVaultAE.Pages
 	/// <summary>
 	/// Interaction logic for VaultPage.xaml
 	/// </summary>
-	public partial class VaultPage : Page, ICellWidthObserver
+	public partial class VaultPage : Page, IContentScaleObserver
 	{
 		public VaultPage()
 		{
 			InitializeComponent();
-			CellWidthController.GetInstance().AddObserver(this);
+			ContentScaleController.GetInstance().AddObserver(this);
 		}
 
-		public void Notify(object sender, CellWidthChangedEventArgs args)
+		public void Notify(object sender, ContentScaleUpdatedEventArgs args)
 		{
-			// TODO Implement proper rescaling correctly 
-			//ItemNameLabel.Width = args.NewHeaderWidthHeight * 12;
+			VaultContainer.ColumnDefinitions[1].Width = new GridLength(args.VaultTab.SpacerWidth);
 		}
 
 		public void Dispose()
 		{
-			CellWidthController.GetInstance().RemoveObserver(this);
+			ContentScaleController.GetInstance().RemoveObserver(this);
 			GC.SuppressFinalize(this);
 		}
 	}
