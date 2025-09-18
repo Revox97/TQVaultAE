@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TQVaultAE.Domain\TQVaultAE.Domain.csproj" />
+    <Compile Include="..\src\IsExternalInit.cs" Link="IsExternalInit.cs" />
   </ItemGroup>
 
 </Project>
