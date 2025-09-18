@@ -13,18 +13,21 @@ namespace TQVaultAE.Domain.Contracts.Services
 		/// <param name="fromFileWatcher">When <c>true</c> called from <see cref="FileSystemWatcher.Changed"/></param>
 		/// <returns></returns>
 		LoadPlayerStashResult LoadPlayerStash(PlayerSave selectedSave, bool fromFileWatcher = false);
+
 		/// <summary>
 		/// Loads the relic vault stash
 		/// </summary>
 		/// <param name="fromFileWatcher">When <c>true</c> called from <see cref="FileSystemWatcher.Changed"/></param>
 		/// <returns></returns>
 		LoadRelicVaultStashResult LoadRelicVaultStash(bool fromFileWatcher = false);
+
 		/// <summary>
 		/// Loads the transfer stash for immortal throne
 		/// </summary>
 		/// <param name="fromFileWatcher">When <c>true</c> called from <see cref="FileSystemWatcher.Changed"/></param>
 		/// <returns></returns>
 		LoadTransferStashResult LoadTransferStash(bool fromFileWatcher = false);
+
 		/// <summary>
 		/// Attempts to save all modified stash files.
 		/// </summary>

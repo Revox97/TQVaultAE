@@ -1,70 +1,70 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using TQVaultAE.Domain.Entities;
 using TQVaultAE.Domain.Helpers;
 
 namespace TQVaultAE.Domain.Results;
 
-public class ToFriendlyNameResult
+public partial class ToFriendlyNameResult(Item itm)
 {
 
-	IEnumerable<string> _FullText = null;
+	private IEnumerable<string?>? _fullText = null;
+
 	private void FulltextBuild()
 	{
-		if (_FullText is null)
-		{
-			// No mutation, just a comprehensive list of string ref 
-			_FullText = new[] {
-					new string[] {
-						FullName
-						, ItemThrown
-						, ArtifactClass
-						, RelicCompletionFormat
-						, RelicBonusFormat
-						, ItemSeed
-						, ItemOrigin 
-						// Socketed Relic name
-						, Item.HasRelicOrCharmSlot1 ? RelicInfo1Description : null
-						, Item.HasRelicOrCharmSlot2 ? RelicInfo2Description : null
-						// Socketed Relic Completion label
-						, Item.HasRelicOrCharmSlot1 ? RelicInfo1CompletionResolved : null
-						, Item.HasRelicOrCharmSlot2 ? RelicInfo2CompletionResolved : null
-						// Socketed Relic Completion Bonus label
-						, Item.HasRelicOrCharmSlot1 ? RelicInfo1CompletionBonusResolved : null
-						, Item.HasRelicOrCharmSlot2 ? RelicInfo2CompletionBonusResolved : null
-					}
-					, AttributesAll
-					, FlavorText
-					, ItemSet?.Translations.Select(si => si.Value).ToArray() ?? new string[0]
-					, Requirements
-				}.SelectMany(s => s).Where(s => !string.IsNullOrEmpty(s));
-		}
+		// No mutation, just a comprehensive list of string ref 
+		_fullText ??= new[] {
+			[
+				FullName
+				, ItemThrown
+				, ArtifactClass
+				, RelicCompletionFormat
+				, RelicBonusFormat
+				, ItemSeed
+				, ItemOrigin 
+				// Socketed Relic name
+				, Item.HasRelicOrCharmSlot1 ? RelicInfo1Description : null
+				, Item.HasRelicOrCharmSlot2 ? RelicInfo2Description : null
+				// Socketed Relic Completion label
+				, Item.HasRelicOrCharmSlot1 ? RelicInfo1CompletionResolved : null
+				, Item.HasRelicOrCharmSlot2 ? RelicInfo2CompletionResolved : null
+				// Socketed Relic Completion Bonus label
+				, Item.HasRelicOrCharmSlot1 ? RelicInfo1CompletionBonusResolved : null
+				, Item.HasRelicOrCharmSlot2 ? RelicInfo2CompletionBonusResolved : null
+			]
+			, AttributesAll
+			, FlavorText
+			, ItemSet?.Translations.Select(si => si.Value).ToArray() ?? []
+			, Requirements
+		}.SelectMany(s => s).Where(s => !string.IsNullOrEmpty(s));
 	}
 
 
 	public bool FulltextIsMatch(string search)
 	{
-		if (string.IsNullOrWhiteSpace(search)) return false;
+		if (string.IsNullOrWhiteSpace(search)) 
+			return false;
 
-		var isrex = StringHelper.IsTQVaultSearchRegEx(search);
+		(bool IsRegex, string Pattern, Regex? Regex, bool RegexIsValid) isrex = StringHelper.IsTQVaultSearchRegEx(search);
 
-		if (isrex.IsRegex)
-			return FulltextIsMatchRegex(isrex.Pattern);
-
-		return FulltextIsMatchIndexOf(search);
+		return isrex.IsRegex 
+			? FulltextIsMatchRegex(isrex.Pattern) 
+			: FulltextIsMatchIndexOf(search);
 	}
 
 	public bool FulltextIsMatchIndexOf(string search)
 	{
-		if (string.IsNullOrWhiteSpace(search)) return false;
+		if (string.IsNullOrWhiteSpace(search)) 
+			return false;
 
 		FulltextBuild();
 
-		foreach (var str in _FullText)
+		if (_fullText is null)
+			return false;
+
+		foreach (string? str in _fullText)
 		{
-			if (str.ContainsIgnoreCase(search)) return true;
+			if (str is not null && str.ContainsIgnoreCase(search)) 
+				return true;
 		}
 
 		return false;
@@ -72,30 +72,33 @@ public class ToFriendlyNameResult
 
 	public bool FulltextIsMatchRegex(string pattern)
 	{
-		if (string.IsNullOrWhiteSpace(pattern)) return false;
+		if (string.IsNullOrWhiteSpace(pattern)) 
+			return false;
 
 		FulltextBuild();
 
 		try
 		{
-			var rex = new Regex(pattern, RegexOptions.IgnoreCase);
+			Regex rex = new(pattern, RegexOptions.IgnoreCase);
 			return FulltextIsMatchRegex(rex);
 		}
-		catch (ArgumentException)
-		{ }
-
+		catch (ArgumentException) { }
 		return false;
 	}
 
 	public bool FulltextIsMatchRegex(Regex pattern)
 	{
-		if (pattern is null) return false;
+		if (pattern is null) 
+			return false;
 
 		FulltextBuild();
 
-		foreach (var str in _FullText)
+		if (_fullText is null)
+			return false;
+
+		foreach (string? str in _fullText)
 		{
-			if (pattern.IsMatch(str))
+			if (str is not null && pattern.IsMatch(str))
 				return true;
 		}
 
@@ -103,6 +106,7 @@ public class ToFriendlyNameResult
 	}
 
 	public string FullNameClean => FullName.RemoveAllTQTags();
+
 	public string FullName => new string[] {
 			PrefixInfoDescription
 			, BaseItemInfoQuality
@@ -114,6 +118,7 @@ public class ToFriendlyNameResult
 	.JoinWithoutStartingSpaces(" ");
 
 	public string FullNameBagTooltipClean => FullNameBagTooltip.RemoveAllTQTags();
+
 	public string FullNameBagTooltip => new string[] {
 				PrefixInfoDescription
 				, BaseItemInfoQuality
@@ -128,7 +133,7 @@ public class ToFriendlyNameResult
 			}.RemoveEmptyAndSanitize()
 		.JoinWithoutStartingSpaces(" ");
 
-	public readonly Item Item;
+	public readonly Item Item = itm;
 	public string PrefixInfoDescription;
 	public string[] PrefixAttributes;
 	public DBRecordCollection PrefixInfoRecords;
@@ -139,12 +144,13 @@ public class ToFriendlyNameResult
 	public RecordId BaseItemId;
 	public string BaseItemRarity;
 
-	static Regex BaseItemInfoClassRegEx = new Regex(@"[^\w\s']", RegexOptions.Compiled);
-	string _BaseItemInfoClass;
+	private static readonly Regex s_baseItemInfoClassRegEx = BaseItemInfoClassRegex();
+	private string _baseItemInfoClass;
+
 	public string BaseItemInfoClass
 	{
-		get => _BaseItemInfoClass;
-		set => _BaseItemInfoClass = BaseItemInfoClassRegEx.Replace((value ?? string.Empty), string.Empty);// Clean everything except few things;
+		get => _baseItemInfoClass;
+		set => _baseItemInfoClass = s_baseItemInfoClassRegEx.Replace((value ?? string.Empty), string.Empty);// Clean everything except few things;
 	}
 
 	public string BaseItemInfoStyle;
@@ -156,16 +162,15 @@ public class ToFriendlyNameResult
 	public string ItemThrown;
 	public string NumberFormat;
 	public string ItemWith;
-	public string[] FlavorText = new string[] { };
-	public string[] Requirements = new string[] { };
+	public string[] FlavorText = [];
+	public string[] Requirements = [];
 	public SortedList<string, Variable> RequirementVariables;
 	public RequirementInfo RequirementInfo;
-	public string[] BaseAttributes = new string[] { };
+	public string[] BaseAttributes = [];
 	public SetItemInfo ItemSet;
 	public DBRecordCollection BaseItemInfoRecords;
 
-	#region Relic Common
-
+	// Relic common
 	public string AnimalPartComplete;
 	public string AnimalPartCompleteBonus;
 	public string AnimalPart;
@@ -183,120 +188,112 @@ public class ToFriendlyNameResult
 	public string RelicBonusTitle;
 	public DBRecordCollection RelicInfoRecords;
 
-	#endregion
-
-	#region RelicInfo 1 & 2
-
+	// RelicInfo 1 & 2
 	public string ItemRelicBonus1Format;
 	public string ItemRelicBonus2Format;
 	public string RelicInfo1Description;
 	public string RelicInfo2Description;
-	public string[] Relic1Attributes = new string[] { };
-	public string[] Relic2Attributes = new string[] { };
-	public string[] RelicBonus1Attributes = new string[] { };
-	public string[] RelicBonus2Attributes = new string[] { };
+	public string[] Relic1Attributes = [];
+	public string[] Relic2Attributes = [];
+	public string[] RelicBonus1Attributes = [];
+	public string[] RelicBonus2Attributes = [];
 	public DBRecordCollection RelicBonus1InfoRecords;
 	public DBRecordCollection RelicBonus2InfoRecords;
 	public DBRecordCollection Relic2InfoRecords;
+
 	/// <summary>
 	/// Resolve first relic completion label
 	/// </summary>
-	public string RelicInfo1CompletionResolved
+	public string? RelicInfo1CompletionResolved
 	{
 		get
 		{
-			if (this.Item.RelicInfo is null) return null;
-			else
+			if (Item.RelicInfo is null) 
+				return null;
+
+			if (Item.IsRelic1Charm)
 			{
-				if (this.Item.IsRelic1Charm)
-				{
-					if (this.Item.IsRelicBonus1Complete)
-						return this.AnimalPartComplete;
-					else
-						return string.Format(this.AnimalPartRatio
-							, this.AnimalPart
-							, this.Item.Var1
-							, this.Item.RelicBonusInfo?.CompletedRelicLevel.ToString() ?? "??"
-						);
-				}
-				else
-				{
-					if (this.Item.IsRelicBonus1Complete)
-						return this.RelicComplete;
-					else
-						return string.Format(this.RelicRatio
-							, this.RelicShard
-							, this.Item.Var1
-							, this.Item.RelicBonusInfo?.CompletedRelicLevel.ToString() ?? "??"
-						);
-				}
+				if (Item.IsRelicBonus1Complete)
+					return AnimalPartComplete;
+
+				return string.Format(AnimalPartRatio,
+ 									 AnimalPart,
+									 Item.Var1,
+									 Item.RelicBonusInfo?.CompletedRelicLevel.ToString() ?? "??"
+				);
 			}
+
+			if (Item.IsRelicBonus1Complete)
+				return RelicComplete;
+
+			return string.Format(RelicRatio,
+								 RelicShard,
+								 Item.Var1,
+								 Item.RelicBonusInfo?.CompletedRelicLevel.ToString() ?? "??"
+			);
 		}
 	}
+
 	/// <summary>
 	/// Resolve first relic completion bonus label
 	/// </summary>
-	public string RelicInfo1CompletionBonusResolved
+	public string? RelicInfo1CompletionBonusResolved
 	{
 		get
 		{
-			if (this.Item.IsRelic1Charm)
-				return this.Item.IsRelicBonus1Complete ? this.AnimalPartCompleteBonus : null;
-			else
-				return this.Item.IsRelicBonus1Complete ? this.RelicBonus : null;
+			if (!Item.IsRelicBonus1Complete)
+				return null;
+
+			return Item.IsRelic1Charm ? AnimalPartCompleteBonus : RelicBonus;
 		}
 	}
+
 	/// <summary>
 	/// Resolve second relic completion label
 	/// </summary>
-	public string RelicInfo2CompletionResolved
+	public string? RelicInfo2CompletionResolved
 	{
 		get
 		{
-			if (this.Item.Relic2Info is null) return null;
-			else
+			if (Item.Relic2Info is null) 
+				return null;
+
+			if (Item.IsRelic2Charm)
 			{
-				if (this.Item.IsRelic2Charm)
-				{
-					if (this.Item.IsRelicBonus2Complete)
-						return this.AnimalPartComplete;
-					else
-						return string.Format(this.AnimalPartRatio
-							, this.AnimalPart
-							, this.Item.Var2
-							, this.Item.RelicBonus2Info?.CompletedRelicLevel.ToString() ?? "??"
-						);
-				}
-				else
-				{
-					if (this.Item.IsRelicBonus2Complete)
-						return this.RelicComplete;
-					else
-						return string.Format(this.RelicRatio
-							, this.RelicShard
-							, this.Item.Var2
-							, this.Item.RelicBonus2Info?.CompletedRelicLevel.ToString() ?? "??"
-						);
-				}
+				if (Item.IsRelicBonus2Complete)
+					return AnimalPartComplete;
+
+				return string.Format(AnimalPartRatio,
+									 AnimalPart,
+									 Item.Var2,
+									 Item.RelicBonus2Info?.CompletedRelicLevel.ToString() ?? "??"
+				);
 			}
+
+			if (Item.IsRelicBonus2Complete)
+				return RelicComplete;
+
+			return string.Format(RelicRatio,
+				RelicShard,
+				Item.Var2,
+				Item.RelicBonus2Info?.CompletedRelicLevel.ToString() ?? "??"
+			);
 		}
 	}
 
 	/// <summary>
 	/// Resolve second relic completion bonus label
 	/// </summary>
-	public string RelicInfo2CompletionBonusResolved
+	public string? RelicInfo2CompletionBonusResolved
 	{
 		get
 		{
-			if (this.Item.IsRelic2Charm)
-				return this.Item.IsRelicBonus2Complete ? this.AnimalPartCompleteBonus : null;
-			else
-				return this.Item.IsRelicBonus2Complete ? this.RelicBonus : null;
+			if (!Item.IsRelicBonus2Complete)
+				return null;
+
+			return Item.IsRelic2Charm ? AnimalPartCompleteBonus: RelicBonus;
 		}
 	}
-
-	#endregion
 
 	public string ArtifactClass;
 	public string ArtifactRecipe;
@@ -307,15 +304,9 @@ public class ToFriendlyNameResult
 	public string FormulaeArtifactClass;
 	public string FormulaeArtifactName;
 	public string FormulaeFormat;
-	public string[] FormulaeArtifactAttributes = new string[] { };
+	public string[] FormulaeArtifactAttributes = [];
 	public DBRecordCollection FormulaeArtifactRecords;
-
-	public ToFriendlyNameResult(Item itm)
-	{
-		this.Item = itm;
-	}
-
-	string[] _AttributesAll = null;
+	string[]? _AttributesAll = null;
 
 	/// <summary>
 	/// Return the collection of all attributes without any color tags.
@@ -332,9 +323,7 @@ public class ToFriendlyNameResult
 	{
 		get
 		{
-			if (_AttributesAll is null)
-			{
-				_AttributesAll = new string[][] {
+			_AttributesAll ??= [.. new string[][] {
 					BaseAttributes
 					, PrefixAttributes
 					, SuffixAttributes
@@ -343,20 +332,19 @@ public class ToFriendlyNameResult
 					, RelicBonus1Attributes
 					, RelicBonus2Attributes
 					, FormulaeArtifactAttributes
-				}.Where(c => c?.Any() ?? false)
+				}.Where(static c => c?.Any() ?? false)
 				.SelectMany(a => a)
 				.Where(a => !(string.IsNullOrWhiteSpace(a) || a.IsColorTagOnly()))
-				.Select(a => a.RemoveAllTQTags())
-				.ToArray();
-			}
+				.Select(a => a.RemoveAllTQTags())];
 			return _AttributesAll;
 		}
 	}
 
-
 	/// <summary>
 	/// Used to give attribute list factory some kind of global awareness during its process
 	/// </summary>
-	public readonly List<string> TmpAttrib = new List<string>();
+	public readonly List<string> TmpAttrib = [];
 
+	[GeneratedRegex(@"[^\w\s']", RegexOptions.Compiled)]
+	internal static partial Regex BaseItemInfoClassRegex();
 }

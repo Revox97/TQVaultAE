@@ -10,56 +10,68 @@ public interface ITranslationService
 	/// <param name="extension"></param>
 	/// <returns></returns>
 	string Translate(GameDlc extension);
+
 	/// <summary>
 	/// Gets the string name of a particular gear level
 	/// </summary>
 	/// <param name="GearLevel">GearLevel enumeration</param>
 	/// <returns>Localized string of the item style</returns>
 	string Translate(Rarity level);
+
 	/// <summary>
 	/// Gets the string name of a particular item style
 	/// </summary>
 	/// <param name="itemStyle">ItemStyle enumeration</param>
 	/// <returns>Localized string of the item style</returns>
 	string Translate(ItemStyle itemStyle);
+
 	/// <summary>
 	/// Gets the string used for 'with'
 	/// </summary>
 	string ItemWith { get; }
+
 	/// <summary>
 	/// Gets the relic completion bonus string.
 	/// </summary>
 	string ItemRelicBonus { get; }
+
 	/// <summary>
 	/// Gets the relic completed string.
 	/// </summary>
 	string ItemRelicCompleted { get; }
+
 	/// <summary>
 	/// Gets the quest item indicator string.
 	/// </summary>
 	string ItemQuest { get; }
+
 	/// <summary>
 	/// Gets the item seed format string.
 	/// </summary>
 	string ItemSeed { get; }
+
 	/// <summary>
 	/// Return Difficulty translation
 	/// </summary>
 	/// <param name="difficultyFromSaveFile"></param>
 	/// <returns></returns>
 	string TranslateDifficulty(int difficultyFromSaveFile);
+
 	/// <summary>
 	/// Gets the string which indicates an Immortal Throne item.
 	/// </summary>
-	string ItemIT { get; }
+	string ItemImmortalThrone { get; }
+
 	/// <summary>
 	/// Gets the string which indicates an Ragnarok item.
 	/// </summary>
 	string ItemRagnarok { get; }
+
 	/// <summary>
 	/// Gets the string which indicates an Eternal Embers item.
 	/// </summary>
-	string ItemEmbers { get; }
+	string ItemEternalEmbers { get; }
+
 	/// <summary>
 	/// Gets the string which indicates an Atlantis item.
 	/// </summary>
@@ -73,12 +85,14 @@ public interface ITranslationService
 	/// <param name="doCleanupKeepLeadingColorTag"></param>
 	/// <returns></returns>
 	string TranslateXTag(string xTagName, bool removeAllTQTags = false, bool doCleanup = false, bool doCleanupKeepLeadingColorTag = false);
+
 	/// <summary>
 	/// Translate character class to mastery
 	/// </summary>
 	/// <param name="characterXtagClass"></param>
 	/// <returns></returns>
 	string TranslateMastery(string characterXtagClass);
+
 	/// <summary>
 	/// Try translate <paramref name="xTagName"/> using resource file and database
 	/// </summary>

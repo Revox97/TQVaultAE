@@ -10,6 +10,6 @@ namespace TQVaultAE.Domain.Contracts.Providers
 		/// <param name="drc">source</param>
 		/// <param name="baseFolder">Path in the file.</param>
 		/// <param name="fileName">file name to be written</param>
-		void Write(DBRecordCollection drc, string baseFolder, string fileName = null);
+		void Write(DBRecordCollection drc, string baseFolder, string? fileName = null);
 	}
 }

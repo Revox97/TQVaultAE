@@ -1,103 +1,82 @@
-﻿using TQVaultAE.Domain.Entities;
-using TQVaultAE.Domain.Helpers;
+﻿using TQVaultAE.Domain.Helpers;
 
 namespace TQVaultAE.Domain.Results;
 
-public class CsvRow
+public class CsvRow(string vaultname, int bagid, ToFriendlyNameResult fnr, int rowIndex, char csvDelimiter)
 {
-	private readonly string vaultname;
-	private readonly int bagid;
-	private readonly ToFriendlyNameResult fnr;
-	private readonly int rowIndex;
-	private readonly char csvDelimiter;
-
-	public CsvRow(string vaultname, int bagid, ToFriendlyNameResult fnr, int rowIndex, char csvDelimiter)
-	{
-		this.vaultname = vaultname;
-		this.bagid = bagid;
-		this.fnr = fnr;
-		this.rowIndex = rowIndex;
-		this.csvDelimiter = csvDelimiter;
-	}
+	private readonly string _vaultname = vaultname;
+	private readonly int _bagId = bagid;
+	private readonly ToFriendlyNameResult _friendlyNameResult = fnr;
+	private readonly int _rowIndex = rowIndex;
+	private readonly char _csvDelimiter = csvDelimiter;
 
 	public static string GetCSVHeader(char csvDelimiter)
-		=> string.Join(csvDelimiter.ToString()
-			, @"Row"
-			, @"Vault"
-			, @"BagId"
-			, @"PosX"
-			, @"PosY"
+	{
+		return string.Join(csvDelimiter.ToString(),
+			@"Row",
+			@"Vault",
+			@"BagId",
+			@"PosX",
+			@"PosY",
+			@"ItemClass",
+			@"ItemOrigin",
+			@"ItemSeed",
+			@"RequireLvl",
+			@"RequireStr",
+			@"RequireDex",
+			@"RequireInt",
+			@"BaseRarity",
+			@"BaseStyle",
+			@"BaseQuality",
+			@"BaseId",
+			@"BaseName",
+			@"PrefixId",
+			@"PrefixName",
+			@"SuffixId",
+			@"SuffixName",
+			@"RelicId",
+			@"RelicName",
+			@"RelicBonusId",
+			@"RelicVar",
+			@"Relic2Id",
+			@"Relic2Name",
+			@"Relic2BonusId",
+			@"Relic2Var"
+		);
+	}
 
-			, @"ItemClass"
-			, @"ItemOrigin"
-			, @"ItemSeed"
-
-			, @"RequireLvl"
-			, @"RequireStr"
-			, @"RequireDex"
-			, @"RequireInt"
-
-			, @"BaseRarity"
-			, @"BaseStyle"
-			, @"BaseQuality"
-			, @"BaseId"
-			, @"BaseName"
-
-			, @"PrefixId"
-			, @"PrefixName"
-
-			, @"SuffixId"
-			, @"SuffixName"
-
-			, @"RelicId"
-			, @"RelicName"
-			, @"RelicBonusId"
-			, @"RelicVar"
-
-			, @"Relic2Id"
-			, @"Relic2Name"
-			, @"Relic2BonusId"
-			, @"Relic2Var"
-			);
 	public override string ToString()
 	{
-		return string.Join(csvDelimiter.ToString()
-			, rowIndex // @"Row"
-			, vaultname // @"Vault"
-			, bagid // @"BagId"
-			, fnr.Item.PositionX // @"PosX"
-			, fnr.Item.PositionY // @"PosY"
-
-			, fnr.Item.ItemClass //  @"ItemClass"
-			, fnr.Item.GameDlcCode // @"ItemOrigin"
-			, fnr.Item.Seed // @"ItemSeed"
-
-			, fnr.RequirementInfo.Lvl // @"RequireLvl"
-			, fnr.RequirementInfo.Str // @"RequireStr"
-			, fnr.RequirementInfo.Dex // @"RequireDex"
-			, fnr.RequirementInfo.Int // @"RequireInt"
-
-			, fnr.BaseItemRarity
-			, fnr.BaseItemInfoStyle
-			, fnr.BaseItemInfoQuality
-			, fnr.Item.BaseItemId?.Raw // @"BaseId"
-			, fnr.BaseItemInfoDescription?.RemoveAllTQTags() // @"BaseName"
-
-			, fnr.Item.prefixID?.Raw // @"PrefixId"
-			, fnr.PrefixInfoDescription?.RemoveAllTQTags() // @"PrefixName"
-
-			, fnr.Item.suffixID?.Raw // @"SuffixId"
-			, fnr.SuffixInfoDescription?.RemoveAllTQTags() // @"SuffixName"
-
-			, fnr.Item.relicID?.Raw // @"RelicId"
-			, fnr.RelicInfo1Description?.RemoveAllTQTags() // @"RelicName"
-			, fnr.Item.RelicBonusId?.Raw // @"RelicBonusId"
-			, fnr.Item.Var1 // @"RelicVar"
-
-			, fnr.Item.relic2ID?.Raw // @"Relic2Id"
-			, fnr.RelicInfo2Description?.RemoveAllTQTags() // @"Relic2Name"
-			, fnr.Item.RelicBonus2Id?.Raw // @"Relic2BonusId"
-			, fnr.Item.Var2 // @"Relic2Var"
-			);
+		return string.Join(_csvDelimiter.ToString(),
+			_rowIndex,
+			_vaultname,
+			_bagId,
+			_friendlyNameResult.Item.Location.X,
+			_friendlyNameResult.Item.Location.Y,
+			_friendlyNameResult.Item.ItemClass,
+			_friendlyNameResult.Item.GameDlcCode,
+			_friendlyNameResult.Item.Seed,
+			_friendlyNameResult.RequirementInfo.Lvl,
+			_friendlyNameResult.RequirementInfo.Str,
+			_friendlyNameResult.RequirementInfo.Dex,
+			_friendlyNameResult.RequirementInfo.Int,
+			_friendlyNameResult.BaseItemRarity,
+			_friendlyNameResult.BaseItemInfoStyle,
+			_friendlyNameResult.BaseItemInfoQuality,
+			_friendlyNameResult.Item.BaseItemId?.Raw,
+			_friendlyNameResult.BaseItemInfoDescription?.RemoveAllTQTags(),
+			_friendlyNameResult.Item.PrefixId?.Raw,
+			_friendlyNameResult.PrefixInfoDescription?.RemoveAllTQTags(),
+			_friendlyNameResult.Item.SuffixId?.Raw,
+			_friendlyNameResult.SuffixInfoDescription?.RemoveAllTQTags(),
+			_friendlyNameResult.Item.RelicId?.Raw,
+			_friendlyNameResult.RelicInfo1Description?.RemoveAllTQTags(),
+			_friendlyNameResult.Item.RelicBonusId?.Raw,
+			_friendlyNameResult.Item.Var1,
+			_friendlyNameResult.Item.Relic2Id?.Raw,
+			_friendlyNameResult.RelicInfo2Description?.RemoveAllTQTags(),
+			_friendlyNameResult.Item.RelicBonus2Id?.Raw,
+			_friendlyNameResult.Item.Var2
+		);
 	}
 }

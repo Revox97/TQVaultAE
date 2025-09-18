@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+﻿using System.Windows.Media;
 
 namespace TQVaultAE.Domain.Contracts.Services
 {

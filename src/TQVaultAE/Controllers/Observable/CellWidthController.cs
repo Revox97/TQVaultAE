@@ -2,6 +2,7 @@
 
 namespace TQVaultAE.Controllers.Observable
 {
+	// Delete once replaced
 	// TODO calculate with in here and forward events. Pull out calculation from UI
 	internal class CellWidthController
 	{

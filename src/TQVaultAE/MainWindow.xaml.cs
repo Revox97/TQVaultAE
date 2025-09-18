@@ -97,7 +97,11 @@ namespace TQVaultAE
 
 		private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			WindowSizeUpdater.GetInstance().Notify(this, new WindowSizeUpdatedEventArgs());
+			WindowSizeUpdater.GetInstance().Notify(this, new WindowSizeUpdatedEventArgs()
+			{
+				ContentWidth = ContentController.ActualWidth,
+				ContentHeight = ContentController.ActualHeight
+			});
         }
 
 		private void ButtonMaximize_Click(object sender, RoutedEventArgs e)

@@ -1,11 +1,10 @@
-﻿using System;
-using TQVaultAE.Domain.Entities;
+﻿using TQVaultAE.Domain.Entities;
 
 namespace TQVaultAE.Domain.Results
 {
 	public class LoadPlayerResult
 	{
-		public string PlayerFile;
-		public PlayerCollection Player;
+		public string? PlayerFile { get; set; }
+		public PlayerCollection? Player { get; set; }
 	}
 }

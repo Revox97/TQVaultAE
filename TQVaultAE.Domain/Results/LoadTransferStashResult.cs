@@ -1,11 +1,10 @@
-﻿using System;
-using TQVaultAE.Domain.Entities;
+﻿using TQVaultAE.Domain.Entities;
 
 namespace TQVaultAE.Domain.Results
 {
 	public class LoadTransferStashResult
 	{
-		public string TransferStashFile;
-		public Stash Stash;
+		public string? TransferStashFile { get; set; }
+		public Stash? Stash { get; set; }
 	}
 }

@@ -12,11 +12,13 @@ namespace TQVaultAE.Domain.Contracts.Services
 		/// <param name="file">file name of the vault.</param>
 		/// <returns>Player instance of the new vault.</returns>
 		PlayerCollection CreateVault(string name, string file);
+
 		/// <summary>
 		/// Loads a vault file
 		/// </summary>
 		/// <param name="vaultName">Name of the vault</param>
 		LoadVaultResult LoadVault(string vaultName);
+
 		/// <summary>
 		/// Attempts to save all modified vault files
 		/// </summary>
@@ -24,6 +26,7 @@ namespace TQVaultAE.Domain.Contracts.Services
 		/// <exception cref="IOException">can happen during file save</exception>
 		/// <returns>nNumber of vault saved</returns>
 		int SaveAllModifiedVaults(ref PlayerCollection vaultOnError);
+
 		/// <summary>
 		/// Updates VaultPath key from the configuration UI
 		/// Needed since all vaults will need to be reloaded if this key changes.

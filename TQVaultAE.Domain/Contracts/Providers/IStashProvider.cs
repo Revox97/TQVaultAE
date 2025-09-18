@@ -8,16 +8,18 @@ namespace TQVaultAE.Domain.Contracts.Providers
 		/// Converts the live data back into the raw binary data format
 		/// </summary>
 		/// <returns>byte array holding the raw data</returns>
-		byte[] Encode(Stash sta);
+		byte[] Encode(Stash stash);
+
 		/// <summary>
 		/// Loads a stash file
 		/// </summary>
 		/// <returns>false if the file does not exist otherwise true.</returns>
-		bool LoadFile(Stash sta);
+		bool LoadFile(Stash stash);
+
 		/// <summary>
 		/// Saves the stash file
 		/// </summary>
 		/// <param name="fileName">file name of this stash file</param>
-		void Save(Stash sta, string fileName);
+		void Save(Stash stash, string fileName);
 	}
 }

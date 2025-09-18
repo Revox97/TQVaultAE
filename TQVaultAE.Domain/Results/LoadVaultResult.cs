@@ -1,13 +1,12 @@
-﻿using System;
-using TQVaultAE.Domain.Entities;
+﻿using TQVaultAE.Domain.Entities;
 
 namespace TQVaultAE.Domain.Results
 {
 	public class LoadVaultResult
 	{
-		public PlayerCollection Vault;
-		public string Filename;
-		public bool VaultLoaded;
-		public ArgumentException ArgumentException;
+		public PlayerCollection? Vault { get; set; }
+		public string? Filename { get; set; }
+		public bool? VaultLoaded { get; set; }
+		public ArgumentException? ArgumentException { get; set; }
 	}
 }

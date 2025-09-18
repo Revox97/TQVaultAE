@@ -37,16 +37,14 @@ namespace TQVaultAE.Presentation
 		/// <returns>bitmap of tex file.</returns>
 		public BitmapImage? LoadFromTexMemory(byte[] data, int offset, int count)
 		{
+			ArgumentNullException.ThrowIfNull(data, nameof(data));
+			ArgumentOutOfRangeException.ThrowIfLessThan(offset, 0, nameof(offset));
+			ArgumentOutOfRangeException.ThrowIfGreaterThan(offset, data.Length, nameof(offset));
+			ArgumentOutOfRangeException.ThrowIfLessThan(count, 0, nameof(count));
+			ArgumentOutOfRangeException.ThrowIfGreaterThan(count, data.Length - offset, nameof(count));
+
 			// AMS: Yet another hack to new offset needed for Atlantis and Eternal Ember Images...
 			int newTextureOffsetAdd;
-
-			ArgumentNullException.ThrowIfNull(data, nameof(data));
-
-			if (offset < 0 || offset > data.Length)
-				throw new ArgumentOutOfRangeException(nameof(offset));
-
-			if (count < 0 || (data.Length - offset) < count)
-				throw new ArgumentOutOfRangeException(nameof(count));
 
 			if (data.Length < 12)
 			{
@@ -172,11 +170,11 @@ namespace TQVaultAE.Presentation
 					// now create it from this memory buffer
 					return LoadFromMemory(ddsData, 0, ddsData.Length);
 				}
-				else
-					throw new InvalidDataException("Invalid Header format.");
+
+				throw new InvalidDataException("Invalid Header format.");
 			}
-			else
-				throw new InvalidDataException("Unknown texture format.");
+
+			throw new InvalidDataException("Unknown texture format.");
 		}
 
 		/// <summary>

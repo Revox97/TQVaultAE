@@ -1,5 +1,4 @@
 ﻿using TQVaultAE.Domain.Entities;
-using TQVaultAE.Domain.Results;
 
 namespace TQVaultAE.Domain.Contracts.Services;
 
@@ -9,11 +8,13 @@ public interface IGameFileService
 	/// Init the local git repository.
 	/// </summary>
 	void GitRepositorySetup();
+
 	/// <summary>
 	/// add, commit, tag and push the git repo.
 	/// </summary>
 	/// <returns><c>true</c> if a change has been pushed</returns>
 	bool GitAddCommitTagAndPush();
+
 	/// <summary>
 	/// Backs up the file to the backup folder.
 	/// </summary>
@@ -21,6 +22,7 @@ public interface IGameFileService
 	/// <param name="file">file name to backup</param>
 	/// <returns>Returns the name of the backup file, or NULL if file does not exist</returns>
 	string BackupFile(string prefix, string file);
+
 	/// <summary>
 	/// TQ has an annoying habit of throwing away your char in preference
 	/// for the Backup folder if it exists if it thinks your char is not valid.
@@ -38,14 +40,14 @@ public interface IGameFileService
 	string DuplicateCharacterFiles(string playerSaveDirectory, string newname);
 
 	/// <summary>
-	/// Archive a character
+	/// Archives a character
 	/// </summary>
-	/// <param name="ps"></param>
-	bool Archive(PlayerSave ps);
+	/// <param name="playerSave"></param>
+	bool Archive(PlayerSave playerSave);
 
 	/// <summary>
-	/// Unarchive a character
+	/// Unarchives a character
 	/// </summary>
-	/// <param name="ps"></param>
-	bool Unarchive(PlayerSave ps);
+	/// <param name="playerSave"></param>
+	bool Unarchive(PlayerSave playerSave);
 }

@@ -1,8 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Drawing;
+﻿using System.Drawing;
+using System.Windows.Media.Imaging;
 using TQVaultAE.Domain.Entities;
-using TQVaultAE.Domain.Helpers;
 
 namespace TQVaultAE.Domain.Contracts.Services;
 
@@ -11,7 +9,7 @@ public interface IUIService
 	/// <summary>
 	/// Gets the default bitmap
 	/// </summary>
-	Bitmap DefaultBitmap { get; }
+	BitmapImage DefaultBitmap { get; }
 
 	/// <summary>
 	/// Gets the half of an item unit size which is the unit of measure of item size in TQ.
@@ -23,7 +21,7 @@ public interface IUIService
 	/// Gets the UI design DPI which is used to for scaling comparisons.
 	/// </summary>
 	/// <remarks>Use 96 DPI which is "normal" for Windows.</remarks>
-	float DESIGNDPI { get; }
+	float DesignDpi { get; }
 
 	/// <summary>
 	/// Gets the item unit size which is the unit of measure of item size in TQ.
@@ -40,14 +38,14 @@ public interface IUIService
 	/// <summary>
 	/// Gets the item's bitmap
 	/// </summary>
-	Bitmap GetBitmap(Item itm);
+	BitmapImage GetBitmap(Item itm);
 
 	/// <summary>
 	/// Loads a bitmap from a resource Id string
 	/// </summary>
 	/// <param name="resourceId">Resource Id which we are looking up.</param>
 	/// <returns>Bitmap fetched from the database</returns>
-	Bitmap LoadBitmap(RecordId resourceId);
+	BitmapImage LoadBitmap(RecordId resourceId);
 
 	/// <summary>
 	/// Loads a bitmap from <paramref name="texData"/> with an identifier <paramref name="resourceId"/>
@@ -55,13 +53,13 @@ public interface IUIService
 	/// <param name="resourceId">Resource Id which we are looking up.</param>
 	/// <param name="texData">raw DDS image data</param>
 	/// <returns>Bitmap converted from <paramref name="texData"/></returns>
-	Bitmap LoadBitmap(RecordId resourceId, byte[] texData);
+	BitmapImage LoadBitmap(RecordId resourceId, byte[] texData);
 
 	/// <summary>
 	/// Loads the relic overlay bitmap from the database.
 	/// </summary>
 	/// <returns>Relic overlay bitmap</returns>
-	Bitmap LoadRelicOverlayBitmap();
+	BitmapImage LoadRelicOverlayBitmap();
 
 	/// <summary>
 	/// Display notification to user
@@ -92,13 +90,15 @@ public interface IUIService
 	/// </summary>
 	/// <param name="exception"></param>
 	/// <param name="message"></param>
-	ShowMessageUserEventHandlerEventArgs ShowError(string message, Exception exception = null, ShowMessageButtons Buttons = ShowMessageButtons.OKCancel);
+	ShowMessageUserEventHandlerEventArgs ShowError(string message, Exception? exception = null, ShowMessageButtons Buttons = ShowMessageButtons.OKCancel);
+
 	/// <summary>
 	/// Display warning to user
 	/// </summary>
 	/// <param name="exception"></param>
 	/// <param name="message"></param>
-	ShowMessageUserEventHandlerEventArgs ShowWarning(string message, Exception exception = null, ShowMessageButtons Buttons = ShowMessageButtons.OKCancel);
+	ShowMessageUserEventHandlerEventArgs ShowWarning(string message, Exception? exception = null, ShowMessageButtons Buttons = ShowMessageButtons.OKCancel);
+
 	/// <summary>
 	/// Display error to user
 	/// </summary>
@@ -126,11 +126,12 @@ public delegate void ShowMessageUserEventHandler(object sender, ShowMessageUserE
 /// </summary>
 public class ShowMessageUserEventHandlerEventArgs
 {
-	public LogLevel Level;
-	public Exception Error;
-	public string Message;
-	public bool IsOK;
-	public ShowMessageButtons Buttons;
+	// TODO add bakc in
+	//public LogLevel Level;
+	public bool IsOK { get; set; }
+	public ShowMessageButtons Buttons { get; set; }
+	public string? Message { get; set; }
+	public Exception? Error { get; set; }
 }
 
 public enum ShowMessageButtons

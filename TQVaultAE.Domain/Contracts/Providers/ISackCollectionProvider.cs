@@ -9,11 +9,12 @@ namespace TQVaultAE.Domain.Contracts.Providers
 		/// Encodes the sack into binary form
 		/// </summary>
 		/// <param name="writer">BinaryWriter instance</param>
-		void Encode(SackCollection sc, BinaryWriter writer);
+		void Encode(SackCollection sackCollection, BinaryWriter writer);
+
 		/// <summary>
 		/// Parses the binary sack data to internal data
 		/// </summary>
 		/// <param name="reader">BinaryReader instance</param>
-		void Parse(SackCollection sc, BinaryReader reader);
+		void Parse(SackCollection sackCollection, BinaryReader reader);
 	}
 }

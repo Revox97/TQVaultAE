@@ -29,6 +29,6 @@ namespace TQVaultAE.Domain.Contracts.Services
 		/// <returns>List of character files descriptor</returns>
 		PlayerSave[] GetPlayerSaveList();
 
-		void AlterNameInPlayerFileSave(string newname, string saveFolder);
+		void AlterNameInPlayerFileSave(string newName, string saveFolder);
 	}
 }

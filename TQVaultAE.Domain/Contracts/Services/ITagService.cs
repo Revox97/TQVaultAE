@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using TQVaultAE.Domain.Entities;
 
 namespace TQVaultAE.Domain.Contracts.Services
@@ -18,8 +17,8 @@ namespace TQVaultAE.Domain.Contracts.Services
 		void ReadConfig();
 		void SaveConfig();
 
-		void LoadTags(PlayerSave ps);
-		bool AssignTag(PlayerSave ps, string tagName);
-		bool UnassignTag(PlayerSave ps, string tagName);
+		void LoadTags(PlayerSave playerSave);
+		bool AssignTag(PlayerSave playerSave, string tagName);
+		bool UnassignTag(PlayerSave playerSave, string tagName);
 	}
 }

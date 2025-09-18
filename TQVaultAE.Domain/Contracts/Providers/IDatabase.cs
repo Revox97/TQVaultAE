@@ -30,7 +30,7 @@ public interface IDatabase
 	/// <summary>
 	/// Gets the instance of the Immortal Throne Database ArzFile.
 	/// </summary>
-	ArzFile ArzFileIT { get; }
+	ArzFile ArzFileImmortalThrone { get; }
 
 	/// <summary>
 	/// Gets the instance of a custom map Database ArzFile.
