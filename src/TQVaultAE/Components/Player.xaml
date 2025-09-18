@@ -83,10 +83,10 @@
                         <Setter Property="FontSize" Value="16"/>
                         <Setter Property="FontWeight" Value="SemiBold"/>
                     </Style>
-                    <Style x:Key="StashTab" TargetType="{x:Type Grid}">
+                    <Style x:Key="EquipmentContainer" TargetType="{x:Type Grid}">
                         <Setter Property="Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/StashPanel.png" 
+                                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/EquipmentBackground.png" 
                                             TileMode="None" AlignmentX="Left" AlignmentY="Center" Stretch="Uniform"/>
                             </Setter.Value>
                         </Setter>
@@ -141,9 +141,9 @@
                     <Grid x:Name="EquipmentContainer" Margin="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width=".55*"/>
+                            <ColumnDefinition Width=".4*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" Style="{StaticResource StashTab}">
+                        <Grid Grid.Column="0" Style="{StaticResource EquipmentContainer}">
                             
                         </Grid>
                         <comp:PlayerStatistics Grid.Column="1"/>

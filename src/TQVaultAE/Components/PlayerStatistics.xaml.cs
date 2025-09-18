@@ -17,7 +17,7 @@ namespace TQVaultAE.Components
 
 		public void Notify(object sender, ContentScaleUpdatedEventArgs args)
 		{
-			FontSize = 10;
+			FontSize = 8;
 		}
 
 		public void Dispose()

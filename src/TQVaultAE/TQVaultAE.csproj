@@ -26,6 +26,8 @@
     <None Remove="Resources\Img\ButtonMinimizeOver.png" />
     <None Remove="Resources\Img\ButtonMinimizeUp.png" />
     <None Remove="Resources\Img\caravan_bg.jpg" />
+    <None Remove="Resources\Img\EquipmentBackground.png" />
+    <None Remove="Resources\Img\EquipmentOverlay.png" />
     <None Remove="Resources\Img\inventorybagdown01.png" />
     <None Remove="Resources\Img\inventorybagover01.png" />
     <None Remove="Resources\Img\inventorybagup01.png" />
@@ -71,6 +73,8 @@
     <Resource Include="Resources\Img\ButtonMinimizeOver.png" />
     <Resource Include="Resources\Img\ButtonMinimizeUp.png" />
     <Resource Include="Resources\Img\caravan_bg.jpg" />
+    <Resource Include="Resources\Img\EquipmentBackground.png" />
+    <Resource Include="Resources\Img\EquipmentOverlay.png" />
     <Resource Include="Resources\Img\inventorybagdown01.png" />
     <Resource Include="Resources\Img\inventorybagover01.png" />
     <Resource Include="Resources\Img\inventorybagup01.png" />
