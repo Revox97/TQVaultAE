@@ -93,8 +93,9 @@ namespace TQVaultAE.Components
 
 		private void UpdateEquipmentTab(ContentScaleUpdatedEventArgs args)
 		{
-			double height = ItemsPanel.CalculateDimensions(args.General.ItemCellDimensions.Width, 16, 15, new Thickness(2)).Height;
-			EquipmentContainer.Height = height;
+			Size dimensions = ItemsPanel.CalculateDimensions(args.General.ItemCellDimensions.Width, 16, 15, new Thickness(2));
+			EquipmentContainer.Width = dimensions.Width;
+			EquipmentContainer.Height = dimensions.Height;
 		}
 
 		private void UpdateStorageAreaTab(ContentScaleUpdatedEventArgs args)

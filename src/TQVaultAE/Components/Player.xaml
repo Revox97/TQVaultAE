@@ -135,12 +135,13 @@
             </Grid>
         </Grid>
         <Grid Grid.Row="2" x:Name="PlayerStash">
-            <TabControl Style="{StaticResource StashTabControl}">
+        <!-- TODO change background, so we have no ugly black screen -->
+            <TabControl HorizontalAlignment="Left" Style="{StaticResource StashTabControl}">
                 <TabItem Header="Equipment" Style="{StaticResource TabItem}" x:Name="Equipment">
                     <Grid x:Name="EquipmentContainer" Margin="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width=".55*"/>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0" Style="{StaticResource StashTab}">
                             
@@ -148,9 +149,9 @@
                         <comp:PlayerStatistics Grid.Column="1"/>
                     </Grid>
                 </TabItem>
-                <TabItem x:Name="TabStorageArea" Header="Storage Area" Style="{StaticResource TabItem}"/>
-                <TabItem x:Name="TabTransferArea" Header="Transfer Area" Style="{StaticResource TabItem}"/>
-                <TabItem x:Name="TabRelicVault" Header="Relic Vault" Style="{StaticResource TabItem}"/>
+                <TabItem x:Name="TabStorageArea" Header="Storage" Style="{StaticResource TabItem}"/>
+                <TabItem x:Name="TabTransferArea" Header="Transfer" Style="{StaticResource TabItem}"/>
+                <TabItem x:Name="TabRelicVault" Header="Relics" Style="{StaticResource TabItem}"/>
             </TabControl>
         </Grid>
     </Grid>
