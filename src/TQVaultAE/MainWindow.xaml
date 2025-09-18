@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TQVaultAE" xmlns:models="clr-namespace:TQVaultAE.Models"
         xmlns:pages="clr-namespace:TQVaultAE.Pages"
         mc:Ignorable="d"
-        Title="TQVaultAE" MinHeight="800" MinWidth="1300" Height="800" Width="1200" 
+        Title="TQVaultAE" MinHeight="800" MinWidth="1300" Height="900" Width="1100" 
         WindowStyle="None" ResizeMode="CanResizeWithGrip" AllowsTransparency="True" WindowStartupLocation="CenterScreen" SizeChanged="Window_SizeChanged">
     <Window.DataContext>
         <models:MainWindowModel/>

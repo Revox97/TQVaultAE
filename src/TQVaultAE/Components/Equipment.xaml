@@ -8,15 +8,45 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <ResourceDictionary>
-            <Style x:Key="EquipmentContainer" TargetType="{x:Type Grid}">
-                <Setter Property="Background">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/TQVaultAE;component/Resources/Img/EquipmentBackground.png" 
-                                    TileMode="None" AlignmentX="Left" AlignmentY="Center" Stretch="Uniform"/>
-                    </Setter.Value>
-                </Setter>
+            <Style x:Key="EquipmentBackground" TargetType="{x:Type Image}">
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+                <Setter Property="Stretch" Value="Uniform"/>
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Grid.Column="0" Style="{StaticResource EquipmentContainer}"/>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Image Grid.Column="0" x:Name="EquipmentBackground" Style="{StaticResource EquipmentBackground}" Source="pack://application:,,,/TQVaultAE;component/Resources/Img/EquipmentBackground.png"/>
+        <Grid Grid.Column="0" x:Name="ItemsContainer" Width="{Binding ElementName=EquipmentBackground, Path=ActualWidth}" Height="{Binding ElementName=EquipmentBackground, Path=ActualHeight}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".35*"/>
+                <ColumnDefinition Width=".94*"/>
+                <ColumnDefinition Width=".29*"/>
+                <ColumnDefinition Width=".84*"/>
+                <ColumnDefinition Width=".02*"/>
+                <ColumnDefinition Width=".29*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width=".5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+        </Grid>
+        <Image Grid.Column="0" Style="{StaticResource EquipmentBackground}" Source="pack://application:,,,/TQVaultAE;component/Resources/Img/EquipmentOverlay.png"/>
+    </Grid>
 </UserControl>

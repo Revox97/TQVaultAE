@@ -1,6 +1,8 @@
-﻿using System.Security.Policy;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using TQVaultAE.Models;
 
 namespace TQVaultAE.Components
 {
@@ -12,6 +14,7 @@ namespace TQVaultAE.Components
 		private readonly double _cellWidthHeight;
 		private readonly int _columns;
 		private readonly int _rows;
+		private readonly List<Item> _items = [];
 
         public ItemsPanel(double columnWidthHeight, int columns, int rows, Thickness borderThickness)
         {
@@ -28,7 +31,54 @@ namespace TQVaultAE.Components
 			ItemsPanelBorder.BorderThickness = borderThickness;
 
 			// Set Items
+			try
+			{
+				_items.Add(new Item("Name1", new System.Drawing.Point(0, 0), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png"))); // TEMP
+				_items.Add(new Item("Name1", new System.Drawing.Point(2, 2), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png"))); // TEMP
+				_items.Add(new Item("Name1", new System.Drawing.Point(1, 7), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png"))); // TEMP
+			} catch { }
+
+			AddItems();
         }
+
+		private void AddItems()
+		{
+			foreach (Item item in _items)
+			{
+				try
+				{
+					if (!IsValidPlacement(item))
+						throw new InvalidOperationException("Invalid item placement. Another item is already located in this position.");
+
+					Image itemControl = new()
+					{
+						Source = item.Icon,
+						Stretch = Stretch.Fill,
+						VerticalAlignment = VerticalAlignment.Top,
+						HorizontalAlignment = HorizontalAlignment.Left,
+						DataContext = item,
+					};
+
+					ItemsPanelContent.Children.Add(itemControl);
+					Grid.SetColumn(itemControl, item.Location.X);
+					Grid.SetColumnSpan(itemControl, item.Size.Width);
+					Grid.SetRow(itemControl, item.Location.Y);
+					Grid.SetRowSpan(itemControl, item.Size.Height);
+				}
+				catch(Exception ex)
+				{
+					// TODO add logging
+				}
+			}
+		}
+
+		private bool IsValidPlacement(Item item)
+		{
+			if (_items.Any(i => i.IsLocationOverlap(item)))
+				return false;
+
+			return !(item.Location.X < 0 || item.Location.X + item.Size.Width > _columns || item.Location.Y < 0 || item.Location.Y + item.Size.Height > _rows);
+		}
 
 		public static Size CalculateDimensions(double cellWidthHeight, int columns, int rows, Thickness borderThickness)
 		{
