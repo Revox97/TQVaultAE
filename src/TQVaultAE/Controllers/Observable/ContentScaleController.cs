@@ -1,10 +1,20 @@
 ﻿using System.Windows;
+using TQVaultAE.Components;
 using TQVaultAE.Models.EventArgs;
 
 namespace TQVaultAE.Controllers.Observable
 {
 	internal class ContentScaleController : IWindowSizeObserver
 	{
+		private const double BorderWidthHeight = 2f;
+		private const double SpacerWidth = 5f;
+		private const double SpacerHeight = 5f;
+		private const int RowsPlayer = 20;
+		private const int RowsVault = 20;
+		private const int ColumnsPlayer = 20;
+		private const int ColumnsVault = 18;
+		private const double ControlPanelBorderWidthHeight = 5f;
+
 		private static ContentScaleController? s_instance;
 		private static readonly object s_instanceLock = new();
 
@@ -86,12 +96,15 @@ namespace TQVaultAE.Controllers.Observable
 
 			double cellWidthHeight = CalculateCellWithHeight(maxPlayerPanelWidth, maxVaultPanelWidth, contentHeight);
 
+			// TODO Improve this calculation and figure out the *1.07. Most likely its a dpi issue
+			double highlightLabelWith = (cellWidthHeight * ColumnsVault + (BorderWidthHeight * 2)) * 1.07;
+
 			return new ContentScaleUpdatedEventArgs()
 			{
 				General = new()
 				{
 					FontSize = 14, // Calculate
-					ItemHightlightLabelDimensions = new(12, 12), // Calculate
+					ItemHightlightLabelDimensions = new(highlightLabelWith, 12), // Calculate
 					ItemCellDimensions = new(cellWidthHeight, cellWidthHeight)
 				},
 				VaultTab = new()
@@ -134,30 +147,22 @@ namespace TQVaultAE.Controllers.Observable
 
 		private static double CalculateCellWithHeight(double maxPlayerPanelWidth, double maxVaultPanelWidth, double height)
 		{
-			double borderWidthHeight = 2f;
-			double spacerWidth = 5f;
-			double spacerHeight = 5f;
-			int rowsPlayer = 20;
-			int rowsVault = 20;
-			int columnsPlayer = 20;
-			int columnsVault = 18;
-			double controlPanelBorderWidthHeight = 5f;
 
-			double availableWidthPlayer = maxPlayerPanelWidth - (borderWidthHeight * 4) - spacerWidth;
-			double availableWidthVault = maxVaultPanelWidth - (borderWidthHeight * 2) - 30d; // autosortbutton
-			double targetedCellWidth = availableWidthPlayer / columnsPlayer;
+			double availableWidthPlayer = maxPlayerPanelWidth - (BorderWidthHeight * 4) - SpacerWidth;
+			double availableWidthVault = maxVaultPanelWidth - (BorderWidthHeight * 2) - 30d; // autosortbutton
+			double targetedCellWidth = availableWidthPlayer / ColumnsPlayer;
 
 			double targetedInventoryButtonHeight = targetedCellWidth * 1.2;
 			double targetedTabItemHeight = 50f;
 
-			double availableHeightPlayer = (height - targetedInventoryButtonHeight - spacerHeight - targetedTabItemHeight - (controlPanelBorderWidthHeight * 2) - (borderWidthHeight * 2) - 5);
+			double availableHeightPlayer = (height - targetedInventoryButtonHeight - SpacerHeight - targetedTabItemHeight - (ControlPanelBorderWidthHeight * 2) - (BorderWidthHeight * 2) - 5);
 			double tempAvailableHeightVault = height - CalculateButtonWidthHeight(targetedCellWidth) - 25; // Item highlight label
-			if (targetedCellWidth * rowsPlayer <= availableHeightPlayer && targetedCellWidth * rowsVault <= tempAvailableHeightVault)
+			if (targetedCellWidth * RowsPlayer <= availableHeightPlayer && targetedCellWidth * RowsVault <= tempAvailableHeightVault)
 				return targetedCellWidth;
 
-			double targetedCellHeight = availableHeightPlayer / rowsPlayer;
+			double targetedCellHeight = availableHeightPlayer / RowsPlayer;
 
-			while (targetedCellHeight * columnsPlayer > availableWidthPlayer || targetedCellHeight * columnsVault > availableWidthVault)
+			while (targetedCellHeight * ColumnsPlayer > availableWidthPlayer || targetedCellHeight * ColumnsVault > availableWidthVault)
 				targetedCellHeight -= 1d;
 
 			return targetedCellHeight;

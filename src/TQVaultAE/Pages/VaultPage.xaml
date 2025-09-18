@@ -12,17 +12,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Components/Templates/ItemNameLabelTemplate.xaml"/>
-                <ResourceDictionary>
-                    <Style x:Key="ItemNameLabel" TargetType="{x:Type Label}">
-                        <Setter Property="Template" Value="{StaticResource ItemNameLabelTemplate}"/>
-                        <Setter Property="BorderBrush" Value="Gold"/>
-                        <Setter Property="BorderThickness" Value="2"/>
-                        <Setter Property="Background" Value="DimGray"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="Padding" Value="2"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                    </Style>
-                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -30,15 +19,15 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="1.1*"/>
+            <ColumnDefinition Width="1.2*"/>
         </Grid.ColumnDefinitions>
-        <Grid Margin="0 0 2.5 0" x:Name="ItemNameLabel">
+        <Grid Margin="0 0 2.5 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="25"/>
             </Grid.RowDefinitions>
             <comp:VaultContainer Grid.Row="0" Margin="0"/>
-            <Label Style="{StaticResource ItemNameLabel}" Grid.Row="1" Content="This is a random item" HorizontalAlignment="Left" Margin="30 0 0 0"/>
+            <comp:ItemNameLabel Grid.Row="1"/>
         </Grid>
         <comp:PlayerContainer Grid.Column="2" Margin="0"/>
     </Grid>

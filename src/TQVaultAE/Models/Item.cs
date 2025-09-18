@@ -18,6 +18,11 @@ namespace TQVaultAE.Models
 		internal string Name { get; set; }
 
 		/// <summary>
+		/// The rarity of the item.
+		/// </summary>
+		internal ItemRarity Rarity { get; set; }
+
+		/// <summary>
 		/// The size in cells in an <see langword="ItemsPanel"/>.
 		/// </summary>
 		internal Size Size { get; set; }

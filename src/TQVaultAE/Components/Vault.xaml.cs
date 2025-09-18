@@ -26,9 +26,9 @@ namespace TQVaultAE.Components
 
 			// TODO REMOVE
 			List<Item> items = [
-				new Item("Name1", new System.Drawing.Point(0, 0), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")), // TEMP
-				new Item("Name1", new System.Drawing.Point(2, 2), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")), // TEMP
-				new Item("Name1", new System.Drawing.Point(1, 7), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")), // TEMP
+				new Item("Peter Lustig", new System.Drawing.Point(0, 0), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")) {Rarity = ItemRarity.Rare}, // TEMP
+				new Item("Hans Müller", new System.Drawing.Point(2, 2), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")) {Rarity = ItemRarity.Legendary}, // TEMP
+				new Item("Ich bin sogar ein Item", new System.Drawing.Point(1, 7), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")) {Rarity = ItemRarity.Broken}, // TEMP
 			];
 			_tabItems[2] = items;
 

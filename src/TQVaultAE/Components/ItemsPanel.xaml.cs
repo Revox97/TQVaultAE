@@ -2,7 +2,9 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using TQVaultAE.Controllers.Observable;
 using TQVaultAE.Models;
+using TQVaultAE.Models.EventArgs;
 
 namespace TQVaultAE.Components
 {
@@ -14,6 +16,7 @@ namespace TQVaultAE.Components
 		private readonly double _cellWidthHeight;
 		private readonly int _columns;
 		private readonly int _rows;
+		private readonly ItemOverController _itemOverController = ItemOverController.GetInstance();
 
 		public List<Item> Items { get; set; } = [];
 
@@ -53,8 +56,11 @@ namespace TQVaultAE.Components
 						Stretch = Stretch.Fill,
 						VerticalAlignment = VerticalAlignment.Top,
 						HorizontalAlignment = HorizontalAlignment.Left,
-						DataContext = item,
+						DataContext = item
 					};
+
+					itemControl.MouseEnter += (s, e) => _itemOverController.Notify(itemControl, new ItemOverEventArgs() { ItemName = item.Name, Rarity = item.Rarity });
+					itemControl.MouseLeave += (s, e) => _itemOverController.Notify(itemControl, new ItemOverEventArgs() { IsMouseOver = false });
 
 					ItemsPanelContent.Children.Add(itemControl);
 					Grid.SetColumn(itemControl, item.Location.X);
