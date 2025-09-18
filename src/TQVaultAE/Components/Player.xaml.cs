@@ -142,13 +142,15 @@ namespace TQVaultAE.Components
 			try
 			{
 				PlayerInventory.Children.Remove(_mainSackPanel);
-				_mainSackPanel = new(cellWidthHeight, MainSackColumns, SackRows, new Thickness(2, 0, 2, 2));
+
+				Thickness thickness = new(2, 0, 2, 2);
+				_mainSackPanel = new(cellWidthHeight, MainSackColumns, SackRows, thickness);
 
 				PlayerInventory.Children.Add(_mainSackPanel);
 				Grid.SetRow(_mainSackPanel, 1);
 				Grid.SetColumn(_mainSackPanel, 0);
 
-				PlayerInventory.ColumnDefinitions[0].Width = new GridLength((cellWidthHeight * MainSackColumns) + _mainSackPanel.BorderThickness.Left + _mainSackPanel.BorderThickness.Right);
+				PlayerInventory.ColumnDefinitions[0].Width = new GridLength((cellWidthHeight * MainSackColumns) + thickness.Left + thickness.Right);
 			}
 			catch (Exception ex)
 			{
@@ -162,13 +164,14 @@ namespace TQVaultAE.Components
 			{
 				PlayerInventory.Children.Remove(_additionalSackPanel);
 
-				_additionalSackPanel = new(cellWidthHeight, AdditionalSackColumns, SackRows, new Thickness(2, 0, 2, 2));
+				Thickness thickness = new(2, 0, 2, 2);
+				_additionalSackPanel = new(cellWidthHeight, AdditionalSackColumns, SackRows, thickness);
 
 				PlayerInventory.Children.Add(_additionalSackPanel);
 				Grid.SetRow(_additionalSackPanel, 1);
 				Grid.SetColumn(_additionalSackPanel, 2);
 
-				PlayerInventory.ColumnDefinitions[2].Width = new GridLength((cellWidthHeight * AdditionalSackColumns) + _additionalSackPanel.BorderThickness.Left + _additionalSackPanel.BorderThickness.Right);
+				PlayerInventory.ColumnDefinitions[2].Width = new GridLength((cellWidthHeight * AdditionalSackColumns) + thickness.Left + thickness.Right);
 			}
 			catch (Exception ex)
 			{
