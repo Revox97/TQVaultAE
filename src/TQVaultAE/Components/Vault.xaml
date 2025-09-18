@@ -91,18 +91,18 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="0" IsChecked="True"/>
-            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="1"/>
-            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="2"/>
-            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="3"/>
-            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="4"/>
-            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="5"/>
-            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="6"/>
-            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="7"/>
-            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="8"/>
-            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="9"/>
-            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="10"/>
-            <ToggleButton Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="11"/>
+            <ToggleButton x:Uid="0" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="0" IsChecked="True"/>
+            <ToggleButton x:Uid="1" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="1"/>
+            <ToggleButton x:Uid="2" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="2"/>
+            <ToggleButton x:Uid="3" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="3"/>
+            <ToggleButton x:Uid="4" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="4"/>
+            <ToggleButton x:Uid="5" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="5"/>
+            <ToggleButton x:Uid="6" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="6"/>
+            <ToggleButton x:Uid="7" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="7"/>
+            <ToggleButton x:Uid="8" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="8"/>
+            <ToggleButton x:Uid="9" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="9"/>
+            <ToggleButton x:Uid="10" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="10"/>
+            <ToggleButton x:Uid="11" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="11"/>
         </Grid>
     </Grid>
 </UserControl>

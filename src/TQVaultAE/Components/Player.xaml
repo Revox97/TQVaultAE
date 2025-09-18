@@ -118,9 +118,9 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ToggleButton Grid.Column="0" VerticalAlignment="Bottom" Checked="PlayerSack_Checked" Unchecked="PlayerSack_Unchecked" x:Name="PlayerSackOne" Style="{StaticResource VaultTabToggleButton}" IsChecked="True"/>
-                <ToggleButton Grid.Column="1" VerticalAlignment="Bottom" Checked="PlayerSack_Checked" Unchecked="PlayerSack_Unchecked" x:Name="PlayerSackTwo" Style="{StaticResource VaultTabToggleButton}"/>
-                <ToggleButton Grid.Column="2" VerticalAlignment="Bottom" Checked="PlayerSack_Checked" Unchecked="PlayerSack_Unchecked" x:Name="PlayerSackThree" Style="{StaticResource VaultTabToggleButton}"/>
+                <ToggleButton Grid.Column="0" x:Uid="0" VerticalAlignment="Bottom" Checked="PlayerSack_Checked" Unchecked="PlayerSack_Unchecked" x:Name="PlayerSackOne" Style="{StaticResource VaultTabToggleButton}" IsChecked="True"/>
+                <ToggleButton Grid.Column="1" x:Uid="1" VerticalAlignment="Bottom" Checked="PlayerSack_Checked" Unchecked="PlayerSack_Unchecked" x:Name="PlayerSackTwo" Style="{StaticResource VaultTabToggleButton}"/>
+                <ToggleButton Grid.Column="2" x:Uid="2" VerticalAlignment="Bottom" Checked="PlayerSack_Checked" Unchecked="PlayerSack_Unchecked" x:Name="PlayerSackThree" Style="{StaticResource VaultTabToggleButton}"/>
                 <Border Grid.Column="3" BorderBrush="Gold" BorderThickness="0 0 0 2">
                     <Button Style="{StaticResource AutoSortButton}" Grid.Column="4" x:Name="AdditionalAutoSort" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
                 </Border>

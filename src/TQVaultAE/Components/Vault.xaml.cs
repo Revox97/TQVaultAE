@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using TQVaultAE.Controllers.Observable;
+using TQVaultAE.Models;
 using TQVaultAE.Models.EventArgs;
 
 namespace TQVaultAE.Components
@@ -15,11 +16,22 @@ namespace TQVaultAE.Components
 		private const int Rows = 20;
 		private ItemsPanel? _panel;
 
+		private readonly List<List<Item>> _tabItems = [ [], [], [], [], [], [], [], [], [], [], [], [] ];
+
 		private readonly SemaphoreSlim _uiUpdateSemaphore = new(1, 1);
 
         public Vault()
         {
             InitializeComponent();
+
+			// TODO REMOVE
+			List<Item> items = [
+				new Item("Name1", new System.Drawing.Point(0, 0), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")), // TEMP
+				new Item("Name1", new System.Drawing.Point(2, 2), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")), // TEMP
+				new Item("Name1", new System.Drawing.Point(1, 7), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")), // TEMP
+			];
+			_tabItems[2] = items;
+
 			ContentScaleController.GetInstance().AddObserver(this);
         }
 
@@ -44,7 +56,8 @@ namespace TQVaultAE.Components
 		{
 			Container.Children.Remove(_panel);
 			Thickness thickness = new(2, 0, 2, 2);
-			_panel = new(args.General.ItemCellDimensions.Width, Columns, Rows, new Thickness(2, 0, 2, 2));
+			
+			_panel = new(LoadContent(), args.General.ItemCellDimensions.Width, Columns, Rows, new Thickness(2, 0, 2, 2));
 
 			Container.Children.Add(_panel);
 			Grid.SetRow(_panel, 1);
@@ -53,6 +66,28 @@ namespace TQVaultAE.Components
 			Container.ColumnDefinitions[1].Width = new GridLength(ItemsPanel.CalculateDimensions(args.General.ItemCellDimensions.Width, Columns, Rows, thickness).Width);
 			Container.RowDefinitions[0].Height = new GridLength(args.VaultTab.VaultPanel.ButtonWidthHeight);
         }
+
+		private List<Item> LoadContent(int id = -1)
+		{
+			ArgumentOutOfRangeException.ThrowIfLessThan(id, -1, nameof(id));
+			ArgumentOutOfRangeException.ThrowIfGreaterThan(id, _tabItems.Count, nameof(id));
+
+			if (id != -1)
+				return _tabItems[id];
+
+			int sackId = 0;
+
+			foreach (FrameworkElement control in TabContainer.Children)
+			{
+				if (control is ToggleButton button && button.IsChecked == true)
+				{
+					sackId = int.Parse(button.Uid);
+					break;
+				}
+			}
+
+			return _tabItems[sackId];
+		}
 
 		private void Bag_Checked(object sender, RoutedEventArgs e)
 		{
@@ -64,7 +99,11 @@ namespace TQVaultAE.Components
 						button.IsChecked = false;
 				}
 
-				// TODO Invoke data load
+				if (_panel is not null)
+				{
+					_panel.Items = LoadContent(int.Parse(sackButton.Uid));
+					_panel.LoadItems();
+				}
 			}
 		}
 

@@ -14,9 +14,10 @@ namespace TQVaultAE.Components
 		private readonly double _cellWidthHeight;
 		private readonly int _columns;
 		private readonly int _rows;
-		private readonly List<Item> _items = [];
 
-        public ItemsPanel(double columnWidthHeight, int columns, int rows, Thickness borderThickness)
+		public List<Item> Items { get; set; } = [];
+
+        public ItemsPanel(List<Item> items, double columnWidthHeight, int columns, int rows, Thickness borderThickness)
         {
             InitializeComponent();
 
@@ -30,20 +31,16 @@ namespace TQVaultAE.Components
 			ItemsPanelBorder.Width = dimensions.Width;
 			ItemsPanelBorder.BorderThickness = borderThickness;
 
-			// Set Items
-			try
-			{
-				_items.Add(new Item("Name1", new System.Drawing.Point(0, 0), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png"))); // TEMP
-				_items.Add(new Item("Name1", new System.Drawing.Point(2, 2), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png"))); // TEMP
-				_items.Add(new Item("Name1", new System.Drawing.Point(1, 7), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png"))); // TEMP
-			} catch { }
-
-			AddItems();
+			Items = items;
+			LoadItems();
         }
 
-		private void AddItems()
+		public void LoadItems()
 		{
-			foreach (Item item in _items)
+			ItemsPanelContent.Children.Clear();
+			InitializeCells();
+
+			foreach (Item item in Items)
 			{
 				try
 				{
@@ -74,7 +71,7 @@ namespace TQVaultAE.Components
 
 		private bool IsValidPlacement(Item item)
 		{
-			if (_items.Any(i => i.IsLocationOverlap(item)))
+			if (Items.Any(i => i.IsLocationOverlap(item)))
 				return false;
 
 			return !(item.Location.X < 0 || item.Location.X + item.Size.Width > _columns || item.Location.Y < 0 || item.Location.Y + item.Size.Height > _rows);

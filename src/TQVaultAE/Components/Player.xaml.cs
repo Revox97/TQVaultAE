@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using TQVaultAE.Controllers.Observable;
+using TQVaultAE.Models;
 using TQVaultAE.Models.EventArgs;
 
 namespace TQVaultAE.Components
@@ -17,12 +18,24 @@ namespace TQVaultAE.Components
 
 		private ItemsPanel? _mainSackPanel;
 		private ItemsPanel? _additionalSackPanel;
+		private readonly List<Item> _mainSackItems = [];
+		private readonly List<List<Item>> _additionalSackItems = [ [], [], [] ];
 
 		private readonly SemaphoreSlim _uiUpdateSemaphore = new(1, 1);
 
         public Player()
         {
             InitializeComponent();
+
+			// TODO REMOVE
+			List<Item> items = [
+				new Item("Name1", new System.Drawing.Point(0, 0), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")), // TEMP
+				new Item("Name1", new System.Drawing.Point(2, 2), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")), // TEMP
+				new Item("Name1", new System.Drawing.Point(4, 2), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")), // TEMP
+			];
+			_mainSackItems = items;
+			_additionalSackItems[1] = items;
+
 			ContentScaleController.GetInstance().AddObserver(this);
         }
 
@@ -36,8 +49,34 @@ namespace TQVaultAE.Components
 						button.IsChecked = false;
 				}
 
-				// TODO Invoke data load
+				if (_additionalSackPanel is not null)
+				{
+					_additionalSackPanel.Items = LoadAdditionalSackContent(int.Parse(sackButton.Uid));
+					_additionalSackPanel.LoadItems();
+				}
 			}
+		}
+
+		private List<Item> LoadAdditionalSackContent(int id = -1)
+		{
+			ArgumentOutOfRangeException.ThrowIfLessThan(id, -1, nameof(id));
+			ArgumentOutOfRangeException.ThrowIfGreaterThan(id, _additionalSackItems.Count, nameof(id));
+
+			if (id != -1)
+				return _additionalSackItems[id];
+
+			int sackId = 0;
+
+			foreach (FrameworkElement control in AdditionalSackTabs.Children)
+			{
+				if (control is ToggleButton button && button.IsChecked == true)
+				{
+					sackId = int.Parse(button.Uid);
+					break;
+				}
+			}
+
+			return _additionalSackItems[sackId];
 		}
 
 		private void PlayerSack_Unchecked(object sender, RoutedEventArgs e)
@@ -100,17 +139,17 @@ namespace TQVaultAE.Components
 
 		private void UpdateStorageAreaTab(ContentScaleUpdatedEventArgs args)
 		{
-			TabStorageArea.Content = new ItemsPanel(args.General.ItemCellDimensions.Width, 16, 15, new Thickness(2));
+			TabStorageArea.Content = new ItemsPanel([], args.General.ItemCellDimensions.Width, 16, 15, new Thickness(2));
 		}
 
 		private void UpdateTransferAreaTab(ContentScaleUpdatedEventArgs args)
 		{
-			TabTransferArea.Content = new ItemsPanel(args.General.ItemCellDimensions.Width, 16, 15, new Thickness(2));
+			TabTransferArea.Content = new ItemsPanel([], args.General.ItemCellDimensions.Width, 16, 15, new Thickness(2));
 		}
 
 		private void UpdateRelicVaultTab(ContentScaleUpdatedEventArgs args)
 		{
-			TabRelicVault.Content = new ItemsPanel(args.General.ItemCellDimensions.Width, 16, 15, new Thickness(2));
+			TabRelicVault.Content = new ItemsPanel([], args.General.ItemCellDimensions.Width, 16, 15, new Thickness(2));
 		}
 
 		private void SetHeaders(double newHeaderWidthHeight)
@@ -144,11 +183,11 @@ namespace TQVaultAE.Components
 				PlayerInventory.Children.Remove(_mainSackPanel);
 
 				Thickness thickness = new(2, 0, 2, 2);
-				_mainSackPanel = new(cellWidthHeight, MainSackColumns, SackRows, thickness);
+				_mainSackPanel = new(_mainSackItems, cellWidthHeight, MainSackColumns, SackRows, thickness);
 
 				PlayerInventory.Children.Add(_mainSackPanel);
-				Grid.SetRow(_mainSackPanel, 1);
 				Grid.SetColumn(_mainSackPanel, 0);
+				Grid.SetRow(_mainSackPanel, 1);
 
 				PlayerInventory.ColumnDefinitions[0].Width = new GridLength((cellWidthHeight * MainSackColumns) + thickness.Left + thickness.Right);
 			}
@@ -165,11 +204,11 @@ namespace TQVaultAE.Components
 				PlayerInventory.Children.Remove(_additionalSackPanel);
 
 				Thickness thickness = new(2, 0, 2, 2);
-				_additionalSackPanel = new(cellWidthHeight, AdditionalSackColumns, SackRows, thickness);
+				_additionalSackPanel = new(LoadAdditionalSackContent(), cellWidthHeight, AdditionalSackColumns, SackRows, thickness);
 
 				PlayerInventory.Children.Add(_additionalSackPanel);
-				Grid.SetRow(_additionalSackPanel, 1);
 				Grid.SetColumn(_additionalSackPanel, 2);
+				Grid.SetRow(_additionalSackPanel, 1);
 
 				PlayerInventory.ColumnDefinitions[2].Width = new GridLength((cellWidthHeight * AdditionalSackColumns) + thickness.Left + thickness.Right);
 			}

@@ -5,7 +5,7 @@ using System.Windows.Media.Imaging;
 
 namespace TQVaultAE.Models
 {
-	internal class Item
+	public class Item
 	{
 		/// <summary>
 		/// The seed of the item.
