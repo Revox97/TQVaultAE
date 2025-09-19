@@ -19,16 +19,16 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="1.2*"/>
+            <ColumnDefinition Width="1.1*"/>
         </Grid.ColumnDefinitions>
         <Grid Margin="0 0 2.5 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="25"/>
             </Grid.RowDefinitions>
-            <comp:VaultContainer Grid.Row="0" Margin="0"/>
-            <comp:ItemNameLabel Grid.Row="1"/>
+            <comp:VaultContainer Grid.Row="0" Margin="0" HorizontalAlignment="Center"/>
+            <comp:ItemNameLabel Grid.Row="1" HorizontalAlignment="Center"/>
         </Grid>
-        <comp:PlayerContainer Grid.Column="2" Margin="0"/>
+        <comp:PlayerContainer Grid.Column="2" Margin="0" HorizontalAlignment="Center"/>
     </Grid>
 </Page>

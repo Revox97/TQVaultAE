@@ -4,6 +4,7 @@ using System.Windows.Controls.Primitives;
 using TQVaultAE.Controllers.Observable;
 using TQVaultAE.Models;
 using TQVaultAE.Models.EventArgs;
+using TQVaultAE.Models.Game;
 
 namespace TQVaultAE.Components
 {
@@ -29,9 +30,9 @@ namespace TQVaultAE.Components
 
 			// TODO REMOVE
 			List<Item> items = [
-				new Item("Name1", new System.Drawing.Point(0, 0), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")), // TEMP
-				new Item("Name1", new System.Drawing.Point(2, 2), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")), // TEMP
-				new Item("Name1", new System.Drawing.Point(4, 2), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")), // TEMP
+				new ItemBuilder().SetLocation(0, 0).SetSize(2, 2).SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")).Create(),
+				new ItemBuilder().SetLocation(2, 2).SetSize(2, 2).SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")).Create(),
+				new ItemBuilder().SetLocation(4, 0).SetSize(2, 2).SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")).Create(),
 			];
 			_mainSackItems = items;
 			_additionalSackItems[1] = items;

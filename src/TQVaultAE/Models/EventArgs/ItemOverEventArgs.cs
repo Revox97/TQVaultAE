@@ -1,4 +1,6 @@
-﻿namespace TQVaultAE.Models.EventArgs
+﻿using TQVaultAE.Models.Game;
+
+namespace TQVaultAE.Models.EventArgs
 {
 	public class ItemOverEventArgs 
 	{

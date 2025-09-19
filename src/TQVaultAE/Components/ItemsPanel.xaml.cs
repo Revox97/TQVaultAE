@@ -5,6 +5,7 @@ using System.Windows.Media.Imaging;
 using TQVaultAE.Controllers.Observable;
 using TQVaultAE.Models;
 using TQVaultAE.Models.EventArgs;
+using TQVaultAE.Models.Game;
 
 namespace TQVaultAE.Components
 {

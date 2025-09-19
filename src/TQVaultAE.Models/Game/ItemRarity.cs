@@ -1,6 +1,6 @@
-﻿namespace TQVaultAE.Models
+﻿namespace TQVaultAE.Models.Game
 {
-	// Add missing type
+	// Add missing types
 	public enum ItemRarity
 	{
 		Broken,

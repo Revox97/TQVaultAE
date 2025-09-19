@@ -52,7 +52,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TQVaultAE.Presentation\TQVaultAE.Presentation.csproj" />
+    <ProjectReference Include="..\TQVaultAE.Models\TQVaultAE.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>

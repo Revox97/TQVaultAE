@@ -4,6 +4,7 @@ using System.Windows.Controls.Primitives;
 using TQVaultAE.Controllers.Observable;
 using TQVaultAE.Models;
 using TQVaultAE.Models.EventArgs;
+using TQVaultAE.Models.Game;
 
 namespace TQVaultAE.Components
 {
@@ -26,9 +27,9 @@ namespace TQVaultAE.Components
 
 			// TODO REMOVE
 			List<Item> items = [
-				new Item("Peter Lustig", new System.Drawing.Point(0, 0), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")) {Rarity = ItemRarity.Rare}, // TEMP
-				new Item("Hans Müller", new System.Drawing.Point(2, 2), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")) {Rarity = ItemRarity.Legendary}, // TEMP
-				new Item("Ich bin sogar ein Item", new System.Drawing.Point(1, 7), new System.Drawing.Size(2,2), new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")) {Rarity = ItemRarity.Broken}, // TEMP
+				new ItemBuilder().SetName("Peter Lusting").SetRarity(ItemRarity.Legendary).SetLocation(0, 0).SetSize(2, 2).SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")).Create(),
+				new ItemBuilder().SetName("Hans Müller").SetRarity(ItemRarity.MonsterRare).SetLocation(2, 2).SetSize(2, 2).SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")).Create(),
+				new ItemBuilder().SetName("Ich bin sogar ein Item").SetRarity(ItemRarity.Rare).SetLocation(1, 7).SetSize(2, 2).SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")).Create(),
 			];
 			_tabItems[2] = items;
 

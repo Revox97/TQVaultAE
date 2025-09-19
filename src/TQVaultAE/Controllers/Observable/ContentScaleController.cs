@@ -88,10 +88,10 @@ namespace TQVaultAE.Controllers.Observable
 		{
 			double dropDownHeight = 70d;
 			double contentWidth = args.ContentWidth;
-			double contentHeight = args.ContentHeight - dropDownHeight - 30d;
+			double contentHeight = args.ContentHeight - dropDownHeight - 30d - 5d;
 			double autoSortWidth = 30d;
 
-			double maxPlayerPanelWidth = (contentWidth / 2) * 1.1;
+			double maxPlayerPanelWidth = (contentWidth / 2 - 5) * .95;
 			double maxVaultPanelWidth = contentWidth - maxPlayerPanelWidth - autoSortWidth;
 
 			double cellWidthHeight = CalculateCellWithHeight(maxPlayerPanelWidth, maxVaultPanelWidth, contentHeight);
