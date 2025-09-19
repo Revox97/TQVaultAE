@@ -97,11 +97,18 @@ namespace TQVaultAE.Components
 			try
 			{
 				GridLength size = new(_cellWidthHeight);
+
 				for (int i = 0; i< _columns; ++i)
+				{
+					BackgroundContainer.ColumnDefinitions.Add(new ColumnDefinition() { Width = size });
 					ItemsPanelContent.ColumnDefinitions.Add(new ColumnDefinition() { Width = size });
+				}
 
 				for (int i = 0; i < _rows; ++i)
+				{
+					BackgroundContainer.RowDefinitions.Add(new RowDefinition() { Height = size });
 					ItemsPanelContent.RowDefinitions.Add(new RowDefinition() { Height = size });
+				}
 
 				InitializeCells();
 			}
@@ -116,13 +123,13 @@ namespace TQVaultAE.Components
 			if (FindResource("ItemSlot") is Style style)
 			{
 				// TODO optimize this chunk of code
-				for (int r = 0; r < ItemsPanelContent.RowDefinitions.Count; ++r)
+				for (int r = 0; r < BackgroundContainer.RowDefinitions.Count; ++r)
 				{
-					for (int c = 0; c < ItemsPanelContent.ColumnDefinitions.Count; ++c)
+					for (int c = 0; c < BackgroundContainer.ColumnDefinitions.Count; ++c)
 					{
 						Border border = new() { Style = style };
 
-						ItemsPanelContent.Children.Add(border);
+						BackgroundContainer.Children.Add(border);
 						Grid.SetRow(border, r);
 						Grid.SetColumn(border, c);
 					}

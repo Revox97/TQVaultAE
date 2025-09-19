@@ -21,6 +21,9 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Border BorderBrush="Gold" x:Name="ItemsPanelBorder" HorizontalAlignment="Left" VerticalAlignment="Top">
-        <Grid x:Name="ItemsPanelContent"></Grid>
+        <Grid>
+            <Grid Grid.Row="0" Grid.Column="0" x:Name="BackgroundContainer"></Grid>
+            <Grid Grid.Row="0" Grid.Column="0" x:Name="ItemsPanelContent"></Grid>
+        </Grid>
     </Border>
 </UserControl>
