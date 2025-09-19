@@ -31,6 +31,7 @@
     <None Remove="Resources\Img\inventorybagdown01.png" />
     <None Remove="Resources\Img\inventorybagover01.png" />
     <None Remove="Resources\Img\inventorybagup01.png" />
+    <None Remove="Resources\Img\ItemAccent.png" />
     <None Remove="Resources\Img\MainButtonDown.jpg" />
     <None Remove="Resources\Img\MainButtonOver.jpg" />
     <None Remove="Resources\Img\MainButtonUp.jpg" />
@@ -78,6 +79,7 @@
     <Resource Include="Resources\Img\inventorybagdown01.png" />
     <Resource Include="Resources\Img\inventorybagover01.png" />
     <Resource Include="Resources\Img\inventorybagup01.png" />
+    <Resource Include="Resources\Img\ItemAccent.png" />
     <Resource Include="Resources\Img\MainButtonDown.jpg" />
     <Resource Include="Resources\Img\MainButtonOver.jpg" />
     <Resource Include="Resources\Img\MainButtonUp.jpg" />

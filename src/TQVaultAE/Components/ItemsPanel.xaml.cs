@@ -44,39 +44,33 @@ namespace TQVaultAE.Components
 			ItemsPanelContent.Children.Clear();
 			InitializeCells();
 
-			foreach (Item item in Items)
-			{
-				try
-				{
-					if (!IsValidPlacement(item))
-						throw new InvalidOperationException("Invalid item placement. Another item is already located in this position.");
+            foreach (Item item in Items)
+            {
+                try
+                {
+                    if (!IsValidPlacement(item))
+                        throw new InvalidOperationException("Invalid item placement. Another item is already located in this position.");
 
-					Image itemControl = new()
-					{
-						Source = item.Icon,
-						Stretch = Stretch.Fill,
-						VerticalAlignment = VerticalAlignment.Top,
-						HorizontalAlignment = HorizontalAlignment.Left,
-						DataContext = item
-					};
-
-					itemControl.MouseEnter += (s, e) => _itemOverController.Notify(itemControl, new ItemOverEventArgs() { ItemName = item.Name, Rarity = item.Rarity });
-					itemControl.MouseLeave += (s, e) => _itemOverController.Notify(itemControl, new ItemOverEventArgs() { IsMouseOver = false });
-
-					ItemsPanelContent.Children.Add(itemControl);
-					Grid.SetColumn(itemControl, item.Location.X);
-					Grid.SetColumnSpan(itemControl, item.Size.Width);
-					Grid.SetRow(itemControl, item.Location.Y);
-					Grid.SetRowSpan(itemControl, item.Size.Height);
-				}
-				catch(Exception ex)
-				{
-					// TODO add logging
-				}
-			}
+                    CreateItem(item);
+                }
+                catch(Exception ex)
+                {
+                    // TODO add logging
+                }
+            }
 		}
 
-		private bool IsValidPlacement(Item item)
+		private void CreateItem(Item item)
+		{
+			ItemControl itemControl = new(item);
+            ItemsPanelContent.Children.Add(itemControl);
+            Grid.SetColumn(itemControl, item.Location.X);
+            Grid.SetColumnSpan(itemControl, item.Size.Width);
+            Grid.SetRow(itemControl, item.Location.Y);
+            Grid.SetRowSpan(itemControl, item.Size.Height);
+		}
+
+        private bool IsValidPlacement(Item item)
 		{
 			if (Items.Any(i => i.IsLocationOverlap(item)))
 				return false;
@@ -120,7 +114,7 @@ namespace TQVaultAE.Components
 
 		private void InitializeCells()
 		{
-			if (FindResource("ItemSlot") is Style style)
+			if (FindResource("ItemSlotBackground") is Style style)
 			{
 				// TODO optimize this chunk of code
 				for (int r = 0; r < BackgroundContainer.RowDefinitions.Count; ++r)
