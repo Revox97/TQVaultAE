@@ -72,13 +72,11 @@ namespace TQVaultAE.Components
 
         private bool IsValidPlacement(Item item)
 		{
-			if (Items.Any(i => i.IsLocationOverlap(item)))
-				return false;
+            return !Items.Any(i => i.IsLocationOverlap(item)) 
+				&& !(item.Location.X < 0 || item.Location.X + item.Size.Width > _columns || item.Location.Y < 0 || item.Location.Y + item.Size.Height > _rows);
+        }
 
-			return !(item.Location.X < 0 || item.Location.X + item.Size.Width > _columns || item.Location.Y < 0 || item.Location.Y + item.Size.Height > _rows);
-		}
-
-		public static Size CalculateDimensions(double cellWidthHeight, int columns, int rows, Thickness borderThickness)
+        public static Size CalculateDimensions(double cellWidthHeight, int columns, int rows, Thickness borderThickness)
 		{
 			double height = (cellWidthHeight * rows) + borderThickness.Top + borderThickness.Bottom;
 			double width = (cellWidthHeight * columns) + borderThickness.Left + borderThickness.Right;
