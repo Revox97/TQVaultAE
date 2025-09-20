@@ -30,9 +30,9 @@ namespace TQVaultAE.Components
 
 			// TODO REMOVE
 			List<Item> items = [
-				new ItemBuilder().SetLocation(0, 0).SetSize(2, 2).SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")).Create(),
-				new ItemBuilder().SetLocation(2, 2).SetSize(2, 2).SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")).Create(),
-				new ItemBuilder().SetLocation(4, 0).SetSize(2, 2).SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")).Create(),
+				new ItemBuilder().SetLocation(0, 0).SetSize(2, 2).SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")).Build(),
+				new ItemBuilder().SetLocation(2, 2).SetSize(2, 2).SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")).Build(),
+				new ItemBuilder().SetLocation(4, 0).SetSize(2, 2).SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")).Build(),
 			];
 			_mainSackItems = items;
 			_additionalSackItems[1] = items;

@@ -1,150 +1,169 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Xml.Serialization;
-using TQVaultAE.Controllers.Observable;
-using TQVaultAE.Models.EventArgs;
-using TQVaultAE.Services;
+using TQVaultAE.Models;
+using TQVaultAE.Models.Game;
+using TQVaultAE.Models.Resource;
 
 namespace TQVaultAE.Components
 {
 	/// <summary>
 	/// Interaction logic for Equipment.xaml
 	/// </summary>
-	public partial class Equipment : UserControl, IContentScaleObserver
+	public partial class Equipment : UserControl
 	{
+        private readonly EquipmentModel _model;
+
 		public Equipment()
 		{
 			InitializeComponent();
-			ContentScaleController.GetInstance().AddObserver(this);
+
+            Item weapon1 = new ItemBuilder()
+                .SetName("Weapon One")
+                .SetRarity(ItemRarity.Legendary)
+                .SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/MockItem2x4.png"))
+                .SetType(ItemType.WeaponTwoHanded)
+                .Build();
+
+            Item artifact = new ItemBuilder()
+                .SetName("Artifact")
+                .SetRarity(ItemRarity.Epic)
+                .SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/MockItem2x2.png"))
+                .SetType(ItemType.Artifact)
+                .Build();
+
+            Item weapon2 = new ItemBuilder()
+                .SetName("Weapon Two")
+                .SetRarity(ItemRarity.Rare)
+                .SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/MockItem2x4.png"))
+                .SetType(ItemType.WeaponOneHanded)
+                .Build();
+
+            Item head = new ItemBuilder()
+                .SetName("Helmet")
+                .SetRarity(ItemRarity.MonsterRare)
+                .SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/MockItem2x2.png"))
+                .SetType(ItemType.Head)
+                .Build();
+
+            Item necklace = new ItemBuilder()
+                .SetName("Necklace")
+                .SetRarity(ItemRarity.Common)
+                .SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/MockItem2x1.png"))
+                .SetType(ItemType.Necklace)
+                .Build();
+
+            Item torso = new ItemBuilder()
+                .SetName("Torso")
+                .SetRarity(ItemRarity.Common)
+                .SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/MockItem2x3.png"))
+                .SetType(ItemType.Torso)
+                .Build();
+
+            Item legs = new ItemBuilder()
+                .SetName("Legs")
+                .SetRarity(ItemRarity.Common)
+                .SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/MockItem2x2.png"))
+                .SetType(ItemType.Legs)
+                .Build();
+
+            Item ring1 = new ItemBuilder()
+                .SetName("Ring one")
+                .SetRarity(ItemRarity.Common)
+                .SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/MockItem2x1.png"))
+                .SetType(ItemType.Ring)
+                .Build();
+
+            Item ring2 = new ItemBuilder()
+                .SetName("Ring two")
+                .SetRarity(ItemRarity.Rare)
+                .SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/MockItem2x1.png"))
+                .SetType(ItemType.Ring)
+                .Build();
+
+            Item shield1 = new ItemBuilder()
+                .SetName("Shield1")
+                .SetRarity(ItemRarity.Rare)
+                .SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/MockItem2x4.png"))
+                .SetType(ItemType.Shield)
+                .Build();
+
+            Item arms = new ItemBuilder()
+                .SetName("Arms")
+                .SetRarity(ItemRarity.Rare)
+                .SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/MockItem2x2.png"))
+                .SetType(ItemType.Arms)
+                .Build();
+
+            Item shield2 = new ItemBuilder()
+                .SetName("Shield two")
+                .SetRarity(ItemRarity.Legendary)
+                .SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/MockItem2x4.png"))
+                .SetType(ItemType.Shield)
+                .Build();
+
+            _model = new EquipmentModelBuilder()
+                .AddWeaponOne(weapon1)
+                .AddArtifact(artifact)
+                .AddWeaponTwo(weapon2)
+                .AddHeadArmor(head)
+                .AddNecklace(necklace)
+                .AddTorsoArmor(torso)
+                .AddLegArmor(legs)
+                .AddRingOne(ring1)
+                .AddRingTwo(ring2)
+                .AddShieldOne(shield1)
+                .AddArmArmor(arms)
+                .AddShieldTwo(shield2)
+                .Build();
 		}
 
-		public void Notify(object sender, ContentScaleUpdatedEventArgs args)
-		{
-			SetGridDimensions(args);
-		}
+        private void LoadItems()
+        {
+            EquipmentContainerLeft.Children.Add(CreateItem(1, _model.WeaponOne, new ImageBrush(Images.EquipmentWeaponOneBackground), Images.EquipmentWeaponOneOverlay));
+            EquipmentContainerLeft.Children.Add(CreateItem(3, _model.Artifact, new ImageBrush(Images.EquipmentArtifactBackground), Images.EquipmentArtifactOverlay));
+            EquipmentContainerLeft.Children.Add(CreateItem(5, _model.WeaponTwo, new ImageBrush(Images.EquipmentWeaponTwoBackground), Images.EquipmentWeaponTwoOverlay));
 
-		private void SetGridDimensions(ContentScaleUpdatedEventArgs? args = null)
-		{
-            if (EquipmentOverlay.Source is null)
-                return;
+            EquipmentContainerMiddle.Children.Add(CreateItem(1, _model.Head, new ImageBrush(Images.EquipmentHeadBackground), Images.EquipmentHeadOverlay));
+            EquipmentContainerMiddle.Children.Add(CreateItem(3, _model.Necklace, new ImageBrush(Images.EquipmentNecklaceBackground), Images.EquipmentNecklaceOverlay));
+            EquipmentContainerMiddle.Children.Add(CreateItem(5, _model.Torso, new ImageBrush(Images.EquipmentTorsoBackground), Images.EquipmentTorsoOverlay));
+            EquipmentContainerMiddle.Children.Add(CreateItem(7, _model.Legs, new ImageBrush(Images.EquipmentLegsBackground), Images.EquipmentLegsOverlay));
+            // TODO implement handling of two rings
+            EquipmentContainerMiddle.Children.Add(CreateItem(9, _model.RingOne, new ImageBrush(Images.EquipmentRingsBackground), Images.EquipmentRingsOverlay));
 
-            byte[] pixels = BitmapPixelSevice.GetRenderedPixels(EquipmentOverlay, out int stride, out int width, out int height);
-            (int, int) columnPositions = SetColumnDefinitions(pixels, stride, height);
-            SetRowDefinitions(pixels, stride, height, columnPositions.Item1, columnPositions.Item2);
+            EquipmentContainerRight.Children.Add(CreateItem(1, _model.ShieldOne, new ImageBrush(Images.EquipmentShieldOneBackground), Images.EquipmentShieldOneOverlay));
+            EquipmentContainerRight.Children.Add(CreateItem(3, _model.Arms, new ImageBrush(Images.EquipmentArmsBackground), Images.EquipmentArmsOverlay));
+            EquipmentContainerRight.Children.Add(CreateItem(5, _model.ShieldTwo, new ImageBrush(Images.EquipmentShieldTwoBackground), Images.EquipmentShieldTwoOverlay));
         }
 
-        private (int, int) SetColumnDefinitions(byte[] pixels, int stride, int height)
+        private static Border CreateItem(int row, Item? item, ImageBrush background, ImageSource overlay)
         {
-            int totalWidth = 0;
+            Border itemContainer = new() { Background = background };
 
-            totalWidth = SetColumnDefinition(0, pixels, stride, totalWidth, height, true);
-            int columnLeft = totalWidth + 5;
+            Grid.SetRow(itemContainer, row);
+            Grid content = new();
 
-            totalWidth = SetColumnDefinition(1, pixels, stride, totalWidth, height, false);
-            totalWidth = SetColumnDefinition(2, pixels, stride, totalWidth, height, true);
-            int columnMiddle = totalWidth + 5;
-
-            totalWidth = SetColumnDefinition(3, pixels, stride, totalWidth, height, false);
-            totalWidth = SetColumnDefinition(4, pixels, stride, totalWidth, height, true);
-            totalWidth = SetColumnDefinition(5, pixels, stride, totalWidth, height, false);
-            _ = SetColumnDefinition(6, pixels, stride, totalWidth, height, true);
-
-            return (columnLeft, columnMiddle);
-        }
-
-        private int SetColumnDefinition(int column, byte[] pixels, int stride, int totalWidth, int height, bool isTransparent)
-        {
-            int width = GetWidthByPixels(pixels, stride, totalWidth, height, isTransparent);
-            ItemsContainer.ColumnDefinitions[column].Width = new GridLength(width);
-
-            return totalWidth + width;
-        }
-
-        private static int GetWidthByPixels(byte[] pixels, int stride, int startX, int imageHeight, bool isTransparent)
-        {
-            int y = imageHeight / 2;
-
-            for (int x = startX; x < stride / 4; x++) // divide stride by 4 to get width in pixels
+            if (item is not null)
             {
-                int index = (y * stride) + (x * 4); // proper (x,y) to byte array
+                ItemControl itemControl = new(item) { Margin = new Thickness(7.5) };
+                content.Children.Add(itemControl);
 
-                if (index + 3 >= pixels.Length)
-                    break;
-
-                byte alpha = pixels[index + 3];
-
-                if (isTransparent && alpha == 0)
-                    return x - startX;
-
-                if (!isTransparent && alpha != 0)
-                    return x - startX;
+                content.MouseEnter += (s, e) => itemControl.AddHighlight();
+                content.MouseLeave += (s, e) => itemControl.RemoveHighlight();
             }
 
-            return (stride / 4) - startX; // default fallback
-        }
-
-        private void SetRowDefinitions(byte[] pixels, int stride, int height, int leftColumn, int middleColumn)
-        {
-            int completeHeight = 0;
-
-            completeHeight = SetRowDefinition(0, pixels, stride, completeHeight, middleColumn, height, true);
-            completeHeight = SetRowDefinition(1, pixels, stride, completeHeight, leftColumn, height, true);
-            completeHeight = SetRowDefinition(2, pixels, stride, completeHeight, middleColumn, height, false);
-            completeHeight = SetRowDefinition(3, pixels, stride, completeHeight, middleColumn, height, true);
-            completeHeight = SetRowDefinition(4, pixels, stride, completeHeight, middleColumn, height, false);
-            completeHeight = SetRowDefinition(5, pixels, stride, completeHeight, leftColumn, height, false);
-            completeHeight = SetRowDefinition(6, pixels, stride, completeHeight, middleColumn, height, true);
-            completeHeight = SetRowDefinition(7, pixels, stride, completeHeight, leftColumn, height, true);
-            completeHeight = SetRowDefinition(8, pixels, stride, completeHeight, middleColumn, height, false);
-            completeHeight = SetRowDefinition(9, pixels, stride, completeHeight, middleColumn, height, true);
-            completeHeight = SetRowDefinition(10, pixels, stride, completeHeight, leftColumn, height, true);
-            completeHeight = SetRowDefinition(11, pixels, stride, completeHeight, middleColumn, height, false);
-            completeHeight = SetRowDefinition(12, pixels, stride, completeHeight, middleColumn, height, true);
-            completeHeight = SetRowDefinition(13, pixels, stride, completeHeight, middleColumn, height, false);
-            completeHeight = SetRowDefinition(14, pixels, stride, completeHeight, leftColumn, height, false);
-            _ = SetRowDefinition(15, pixels, stride, completeHeight, middleColumn, height, true);
-        }
-
-        private int SetRowDefinition(int row, byte[] pixels, int stride, int totalHeight, int column, int maxHeight, bool isTransparent)
-        {
-            int height = GetHeightByPixels(pixels, stride, totalHeight, column, maxHeight, isTransparent);
-            ItemsContainer.RowDefinitions[row].Height = new GridLength(height);
-
-            return totalHeight + height;
-        }
-
-        private static int GetHeightByPixels(byte[] pixels, int stride, int startY, int startX, int imageHeight, bool isTransparent)
-        {
-            for (int y = startY; y < imageHeight; ++y)
+            content.Children.Add(new Image()
             {
-                int index = (y * stride) + (startX * 4); // proper (x,y) to byte array
+                Source = overlay
+            });
 
-                if (index + 3 >= pixels.Length)
-                    break;
-
-                byte alpha = pixels[index + 3];
-
-                if (isTransparent && alpha == 0)
-                    return y - startY;
-
-                if (!isTransparent && alpha != 0)
-                    return y - startY;
-            }
-
-            return imageHeight - startY; // default fallback
+            itemContainer.Child = content;
+            return itemContainer;
         }
 
-		public void Dispose()
-		{
-			ContentScaleController.GetInstance().RemoveObserver(this);
-			GC.SuppressFinalize(this);
-		}
-
-        private void EquipmentBackground_Loaded(object sender, RoutedEventArgs e)
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            SetGridDimensions();
+            LoadItems();
         }
     }
 }

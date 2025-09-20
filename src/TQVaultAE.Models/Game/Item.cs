@@ -16,10 +16,15 @@ namespace TQVaultAE.Models.Game
 		/// </summary>
 		public string Name { get; set; } = string.Empty;
 
-		/// <summary>
-		/// The rarity of the item.
-		/// </summary>
-		public ItemRarity Rarity { get; set; }
+        /// <summary>
+        /// The rarity of the item.
+        /// </summary>
+        public ItemRarity Rarity { get; set; } = ItemRarity.Legendary;
+
+        /// <summary>
+        /// The <see cref="ItemType"/> of the item.
+        /// </summary>
+        public ItemType ItemType { get; set; }
 
 		/// <summary>
 		/// The requirements of a <see cref="Player"/> in order to wear this <see cref="Item"/>.
@@ -40,7 +45,7 @@ namespace TQVaultAE.Models.Game
 		/// The icon of the <see cref="Item"/>.
 		/// </summary> 
 		// TODO Add placeholder icon in case the vault cannot find any icon
-		public BitmapImage Icon { get; set; } = new(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png"));
+		public BitmapImage Icon { get; set; } = new(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/MockItem2x4.png"));
 
 		public Item() { }
 

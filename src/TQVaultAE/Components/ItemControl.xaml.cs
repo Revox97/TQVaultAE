@@ -23,6 +23,17 @@ namespace TQVaultAE.Components
             set => SetValue(DataSourceProperty, value);
         }
 
+        public ItemControl()
+        {
+            InitializeComponent();
+
+            Item item = new ItemBuilder().Build();
+            DataSource = new ItemControlModel(item);
+            CalculateBrushes(Item.GetBrushByRarity(item.Rarity));
+            DrawRarityHighlight();
+            DrawItem();
+
+        }
         public ItemControl(Item item)
         {
             InitializeComponent();
@@ -69,6 +80,9 @@ namespace TQVaultAE.Components
         {
             ItemSlotContent.Source = DataSource.Item.Icon;
         }
+
+        public void AddHighlight() => UserControl_MouseEnter(null!, null!);
+        public void RemoveHighlight() => UserControl_MouseLeave(null!, null!);
 
         private void UserControl_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {

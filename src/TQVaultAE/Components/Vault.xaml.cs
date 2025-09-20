@@ -27,9 +27,9 @@ namespace TQVaultAE.Components
 
 			// TODO REMOVE
 			List<Item> items = [
-				new ItemBuilder().SetName("Peter Lusting").SetRarity(ItemRarity.Legendary).SetLocation(0, 0).SetSize(2, 2).SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")).Create(),
-				new ItemBuilder().SetName("Hans Müller").SetRarity(ItemRarity.MonsterRare).SetLocation(2, 2).SetSize(2, 2).SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")).Create(),
-				new ItemBuilder().SetName("Ich bin sogar ein Item").SetRarity(ItemRarity.Rare).SetLocation(1, 7).SetSize(2, 2).SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/inventorybagup01.png")).Create(),
+				new ItemBuilder().SetName("Peter Lusting").SetRarity(ItemRarity.Legendary).SetLocation(0, 0).SetSize(2, 2).SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/MockItem2x2.png")).Build(),
+				new ItemBuilder().SetName("Hans Müller").SetRarity(ItemRarity.MonsterRare).SetLocation(2, 2).SetSize(2, 4).SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/MockItem2x4.png")).Build(),
+				new ItemBuilder().SetName("Ich bin sogar ein Item").SetRarity(ItemRarity.Rare).SetLocation(1, 7).SetSize(2, 2).SetIcon(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/MockItem2x2.png")).Build(),
 			];
 			_tabItems[2] = items;
 

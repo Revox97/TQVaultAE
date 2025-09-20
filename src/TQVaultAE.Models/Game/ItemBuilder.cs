@@ -7,11 +7,17 @@ namespace TQVaultAE.Models.Game
 	{
 		private readonly Item _item = new();
 
-		public Item Create() => _item;
+		public Item Build() => _item;
 
 		public ItemBuilder SetName(string name)
 		{
 			_item.Name = name;
+			return this;
+		}
+
+		public ItemBuilder SetType(ItemType type)
+		{
+			_item.ItemType = type;
 			return this;
 		}
 
