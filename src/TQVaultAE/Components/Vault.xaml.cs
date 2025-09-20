@@ -102,7 +102,7 @@ namespace TQVaultAE.Components
 
 				if (_panel is not null)
 				{
-					_panel.Items = LoadContent(int.Parse(sackButton.Uid));
+					_panel.SwitchContent(LoadContent(int.Parse(sackButton.Uid)));
 					_panel.LoadItems();
 				}
 			}
@@ -128,5 +128,7 @@ namespace TQVaultAE.Components
 			ContentScaleController.GetInstance().RemoveObserver(this);
 			GC.SuppressFinalize(this);
 		}
-	}
+
+        private void Autosort_Click(object sender, RoutedEventArgs e) => _panel?.Sort();
+    }
 }

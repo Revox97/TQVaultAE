@@ -1,7 +1,9 @@
-﻿using System.Windows;
+﻿using System.DirectoryServices;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using TQVaultAE.Controllers;
 using TQVaultAE.Controllers.Observable;
 using TQVaultAE.Models;
 using TQVaultAE.Models.EventArgs;
@@ -15,36 +17,39 @@ namespace TQVaultAE.Components
     public partial class ItemsPanel : UserControl
     {
 		private readonly double _cellWidthHeight;
-		private readonly int _columns;
-		private readonly int _rows;
-		private readonly ItemOverController _itemOverController = ItemOverController.GetInstance();
+        public readonly int Columns;
+        public readonly int Rows;
 
-		public List<Item> Items { get; set; } = [];
+        private readonly ItemsPanelModel _model;
+        private readonly ItemsPanelController _controller;
 
         public ItemsPanel(List<Item> items, double columnWidthHeight, int columns, int rows, Thickness borderThickness)
         {
             InitializeComponent();
 
 			_cellWidthHeight = columnWidthHeight;
-			_columns = columns;
-			_rows = rows;
+			Columns = columns;
+			Rows = rows;
 			InitializePanel();
 
-			Size dimensions = CalculateDimensions(_cellWidthHeight, _columns, _rows, borderThickness);
+			Size dimensions = CalculateDimensions(_cellWidthHeight, Columns, Rows, borderThickness);
 			ItemsPanelBorder.Height = dimensions.Height;
 			ItemsPanelBorder.Width = dimensions.Width;
 			ItemsPanelBorder.BorderThickness = borderThickness;
 
-			Items = items;
+            _model = new ItemsPanelModel(items);
+            _controller = new ItemsPanelController(this, _model);
 			LoadItems();
         }
+
+        public void SwitchContent(List<Item> items) => _model.Items = items;
 
 		public void LoadItems()
 		{
 			ItemsPanelContent.Children.Clear();
 			InitializeCells();
 
-            foreach (Item item in Items)
+            foreach (Item item in _model.Items)
             {
                 try
                 {
@@ -72,8 +77,8 @@ namespace TQVaultAE.Components
 
         private bool IsValidPlacement(Item item)
 		{
-            return !Items.Any(i => i.IsLocationOverlap(item)) 
-				&& !(item.Location.X < 0 || item.Location.X + item.Size.Width > _columns || item.Location.Y < 0 || item.Location.Y + item.Size.Height > _rows);
+            return !_model.Items.Any(i => i.IsLocationOverlap(item)) 
+				&& !(item.Location.X < 0 || item.Location.X + item.Size.Width > Columns || item.Location.Y < 0 || item.Location.Y + item.Size.Height > Rows);
         }
 
         public static Size CalculateDimensions(double cellWidthHeight, int columns, int rows, Thickness borderThickness)
@@ -90,13 +95,13 @@ namespace TQVaultAE.Components
 			{
 				GridLength size = new(_cellWidthHeight);
 
-				for (int i = 0; i< _columns; ++i)
+				for (int i = 0; i< Columns; ++i)
 				{
 					BackgroundContainer.ColumnDefinitions.Add(new ColumnDefinition() { Width = size });
 					ItemsPanelContent.ColumnDefinitions.Add(new ColumnDefinition() { Width = size });
 				}
 
-				for (int i = 0; i < _rows; ++i)
+				for (int i = 0; i < Rows; ++i)
 				{
 					BackgroundContainer.RowDefinitions.Add(new RowDefinition() { Height = size });
 					ItemsPanelContent.RowDefinitions.Add(new RowDefinition() { Height = size });
@@ -132,5 +137,7 @@ namespace TQVaultAE.Components
 				throw new ResourceReferenceKeyNotFoundException("Failed to load style for item slot.", "ItemSlot");
 			}
 		}
+
+        internal void Sort() => _controller.Sort();
     }
 }

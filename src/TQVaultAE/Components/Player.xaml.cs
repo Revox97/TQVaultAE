@@ -52,7 +52,7 @@ namespace TQVaultAE.Components
 
 				if (_additionalSackPanel is not null)
 				{
-					_additionalSackPanel.Items = LoadAdditionalSackContent(int.Parse(sackButton.Uid));
+					_additionalSackPanel.SwitchContent(LoadAdditionalSackContent(int.Parse(sackButton.Uid)));
 					_additionalSackPanel.LoadItems();
 				}
 			}

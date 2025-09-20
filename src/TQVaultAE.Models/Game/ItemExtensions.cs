@@ -7,6 +7,8 @@
 			if (other == item)
 				return false;
 
+            // TODO comparation is broken, it will have wrong detections, if just x or y is a match
+
 			for (int i = other.Location.X; i < other.Location.X + other.Size.Width - 1; ++i)
 			{
 				for (int k = item.Location.X; k < item.Location.X + item.Size.Width - 1; ++k)

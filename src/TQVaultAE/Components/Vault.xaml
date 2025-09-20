@@ -75,7 +75,7 @@
             <RowDefinition Height=".075*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Button Style="{StaticResource RotatedAutoSortButton}" Grid.Column="0" Grid.Row="1"/>
+        <Button Style="{StaticResource RotatedAutoSortButton}" Grid.Column="0" Grid.Row="1" Click="Autosort_Click"/>
         <Grid Grid.Column="1" Grid.Row="0" x:Name="TabContainer">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
