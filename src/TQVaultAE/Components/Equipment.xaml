@@ -19,34 +19,174 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Image Grid.Column="0" x:Name="EquipmentBackground" Style="{StaticResource EquipmentBackground}" Source="pack://application:,,,/TQVaultAE;component/Resources/Img/EquipmentBackground.png"/>
+        <Image Grid.Column="0" x:Name="EquipmentBackground" Style="{StaticResource EquipmentBackground}"
+               Loaded="EquipmentBackground_Loaded">
+            <!--Source="pack://application:,,,/TQVaultAE;component/Resources/Img/EquipmentBackground.png"/>-->
+            <Image.Source>
+                <BitmapImage UriSource="pack://application:,,,/TQVaultAE;component/Resources/Img/EquipmentBackground.png"/>
+            </Image.Source>
+        </Image>
         <Grid Grid.Column="0" x:Name="ItemsContainer" Width="{Binding ElementName=EquipmentBackground, Path=ActualWidth}" Height="{Binding ElementName=EquipmentBackground, Path=ActualHeight}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width=".35*"/>
-                <ColumnDefinition Width=".94*"/>
-                <ColumnDefinition Width=".29*"/>
-                <ColumnDefinition Width=".84*"/>
-                <ColumnDefinition Width=".02*"/>
-                <ColumnDefinition Width=".29*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width=".5*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
+            <Border Grid.Row="0" Grid.Column="0" Background="Red"/>
+            <Border Grid.Row="0" Grid.Column="1" Background="Red"/>
+            <Border Grid.Row="0" Grid.Column="2" Background="Red"/>
+            <Border Grid.Row="0" Grid.Column="3" Background="Red"/>
+            <Border Grid.Row="0" Grid.Column="4" Background="Red"/>
+            <Border Grid.Row="0" Grid.Column="5" Background="Red"/>
+            <Border Grid.Row="0" Grid.Column="6" Background="Red"/>
+
+            <Border Grid.Row="1" Grid.Column="0" Background="Red"/>
+            <Border Grid.Row="1" Grid.Column="1" Background="Red"/>
+            <Border Grid.Row="1" Grid.Column="2" Background="Red"/>
+            <Border Grid.Row="1" Grid.Column="3" Background="Green"/>
+            <Border Grid.Row="1" Grid.Column="4" Background="Red"/>
+            <Border Grid.Row="1" Grid.Column="5" Background="Red"/>
+            <Border Grid.Row="1" Grid.Column="6" Background="Red"/>
+
+            <Border Grid.Row="2" Grid.Column="0" Background="Red"/>
+            <Border Grid.Row="2" Grid.Column="1" Background="Green"/>
+            <Border Grid.Row="2" Grid.Column="2" Background="Red"/>
+            <Border Grid.Row="2" Grid.Column="3" Background="Green"/>
+            <Border Grid.Row="2" Grid.Column="4" Background="Red"/>
+            <Border Grid.Row="2" Grid.Column="5" Background="Green"/>
+            <Border Grid.Row="2" Grid.Column="6" Background="Red"/>
+
+            <Border Grid.Row="3" Grid.Column="0" Background="Red"/>
+            <Border Grid.Row="3" Grid.Column="1" Background="Green"/>
+            <Border Grid.Row="3" Grid.Column="2" Background="Red"/>
+            <Border Grid.Row="3" Grid.Column="3" Background="Red"/>
+            <Border Grid.Row="3" Grid.Column="4" Background="Red"/>
+            <Border Grid.Row="3" Grid.Column="5" Background="Green"/>
+            <Border Grid.Row="3" Grid.Column="6" Background="Red"/>
+
+            <Border Grid.Row="4" Grid.Column="0" Background="Red"/>
+            <Border Grid.Row="4" Grid.Column="1" Background="Green"/>
+            <Border Grid.Row="4" Grid.Column="2" Background="Red"/>
+            <Border Grid.Row="4" Grid.Column="3" Background="Green"/>
+            <Border Grid.Row="4" Grid.Column="4" Background="Red"/>
+            <Border Grid.Row="4" Grid.Column="5" Background="Green"/>
+            <Border Grid.Row="4" Grid.Column="6" Background="Red"/>
+
+            <Border Grid.Row="5" Grid.Column="0" Background="Red"/>
+            <Border Grid.Row="5" Grid.Column="1" Background="Green"/>
+            <Border Grid.Row="5" Grid.Column="2" Background="Red"/>
+            <Border Grid.Row="5" Grid.Column="3" Background="Red"/>
+            <Border Grid.Row="5" Grid.Column="4" Background="Red"/>
+            <Border Grid.Row="5" Grid.Column="5" Background="Green"/>
+            <Border Grid.Row="5" Grid.Column="6" Background="Red"/>
+
+            <Border Grid.Row="6" Grid.Column="0" Background="Red"/>
+            <Border Grid.Row="6" Grid.Column="1" Background="Red"/>
+            <Border Grid.Row="6" Grid.Column="2" Background="Red"/>
+            <Border Grid.Row="6" Grid.Column="3" Background="Red"/>
+            <Border Grid.Row="6" Grid.Column="4" Background="Red"/>
+            <Border Grid.Row="6" Grid.Column="5" Background="Red"/>
+            <Border Grid.Row="6" Grid.Column="6" Background="Red"/>
+
+            <Border Grid.Row="7" Grid.Column="0" Background="Red"/>
+            <Border Grid.Row="7" Grid.Column="1" Background="Red"/>
+            <Border Grid.Row="7" Grid.Column="2" Background="Red"/>
+            <Border Grid.Row="7" Grid.Column="3" Background="Green"/>
+            <Border Grid.Row="7" Grid.Column="4" Background="Red"/>
+            <Border Grid.Row="7" Grid.Column="5" Background="Red"/>
+            <Border Grid.Row="7" Grid.Column="6" Background="Red"/>
+
+            <Border Grid.Row="8" Grid.Column="0" Background="Red"/>
+            <Border Grid.Row="8" Grid.Column="1" Background="Green"/>
+            <Border Grid.Row="8" Grid.Column="2" Background="Red"/>
+            <Border Grid.Row="8" Grid.Column="3" Background="Green"/>
+            <Border Grid.Row="8" Grid.Column="4" Background="Red"/>
+            <Border Grid.Row="8" Grid.Column="5" Background="Green"/>
+            <Border Grid.Row="8" Grid.Column="6" Background="Red"/>
+
+            <Border Grid.Row="9" Grid.Column="0" Background="Red"/>
+            <Border Grid.Row="9" Grid.Column="1" Background="Red"/>
+            <Border Grid.Row="9" Grid.Column="2" Background="Red"/>
+            <Border Grid.Row="9" Grid.Column="3" Background="Red"/>
+            <Border Grid.Row="9" Grid.Column="4" Background="Red"/>
+            <Border Grid.Row="9" Grid.Column="5" Background="Red"/>
+            <Border Grid.Row="9" Grid.Column="6" Background="Red"/>
+
+            <Border Grid.Row="10" Grid.Column="0" Background="Red"/>
+            <Border Grid.Row="10" Grid.Column="1" Background="Red"/>
+            <Border Grid.Row="10" Grid.Column="2" Background="Red"/>
+            <Border Grid.Row="10" Grid.Column="3" Background="Green"/>
+            <Border Grid.Row="10" Grid.Column="4" Background="Red"/>
+            <Border Grid.Row="10" Grid.Column="5" Background="Red"/>
+            <Border Grid.Row="10" Grid.Column="6" Background="Red"/>
+            
+            <Border Grid.Row="11" Grid.Column="0" Background="Red"/>
+            <Border Grid.Row="11" Grid.Column="1" Background="Green"/>
+            <Border Grid.Row="11" Grid.Column="2" Background="Red"/>
+            <Border Grid.Row="11" Grid.Column="3" Background="Green"/>
+            <Border Grid.Row="11" Grid.Column="4" Background="Red"/>
+            <Border Grid.Row="11" Grid.Column="5" Background="Green"/>
+            <Border Grid.Row="11" Grid.Column="6" Background="Red"/>
+
+            <Border Grid.Row="12" Grid.Column="0" Background="Red"/>
+            <Border Grid.Row="12" Grid.Column="1" Background="Green"/>
+            <Border Grid.Row="12" Grid.Column="2" Background="Red"/>
+            <Border Grid.Row="12" Grid.Column="3" Background="Red"/>
+            <Border Grid.Row="12" Grid.Column="4" Background="Red"/>
+            <Border Grid.Row="12" Grid.Column="5" Background="Green"/>
+            <Border Grid.Row="12" Grid.Column="6" Background="Red"/>
+
+            <Border Grid.Row="13" Grid.Column="0" Background="Red"/>
+            <Border Grid.Row="13" Grid.Column="1" Background="Green"/>
+            <Border Grid.Row="13" Grid.Column="2" Background="Red"/>
+            <Border Grid.Row="13" Grid.Column="3" Background="Green"/>
+            <Border Grid.Row="13" Grid.Column="4" Background="Red"/>
+            <Border Grid.Row="13" Grid.Column="5" Background="Green"/>
+            <Border Grid.Row="13" Grid.Column="6" Background="Red"/>
+
+            <Border Grid.Row="14" Grid.Column="0" Background="Red"/>
+            <Border Grid.Row="14" Grid.Column="1" Background="Green"/>
+            <Border Grid.Row="14" Grid.Column="2" Background="Red"/>
+            <Border Grid.Row="14" Grid.Column="3" Background="Red"/>
+            <Border Grid.Row="14" Grid.Column="4" Background="Green"/>
+            <Border Grid.Row="14" Grid.Column="5" Background="Red"/>
+            <Border Grid.Row="14" Grid.Column="6" Background="Red"/>
+
+            <Border Grid.Row="15" Grid.Column="0" Background="Red"/>
+            <Border Grid.Row="15" Grid.Column="1" Background="Red"/>
+            <Border Grid.Row="15" Grid.Column="2" Background="Red"/>
+            <Border Grid.Row="15" Grid.Column="3" Background="Red"/>
+            <Border Grid.Row="15" Grid.Column="4" Background="Red"/>
+            <Border Grid.Row="15" Grid.Column="5" Background="Red"/>
+            <Border Grid.Row="15" Grid.Column="6" Background="Red"/>
         </Grid>
-        <Image Grid.Column="0" Style="{StaticResource EquipmentBackground}" Source="pack://application:,,,/TQVaultAE;component/Resources/Img/EquipmentOverlay.png"/>
+        <Image Grid.Column="0" Style="{StaticResource EquipmentBackground}" x:Name="EquipmentOverlay">
+            <!--Source="pack://application:,,,/TQVaultAE;component/Resources/Img/EquipmentOverlay.png"-->
+            <Image.Source>
+                <BitmapImage UriSource="pack://application:,,,/TQVaultAE;component/Resources/Img/EquipmentOverlay.png"/>
+            </Image.Source>
+        </Image>
     </Grid>
 </UserControl>
