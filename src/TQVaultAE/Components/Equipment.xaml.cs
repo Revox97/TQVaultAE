@@ -37,33 +37,29 @@ namespace TQVaultAE.Components
 
         private (int, int) SetColumnDefinitions(byte[] pixels, int stride, int height)
         {
-            int completeWidth = 0;
-            int widthColumnZero = GetWidthByPixels(pixels, stride, completeWidth, height, true);
-            completeWidth += widthColumnZero;
-            int widthColumnOne = GetWidthByPixels(pixels, stride, completeWidth, height, false);
-            completeWidth += widthColumnOne;
-            int widthColumnTwo = GetWidthByPixels(pixels, stride, completeWidth, height, true);
-            completeWidth += widthColumnTwo;
-            int widthColumnThree = GetWidthByPixels(pixels, stride, completeWidth, height, false);
-            completeWidth += widthColumnThree;
-            int widthColumnFour = GetWidthByPixels(pixels, stride, completeWidth, height,  true);
-            completeWidth += widthColumnFour;
-            int widthColumnFive = GetWidthByPixels(pixels, stride, completeWidth, height, false);
-            completeWidth += widthColumnFive;
-            int widthColumnSix = GetWidthByPixels(pixels, stride, completeWidth, height, true);
+            int totalWidth = 0;
 
-            ItemsContainer.ColumnDefinitions[0].Width = new GridLength(widthColumnZero);
-            ItemsContainer.ColumnDefinitions[1].Width = new GridLength(widthColumnOne);
-            ItemsContainer.ColumnDefinitions[2].Width = new GridLength(widthColumnTwo);
-            ItemsContainer.ColumnDefinitions[3].Width = new GridLength(widthColumnThree);
-            ItemsContainer.ColumnDefinitions[4].Width = new GridLength(widthColumnFour);
-            ItemsContainer.ColumnDefinitions[5].Width = new GridLength(widthColumnFive);
-            ItemsContainer.ColumnDefinitions[6].Width = new GridLength(widthColumnSix);
+            totalWidth = SetColumnDefinition(0, pixels, stride, totalWidth, height, true);
+            int columnLeft = totalWidth + 5;
 
-            int columnLeft = widthColumnZero + 5;
-            int columnMiddle = widthColumnZero + widthColumnOne + widthColumnTwo + 5;
+            totalWidth = SetColumnDefinition(1, pixels, stride, totalWidth, height, false);
+            totalWidth = SetColumnDefinition(2, pixels, stride, totalWidth, height, true);
+            int columnMiddle = totalWidth + 5;
+
+            totalWidth = SetColumnDefinition(3, pixels, stride, totalWidth, height, false);
+            totalWidth = SetColumnDefinition(4, pixels, stride, totalWidth, height, true);
+            totalWidth = SetColumnDefinition(5, pixels, stride, totalWidth, height, false);
+            _ = SetColumnDefinition(6, pixels, stride, totalWidth, height, true);
 
             return (columnLeft, columnMiddle);
+        }
+
+        private int SetColumnDefinition(int column, byte[] pixels, int stride, int totalWidth, int height, bool isTransparent)
+        {
+            int width = GetWidthByPixels(pixels, stride, totalWidth, height, isTransparent);
+            ItemsContainer.ColumnDefinitions[column].Width = new GridLength(width);
+
+            return totalWidth + width;
         }
 
         private static int GetWidthByPixels(byte[] pixels, int stride, int startX, int imageHeight, bool isTransparent)
@@ -92,54 +88,31 @@ namespace TQVaultAE.Components
         private void SetRowDefinitions(byte[] pixels, int stride, int height, int leftColumn, int middleColumn)
         {
             int completeHeight = 0;
-            int heightRowZero = GetHeightByPixels(pixels, stride, completeHeight, middleColumn, height, true);
-            completeHeight += heightRowZero;
-            int heightRowOne = GetHeightByPixels(pixels, stride, completeHeight, leftColumn, height, true);
-            completeHeight += heightRowOne;
-            int heightRowTwo = GetHeightByPixels(pixels, stride, completeHeight, middleColumn, height, false);
-            completeHeight += heightRowTwo;
-            int heightRowThree = GetHeightByPixels(pixels, stride, completeHeight, middleColumn, height, true);
-            completeHeight += heightRowThree;
-            int heightRowFour = GetHeightByPixels(pixels, stride, completeHeight, middleColumn, height,  false);
-            completeHeight += heightRowFour;
-            int heightRowFive = GetHeightByPixels(pixels, stride, completeHeight, leftColumn, height, false);
-            completeHeight += heightRowFive;
-            int heightRowSix = GetHeightByPixels(pixels, stride, completeHeight, middleColumn, height, true);
-            completeHeight += heightRowSix;
-            int heightRowSeven = GetHeightByPixels(pixels, stride, completeHeight, leftColumn, height, true);
-            completeHeight += heightRowSeven;
-            int heightRowEight = GetHeightByPixels(pixels, stride, completeHeight, middleColumn, height, false);
-            completeHeight += heightRowEight;
-            int heightRowNine = GetHeightByPixels(pixels, stride, completeHeight, middleColumn, height, true);
-            completeHeight += heightRowNine;
-            int heightRowTen = GetHeightByPixels(pixels, stride, completeHeight, leftColumn, height, true);
-            completeHeight += heightRowTen;
-            int heightRowEleven = GetHeightByPixels(pixels, stride, completeHeight, middleColumn, height, false);
-            completeHeight += heightRowEleven;
-            int heightRowTwelve = GetHeightByPixels(pixels, stride, completeHeight, middleColumn, height, true);
-            completeHeight += heightRowTwelve;
-            int heightRowThirteen = GetHeightByPixels(pixels, stride, completeHeight, middleColumn, height, false);
-            completeHeight += heightRowThirteen;
-            int heightRowFourteen = GetHeightByPixels(pixels, stride, completeHeight, leftColumn, height, false);
-            completeHeight += heightRowFourteen;
-            int heightRowFifteen = GetHeightByPixels(pixels, stride, completeHeight, middleColumn, height, true);
 
-            ItemsContainer.RowDefinitions[0].Height = new GridLength(heightRowZero);
-            ItemsContainer.RowDefinitions[1].Height = new GridLength(heightRowOne);
-            ItemsContainer.RowDefinitions[2].Height = new GridLength(heightRowTwo);
-            ItemsContainer.RowDefinitions[3].Height = new GridLength(heightRowThree);
-            ItemsContainer.RowDefinitions[4].Height = new GridLength(heightRowFour);
-            ItemsContainer.RowDefinitions[5].Height = new GridLength(heightRowFive);
-            ItemsContainer.RowDefinitions[6].Height = new GridLength(heightRowSix);
-            ItemsContainer.RowDefinitions[7].Height = new GridLength(heightRowSeven);
-            ItemsContainer.RowDefinitions[8].Height = new GridLength(heightRowEight);
-            ItemsContainer.RowDefinitions[9].Height = new GridLength(heightRowNine);
-            ItemsContainer.RowDefinitions[10].Height = new GridLength(heightRowTen);
-            ItemsContainer.RowDefinitions[11].Height = new GridLength(heightRowEleven);
-            ItemsContainer.RowDefinitions[12].Height = new GridLength(heightRowTwelve);
-            ItemsContainer.RowDefinitions[13].Height = new GridLength(heightRowThirteen);
-            ItemsContainer.RowDefinitions[14].Height = new GridLength(heightRowFourteen);
-            ItemsContainer.RowDefinitions[15].Height = new GridLength(heightRowFifteen);
+            completeHeight = SetRowDefinition(0, pixels, stride, completeHeight, middleColumn, height, true);
+            completeHeight = SetRowDefinition(1, pixels, stride, completeHeight, leftColumn, height, true);
+            completeHeight = SetRowDefinition(2, pixels, stride, completeHeight, middleColumn, height, false);
+            completeHeight = SetRowDefinition(3, pixels, stride, completeHeight, middleColumn, height, true);
+            completeHeight = SetRowDefinition(4, pixels, stride, completeHeight, middleColumn, height, false);
+            completeHeight = SetRowDefinition(5, pixels, stride, completeHeight, leftColumn, height, false);
+            completeHeight = SetRowDefinition(6, pixels, stride, completeHeight, middleColumn, height, true);
+            completeHeight = SetRowDefinition(7, pixels, stride, completeHeight, leftColumn, height, true);
+            completeHeight = SetRowDefinition(8, pixels, stride, completeHeight, middleColumn, height, false);
+            completeHeight = SetRowDefinition(9, pixels, stride, completeHeight, middleColumn, height, true);
+            completeHeight = SetRowDefinition(10, pixels, stride, completeHeight, leftColumn, height, true);
+            completeHeight = SetRowDefinition(11, pixels, stride, completeHeight, middleColumn, height, false);
+            completeHeight = SetRowDefinition(12, pixels, stride, completeHeight, middleColumn, height, true);
+            completeHeight = SetRowDefinition(13, pixels, stride, completeHeight, middleColumn, height, false);
+            completeHeight = SetRowDefinition(14, pixels, stride, completeHeight, leftColumn, height, false);
+            _ = SetRowDefinition(15, pixels, stride, completeHeight, middleColumn, height, true);
+        }
+
+        private int SetRowDefinition(int row, byte[] pixels, int stride, int totalHeight, int column, int maxHeight, bool isTransparent)
+        {
+            int height = GetHeightByPixels(pixels, stride, totalHeight, column, maxHeight, isTransparent);
+            ItemsContainer.RowDefinitions[row].Height = new GridLength(height);
+
+            return totalHeight + height;
         }
 
         private static int GetHeightByPixels(byte[] pixels, int stride, int startY, int startX, int imageHeight, bool isTransparent)
