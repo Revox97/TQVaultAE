@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using TQVaultAE.UI.Resources;
 
 namespace TQVaultAE.Models
 {
@@ -10,7 +10,7 @@ namespace TQVaultAE.Models
 
 		public Brush BorderTop { get; set; } = new ImageBrush()
 		{
-			ImageSource = new BitmapImage(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/BorderTop.png", UriKind.Absolute)),
+			ImageSource = ImagePaths.Borders.Top,
 			TileMode = TileMode.Tile,
 			Viewport = new Rect(0, 0, 3, 11),
 			ViewboxUnits = BrushMappingMode.Absolute,
@@ -19,7 +19,7 @@ namespace TQVaultAE.Models
 
 		public Brush BorderSide { get; set; } = new ImageBrush()
 		{
-			ImageSource = new BitmapImage(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/BorderSide.png", UriKind.Absolute)),
+			ImageSource = ImagePaths.Borders.Side,
 			TileMode = TileMode.Tile,
 			Viewport = new Rect(0, 0, 3, 20),
 			ViewboxUnits = BrushMappingMode.Absolute,

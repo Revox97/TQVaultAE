@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="TQVaultAE.UI.Components.PlayerStatistics"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TQVaultAE.UI.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="900" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="BaseStatLabel" TargetType="{x:Type Label}">
+            <Setter Property="FontSize" Value="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=FontSize}"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+        <Style x:Key="TitleStatLabel" TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStatLabel}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="HorizontalContentAlignment" Value="Right"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        </Style>
+        <Style x:Key="ValueStatLabel" TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStatLabel}">
+            <Setter Property="Foreground" Value="Green"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        </Style>
+    </UserControl.Resources>
+    <!-- TODO add correct background image-->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <Label Style="{StaticResource TitleStatLabel}" Content="Class"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="Masteries"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="Level"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="XP"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="Difficulty"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content=""/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="Money"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="Strength"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="Dexterity"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="Intelligence"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="Health"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="Energy"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="Skill Points"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="Attribute Points"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content=""/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="Time Played"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="Kills"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="XP From Kills"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="Deaths"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="Health Pots used"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="Energy Pots used"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content=""/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="Hits Inflicted"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="Hits Received"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="Critical Hits"/>
+            <Label Style="{StaticResource TitleStatLabel}" Content="Critical Hits Received"/>
+        </StackPanel>
+        <StackPanel Grid.Column="2">
+            <Label Style="{StaticResource ValueStatLabel}" Content="Ranger"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="Nature|Hunting"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="12"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="12.323"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="Legendary"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content=""/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="12.456"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="345"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="565"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="100"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="5.000"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="1.000"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="0"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="0"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content=""/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="3d 4h 10min"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="12.450"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="12.345.123"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="10"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="1.023"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="34"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content=""/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="2.607"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="2.911"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="26"/>
+            <Label Style="{StaticResource ValueStatLabel}" Content="0"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

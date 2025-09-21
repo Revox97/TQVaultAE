@@ -1,0 +1,266 @@
+﻿<Page x:Class="TQVaultAE.UI.Pages.ConfigurationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TQVaultAE.UI.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="1000"
+      Title="ConfigurationPage">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/TQVaultAE.UI;component/Templates/ButtonTemplate.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/TQVaultAE.UI;component/Templates/TabItemTemplate.xaml"/>
+                <ResourceDictionary>
+                    <Style x:Key="BasicStyles" TargetType="{x:Type Control}">
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="FontSize" Value="18"/>
+                    </Style>
+                    <Style x:Key="CheckBox" TargetType="{x:Type CheckBox}" BasedOn="{StaticResource BasicStyles}">
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style x:Key="Label" TargetType="{x:Type Label}" BasedOn="{StaticResource BasicStyles}">
+                        
+                    </Style>
+                    <Style x:Key="TextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource BasicStyles}">
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="Gray"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style x:Key="Button" TargetType="{x:Type Button}">
+                        <Setter Property="Template" Value="{StaticResource ButtonTemplate}"/>
+                        <Setter Property="Width" Value="40"/>
+                        <Setter Property="Margin" Value="2.5 0"/>
+                        <Setter Property="Padding" Value="5"/>
+                        <!-- Fix button looks -->
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/button_main_up.jpg" TileMode="None" AlignmentX="Center" AlignmentY="Center" Stretch="UniformToFill"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/button_main_over.jpg" TileMode="None" AlignmentX="Center" AlignmentY="Center" Stretch="UniformToFill"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style x:Key="GroupBox" TargetType="{x:Type GroupBox}">
+                        <Setter Property="Padding" Value="6"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="HeaderTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <Label Style="{StaticResource Label}" Content="{Binding}"/>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <Style x:Key="TabControlBorder" TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="0 0 12 12"/>
+                        <Setter Property="BorderBrush" Value="White"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Margin" Value="4"/>
+                    </Style>
+                    <Style x:Key="TabControl" TargetType="{x:Type TabControl}">
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Margin" Value="10"/>
+                        <Setter Property="Padding" Value="20"/>
+                        <!-- TODO split this up in four images to remain same size -->
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/caravan_background.jpg" 
+                                            TileMode="None" AlignmentX="Left" AlignmentY="Center" Stretch="Fill"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <Style x:Key="TabItem" TargetType="TabItem">
+                        <Setter Property="Template" Value="{StaticResource TabItemTemplate}"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="#362121" Opacity=".5"/>
+        </Grid.Background>
+        <Border Style="{StaticResource TabControlBorder}">
+            <TabControl Style="{StaticResource TabControl}">
+                <TabItem Header="General" Style="{StaticResource TabItem}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="1">
+                            <GroupBox Style="{StaticResource GroupBox}" Header="Startup">
+                                <StackPanel>
+                                    <CheckBox Style="{StaticResource CheckBox}" Content="Automatically Bypass Title Screen"/>
+                                    <CheckBox Style="{StaticResource CheckBox}" Content="Preload all vault and character files"/>
+                                    <CheckBox Style="{StaticResource CheckBox}" Content="Automatically load the last opened character"/>
+                                    <CheckBox Style="{StaticResource CheckBox}" Content="Automatically load the last opened vault"/>
+                                    <StackPanel>
+                                        <Label Style="{StaticResource Label}" Content="CSV delimiter"/>
+                                        <TextBox Style="{StaticResource TextBox}" Text="" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
+                            <!-- TODO find better header, or distribute to other categories -->
+                            <GroupBox Style="{StaticResource GroupBox}" Header="Player">
+                                <StackPanel>
+                                    <CheckBox Style="{StaticResource CheckBox}" Content="Player equipment ReadOnly"/>
+                                    <CheckBox Style="{StaticResource CheckBox}" Content="Disable auto stacking"/>
+                                    <CheckBox Style="{StaticResource CheckBox}" Content="Enable hot reload"/>
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Style="{StaticResource GroupBox}" Header="Git Backup">
+                                <StackPanel>
+                                    <CheckBox Style="{StaticResource CheckBox}" Content="Enable Git backup"/>
+                                    <!-- TODO what does this option do? -->
+                                    <CheckBox Style="{StaticResource CheckBox}" Content="Disable legacy backup"/>
+                                    <CheckBox Style="{StaticResource CheckBox}" Content="Backup player saves"/>
+                                    <StackPanel>
+                                        <Label Style="{StaticResource Label}" Content="Git repository url"/>
+                                        <TextBox Style="{StaticResource TextBox}" Text=""/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+                        <StackPanel Grid.Column="3">
+                            <GroupBox Style="{StaticResource GroupBox}" Header="Cheats">
+                                <StackPanel>
+                                    <CheckBox Style="{StaticResource CheckBox}" Content="Allow cheats"/>
+                                    <CheckBox Style="{StaticResource CheckBox}" Content="Allow item copying"/>
+                                    <CheckBox Style="{StaticResource CheckBox}" Content="Allow item editing features"/>
+                                    <CheckBox Style="{StaticResource CheckBox}" Content="Enable Epic and Legendary affixed"/>
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Style="{StaticResource GroupBox}" Header="Audio">
+                                <StackPanel>
+                                    <CheckBox Style="{StaticResource CheckBox}" Content="Enable TQVault sounds"/>
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Game settings" Style="{StaticResource TabItem}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="1">
+                            <GroupBox Style="{StaticResource GroupBox}" Header="Game Paths">
+                                <StackPanel>
+                                    <CheckBox Style="{StaticResource CheckBox}" Content="Auto detect game path"/>
+                                    <StackPanel>
+                                        <Label Style="{StaticResource Label}" Content="Titan Quest game path"/>
+                                        <DockPanel FlowDirection="LeftToRight" LastChildFill="True">
+                                            <Button DockPanel.Dock="Right" Style="{StaticResource Button}"/>
+                                            <TextBox Style="{StaticResource TextBox}" Text="" DockPanel.Dock="Left" Margin="2.5 0"/>
+                                        </DockPanel>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <Label Style="{StaticResource Label}" Content="Immortal Throne game path"/>
+                                        <DockPanel FlowDirection="LeftToRight" LastChildFill="True">
+                                            <Button DockPanel.Dock="Right" Style="{StaticResource Button}"/>
+                                            <TextBox Style="{StaticResource TextBox}" Text="" DockPanel.Dock="Left" Margin="2.5 0"/>
+                                        </DockPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Style="{StaticResource GroupBox}" Header="Language">
+                                <StackPanel>
+                                    <CheckBox Style="{StaticResource CheckBox}" Content="Auto detect game language"/>
+                                    <Label Style="{StaticResource Label}" Content="Game language"/>
+                                    <TextBox Style="{StaticResource TextBox}" Text=""/>
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+                        <StackPanel Grid.Column="3">
+                            <GroupBox Style="{StaticResource GroupBox}" Header="Custom Maps">
+                                <StackPanel>
+                                    <CheckBox Style="{StaticResource CheckBox}" Content="Enable custom maps"/>
+                                    <StackPanel>
+                                        <Label Style="{StaticResource Label}" Content="Map"/>
+                                        <!-- Add drop down here -->
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="User interface" Style="{StaticResource TabItem}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="1">
+                            <GroupBox Style="{StaticResource GroupBox}" Header="Appearance">
+                                <StackPanel>
+                                    <CheckBox Style="{StaticResource CheckBox}" Content="Bypass confirmation messages"/>
+                                    <CheckBox Style="{StaticResource CheckBox}" Content="Enable detailed tooltip view"/>
+                                    <CheckBox Style="{StaticResource CheckBox}" Content="Enable item requirement restriction"/>
+                                    <StackPanel>
+                                        <Label Style="{StaticResource Label}" Content="Font face"/>
+                                        <TextBox Style="{StaticResource TextBox}" Text="Font"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <Label Style="{StaticResource Label}" Content="Item BG alpha color"/>
+                                        <!-- Add slider here -->
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Vaults" Style="{StaticResource TabItem}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="1">
+                            <GroupBox Style="{StaticResource GroupBox}" Header="Vault path">
+                                <DockPanel FlowDirection="LeftToRight" LastChildFill="True">
+                                    <Button DockPanel.Dock="Right" Style="{StaticResource Button}"/>
+                                    <TextBox Style="{StaticResource TextBox}" DockPanel.Dock="Left" Text="" Margin="2.5 0"/>
+                                </DockPanel>
+                            </GroupBox>
+                        </StackPanel>
+                        <!-- TODO make this its own user control -->
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Border>
+    </Grid>
+</Page>

@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:Class="TQVaultAE.UI.Components.Templates.ItemNameLabel">
+    <ControlTemplate TargetType="Label" x:Key="ItemNameLabelTemplate">
+        <Border BorderThickness="{TemplateBinding BorderThickness}" 
+                BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" 
+                HorizontalAlignment="{TemplateBinding HorizontalAlignment}" Width="{TemplateBinding Width}">
+            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                              Margin="{TemplateBinding Padding}" RecognizesAccessKey="True"/>
+        </Border>
+    </ControlTemplate>
+</ResourceDictionary>

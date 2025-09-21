@@ -2,10 +2,11 @@
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using TQVaultAE.Controllers.Observable;
 using TQVaultAE.Models;
 using TQVaultAE.Models.EventArgs;
-using TQVaultAE.Pages;
+using TQVaultAE.Models.Services;
+using TQVaultAE.Services;
+using TQVaultAE.UI.Pages;
 
 namespace TQVaultAE
 {
@@ -115,12 +116,12 @@ namespace TQVaultAE
 		private void ContentController_Loaded(object sender, RoutedEventArgs e)
 		{
 			Window_SizeChanged(sender, null!);
-			WindowSizeUpdater.GetInstance().Notify(this, new WindowSizeUpdatedEventArgs());
+			WindowSizeService.GetInstance().Notify(this, new WindowSizeUpdatedEventArgs());
         }
 
 		private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			WindowSizeUpdater.GetInstance().Notify(this, new WindowSizeUpdatedEventArgs()
+			WindowSizeService.GetInstance().Notify(this, new WindowSizeUpdatedEventArgs()
 			{
 				ContentWidth = ContentController.ActualWidth,
 				ContentHeight = ContentController.ActualHeight

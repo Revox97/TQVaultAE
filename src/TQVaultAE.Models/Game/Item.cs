@@ -45,7 +45,7 @@ namespace TQVaultAE.Models.Game
 		/// The icon of the <see cref="Item"/>.
 		/// </summary> 
 		// TODO Add placeholder icon in case the vault cannot find any icon
-		public BitmapImage Icon { get; set; } = new(new Uri("pack://application:,,,/TQVaultAE;component/Resources/Img/MockItem2x4.png"));
+		public BitmapImage Icon { get; set; } = new(new Uri("pack://application:,,,/TQVaultAE.UI;component/Resources/Img/MockItem2x4.png"));
 
 		public Item() { }
 
