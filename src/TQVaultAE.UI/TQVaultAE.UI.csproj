@@ -37,8 +37,12 @@
     <None Remove="Resources\Img\window_border_bottom.png" />
     <None Remove="Resources\Img\window_border_corner_bottom_left.png" />
     <None Remove="Resources\Img\window_border_corner_bottom_right.png" />
+    <None Remove="Resources\Img\window_border_corner_top_left.png" />
+    <None Remove="Resources\Img\window_border_corner_top_right.png" />
     <None Remove="Resources\Img\window_border_side.png" />
-    <None Remove="Resources\Img\window_border_top.png" />
+    <None Remove="Resources\Img\window_border_top_center.png" />
+    <None Remove="Resources\Img\window_border_top_left.png" />
+    <None Remove="Resources\Img\window_border_top_right.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -145,8 +149,12 @@
     <Resource Include="Resources\Img\window_border_bottom.png" />
     <Resource Include="Resources\Img\window_border_corner_bottom_left.png" />
     <Resource Include="Resources\Img\window_border_corner_bottom_right.png" />
+    <Resource Include="Resources\Img\window_border_corner_top_left.png" />
+    <Resource Include="Resources\Img\window_border_corner_top_right.png" />
     <Resource Include="Resources\Img\window_border_side.png" />
-    <Resource Include="Resources\Img\window_border_top.png" />
+    <Resource Include="Resources\Img\window_border_top_center.png" />
+    <Resource Include="Resources\Img\window_border_top_left.png" />
+    <Resource Include="Resources\Img\window_border_top_right.png" />
   </ItemGroup>
 
 </Project>

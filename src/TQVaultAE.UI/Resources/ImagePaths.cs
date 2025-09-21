@@ -44,19 +44,17 @@ namespace TQVaultAE.UI.Resources
 
     public class BorderImagePaths
     {
-        public readonly ImageSource Top = new BitmapImage(new Uri("pack://application:,,,/TQVaultAE.UI;component/Resources/Img/window_border_top.png", UriKind.Absolute));
+        //public readonly ImageSource Top = new BitmapImage(new Uri("pack://application:,,,/TQVaultAE.UI;component/Resources/Img/window_border_top.png", UriKind.Absolute));
 
-        // TODO Add resource
-        //public readonly ImageSource BorderTopCenter = new BitmapImage(new Uri("", UriKind.Absolute));
-
+        public readonly ImageSource BorderTopCenter = new BitmapImage(new Uri("pack://application:,,,/TQVaultAE.UI;component/Resources/Img/window_border_top_center.png", UriKind.Absolute));
+        public readonly ImageSource BorderTopLeft = new BitmapImage(new Uri("pack://application:,,,/TQVaultAE.UI;component/Resources/Img/window_border_top_left.png", UriKind.Absolute));
+        public readonly ImageSource BorderTopRight = new BitmapImage(new Uri("pack://application:,,,/TQVaultAE.UI;component/Resources/Img/window_border_top_right.png", UriKind.Absolute));
         public readonly ImageSource Side = new BitmapImage(new Uri("pack://application:,,,/TQVaultAE.UI;component/Resources/Img/window_border_side.png", UriKind.Absolute));
         public readonly ImageSource Bottom = new BitmapImage(new Uri("pack://application:,,,/TQVaultAE.UI;component/Resources/Img/window_border_bottom.png", UriKind.Absolute));
+        public readonly ImageSource CornerTopLeft = new BitmapImage(new Uri("pack://application:,,,/TQVaultAE.UI;component/Resources/Img/window_border_corner_top_left.png", UriKind.Absolute));
+        public readonly ImageSource CornerTopRight = new BitmapImage(new Uri("pack://application:,,,/TQVaultAE.UI;component/Resources/Img/window_border_corner_top_left.png", UriKind.Absolute));
         public readonly ImageSource CornerBottomLeft = new BitmapImage(new Uri("pack://application:,,,/TQVaultAE.UI;component/Resources/Img/window_border_corner_bottom_left.png", UriKind.Absolute));
         public readonly ImageSource CornerBottomRight = new BitmapImage(new Uri("pack://application:,,,/TQVaultAE.UI;component/Resources/Img/window_border_corner_bottom_right.png", UriKind.Absolute));
-
-        // TODO Add resources
-        //public readonly ImageSource CornerTopLeft = new BitmapImage(new Uri("", UriKind.Absolute));
-        //public readonly ImageSource CornerTopRight = new BitmapImage(new Uri("", UriKind.Absolute));
     }
 
     public class EquipmentImagePaths
