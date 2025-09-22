@@ -95,6 +95,10 @@ jobs:
       run: |
         $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.Base64_Encoded_Pfx }}")
         $certificatePath = Join-Path -Path $env:Wap_Project_Directory -ChildPath GitHubActionsWorkflow.pfx
+        $certificateDir = [System.IO.Path]::GetDirectoryName($certificatePath)
+        if (-not (Test-Path $certificateDir)) {
+        New-Item -ItemType Directory -Path $certificateDir | Out-Null
+        }
         [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
 
     # Create the app package by building and packaging the Windows Application Packaging project
