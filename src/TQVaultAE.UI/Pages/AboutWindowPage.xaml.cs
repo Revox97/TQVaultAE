@@ -15,6 +15,5 @@ namespace TQVaultAE.UI.Pages
             if (sender is Button button && Window.GetWindow(button) is TqWindow window)
                 window.Exit();
         }
-
     }
 }
