@@ -83,10 +83,6 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid Margin="0">
-        <!-- TODO Set background via binding -->
-        <!--<Grid.Background>
-            <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/mainwindow_background.jpg" Stretch="UniformToFill"/>
-        </Grid.Background>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition Height="11"/>
@@ -103,9 +99,8 @@
             <ColumnDefinition Width="4"/>
         </Grid.ColumnDefinitions>
 
-        <!-- TODO Bind content page to the window in constructor -->
-        <Frame Loaded="ContentController_Loaded" Name="ContentController"
-               NavigationUIVisibility="Hidden" Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="3"/>
+        <Frame Loaded="ContentController_Loaded" Name="ContentController" NavigationUIVisibility="Hidden" Grid.Row="1" Grid.RowSpan="4"
+               Grid.Column="1" Grid.ColumnSpan="3"/>
 
         <!-- Border top -->
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" x:Name="BorderTop" Style="{StaticResource BorderTop}" MouseDown="BorderTop_MouseDown">
@@ -128,6 +123,7 @@
                                 Stretch="UniformToFill" AlignmentX="Left" AlignmentY="Top" TileMode="None"/>
                 </Border.Background>
             </Border>
+
             <!-- Border top left -->
             <Border Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1">
                 <Border.Background>
@@ -142,7 +138,7 @@
                     <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/window_border_top_center.png"
                                 Stretch="Fill" AlignmentX="Center" AlignmentY="Center" TileMode="None"/>
                 </Border.Background>
-                <Label Content="TQVaultAE 5.0.0.0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="7 0 7 2"
+                <Label Content="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Title}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="7 0 7 2"
                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="19" FontSize="9"/>
             </Border>
             <!-- Border top right-->

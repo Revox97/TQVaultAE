@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using TQVaultAE.Models.EventArgs;
 using TQVaultAE.Services;
@@ -10,14 +11,18 @@ namespace TQVaultAE.UI
     /// </summary>
     public partial class TqWindow : Window
     {
-        public TqWindow()
+        public Page ContentPage { get; init; }
+
+        public TqWindow(Page contentPage)
         {
             InitializeComponent();
+            ContentPage = contentPage;
         }
 
 		private void ContentController_Loaded(object sender, RoutedEventArgs e)
 		{
-			Window_SizeChanged(sender, null!);
+            ContentController.Navigate(ContentPage);
+            Window_SizeChanged(sender, null!);
 			WindowSizeService.GetInstance().Notify(this, new WindowSizeUpdatedEventArgs());
         }
 
@@ -25,9 +30,9 @@ namespace TQVaultAE.UI
 		{
 			WindowSizeService.GetInstance().Notify(this, new WindowSizeUpdatedEventArgs()
 			{
-				ContentWidth = ContentController.ActualWidth,
-				ContentHeight = ContentController.ActualHeight
-			});
+                ContentWidth = ContentController.ActualWidth,
+                ContentHeight = ContentController.ActualHeight
+            });
         }
 
 		private void BorderTop_MouseDown(object sender, MouseButtonEventArgs e)

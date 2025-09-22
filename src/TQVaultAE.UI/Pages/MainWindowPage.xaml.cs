@@ -1,39 +1,30 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using TQVaultAE.Models;
-using TQVaultAE.Models.EventArgs;
-using TQVaultAE.Models.Services;
-using TQVaultAE.Services;
-using TQVaultAE.UI.Pages;
+using TQVaultAE.UI.Models;
 
-namespace TQVaultAE
+namespace TQVaultAE.UI.Pages
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
-	public partial class MainWindow : Window
-	{
+    /// <summary>
+    /// Interaction logic for MainWindowPage.xaml
+    /// </summary>
+    public partial class MainWindowPage : Page
+    {
 		private readonly VaultPage _vaultPage;
 		private readonly ConfigurationPage _configurationPage;
 		private readonly SearchPage _searchPage;
 
-		public MainWindow()
-		{
-			InitializeComponent();
-			DataContext = new MainWindowModel();
+        public MainWindowPage()
+        {
+            InitializeComponent();
+
+			DataContext = new MainWindowPageModel();
 
 			_vaultPage = new VaultPage();
 			_configurationPage = new ConfigurationPage();
 			_searchPage = new SearchPage();
 			ButtonVault.IsChecked = true;
-		}
-
-		private void ButtonExit_Click(object sender, RoutedEventArgs e)
-		{
-			Application.Current.Shutdown();
-		}
+        }
 
 		private void ButtonVault_Checked(object sender, RoutedEventArgs e)
 		{
@@ -89,43 +80,5 @@ namespace TQVaultAE
 				return;
 			}
 		}
-
-		private void BorderTop_MouseDown(object sender, MouseButtonEventArgs e)
-		{
-			if (e.ChangedButton == MouseButton.Left)
-				DragMove();
-        }
-
-		private void ButtonMaximize_Click(object sender, RoutedEventArgs e)
-		{
-			if (WindowState == WindowState.Maximized)
-			{
-				WindowState = WindowState.Normal;
-				BorderThickness = new Thickness(0);
-			}
-			else
-			{
-				// TODO Check how to avoid full screen
-				WindowState = WindowState.Maximized;
-				BorderThickness = new Thickness(8);
-			}
-		}
-
-		private void ButtonMinimize_Click(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
-
-		private void ContentController_Loaded(object sender, RoutedEventArgs e)
-		{
-			Window_SizeChanged(sender, null!);
-			WindowSizeService.GetInstance().Notify(this, new WindowSizeUpdatedEventArgs());
-        }
-
-		private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
-		{
-			WindowSizeService.GetInstance().Notify(this, new WindowSizeUpdatedEventArgs()
-			{
-				ContentWidth = ContentController.ActualWidth,
-				ContentHeight = ContentController.ActualHeight
-			});
-        }
     }
 }
