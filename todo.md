@@ -1,0 +1,3 @@
+- Add item cost (sell) | can be calculated by using db
+- Show correct item stats instead of incorrect stats 
+- Enable autosort in player stash

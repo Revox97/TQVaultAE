@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="TQVaultAE.UI.Components.Vault"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TQVaultAE.UI.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/TQVaultAE.UI;component/Templates/ButtonTemplate.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/TQVaultAE.UI;component/Templates/ToggleButtonTemplate.xaml"/>
+                <ResourceDictionary>
+                    <Style x:Key="RotatedAutoSortButton" TargetType="{x:Type Button}">
+                        <Setter Property="Template" Value="{StaticResource ButtonTemplate}"/>
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/button_autosort_rotated_up.png" TileMode="None" AlignmentX="Right" AlignmentY="Top" Stretch="Uniform"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/button_autosort_rotated_over.png" TileMode="None" AlignmentX="Right" AlignmentY="Top" Stretch="Uniform"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style x:Key="VaultTabToggleButton" TargetType="{x:Type ToggleButton}">
+                        <Setter Property="Template" Value="{StaticResource ToggleButtonTemplate}"/>
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/button_inventorybag_down.png" 
+                                            TileMode="None" AlignmentX="Center" AlignmentY="Center" Stretch="Fill"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/button_inventorybag_up.png" 
+                                                    TileMode="None" AlignmentX="Center" AlignmentY="Center" Stretch="Fill"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsChecked" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/button_inventorybag_over.png" 
+                                                        TileMode="None" AlignmentX="Center" AlignmentY="Center" Stretch="Fill"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid x:Name="Container">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".075*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button Style="{StaticResource RotatedAutoSortButton}" Grid.Column="0" Grid.Row="1" Click="Autosort_Click"/>
+        <Grid Grid.Column="1" Grid.Row="0" x:Name="TabContainer">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ToggleButton x:Uid="0" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="0" IsChecked="True"/>
+            <ToggleButton x:Uid="1" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="1"/>
+            <ToggleButton x:Uid="2" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="2"/>
+            <ToggleButton x:Uid="3" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="3"/>
+            <ToggleButton x:Uid="4" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="4"/>
+            <ToggleButton x:Uid="5" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="5"/>
+            <ToggleButton x:Uid="6" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="6"/>
+            <ToggleButton x:Uid="7" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="7"/>
+            <ToggleButton x:Uid="8" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="8"/>
+            <ToggleButton x:Uid="9" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="9"/>
+            <ToggleButton x:Uid="10" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="10"/>
+            <ToggleButton x:Uid="11" Checked="Bag_Checked" Unchecked="Bag_Unchecked" Style="{StaticResource VaultTabToggleButton}" Grid.Column="11"/>
+        </Grid>
+    </Grid>
+</UserControl>

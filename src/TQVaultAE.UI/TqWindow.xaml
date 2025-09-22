@@ -1,0 +1,211 @@
+﻿<Window x:Class="TQVaultAE.UI.TqWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TQVaultAE.UI"
+        xmlns:pages="clr-namespace:TQVaultAE.UI.Pages;assembly=TQVaultAE.UI"
+        xmlns:conv="clr-namespace:TQVaultAE.UI.Converters"
+        mc:Ignorable="d"
+        Title="TqWindow" Height="450" Width="800"
+        WindowStyle="None" ResizeMode="CanResizeWithGrip" AllowsTransparency="True" WindowStartupLocation="CenterScreen" SizeChanged="Window_SizeChanged">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/TQVaultAE.UI;component/Templates/ButtonTemplate.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/TQVaultAE.UI;component/Templates/ToggleButtonTemplate.xaml"/>
+                <ResourceDictionary>
+                    <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+                    <Style x:Key="ButtonClose" TargetType="{x:Type Button}">
+                        <Setter Property="Template" Value="{StaticResource ButtonTemplate}"/>
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/button_close_up.png"
+                                            TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/button_close_over.png"
+                                                    TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style x:Key="ButtonMinimize" TargetType="{x:Type Button}">
+                        <Setter Property="Template" Value="{StaticResource ButtonTemplate}"/>
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/button_minimize_up.png"
+                                            TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/button_minimize_over.png"
+                                                    TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style x:Key="ButtonMaximize" TargetType="{x:Type Button}">
+                        <Setter Property="Template" Value="{StaticResource ButtonTemplate}"/>
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/button_maximize_up.png"
+                                            TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/button_maximize_over.png"
+                                                    TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style x:Key="BorderTop" TargetType="{x:Type Grid}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="11"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="4"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="4"/>
+        </Grid.ColumnDefinitions>
+
+        <Frame Loaded="ContentController_Loaded" Name="ContentController" NavigationUIVisibility="Hidden" Grid.Row="1" Grid.RowSpan="4"
+               Grid.Column="1" Grid.ColumnSpan="3"/>
+
+        <!-- Border top -->
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" x:Name="BorderTop" Style="{StaticResource BorderTop}" MouseDown="BorderTop_MouseDown">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="1"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="31"/>
+            </Grid.ColumnDefinitions>
+            <!-- Border upper left corner -->
+            <Border Grid.Column="0" Grid.Row="1">
+                <Border.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/window_border_corner_top_left.png"
+                                Stretch="UniformToFill" AlignmentX="Left" AlignmentY="Top" TileMode="None"/>
+                </Border.Background>
+            </Border>
+
+            <!-- Border top left -->
+            <Border Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1">
+                <Border.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/window_border_top_left.png"
+                                Stretch="Fill" AlignmentX="Left" AlignmentY="Center" TileMode="Tile"/>
+                </Border.Background>
+            </Border>
+
+            <!-- Border Top Center -->
+            <Border Grid.Column="2" Grid.Row="1">
+                <Border.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/window_border_top_center.png"
+                                Stretch="Fill" AlignmentX="Center" AlignmentY="Center" TileMode="None"/>
+                </Border.Background>
+                <Label Content="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Title}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Padding="7 0 7 2"
+                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="19" FontSize="9"/>
+            </Border>
+            <!-- Border top right-->
+            <Border Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="1">
+                <Border.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/window_border_top_right.png"
+                                Stretch="Fill" AlignmentX="Right" AlignmentY="Center" TileMode="Tile"/>
+                </Border.Background>
+            </Border>
+
+            <!-- Min/Max buttons -->
+            <Grid Grid.Column="3" Grid.Row="1" HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="0"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="4"/>
+                </Grid.ColumnDefinitions>
+                <Button Visibility="{Binding CanMinimizeMaximize, Converter={StaticResource BoolToVisibilityConverter}}" Margin="1" Grid.Column="0" HorizontalAlignment="Stretch" Style="{StaticResource ButtonMinimize}" x:Name="ButtonMinimize" Click="ButtonMinimize_Click"/>
+                <Button Visibility="{Binding CanMinimizeMaximize, Converter={StaticResource BoolToVisibilityConverter}}" Margin="1" Grid.Column="2" HorizontalAlignment="Stretch" Style="{StaticResource ButtonMaximize}" x:Name="ButtonMaximize" Click="ButtonMaximize_Click"/>
+            </Grid>
+        </Grid>
+
+        <!-- Button Close -->
+        <Button Margin="0 2 0 0" Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" x:Name="ButtonClose"
+                Style="{StaticResource ButtonClose}" Click="ButtonExit_Click"/>
+
+        <!-- Border left -->
+        <Border Grid.Row="1" Grid.RowSpan="3" Grid.Column="0">
+            <Border.Background>
+                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/window_border_side.png"
+                            Stretch="UniformToFill" AlignmentX="Left" AlignmentY="Top" TileMode="None" />
+            </Border.Background>
+        </Border>
+
+        <!-- Border right -->
+        <Border Grid.Row="2" Grid.RowSpan="2" Grid.Column="4">
+            <Border.Background>
+                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/window_border_side.png"
+                            Stretch="UniformToFill" AlignmentX="Right" AlignmentY="Top" TileMode="None" />
+            </Border.Background>
+        </Border>
+
+        <!-- Border corner bottom left -->
+        <Border Grid.Row="4" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2">
+            <Border.Background>
+                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/window_border_corner_bottom_left.png"
+                            Stretch="UniformToFill" AlignmentX="Left" AlignmentY="Bottom" TileMode="None"/>
+            </Border.Background>
+        </Border>
+
+        <!-- Border bottom -->
+        <Border Grid.Row="5" Grid.Column="2">
+            <Border.Background>
+                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/window_border_bottom.png"
+                            Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Bottom" TileMode="None"/>
+            </Border.Background>
+        </Border>
+
+        <!-- Border corner bottom right -->
+        <Border Grid.Row="4" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2">
+            <Border.Background>
+                <ImageBrush ImageSource="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/window_border_corner_bottom_right.png"
+                            Stretch="UniformToFill" AlignmentX="Right" AlignmentY="Bottom" TileMode="None"/>
+            </Border.Background>
+        </Border>
+    </Grid>
+</Window>

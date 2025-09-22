@@ -1,0 +1,163 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Img\about.jpg" />
+    <None Remove="Resources\Img\about.png" />
+    <None Remove="Resources\Img\button_autosort_over.png" />
+    <None Remove="Resources\Img\button_autosort_rotated_over.png" />
+    <None Remove="Resources\Img\button_autosort_rotated_up.png" />
+    <None Remove="Resources\Img\button_autosort_up.png" />
+    <None Remove="Resources\Img\button_close_down.png" />
+    <None Remove="Resources\Img\button_close_over.png" />
+    <None Remove="Resources\Img\button_close_up.png" />
+    <None Remove="Resources\Img\button_inventorybag_down.png" />
+    <None Remove="Resources\Img\button_inventorybag_over.png" />
+    <None Remove="Resources\Img\button_inventorybag_up.png" />
+    <None Remove="Resources\Img\button_main_down.jpg" />
+    <None Remove="Resources\Img\button_main_over.jpg" />
+    <None Remove="Resources\Img\button_main_up.jpg" />
+    <None Remove="Resources\Img\button_maximize_down.png" />
+    <None Remove="Resources\Img\button_maximize_over.png" />
+    <None Remove="Resources\Img\button_maximize_up.png" />
+    <None Remove="Resources\Img\button_minimize_down.png" />
+    <None Remove="Resources\Img\button_minimize_over.png" />
+    <None Remove="Resources\Img\button_minimize_up.png" />
+    <None Remove="Resources\Img\caravan_background.jpg" />
+    <None Remove="Resources\Img\icon_majestic_chest.png" />
+    <None Remove="Resources\Img\item_accent.png" />
+    <None Remove="Resources\Img\mainwindow_background.jpg" />
+    <None Remove="Resources\Img\tab_stash_down.png" />
+    <None Remove="Resources\Img\tab_stash_over.png" />
+    <None Remove="Resources\Img\tab_stash_up.png" />
+    <None Remove="Resources\Img\window_border_bottom.png" />
+    <None Remove="Resources\Img\window_border_corner_bottom_left.png" />
+    <None Remove="Resources\Img\window_border_corner_bottom_right.png" />
+    <None Remove="Resources\Img\window_border_corner_top_left.png" />
+    <None Remove="Resources\Img\window_border_corner_top_right.png" />
+    <None Remove="Resources\Img\window_border_side.png" />
+    <None Remove="Resources\Img\window_border_top_center.png" />
+    <None Remove="Resources\Img\window_border_top_left.png" />
+    <None Remove="Resources\Img\window_border_top_right.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TQVaultAE.Models\TQVaultAE.Models.csproj" />
+    <ProjectReference Include="..\TQVaultAE.Services\TQVaultAE.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Components\Equipment.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\ItemControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\ItemNameLabel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\ItemsPanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Player.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\PlayerContainer.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\PlayerStatistics.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\Vault.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\VaultContainer.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\ConfigurationPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\SearchPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\VaultPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Img\about.jpg" />
+    <Resource Include="Resources\Img\button_autosort_over.png" />
+    <Resource Include="Resources\Img\button_autosort_rotated_over.png" />
+    <Resource Include="Resources\Img\button_autosort_rotated_up.png" />
+    <Resource Include="Resources\Img\button_autosort_up.png" />
+    <Resource Include="Resources\Img\button_close_down.png" />
+    <Resource Include="Resources\Img\button_close_over.png" />
+    <Resource Include="Resources\Img\button_close_up.png" />
+    <Resource Include="Resources\Img\button_inventorybag_down.png" />
+    <Resource Include="Resources\Img\button_inventorybag_over.png" />
+    <Resource Include="Resources\Img\button_inventorybag_up.png" />
+    <Resource Include="Resources\Img\button_main_down.jpg" />
+    <Resource Include="Resources\Img\button_main_over.jpg" />
+    <Resource Include="Resources\Img\button_main_up.jpg" />
+    <Resource Include="Resources\Img\button_maximize_down.png" />
+    <Resource Include="Resources\Img\button_maximize_over.png" />
+    <Resource Include="Resources\Img\button_maximize_up.png" />
+    <Resource Include="Resources\Img\button_minimize_down.png" />
+    <Resource Include="Resources\Img\button_minimize_over.png" />
+    <Resource Include="Resources\Img\button_minimize_up.png" />
+    <Resource Include="Resources\Img\caravan_background.jpg" />
+    <Resource Include="Resources\Img\equipment_arms_background.png" />
+    <Resource Include="Resources\Img\equipment_arms_overlay.png" />
+    <Resource Include="Resources\Img\equipment_artifact_background.png" />
+    <Resource Include="Resources\Img\equipment_artifact_overlay.png" />
+    <Resource Include="Resources\Img\equipment_background.png" />
+    <Resource Include="Resources\Img\equipment_head_background.png" />
+    <Resource Include="Resources\Img\equipment_head_overlay.png" />
+    <Resource Include="Resources\Img\equipment_legs_background.png" />
+    <Resource Include="Resources\Img\equipment_legs_overlay.png" />
+    <Resource Include="Resources\Img\equipment_necklace_background.png" />
+    <Resource Include="Resources\Img\equipment_necklace_overlay.png" />
+    <Resource Include="Resources\Img\equipment_rings_background.png" />
+    <Resource Include="Resources\Img\equipment_rings_overlay.png" />
+    <Resource Include="Resources\Img\equipment_shield1_background.png" />
+    <Resource Include="Resources\Img\equipment_shield1_overlay.png" />
+    <Resource Include="Resources\Img\equipment_shield2_background.png" />
+    <Resource Include="Resources\Img\equipment_shield2_overlay.png" />
+    <Resource Include="Resources\Img\equipment_torso_background.png" />
+    <Resource Include="Resources\Img\equipment_torso_overlay.png" />
+    <Resource Include="Resources\Img\equipment_weapon1_background.png" />
+    <Resource Include="Resources\Img\equipment_weapon1_overlay.png" />
+    <Resource Include="Resources\Img\equipment_weapon2_background.png" />
+    <Resource Include="Resources\Img\equipment_weapon2_overlay.png" />
+    <Resource Include="Resources\Img\icon_majestic_chest.png" />
+    <Resource Include="Resources\Img\item_accent.png" />
+    <Resource Include="Resources\Img\mainwindow_background.jpg" />
+    <Resource Include="Resources\Img\MockItem1x1.png" />
+    <Resource Include="Resources\Img\MockItem1x2.png" />
+    <Resource Include="Resources\Img\MockItem2x1.png" />
+    <Resource Include="Resources\Img\MockItem2x2.png" />
+    <Resource Include="Resources\Img\MockItem2x3.png" />
+    <Resource Include="Resources\Img\MockItem2x4.png" />
+    <Resource Include="Resources\Img\StashPanel.png" />
+    <Resource Include="Resources\Img\tab_stash_down.png" />
+    <Resource Include="Resources\Img\tab_stash_over.png" />
+    <Resource Include="Resources\Img\tab_stash_up.png" />
+    <Resource Include="Resources\Img\window_border_bottom.png" />
+    <Resource Include="Resources\Img\window_border_corner_bottom_left.png" />
+    <Resource Include="Resources\Img\window_border_corner_bottom_right.png" />
+    <Resource Include="Resources\Img\window_border_corner_top_left.png" />
+    <Resource Include="Resources\Img\window_border_corner_top_right.png" />
+    <Resource Include="Resources\Img\window_border_side.png" />
+    <Resource Include="Resources\Img\window_border_top_center.png" />
+    <Resource Include="Resources\Img\window_border_top_left.png" />
+    <Resource Include="Resources\Img\window_border_top_right.png" />
+  </ItemGroup>
+
+</Project>
