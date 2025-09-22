@@ -106,9 +106,9 @@ jobs:
         /p:AppxBundle=$env:Appx_Bundle `
         /p:PackageCertificateKeyFile=GitHubActionsWorkflow.pfx ` 
         /p:PackageCertificatePassword=${{ secrets.Pfx_Key }} `
-        /p:AssemblyVersion=${{ Version_Major }}.${{ Version_Minor }}.${{ Version_Revision }}.${{ github.run_number }}
-        /p:FileVersion=${{ Version_Major }}.${{ Version_Minor }}.${{ Version_Revision }}.${{ github.run_number }}
-        /p:Version=${{ Version_Major }}.${{ Version_Minor }}.${{ Version_Revision }}.${{ github.run_number }}
+        /p:AssemblyVersion=${{ env:Version_Major }}.${{ env:Version_Minor }}.${{ env:Version_Revision }}.${{ github.run_number }}
+        /p:FileVersion=${{ env:Version_Major }}.${{env:Version_Minor }}.${{ env:Version_Revision }}.${{ github.run_number }}
+        /p:Version=${{ env:Version_Major }}.${{ env:Version_Minor }}.${{ env:Version_Revision }}.${{ github.run_number }}
       env:
         Appx_Bundle: Always
         Appx_Bundle_Platforms: x86|x64
