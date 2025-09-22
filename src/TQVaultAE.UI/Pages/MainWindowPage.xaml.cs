@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using TQVaultAE.UI.Controllers;
 using TQVaultAE.UI.Models;
 
 namespace TQVaultAE.UI.Pages
@@ -10,6 +11,8 @@ namespace TQVaultAE.UI.Pages
     /// </summary>
     public partial class MainWindowPage : Page
     {
+        private MainWindowController _controller;
+
 		private readonly VaultPage _vaultPage;
 		private readonly ConfigurationPage _configurationPage;
 		private readonly SearchPage _searchPage;
@@ -23,6 +26,8 @@ namespace TQVaultAE.UI.Pages
 			_vaultPage = new VaultPage();
 			_configurationPage = new ConfigurationPage();
 			_searchPage = new SearchPage();
+            _controller = new MainWindowController();
+
 			ButtonVault.IsChecked = true;
         }
 
@@ -80,5 +85,7 @@ namespace TQVaultAE.UI.Pages
 				return;
 			}
 		}
+
+        private void About_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e) => _controller.ShowAboutWindow();
     }
 }

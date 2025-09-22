@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Img\about.jpg" />
+    <None Remove="Resources\Img\about.png" />
     <None Remove="Resources\Img\button_autosort_over.png" />
     <None Remove="Resources\Img\button_autosort_rotated_over.png" />
     <None Remove="Resources\Img\button_autosort_rotated_up.png" />
@@ -90,6 +92,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Img\about.jpg" />
     <Resource Include="Resources\Img\button_autosort_over.png" />
     <Resource Include="Resources\Img\button_autosort_rotated_over.png" />
     <Resource Include="Resources\Img\button_autosort_rotated_up.png" />

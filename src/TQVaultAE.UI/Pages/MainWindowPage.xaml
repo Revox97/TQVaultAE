@@ -141,7 +141,19 @@
             <ToggleButton DockPanel.Dock="Left" Content="Configuration" Style="{StaticResource MainToggleButton}" x:Name="ButtonConfiguration" Checked="ButtonConfiguration_Checked"/>
             <Button DockPanel.Dock="Left" Content="Save" Style="{StaticResource MainButton}"/>
             <StackPanel Orientation="Horizontal" Margin="0 0 30 0" DockPanel.Dock="Right">
-                <Image Source="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/icon_majestic_chest.png" Margin="-5"></Image>
+                <Image Source="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/icon_majestic_chest.png" Margin="-5" MouseLeftButtonUp="About_MouseLeftButtonUp">
+                    <Image.Style>
+                        <Style TargetType="{x:Type Image}">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Cursor" Value="Hand"/>
+                                    <!-- Localize -->
+                                    <Setter Property="ToolTip" Value="Show about window"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
                 <Label VerticalAlignment="Center" Content="TQVault" FontSize="28" FontWeight="DemiBold" Foreground="Gold" VerticalContentAlignment="Center" Margin="0 -5 0 0" ></Label>
             </StackPanel>
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" Margin="0 0 10 0">

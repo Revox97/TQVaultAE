@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using System.Data;
+﻿using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -18,20 +17,28 @@ namespace TQVaultAE
 			try
 			{
 				base.OnStartup(e);
-                new TqWindow(new MainWindowPage())
+
+                AssemblyName assemblyName = Assembly.GetExecutingAssembly().GetName();
+                new TqWindow(new MainWindowPage(), true, true)
                 {
                     MinHeight = 800,
                     MinWidth = 1300,
                     Height = 900,
                     Width = 1100,
-                    Title = "TQVaultAE 5.5.0.0",
+                    Title = $"{assemblyName.Name} {assemblyName.Version}",
                     Background = new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/TQVaultAE.UI;component/Resources/Img/mainwindow_background.jpg"))),
                 }.Show();
-				//new MainWindow().Show();
 			} 
 			catch (Exception ex)
 			{
-				// TODO Handle general exceptions
+                try
+                {
+                    // TODO log exceptions
+                }
+                catch
+                {
+                    // Show message box containing exception
+                }
 			}
 		}
 	}

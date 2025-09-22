@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TQVaultAE.UI"
         xmlns:pages="clr-namespace:TQVaultAE.UI.Pages;assembly=TQVaultAE.UI"
+        xmlns:conv="clr-namespace:TQVaultAE.UI.Converters"
         mc:Ignorable="d"
         Title="TqWindow" Height="450" Width="800"
         WindowStyle="None" ResizeMode="CanResizeWithGrip" AllowsTransparency="True" WindowStartupLocation="CenterScreen" SizeChanged="Window_SizeChanged">
@@ -14,6 +15,7 @@
                 <ResourceDictionary Source="pack://application:,,,/TQVaultAE.UI;component/Templates/ButtonTemplate.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/TQVaultAE.UI;component/Templates/ToggleButtonTemplate.xaml"/>
                 <ResourceDictionary>
+                    <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
                     <Style x:Key="ButtonClose" TargetType="{x:Type Button}">
                         <Setter Property="Template" Value="{StaticResource ButtonTemplate}"/>
                         <Setter Property="Background">
@@ -157,8 +159,8 @@
                     <ColumnDefinition Width="20"/>
                     <ColumnDefinition Width="4"/>
                 </Grid.ColumnDefinitions>
-                <Button Margin="1" Grid.Column="0" HorizontalAlignment="Stretch" Style="{StaticResource ButtonMinimize}" x:Name="ButtonMinimize" Click="ButtonMinimize_Click"/>
-                <Button Margin="1" Grid.Column="2" HorizontalAlignment="Stretch" Style="{StaticResource ButtonMaximize}" x:Name="ButtonMaximize" Click="ButtonMaximize_Click"/>
+                <Button Visibility="{Binding CanMinimizeMaximize, Converter={StaticResource BoolToVisibilityConverter}}" Margin="1" Grid.Column="0" HorizontalAlignment="Stretch" Style="{StaticResource ButtonMinimize}" x:Name="ButtonMinimize" Click="ButtonMinimize_Click"/>
+                <Button Visibility="{Binding CanMinimizeMaximize, Converter={StaticResource BoolToVisibilityConverter}}" Margin="1" Grid.Column="2" HorizontalAlignment="Stretch" Style="{StaticResource ButtonMaximize}" x:Name="ButtonMaximize" Click="ButtonMaximize_Click"/>
             </Grid>
         </Grid>
 
