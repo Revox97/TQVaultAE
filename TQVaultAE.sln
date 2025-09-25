@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Services", "src\T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.UI", "src\TQVaultAE.UI\TQVaultAE.UI.csproj", "{1D4DBB69-005B-B472-8DB0-13B72E730766}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Logger", "src\TQVaultAE.Logger\TQVaultAE.Logger.csproj", "{9267EE4F-5E5C-4630-84B0-E92F3CF5FAFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,8 +35,15 @@ Global
 		{1D4DBB69-005B-B472-8DB0-13B72E730766}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D4DBB69-005B-B472-8DB0-13B72E730766}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D4DBB69-005B-B472-8DB0-13B72E730766}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9267EE4F-5E5C-4630-84B0-E92F3CF5FAFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9267EE4F-5E5C-4630-84B0-E92F3CF5FAFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9267EE4F-5E5C-4630-84B0-E92F3CF5FAFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9267EE4F-5E5C-4630-84B0-E92F3CF5FAFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B01F052C-256B-4CDD-848F-338522FC5644}
 	EndGlobalSection
 EndGlobal
