@@ -1,8 +1,9 @@
 ﻿using System.Drawing;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using TQVaultAE.Models.CharacterData;
 
-namespace TQVaultAE.Models.Game
+namespace TQVaultAE.Models.PlayerData
 {
 	public class Item
 	{
@@ -27,7 +28,7 @@ namespace TQVaultAE.Models.Game
         public ItemType ItemType { get; set; }
 
 		/// <summary>
-		/// The requirements of a <see cref="Player"/> in order to wear this <see cref="Item"/>.
+		/// The requirements of a <see cref="Character"/> in order to wear this <see cref="Item"/>.
 		/// </summary>
 		public ItemRequirements Requirements { get; set; }
 

@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using TQVaultAE.Models.Game;
+using TQVaultAE.Models.PlayerData;
 using TQVaultAE.UI.Builder;
 using TQVaultAE.UI.Models;
 using TQVaultAE.UI.Resources;

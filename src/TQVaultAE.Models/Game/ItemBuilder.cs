@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Media.Imaging;
 
-namespace TQVaultAE.Models.Game
+namespace TQVaultAE.Models.PlayerData
 {
 	public class ItemBuilder
 	{

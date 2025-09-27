@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 using TQVaultAE.Models.EventArgs;
-using TQVaultAE.Models.Game;
+using TQVaultAE.Models.PlayerData;
 using TQVaultAE.Models.Services;
 using TQVaultAE.Models.Services.Observers;
 using TQVaultAE.Services;

@@ -1,4 +1,6 @@
-﻿namespace TQVaultAE.Models.Game
+﻿using TQVaultAE.Models.CharacterData;
+
+namespace TQVaultAE.Models.PlayerData
 {
 	public static class ItemExtensions
 	{
@@ -30,7 +32,7 @@
 			return false;
 		}
 
-		public static bool CanPlayerEquip(this Item item, Player player, int percentageStrength = 100, int percentageDexterity = 100, int percentageIntelligence = 100)
+		public static bool CanPlayerEquip(this Item item, Character player, int percentageStrength = 100, int percentageDexterity = 100, int percentageIntelligence = 100)
 		{
 			if (player.Statistics.Level < item.Requirements.Level)
 				return false;

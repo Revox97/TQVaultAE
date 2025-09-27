@@ -1,7 +1,9 @@
-﻿namespace TQVaultAE.Logger
+﻿using TQVaultAE.Logger.Sinks;
+
+namespace TQVaultAE.Logger
 {
     public class Logger
     {
-        private readonly Sink _sink;
+        private readonly ISink _sink;
     }
 }

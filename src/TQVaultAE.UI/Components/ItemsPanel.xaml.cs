@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using TQVaultAE.Models.Game;
+using TQVaultAE.Models.PlayerData;
 using TQVaultAE.UI.Controllers;
 using TQVaultAE.UI.Models;
 

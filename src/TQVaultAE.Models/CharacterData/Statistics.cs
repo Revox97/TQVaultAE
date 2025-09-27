@@ -1,6 +1,8 @@
-﻿namespace TQVaultAE.Models.Game
+﻿using TQVaultAE.Models.PlayerData;
+
+namespace TQVaultAE.Models.CharacterData
 {
-	public class PlayerStatistics
+	public class Statistics
 	{
 		public GameDifficulty Difficulty { get; set; }
 

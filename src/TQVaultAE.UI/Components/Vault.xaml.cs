@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media.Imaging;
 using TQVaultAE.Models.EventArgs;
-using TQVaultAE.Models.Game;
+using TQVaultAE.Models.PlayerData;
 using TQVaultAE.Models.Services;
 using TQVaultAE.Models.Services.Observers;
 using TQVaultAE.UI.Resources;
