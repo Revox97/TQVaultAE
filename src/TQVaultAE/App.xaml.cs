@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using TQVaultAE.IO;
 using TQVaultAE.UI;
 using TQVaultAE.UI.Pages;
 
@@ -18,6 +19,10 @@ namespace TQVaultAE
 			try
 			{
 				base.OnStartup(e);
+
+                // TEST REMOVE
+                new CharacterFileReader().ReadPlayerFile(@"C:\Users\Leo\Documents\TQVaultTestData\Main\_IL 3 IR o Y\Player.chr");
+                // TEST REMOVE
 
                 AssemblyName assemblyName = Assembly.GetExecutingAssembly().GetName();
                 new TqWindow(new MainWindowPage(), true, true)

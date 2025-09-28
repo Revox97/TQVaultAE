@@ -1,29 +1,31 @@
-﻿namespace TQVaultAE.Services.Character
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TQVaultAE.Services.Character
 {
     /// <summary>
     /// Represents a service to fetch and update ingame <see cref="Models.CharacterData.Character"/> data.
     /// </summary>
     public class CharacterService
     {
-        // TODO Make it so it can be updated during runtime
-        private readonly CharacterDataStrategy _characterDataStrategy = new FileCharacterDataStrategy();
+        private readonly Dictionary<Guid, CharacterSet> _characters = [];
 
         /// <summary>
         /// Creates a new instance of the <see cref="CharacterService"/> class.
         /// </summary>
         public CharacterService()
         {
-            _characterDataStrategy = GetCharacterDataStrategy();
+            // TODO Read character list
+            // TOOD Set character strategies
         }
 
         /// <summary>
-        /// Gets a <see cref="Models.CharacterData.Character"/> for the provided <paramref name="name"/>.
+        /// Gets a list of all <see cref="Models.CharacterData.Character"/>s available on the system.
         /// </summary>
-        /// <param name="name">The name of the <see cref="Models.CharacterData.Character"/>.</param>
-        /// <returns>A new <see cref="Models.CharacterData.Character"/> if a <see cref="Models.CharacterData.Character"/> with the <paramref name="name"/> exists. Otherwise <see langword="null"/>.</returns>
-        public Models.CharacterData.Character? GetCharacterByName(string name)
+        /// <returns>A <see cref="List{T}"/> of all available <see cref="Models.CharacterData.Character">Characters</see>.</returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public List<Models.CharacterData.Character> GetCharacters()
         {
-            return _characterDataStrategy.Read(name);
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -31,27 +33,41 @@
         /// </summary>
         /// <param name="character">The <see cref="Models.CharacterData.Character"/> that should be updated.</param>
         /// <returns>A new <see cref="Models.CharacterData"/> instance containing the updated data.</returns>
-        public Models.CharacterData.Character GetCharacter(Models.CharacterData.Character character)
+        public Models.CharacterData.Character GetCharacter(Guid characterId)
         {
-            return _characterDataStrategy.Read(character);
+            // TODO strategy might need to be updated if working on not ingame characters
+            Models.CharacterData.Character character = _characters[characterId].CharacterDataStrategy.Read(characterId);
+            _characters[characterId].Character = character;
+
+            return character;
         }
 
         /// <summary>
         /// Writes a <see cref="Models.CharacterData.Character"/> to game memory / file.
         /// </summary>
         /// <param name="character"></param>
-        public void SaveCharacter(Models.CharacterData.Character character)
+        public void SaveCharacter(Guid characterId)
         {
-            _characterDataStrategy.Write(character);
+            CharacterSet characterSet = _characters[characterId];
+            characterSet.CharacterDataStrategy.Write(characterSet.Character);
         }
 
-        private static CharacterDataStrategy GetCharacterDataStrategy()
+        private void SetCharacterDataStrategy(Guid characterId)
         {
-            // IF config is live update and game is running
-            return new MemoryCharacterDataStrategy();
+            // IF config is live update and game is running and character is ingame
+            _characters[characterId].CharacterDataStrategy = new MemoryCharacterDataStrategy();
 
             // else
-            return new FileCharacterDataStrategy();
+            _characters[characterId].CharacterDataStrategy = new FileCharacterDataStrategy();
         }
+    }
+
+    public class CharacterSet
+    {
+        [Required]
+        public Models.CharacterData.Character Character { get; set; }
+
+        [Required]
+        public CharacterDataStrategy CharacterDataStrategy { get; set; }
     }
 }

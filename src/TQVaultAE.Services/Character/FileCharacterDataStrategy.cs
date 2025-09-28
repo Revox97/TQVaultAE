@@ -3,7 +3,7 @@ namespace TQVaultAE.Services.Character
 {
     public class FileCharacterDataStrategy : CharacterDataStrategy
     {
-        public override Models.CharacterData.Character Read(string characterName)
+        public override Models.CharacterData.Character Read(Guid id)
         {
             throw new NotImplementedException();
         }

@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TQVaultAE.IO\TQVaultAE.IO.csproj" />
     <ProjectReference Include="..\TQVaultAE.Models\TQVaultAE.Models.csproj" />
     <ProjectReference Include="..\TQVaultAE.UI\TQVaultAE.UI.csproj" />
   </ItemGroup>
