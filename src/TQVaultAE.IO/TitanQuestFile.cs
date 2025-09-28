@@ -97,7 +97,7 @@ namespace TQVaultAE.IO
             //string contentAsString = encoding1252.GetString(Content);
 
             // TODO Use file parser here instead
-            Dictionary<string, ChrFileRecord> result = new ChrFileParser().Parse(Content);
+            ChrFileRecord result = new ChrFileParser().Parse(Content);
 
             // Regex save file / Where the magic lies
     //        List<Match> keyMatches = [.. KeyMatchRegex().Matches(contentAsString).Cast<Match>().Where(m => m.Success)];

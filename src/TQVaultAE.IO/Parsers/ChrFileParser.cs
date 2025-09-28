@@ -8,6 +8,7 @@ namespace TQVaultAE.IO.Parsers
         private const byte Encoding_Null = 0x0;
         private const byte Encoding_FileStart = 0x0D;
         private const byte Encoding_RawDelimiter = 0x0E;
+        private const byte Encoding_Ascii_Underscore = 0x5F;
         private const byte Encoding_Ascii_0 = 0x30;
         private const byte Encoding_Ascii_9 = 0x39;
         private const byte Encoding_Ascii_A = 0x41;
@@ -20,7 +21,6 @@ namespace TQVaultAE.IO.Parsers
 
         private byte[] _content = [];
         private int _currentPosition;
-        private readonly Dictionary<string, ChrFileRecord> _result = [];
         private readonly Encoding _encoding;
 
         private static readonly Dictionary<string, ChrRecordType> s_keyTypeMap = new() {
@@ -31,6 +31,8 @@ namespace TQVaultAE.IO.Parsers
             { "playerClassTag", ChrRecordType.String },
             { "playerLevel", ChrRecordType.Int },
             { "playerVersion", ChrRecordType.Int },
+            { "begin_block", ChrRecordType.BeginBlock },
+            { "end_block", ChrRecordType.EndBlock },
         };
 
         internal ChrFileParser()
@@ -39,20 +41,31 @@ namespace TQVaultAE.IO.Parsers
             _encoding = Encoding.GetEncoding(CodePage1252);
         }
 
-        public Dictionary<string, ChrFileRecord> Parse(byte[] content)
+        public ChrFileRecord Parse(byte[] content)
         {
             try
             {
-                _result.Clear();
                 _content = content;
                 _currentPosition = 0;
+
+                ChrFileRecord topLevelElement = new()
+                {
+                    Type = ChrRecordType.ChrFile,
+                    Start = _currentPosition,
+                    End = _content.Length - 1,
+                };
 
                 VerifyFileStart();
 
                 while(_currentPosition + 1 < _content.Length)
-                    ReadDataRecord();
+                {
+                    ChrFileRecord? result = ReadDataRecord();
 
-                return _result;
+                    if (result is not null)
+                        topLevelElement.Children.Add(result);
+                }
+
+                return topLevelElement;
             }
             catch (Exception ex)
             {
@@ -71,7 +84,7 @@ namespace TQVaultAE.IO.Parsers
 
         private void IncrementCurrentPosition(int times = 1) => _currentPosition += times;
 
-        private void ReadDataRecord()
+        private ChrFileRecord? ReadDataRecord()
         {
             int start = _currentPosition;
 
@@ -84,7 +97,7 @@ namespace TQVaultAE.IO.Parsers
                 object? value = ReadValue(recordType, out int valueStart, out int valueEnd);
                 int end = _currentPosition - 1;
 
-                _result.Add(key, new ChrFileRecord()
+                return new ChrFileRecord()
                 {
                     Key = key,
                     Value = value,
@@ -92,15 +105,13 @@ namespace TQVaultAE.IO.Parsers
                     KeyStart = keyStart,
                     KeyTo = keyEnd,
                     ValueStart = valueStart,
-                    ValueTo = valueEnd,
+                    ValueEnd = valueEnd,
                     Start = start,
                     End = end
-                });
-
-                return;
+                };
             }
 
-            // TODO Return for now, add unknown entry in future
+            return null!;
         }
 
         private bool CheckForSeperator(int offset = 0)
@@ -139,9 +150,57 @@ namespace TQVaultAE.IO.Parsers
                 return ReadRaw(out valueStart, out valueEnd);
             }
 
+            if (type == ChrRecordType.BeginBlock)
+                return ReadStartBlock(out valueStart, out valueEnd);
+
+            if (type == ChrRecordType.EndBlock)
+                return ReadEndBlock(out valueStart, out valueEnd);
+
             valueStart = _currentPosition;
             valueEnd = _currentPosition;
             return null!; 
+        }
+
+        private byte[] ReadEndBlock(out int valueStart, out int valueEnd)
+        {
+            valueStart = _currentPosition;
+            byte[] result = ReadRaw(out _, out _);
+            valueEnd = _currentPosition;
+
+            return result;
+        }
+
+        // TODO implement
+        private ChrFileRecord ReadStartBlock(out int valueStart, out int valueEnd)
+        {
+            valueStart = _currentPosition;
+            byte[] beginBlockValue = ReadRaw(out _, out _);
+            valueEnd = _currentPosition;
+
+            List<ChrFileRecord> children = [];
+
+            while (_currentPosition < _content.Length)
+            {
+                ChrFileRecord? result = ReadDataRecord();
+
+                if (result is not null)
+                {
+                    children.Add(result);
+
+                    if (result.Key == "end_block")
+                        break;
+                }
+            }
+
+            return new()
+            {
+                Start = valueStart,
+                Value = beginBlockValue,
+                End = valueEnd,
+                Children = children,
+                Key = "begin_block",
+                Type = ChrRecordType.BeginBlock
+            };
         }
 
         private byte[] ReadRaw(out int valueStart, out int valueEnd)
@@ -149,7 +208,8 @@ namespace TQVaultAE.IO.Parsers
             valueStart = _currentPosition;
             List<byte> result = [];
 
-            while (_currentPosition < _content.Length && _content[_currentPosition] != Encoding_RawDelimiter)
+            while (_currentPosition < _content.Length &&
+                  (_content[_currentPosition] != Encoding_RawDelimiter && !CheckForSeperator()))
             {
                 result.Add(_content[_currentPosition]);
                 IncrementCurrentPosition();
@@ -210,10 +270,16 @@ namespace TQVaultAE.IO.Parsers
                      ((currentChar >= Encoding_Ascii_0 && currentChar <= Encoding_Ascii_9)
                    || (currentChar >= Encoding_Ascii_A && currentChar <= Encoding_Ascii_Z)
                    || (currentChar >= Encoding_Ascii_a && currentChar <= Encoding_Ascii_z)
-                   || (currentChar >= Encoding_Ascii_StartCodePage && currentChar <= Encoding_Ascii_EndCodePage)))
+                   || (currentChar >= Encoding_Ascii_StartCodePage && currentChar <= Encoding_Ascii_EndCodePage)
+                   || (currentChar == Encoding_Ascii_Underscore)))
                 {
                     result += Convert.ToChar(currentChar);
                     IncrementCurrentPosition();
+
+                    // Block start or end, additional chars are ignored for key
+                    if (result == "begin_block" || result == "end_block")
+                        break;
+                        
                     currentChar = GetChar();
                 }
 
