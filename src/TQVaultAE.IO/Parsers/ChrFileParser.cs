@@ -7,6 +7,7 @@ namespace TQVaultAE.IO.Parsers
         private const int CodePage1252 = 1252;
         private const byte Encoding_Null = 0x0;
         private const byte Encoding_FileStart = 0x0D;
+        private const byte Encoding_Page_End = 0x0D;
         private const byte Encoding_RawDelimiter = 0x0E;
         private const byte Encoding_Ascii_Underscore = 0x5F;
         private const byte Encoding_Ascii_0 = 0x30;
@@ -36,15 +37,15 @@ namespace TQVaultAE.IO.Parsers
             { "myPlayerName", ChrRecordType.String },
             { "isInMainQuest", ChrRecordType.Bool },
             { "disableAutoPopV2", ChrRecordType.Bool },
-            { "numTutorialPagesV2", ChrRecordType.Page }, // TODO get rid of closing ) in the end (if it does not already, same as with playerlevel)
+            { "numTutorialPagesV2", ChrRecordType.Page },
             { "currentPageV2", ChrRecordType.Page },
-            { "versionCheckTeleportInfo", ChrRecordType.Bool },
+            { "versionCheckTeleportInfo", ChrRecordType.Int },
             { "teleportUIDsSize", ChrRecordType.Int },
             { "teleportUID", ChrRecordType.Id },
-            { "versionCheckMovementInfo", ChrRecordType.Bool }, // TODO Verify
+            { "versionCheckMovementInfo", ChrRecordType.Int },
             { "markerUIDsSize", ChrRecordType.Int },
             { "markerUID", ChrRecordType.Id },
-            { "versionCheckRespawnInfo", ChrRecordType.Bool }, // TODO Verify
+            { "versionCheckRespawnInfo", ChrRecordType.Int },
             { "respawnUIDsSize", ChrRecordType.Int },
             { "respawnUID", ChrRecordType.Id },
             { "versionRespawnPoint", ChrRecordType.Bool }, // TODO Verify
@@ -96,7 +97,6 @@ namespace TQVaultAE.IO.Parsers
             { "currentStats.experiencePoints", ChrRecordType.Int },
             { "modifierPoints", ChrRecordType.Int },
             { "skillPoints", ChrRecordType.Int },
-            { "temp", ChrRecordType.Int },
             { "playTimeInSeconds", ChrRecordType.Int },
             { "numberOfDeaths", ChrRecordType.Int },
             { "numberOfKills", ChrRecordType.Int },
@@ -117,7 +117,6 @@ namespace TQVaultAE.IO.Parsers
             { "currentlyFocusedSackNumber", ChrRecordType.Int },
             { "currentlySelectedSackNumber", ChrRecordType.Int },
             { "tempBool", ChrRecordType.Bool },
-            { "size", ChrRecordType.Int },
             { "pointX", ChrRecordType.Int },
             { "pointY", ChrRecordType.Int },
             { "baseName", ChrRecordType.Raw },
@@ -135,7 +134,6 @@ namespace TQVaultAE.IO.Parsers
             { "equipmentCtrlOStreamVersion", ChrRecordType.Int },
             { "itemAttached", ChrRecordType.Bool },
             { "storedType", ChrRecordType.Int },
-            { "skillName", ChrRecordType.Raw },
             { "isItemSkill", ChrRecordType.Bool },
             { "itemName", ChrRecordType.Raw },
             { "description", ChrRecordType.Raw },
@@ -240,6 +238,9 @@ namespace TQVaultAE.IO.Parsers
             if (type == ChrRecordType.Int)
                 return ReadInt(out valueStart, out valueEnd);
 
+            if (type == ChrRecordType.Bool)
+                return ReadBool(out valueStart, out valueEnd);
+
             if (type == ChrRecordType.String)
             { 
                 int length = ReadInt(out _, out _);
@@ -262,9 +263,30 @@ namespace TQVaultAE.IO.Parsers
             if (type == ChrRecordType.EndBlock)
                 return ReadEndBlock(out valueStart, out valueEnd);
 
+            if (type == ChrRecordType.Page)
+                return ReadPage(out valueStart, out valueEnd);
+
             valueStart = _currentPosition;
             valueEnd = _currentPosition;
             return null!; 
+        }
+
+        private byte[] ReadPage(out int valueStart, out int valueEnd)
+        {
+            _currentPosition--;
+            valueStart = _currentPosition;
+            List<byte> result = [];
+
+            while(_currentPosition < _content.Length && _content[_currentPosition] != Encoding_Page_End)
+            {
+                result.Add(_content[_currentPosition]);
+                IncrementCurrentPosition();
+            }
+
+            valueEnd = _currentPosition;
+            IncrementCurrentPosition();
+
+            return [.. result];
         }
 
         private byte[] ReadEndBlock(out int valueStart, out int valueEnd)
@@ -322,8 +344,21 @@ namespace TQVaultAE.IO.Parsers
             }
 
             valueEnd = _currentPosition;
-            IncrementCurrentPosition();
             return [.. result];
+        }
+
+        private bool ReadBool(out int valueStart, out int valueEnd)
+        {
+            valueStart = _currentPosition;
+
+            if (CheckForSeperator())
+                IncrementCurrentPosition(3);
+
+            bool result = Convert.ToBoolean(_content[_currentPosition]);
+            valueEnd = _currentPosition;
+
+            IncrementCurrentPosition();
+            return result;
         }
 
         private int ReadInt(out int valueStart, out int valueEnd)
@@ -364,6 +399,15 @@ namespace TQVaultAE.IO.Parsers
             {
                 while (_currentPosition < valueStart + length)
                 {
+                    ushort currentChar = GetChar();
+
+                    if (currentChar == Encoding_Null)
+                    {
+                        length++;
+                        IncrementCurrentPosition();
+                        continue;
+                    }
+
                     result += Convert.ToChar(GetChar());
                     IncrementCurrentPosition();
                 }
