@@ -25,6 +25,6 @@
         Raw,
         BeginBlock,
         EndBlock,
-        CurrentPage,
+        Page,
     }
 }
