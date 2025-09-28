@@ -2,7 +2,7 @@
 
 namespace TQVaultAE.IO.Parsers
 {
-    internal class ChrFileParser
+    public class ChrFileParser
     {
         private const int CodePage1252 = 1252;
         private const byte Encoding_Null = 0x0;
@@ -139,7 +139,7 @@ namespace TQVaultAE.IO.Parsers
             { "description", ChrRecordType.Raw },
         };
 
-        internal ChrFileParser()
+        public ChrFileParser()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             _encoding = Encoding.GetEncoding(CodePage1252);
@@ -201,18 +201,20 @@ namespace TQVaultAE.IO.Parsers
                 object? value = ReadValue(recordType, out int valueStart, out int valueEnd);
                 int end = _currentPosition - 1;
 
-                return new ChrFileRecord()
-                {
-                    Key = key,
-                    Value = value,
-                    Type = recordType,
-                    KeyStart = keyStart,
-                    KeyTo = keyEnd,
-                    ValueStart = valueStart,
-                    ValueEnd = valueEnd,
-                    Start = start,
-                    End = end
-                };
+                return value is ChrFileRecord record
+                    ? record
+                    : new ChrFileRecord()
+                    {
+                        Key = key,
+                        Value = value,
+                        Type = recordType,
+                        KeyStart = keyStart,
+                        KeyEnd = keyEnd,
+                        ValueStart = valueStart,
+                        ValueEnd = valueEnd,
+                        Start = start,
+                        End = end
+                    };
             }
 
             return null!;
@@ -298,7 +300,6 @@ namespace TQVaultAE.IO.Parsers
             return result;
         }
 
-        // TODO implement
         private ChrFileRecord ReadStartBlock(out int valueStart, out int valueEnd)
         {
             valueStart = _currentPosition;

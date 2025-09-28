@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Logger", "src\TQV
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.IO", "src\TQVaultAE.IO\TQVaultAE.IO.csproj", "{397EDAC8-5184-4610-BEF3-177163FCCACB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SaveFileExplorer", "SaveFileExplorer", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveFileExplorer", "src\SaveFileExplorer\SaveFileExplorer\SaveFileExplorer.csproj", "{26A1E216-8DD4-69C6-9921-7B679556B665}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,9 +49,16 @@ Global
 		{397EDAC8-5184-4610-BEF3-177163FCCACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{397EDAC8-5184-4610-BEF3-177163FCCACB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{397EDAC8-5184-4610-BEF3-177163FCCACB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26A1E216-8DD4-69C6-9921-7B679556B665}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26A1E216-8DD4-69C6-9921-7B679556B665}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26A1E216-8DD4-69C6-9921-7B679556B665}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26A1E216-8DD4-69C6-9921-7B679556B665}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{26A1E216-8DD4-69C6-9921-7B679556B665} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B01F052C-256B-4CDD-848F-338522FC5644}
