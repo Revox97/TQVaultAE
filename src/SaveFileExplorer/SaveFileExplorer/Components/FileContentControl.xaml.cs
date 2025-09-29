@@ -39,7 +39,7 @@ namespace SaveFileExplorer.Components
 
             item.Selected += KeySelectionChanged;
 
-            foreach(ChrFileRecord child in record.Children)
+            foreach (ChrFileRecord child in record.Children)
                 item.Items.Add(GenerateTreeViewItem(child));
 
             return item;
@@ -47,8 +47,12 @@ namespace SaveFileExplorer.Components
 
         private void KeySelectionChanged(object sender, RoutedEventArgs e)
         {
+            // Fix event will trigger for parents as well
+            e.Handled = true;
+
             if (sender is TreeViewItem item && item.DataContext is ChrFileRecord record)
             {
+                // TODO Bind data context of the control, instead of each individual value
                 KeyName.Content = record.Key;
                 KeyOffset.Text = $"{record.KeyStart} - {record.KeyEnd}";
                 KeyLength.Text = record.KeyLength.ToString();
@@ -84,8 +88,6 @@ namespace SaveFileExplorer.Components
 
                 if (record.Value is not null)
                     ValueAsRaw.Text = record.Value.ToString();
-
-                e.Handled = true;
             }
         }
 
