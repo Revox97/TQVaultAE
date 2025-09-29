@@ -33,24 +33,30 @@
             <StackPanel>
                 <TextBlock Margin="5 5 5 0">
                     <Hyperlink Click="OpenFile_Click">
-                        <TextBlock Text="{Binding Path}"/>
+                        <TextBlock Text="{Binding Path, FallbackValue=Path goes here}"/>
                     </Hyperlink>
                 </TextBlock>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="File Size:"/>
-                    <Label Content="202022"/>
-                    <Label Content="Name:"/>
-                    <Label Content="Playername"/>
-                    <Label Content="Ext:"/>
-                    <Label Content=".chr"/>
-                    <Label Content="Version:"/>
-                    <Label Content="TQAE"/>
-                    <Label Content="Found Keys:"/>
-                    <Label Content="140"/>
-                    <Label Content="Data Type Errors:"/>
-                    <Label Content="0/4996"/>
-                    <Label Content="Unknown segments"/>
-                    <Label Content="0/4996"/>
+                <StackPanel Orientation="Horizontal" Margin="5 2 5 5">
+                    <TextBlock Text="File Size: " FontWeight="DemiBold"/>
+                    <TextBlock Text="{Binding FileLength, FallbackValue=0}"/>
+                    <TextBlock Text=" | "/>
+                    <TextBlock Text="Name: " FontWeight="DemiBold"/>
+                    <TextBlock Text="{Binding FileName, FallbackValue=PlayerName}"/>
+                    <TextBlock Text=" | "/>
+                    <TextBlock Text="Ext: " FontWeight="DemiBold"/>
+                    <TextBlock Text="{Binding FileExtension, FallbackValue=.chr}"/>
+                    <TextBlock Text=" | "/>
+                    <TextBlock Text="Version: " FontWeight="DemiBold"/>
+                    <TextBlock Text="TQAE"/>
+                    <TextBlock Text=" | "/>
+                    <TextBlock Text="Found Keys: " FontWeight="DemiBold"/>
+                    <TextBlock Text="140"/>
+                    <TextBlock Text=" | "/>
+                    <TextBlock Text="Data Type Errors: " FontWeight="DemiBold"/>
+                    <TextBlock Text="0/4996"/>
+                    <TextBlock Text=" | "/>
+                    <TextBlock Text="Unknown segments: " FontWeight="DemiBold"/>
+                    <TextBlock Text="0/4996"/>
                 </StackPanel>
             </StackPanel>
         </GroupBox>

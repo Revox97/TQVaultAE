@@ -127,9 +127,9 @@
     - [x] File path
       - [x] Make it a link
       - [x] On click open directory
-    - [ ] File size
-    - [ ] File name
-    - [ ] File ext
+    - [x] File size
+    - [x] File name
+    - [x] File ext
     - [ ] File version
     - [ ] Found keys
     - [ ] Data type errors
