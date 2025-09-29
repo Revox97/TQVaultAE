@@ -20,4 +20,6 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
     }
+
+    private void MenuItemAbout_Click(object sender, RoutedEventArgs e) => new AboutWindow().Show();
 }

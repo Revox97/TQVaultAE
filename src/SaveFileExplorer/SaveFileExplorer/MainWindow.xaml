@@ -15,7 +15,7 @@
             </MenuItem>
             <MenuItem Header="Detected Players"/>
             <MenuItem Header="Help">
-                <MenuItem Header="About"/>
+                <MenuItem Header="About" Click="MenuItemAbout_Click"/>
             </MenuItem>
         </Menu>
         <TabControl>
