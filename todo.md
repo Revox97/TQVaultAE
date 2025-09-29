@@ -124,9 +124,9 @@
 - [ ] File Infos
   - [x] Add UI
   - [ ] Bind actual data
-    - [ ] File path
-      - [ ] Make it a link
-      - [ ] On click open directory
+    - [x] File path
+      - [x] Make it a link
+      - [x] On click open directory
     - [ ] File size
     - [ ] File name
     - [ ] File ext

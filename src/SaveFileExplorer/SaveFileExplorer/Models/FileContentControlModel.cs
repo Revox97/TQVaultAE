@@ -1,20 +1,33 @@
 ﻿using System.IO;
+using System.Windows;
 using TQVaultAE.IO.Parsers;
 
 namespace SaveFileExplorer.Models
 {
-    internal class FileContentControlModel
+    internal class FileContentControlModel : DependencyObject
     {
-        private const string Path = @"C:\Users\Leo\Documents\TQVaultTestData\Main\_Templox\Player.chr";
+        private readonly byte[] _content;
 
-        public long FileLength { get; set; }
+        internal static DependencyProperty PathProperty = DependencyProperty.Register(nameof(Path), typeof(string), typeof(FileContentControlModel));
+
+        public string Path
+        {
+            get => (string)GetValue(PathProperty);
+            set => SetValue(PathProperty, value);
+        }
+
+        internal static DependencyProperty FileLengthProperty = DependencyProperty.Register(nameof(FileLength), typeof(long), typeof(FileContentControlModel));
+
+        public long FileLength => _content.Length;
 
         public ChrFileRecord ChrFile { get; set; }
 
-        public FileContentControlModel()
+        public FileContentControlModel(string path)
         {
-            byte[] content = File.ReadAllBytes(Path);
-            ChrFile = new ChrFileParser().Parse(content);
+            Path = path;
+
+            _content = File.ReadAllBytes(Path);
+            ChrFile = new ChrFileParser().Parse(_content);
         }
 
     }

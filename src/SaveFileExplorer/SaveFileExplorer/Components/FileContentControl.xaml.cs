@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
 using SaveFileExplorer.Models;
 using TQVaultAE.IO.Parsers;
@@ -10,13 +11,14 @@ namespace SaveFileExplorer.Components
     /// </summary>
     public partial class FileContentControl : UserControl
     {
+        private const string Path = @"C:\Users\Leo\Documents\TQVaultTestData\Main\_Templox\Player.chr";
         private readonly FileContentControlModel _model;
 
         public FileContentControl()
         {
             InitializeComponent();
 
-            _model = new FileContentControlModel();
+            _model = new FileContentControlModel(Path);
             DataContext = _model;
 
             GenerateTreeView();
@@ -85,6 +87,14 @@ namespace SaveFileExplorer.Components
 
                 e.Handled = true;
             }
+        }
+
+        private void OpenFile_Click(object sender, RoutedEventArgs e)
+        {
+            string link = _model.Path;
+
+            string argument = $"/select, \"{link}\"";
+            Process.Start("explorer.exe", argument);
         }
     }
 }

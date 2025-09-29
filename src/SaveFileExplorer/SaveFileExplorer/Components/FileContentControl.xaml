@@ -31,7 +31,11 @@
 
         <GroupBox Header="File Infos" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
             <StackPanel>
-                <Label Content="I am a file path"/>
+                <TextBlock Margin="5 5 5 0">
+                    <Hyperlink Click="OpenFile_Click">
+                        <TextBlock Text="{Binding Path}"/>
+                    </Hyperlink>
+                </TextBlock>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="File Size:"/>
                     <Label Content="202022"/>
