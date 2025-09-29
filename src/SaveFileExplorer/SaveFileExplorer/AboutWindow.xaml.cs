@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using System.Windows;
-using System.Windows.Interop;
+﻿using System.Windows;
 
 namespace SaveFileExplorer
 {
@@ -9,10 +7,7 @@ namespace SaveFileExplorer
     /// </summary>
     public partial class AboutWindow : Window
     {
-        public AboutWindow()
-        {
-            InitializeComponent();
-        }
+        public AboutWindow() => InitializeComponent();
 
         protected override void OnSourceInitialized(EventArgs e)
         {
