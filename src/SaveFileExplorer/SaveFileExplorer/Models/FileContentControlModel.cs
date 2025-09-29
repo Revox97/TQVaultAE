@@ -6,6 +6,9 @@ namespace SaveFileExplorer.Models
     internal class FileContentControlModel
     {
         private const string Path = @"C:\Users\Leo\Documents\TQVaultTestData\Main\_Templox\Player.chr";
+
+        public long FileLength { get; set; }
+
         public ChrFileRecord ChrFile { get; set; }
 
         public FileContentControlModel()

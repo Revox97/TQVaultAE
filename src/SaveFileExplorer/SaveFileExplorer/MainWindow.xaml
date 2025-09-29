@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SaveFileExplorer"
         xmlns:comp="clr-namespace:SaveFileExplorer.Components"
         mc:Ignorable="d"
-        Title="File Explorer" Height="800" Width="1200">
+        Title="File Explorer" Height="600" Width="1000" MinWidth="600" MinHeight="500">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">

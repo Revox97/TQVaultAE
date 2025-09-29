@@ -24,7 +24,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width=".5*"/>
+            <ColumnDefinition Width=".5*" MaxWidth="310"/>
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -34,7 +34,7 @@
                 <Label Content="I am a file path"/>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="File Size:"/>
-                    <Label Content="1001010"/>
+                    <Label Content="202022"/>
                     <Label Content="Name:"/>
                     <Label Content="Playername"/>
                     <Label Content="Ext:"/>
@@ -51,51 +51,81 @@
             </StackPanel>
         </GroupBox>
         <GroupBox Header="Detected Keys" Grid.Row="1" Grid.Column="0">
-            <TreeView x:Name="KeyTreeView"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Row="1" Grid.Column="0" Margin="0 0 4 0">
+                    <ComboBoxItem Content="Keys Only"/>
+                    <ComboBoxItem Content="Keys Only: Distinct"/>
+                    <ComboBoxItem Content="Keys + Type"/>
+                    <ComboBoxItem Content="Keys + Type: Distinct"/>
+                    <ComboBoxItem Content="Keys + Type + Data"/>
+                    <ComboBoxItem Content="Keys + Type + Data: Distinct"/>
+                </ComboBox>
+                <Button Grid.Row="1" Grid.Column="1" Content="Copy"/>
+                <TreeView x:Name="KeyTreeView" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"/>
+            </Grid>
         </GroupBox>
         <Grid Grid.Row="1" Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <GroupBox Header="KeyInfos" Grid.Row="0" Grid.Column="1">
+            <GroupBox Header="Key" Grid.Row="0" Grid.Column="1">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="Name"/>
+                        <Label Content="Name:" FontWeight="Bold"/>
                         <Label x:Name="KeyName"/>
-                        <Label Content="Offset"/>
-                        <Label x:Name="KeyOffset"/>
-                        <Label Content="Length"/>
-                        <Label x:Name="KeyLength"/>
-                        <Label Content="IsSubStructureOpening"/>
-                        <Label x:Name="KeyIsSubStructureOpening"/>
-                        <Label Content="IsStructureClosing"/>
-                        <Label x:Name="KeyIsStructureClosing"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5 1 5 1">
+                        <TextBlock Text="Offset: " FontWeight="DemiBold"/>
+                        <TextBlock x:Name="KeyOffset"/>
+                        <TextBlock Text=" | "/>
+                        <TextBlock Text="Length: " FontWeight="DemiBold"/>
+                        <TextBlock x:Name="KeyLength"/>
+                        <TextBlock Text=" | "/>
+                        <TextBlock Text="IsSubStructureOpening: " FontWeight="DemiBold"/>
+                        <TextBlock x:Name="KeyIsSubStructureOpening"/>
+                        <TextBlock Text=" | "/>
+                        <TextBlock Text="IsStructureClosing: " FontWeight="DemiBold"/>
+                        <TextBlock x:Name="KeyIsStructureClosing"/>
                     </StackPanel>
                     <!-- Add Bindings -->
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="IsUnknownSegment"/>
-                        <Label Content="False"/>
-                        <Label Content="IsDataTypeError"/>
-                        <Label Content="False"/>
-                        <Label Content="IsKeyValue"/>
-                        <Label Content="False"/>
+                    <StackPanel Orientation="Horizontal" Margin="5 1 5 1">
+                        <TextBlock Text="IsUnknownSegment: " FontWeight="DemiBold"/>
+                        <TextBlock Text="False"/>
+                        <TextBlock Text=" | "/>
+                        <TextBlock Text="IsDataTypeError: " FontWeight="DemiBold"/>
+                        <TextBlock Text="False"/>
+                        <TextBlock Text=" | "/>
+                        <TextBlock Text="IsKeyValue: " FontWeight="DemiBold"/>
+                        <TextBlock Text="False"/>
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="Key Data" Grid.Row="1" Grid.Column="1">
+            <GroupBox Header="Value" Grid.Row="1" Grid.Column="1">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal" Grid.Row="0">
-                        <Label Content="Offset:"/>
-                        <Label x:Name="ValueOffset"/>
-                        <Label Content="Data Length:"/>
-                        <Label x:Name="ValueDataLength"/>
-                        <Label Content="Data Type"/>
-                        <Label x:Name="ValueDataType"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="5">
+                        <TextBlock Text="Offset: " FontWeight="DemiBold"/>
+                        <TextBlock x:Name="ValueOffset"/>
+                        <TextBlock Text=" | "/>
+                        <TextBlock Text="Data Length: " FontWeight="DemiBold"/>
+                        <TextBlock x:Name="ValueDataLength"/>
+                        <TextBlock Text=" | "/>
+                        <TextBlock Text="Data Type: " FontWeight="DemiBold"/>
+                        <TextBlock x:Name="ValueDataType"/>
                     </StackPanel>
                     <Grid Grid.Row="1">
                         <Grid.RowDefinitions>

@@ -12,6 +12,10 @@
         public int ValueEnd { get; set; }
         public int Start { get; set; }
         public int End { get; set; }
+
+        public long Length => End - Start;
+        public long KeyLength => KeyEnd - KeyStart;
+        public long ValueLength => ValueEnd - ValueStart;
     }
 
     public enum ChrRecordType

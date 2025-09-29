@@ -48,14 +48,14 @@ namespace SaveFileExplorer.Components
             if (sender is TreeViewItem item && item.DataContext is ChrFileRecord record)
             {
                 KeyName.Content = record.Key;
-                KeyOffset.Content = $"{record.KeyStart} - {record.KeyEnd}";
-                KeyLength.Content = record.KeyEnd - record.KeyStart;
-                KeyIsSubStructureOpening.Content = record.Type == ChrRecordType.BeginBlock;
-                KeyIsStructureClosing.Content = record.Type == ChrRecordType.EndBlock;
+                KeyOffset.Text = $"{record.KeyStart} - {record.KeyEnd}";
+                KeyLength.Text = record.KeyLength.ToString();
+                KeyIsSubStructureOpening.Text = (record.Type == ChrRecordType.BeginBlock).ToString();
+                KeyIsStructureClosing.Text = (record.Type == ChrRecordType.EndBlock).ToString();
 
-                ValueOffset.Content = $"{record.ValueStart} - {record.ValueEnd}";
-                ValueDataLength.Content = record.ValueEnd - record.ValueStart;
-                ValueDataType.Content = record.Type;
+                ValueOffset.Text = $"{record.ValueStart} - {record.ValueEnd}";
+                ValueDataLength.Text = record.ValueLength.ToString();
+                ValueDataType.Text = record.Type.ToString();
 
                 ValueAsInt.Text = string.Empty;
                 ValueAsBool.Text = string.Empty;
