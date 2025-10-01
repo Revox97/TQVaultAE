@@ -175,7 +175,7 @@
 - [ ] Add hex data explorer
 
 ***FIXES***
-- [ ] Fix wrong data collection of nested tree view items
+- [x] Fix wrong data collection of nested tree view items
 
 ***
 **ARZ EXPLORER**

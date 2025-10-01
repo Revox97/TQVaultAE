@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using SaveFileExplorer.Models;
@@ -83,6 +84,12 @@ namespace SaveFileExplorer.Components
                 if (record.Type == ChrRecordType.String && record.Value is string stringValue)
                 {
                     ValueAsString.Text = stringValue;
+                    return;
+                }
+
+                if (record.Value is byte[] bytes)
+                {
+                    ValueAsRaw.Text = BitConverter.ToString(bytes).Replace("-", " ");
                     return;
                 }
 
