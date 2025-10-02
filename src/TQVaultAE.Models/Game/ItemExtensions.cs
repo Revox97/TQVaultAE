@@ -1,6 +1,6 @@
 ﻿using TQVaultAE.Models.CharacterData;
 
-namespace TQVaultAE.Models.PlayerData
+namespace TQVaultAE.Models.Game
 {
 	public static class ItemExtensions
 	{

@@ -1,4 +1,4 @@
-﻿namespace TQVaultAE.Models.PlayerData
+﻿namespace TQVaultAE.Models.Game
 {
     public enum ItemType
     {

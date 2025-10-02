@@ -3,7 +3,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using TQVaultAE.Models.CharacterData;
 
-namespace TQVaultAE.Models.PlayerData
+namespace TQVaultAE.Models.Game
 {
 	public class Item
 	{

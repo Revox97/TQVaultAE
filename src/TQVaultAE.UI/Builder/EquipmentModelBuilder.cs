@@ -1,4 +1,4 @@
-﻿using TQVaultAE.Models.PlayerData;
+﻿using TQVaultAE.Models.Game;
 using TQVaultAE.UI.Models;
 
 namespace TQVaultAE.UI.Builder
