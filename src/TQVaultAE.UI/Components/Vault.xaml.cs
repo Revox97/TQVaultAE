@@ -2,8 +2,10 @@
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media.Imaging;
+using TQVaultAE.Models.Builders;
 using TQVaultAE.Models.EventArgs;
 using TQVaultAE.Models.Game;
+using TQVaultAE.Models.Game.Enumerations;
 using TQVaultAE.Models.Services;
 using TQVaultAE.Models.Services.Observers;
 using TQVaultAE.UI.Resources;
@@ -36,7 +38,7 @@ namespace TQVaultAE.UI.Components
                                  .SetIcon((BitmapImage)ImagePaths.ItemMocks.TwoByTwo)
                                  .Build(),
 				new ItemBuilder().SetName("Hans Müller")
-                                 .SetRarity(ItemRarity.MonsterRare)
+                                 .SetRarity(ItemRarity.Rare)
                                  .SetLocation(2, 2)
                                  .SetSize(2, 4)
                                  .SetIcon((BitmapImage)ImagePaths.ItemMocks.TwoByFour)

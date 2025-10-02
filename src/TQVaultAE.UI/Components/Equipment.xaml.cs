@@ -2,7 +2,9 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using TQVaultAE.Models.Builders;
 using TQVaultAE.Models.Game;
+using TQVaultAE.Models.Game.Enumerations;
 using TQVaultAE.UI.Builder;
 using TQVaultAE.UI.Models;
 using TQVaultAE.UI.Resources;
@@ -24,84 +26,72 @@ namespace TQVaultAE.UI.Components
                 .SetName("Weapon One")
                 .SetRarity(ItemRarity.Legendary)
                 .SetIcon((BitmapImage)ImagePaths.ItemMocks.TwoByFour)
-                .SetType(ItemType.WeaponTwoHanded)
                 .Build();
 
             Item artifact = new ItemBuilder()
                 .SetName("Artifact")
                 .SetRarity(ItemRarity.Epic)
                 .SetIcon((BitmapImage)ImagePaths.ItemMocks.TwoByTwo)
-                .SetType(ItemType.Artifact)
                 .Build();
 
             Item weapon2 = new ItemBuilder()
                 .SetName("Weapon Two")
                 .SetRarity(ItemRarity.Rare)
                 .SetIcon((BitmapImage)ImagePaths.ItemMocks.TwoByFour)
-                .SetType(ItemType.WeaponOneHanded)
                 .Build();
 
             Item head = new ItemBuilder()
                 .SetName("Helmet")
-                .SetRarity(ItemRarity.MonsterRare)
+                .SetRarity(ItemRarity.Rare)
                 .SetIcon((BitmapImage)ImagePaths.ItemMocks.TwoByTwo)
-                .SetType(ItemType.Head)
                 .Build();
 
             Item necklace = new ItemBuilder()
                 .SetName("Necklace")
                 .SetRarity(ItemRarity.Common)
                 .SetIcon((BitmapImage)ImagePaths.ItemMocks.TwoByOne)
-                .SetType(ItemType.Necklace)
                 .Build();
 
             Item torso = new ItemBuilder()
                 .SetName("Torso")
                 .SetRarity(ItemRarity.Common)
                 .SetIcon((BitmapImage)ImagePaths.ItemMocks.TwoByThree)
-                .SetType(ItemType.Torso)
                 .Build();
 
             Item legs = new ItemBuilder()
                 .SetName("Legs")
                 .SetRarity(ItemRarity.Common)
                 .SetIcon((BitmapImage)ImagePaths.ItemMocks.TwoByTwo)
-                .SetType(ItemType.Legs)
                 .Build();
 
             Item ring1 = new ItemBuilder()
                 .SetName("Ring one")
                 .SetRarity(ItemRarity.Common)
                 .SetIcon((BitmapImage)ImagePaths.ItemMocks.TwoByOne)
-                .SetType(ItemType.Ring)
                 .Build();
 
             Item ring2 = new ItemBuilder()
                 .SetName("Ring two")
                 .SetRarity(ItemRarity.Rare)
                 .SetIcon((BitmapImage)ImagePaths.ItemMocks.TwoByOne)
-                .SetType(ItemType.Ring)
                 .Build();
 
             Item shield1 = new ItemBuilder()
                 .SetName("Shield1")
                 .SetRarity(ItemRarity.Rare)
                 .SetIcon((BitmapImage)ImagePaths.ItemMocks.TwoByFour)
-                .SetType(ItemType.Shield)
                 .Build();
 
             Item arms = new ItemBuilder()
                 .SetName("Arms")
                 .SetRarity(ItemRarity.Rare)
                 .SetIcon((BitmapImage)ImagePaths.ItemMocks.TwoByTwo)
-                .SetType(ItemType.Arms)
                 .Build();
 
             Item shield2 = new ItemBuilder()
                 .SetName("Shield two")
                 .SetRarity(ItemRarity.Legendary)
                 .SetIcon((BitmapImage)ImagePaths.ItemMocks.TwoByFour)
-                .SetType(ItemType.Shield)
                 .Build();
 
             _model = new EquipmentModelBuilder()

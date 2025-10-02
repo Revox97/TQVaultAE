@@ -26,8 +26,8 @@ namespace TQVaultAE.UI.Components
 			if (args.IsMouseOver)
 			{
 				ItemNameContent.Content = args.ItemName;
-				ItemNameContent.Foreground = Item.GetBrushByRarity(args.Rarity);
-				return;
+                ItemNameContent.Foreground = (sender as Item).Color; // TODO Rework args so it sends the actual item
+                return;
 			}
 
 			ItemNameContent.Content = string.Empty;

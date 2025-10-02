@@ -1,6 +1,4 @@
-﻿using TQVaultAE.Models.CharacterData;
-
-namespace TQVaultAE.Models.Game
+﻿namespace TQVaultAE.Models.Game
 {
 	public static class ItemExtensions
 	{
@@ -34,22 +32,25 @@ namespace TQVaultAE.Models.Game
 
 		public static bool CanPlayerEquip(this Item item, Character player, int percentageStrength = 100, int percentageDexterity = 100, int percentageIntelligence = 100)
 		{
-			if (player.Statistics.Level < item.Requirements.Level)
-				return false;
+            if (item is not EquipableItem equipableItem)
+                throw new InvalidOperationException($"Item must be of type {typeof(EquipableItem)}.");
 
-			int actualStrengthRequirement = item.Requirements.Strength / 100 * percentageStrength;
-			if (player.Statistics.Attributes.Strength < actualStrengthRequirement) 
-				return false;
+            if (player.Statistics.Level < equipableItem.Requirements.Level)
+                return false;
 
-			int actualDexterityRequirement = item.Requirements.Dexterity / 100 * percentageDexterity;
-			if (player.Statistics.Attributes.Dexterity < actualDexterityRequirement) 
-				return false;
+            int actualStrengthRequirement = equipableItem.Requirements.Strength / 100 * percentageStrength;
+            if (player.Statistics.Attributes.Strength < actualStrengthRequirement) 
+                return false;
 
-			int actualIntelligenceRequirement = item.Requirements.Intelligence / 100 * percentageIntelligence;
-			if (player.Statistics.Attributes.Intelligence < actualIntelligenceRequirement)
-				return false;
+            int actualDexterityRequirement = equipableItem.Requirements.Dexterity / 100 * percentageDexterity;
+            if (player.Statistics.Attributes.Dexterity < actualDexterityRequirement) 
+                return false;
 
-			return true;
+            int actualIntelligenceRequirement = equipableItem.Requirements.Intelligence / 100 * percentageIntelligence;
+            if (player.Statistics.Attributes.Intelligence < actualIntelligenceRequirement)
+                return false;
+
+            return true;
 		}
 	}
 }

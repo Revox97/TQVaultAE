@@ -1,10 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using TQVaultAE.Models.Builders;
 using TQVaultAE.Models.EventArgs;
 using TQVaultAE.Models.Game;
-using TQVaultAE.Models.PlayerData;
-using TQVaultAE.Models.Services;
 using TQVaultAE.Services;
 using TQVaultAE.UI.Models;
 
@@ -31,7 +30,7 @@ namespace TQVaultAE.UI.Components
 
             Item item = new ItemBuilder().Build();
             DataSource = new ItemControlModel(item);
-            CalculateBrushes(Item.GetBrushByRarity(item.Rarity));
+            CalculateBrushes((SolidColorBrush)item.Color);
             DrawRarityHighlight();
             DrawItem();
 
@@ -41,7 +40,7 @@ namespace TQVaultAE.UI.Components
             InitializeComponent();
 
             DataSource = new ItemControlModel(item);
-            CalculateBrushes(Item.GetBrushByRarity(item.Rarity));
+            CalculateBrushes((SolidColorBrush)item.Color);
             DrawRarityHighlight();
             DrawItem();
         }
@@ -89,7 +88,7 @@ namespace TQVaultAE.UI.Components
         private void UserControl_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             HighlightColorPanel.Fill = _hoverBrush;
-            ItemHoverService.GetInstance().Notify(this, new ItemOverEventArgs() { ItemName = DataSource.Item.Name, Rarity = DataSource.Item.Rarity });
+            ItemHoverService.GetInstance().Notify(this, new ItemOverEventArgs() { ItemName = DataSource.Item.Name }); // , Rarity = DataSource.Item.Rarity
         }
 
         private void UserControl_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)

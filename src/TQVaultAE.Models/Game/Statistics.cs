@@ -1,6 +1,6 @@
-﻿using TQVaultAE.Models.Game;
+﻿using TQVaultAE.Models.Game.Enumerations;
 
-namespace TQVaultAE.Models.CharacterData
+namespace TQVaultAE.Models.Game
 {
 	public class Statistics
 	{
@@ -14,9 +14,24 @@ namespace TQVaultAE.Models.CharacterData
 
 		public Mastery SecondMastery { get; set; }
 
-		public string Class { get; }
+		public string ClassName
+        {
+            get
+            {
+                string[] masteries = [ FirstMastery.Name.ToUpperInvariant(), SecondMastery.Name.ToUpperInvariant() ];
 
-		public Attributes Attributes { get; set; }
+                if (masteries.Contains("EARTH") && masteries.Contains("WARFARE"))
+                    return "Battlemage";
+
+                // ...
+                // TODO Find cleaner solution to do this
+
+                return string.Empty;
+            }
+        }
+
+
+		public CharacterAttributes Attributes { get; set; }
 
 		public int AvailableSkillPoints { get; set; }
 
@@ -46,6 +61,4 @@ namespace TQVaultAE.Models.CharacterData
 
 		public long EternalEmbersPotsUsed { get; set; }
 	}
-
-	public record struct Attributes(int Health, int Energy, int Strength, int Dexterity, int Intelligence);
 }

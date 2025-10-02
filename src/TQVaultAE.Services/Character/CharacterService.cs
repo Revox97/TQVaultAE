@@ -23,7 +23,7 @@ namespace TQVaultAE.Services.Character
         /// </summary>
         /// <returns>A <see cref="List{T}"/> of all available <see cref="Models.CharacterData.Character">Characters</see>.</returns>
         /// <exception cref="NotImplementedException"></exception>
-        public List<Models.CharacterData.Character> GetCharacters()
+        public List<Models.Game.Character> GetCharacters()
         {
             throw new NotImplementedException();
         }
@@ -33,10 +33,10 @@ namespace TQVaultAE.Services.Character
         /// </summary>
         /// <param name="character">The <see cref="Models.CharacterData.Character"/> that should be updated.</param>
         /// <returns>A new <see cref="Models.CharacterData"/> instance containing the updated data.</returns>
-        public Models.CharacterData.Character GetCharacter(Guid characterId)
+        public Models.Game.Character GetCharacter(Guid characterId)
         {
             // TODO strategy might need to be updated if working on not ingame characters
-            Models.CharacterData.Character character = _characters[characterId].CharacterDataStrategy.Read(characterId);
+            Models.Game.Character character = _characters[characterId].CharacterDataStrategy.Read(characterId);
             _characters[characterId].Character = character;
 
             return character;
@@ -65,7 +65,7 @@ namespace TQVaultAE.Services.Character
     public class CharacterSet
     {
         [Required]
-        public Models.CharacterData.Character Character { get; set; }
+        public Models.Game.Character Character { get; set; }
 
         [Required]
         public CharacterDataStrategy CharacterDataStrategy { get; set; }

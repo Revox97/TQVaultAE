@@ -1,19 +1,18 @@
-﻿
-namespace TQVaultAE.Services.Character
+﻿namespace TQVaultAE.Services.Character
 {
     public class MemoryCharacterDataStrategy : CharacterDataStrategy
     {
-        public override Models.CharacterData.Character Read(Guid id)
+        public override Models.Game.Character Read(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public override Models.CharacterData.Character Read(Models.CharacterData.Character character)
+        public override Models.Game.Character Read(Models.Game.Character character)
         {
             throw new NotImplementedException();
         }
 
-        public override void Write(Models.CharacterData.Character data)
+        public override void Write(Models.Game.Character data)
         {
             throw new NotImplementedException();
         }

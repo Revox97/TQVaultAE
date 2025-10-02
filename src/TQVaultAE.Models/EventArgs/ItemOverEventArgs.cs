@@ -1,4 +1,4 @@
-﻿using TQVaultAE.Models.Game;
+﻿using TQVaultAE.Models.Game.Enumerations;
 
 namespace TQVaultAE.Models.EventArgs
 {

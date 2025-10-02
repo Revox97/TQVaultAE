@@ -1,23 +1,20 @@
 ﻿using System.Drawing;
 using System.Windows.Media.Imaging;
+using TQVaultAE.Models.Game;
+using TQVaultAE.Models.Game.Enumerations;
 
-namespace TQVaultAE.Models.Game
+namespace TQVaultAE.Models.Builders
 {
+    // TODO Rework this builder to work with various item types
 	public class ItemBuilder
 	{
-		private readonly Item _item = new();
+		private readonly Item _item = new GearItem();
 
 		public Item Build() => _item;
 
 		public ItemBuilder SetName(string name)
 		{
 			_item.Name = name;
-			return this;
-		}
-
-		public ItemBuilder SetType(ItemType type)
-		{
-			_item.ItemType = type;
 			return this;
 		}
 
@@ -79,19 +76,19 @@ namespace TQVaultAE.Models.Game
 
 		public ItemBuilder SetRarity(ItemRarity rarity)
 		{
-			_item.Rarity = rarity;
+			//_item.Rarity = rarity;
 			return this;
 		}
 
 		public ItemBuilder SetRequirements(ItemRequirements requirements)
 		{
-			_item.Requirements = requirements;
+			//_item.Requirements = requirements;
 			return this;
 		}
 
 		public ItemBuilder SetRequirements(int level, int strength, int dexterity, int intelligence)
 		{
-			_item.Requirements = new ItemRequirements(level, strength, dexterity, intelligence);
+			//_item.Requirements = new ItemRequirements(level, strength, dexterity, intelligence);
 			return this;
 		}
 	}

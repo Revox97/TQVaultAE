@@ -2,10 +2,10 @@
 {
     public abstract class CharacterDataStrategy
     {
-        public abstract Models.CharacterData.Character Read(Guid id);
+        public abstract  Models.Game.Character Read(Guid id);
 
-        public abstract Models.CharacterData.Character Read(Models.CharacterData.Character character);
+        public abstract Models.Game.Character Read(Models.Game.Character character);
 
-        public abstract void Write(Models.CharacterData.Character data);
+        public abstract void Write(Models.Game.Character data);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace TQVaultAE.Models.Game
+﻿namespace TQVaultAE.Models.Game.Enumerations
 {
 	public enum GameDifficulty
 	{

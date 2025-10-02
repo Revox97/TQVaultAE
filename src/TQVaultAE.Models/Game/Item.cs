@@ -1,11 +1,14 @@
-﻿using System.Drawing;
+﻿using System.ComponentModel;
+using System.Configuration;
+using System.Drawing;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using TQVaultAE.Models.CharacterData;
+using TQVaultAE.Models.Game.Enumerations;
 
 namespace TQVaultAE.Models.Game
 {
-	public class Item
+    // TODO Add dlc version
+	public abstract class Item
 	{
 		/// <summary>
 		/// The seed of the item.
@@ -17,25 +20,35 @@ namespace TQVaultAE.Models.Game
 		/// </summary>
 		public string Name { get; set; } = string.Empty;
 
-        /// <summary>
-        /// The rarity of the item.
-        /// </summary>
-        public ItemRarity Rarity { get; set; } = ItemRarity.Legendary;
+        public ItemVersion ItemVersion { get; set; }
+
+        public abstract Brush Color { get; }
+
+        public abstract Brush HoverColor { get; }
+
+        public abstract bool HasVisualAccent { get; } 
 
         /// <summary>
-        /// The <see cref="ItemType"/> of the item.
+        /// The description of the item.
         /// </summary>
-        public ItemType ItemType { get; set; }
+        public string Description { get; set; }
 
-		/// <summary>
-		/// The requirements of a <see cref="Character"/> in order to wear this <see cref="Item"/>.
-		/// </summary>
-		public ItemRequirements Requirements { get; set; }
+        protected Size _size;
 
 		/// <summary>
 		/// The size in cells in an <see langword="ItemsPanel"/>.
 		/// </summary>
-		public Size Size { get; set; }
+		public virtual Size Size
+        {
+            get => _size;
+            set
+            {
+                if (value.Width < 1 || value.Height < 1 || value.Width > 2 || value.Height > 4)
+                    throw new ArgumentException($"Invalid item size ({value.Width} - {value.Height}).");
+
+                _size = value;
+            }
+        }
 
 		/// <summary>
 		/// The location of the item in the grid.
@@ -50,22 +63,16 @@ namespace TQVaultAE.Models.Game
 
 		public Item() { }
 
-		/// <summary>
-		/// Calculates the <see cref="SolidColorBrush"/> matching the provided <see cref="ItemRarity"/>.
-		/// </summary>
-		/// <param name="rarity">The <see cref="ItemRarity"/> for which the <see cref="SolidColorBrush"/> should be calculated.</param>
-		/// <returns>The <see cref="SolidColorBrush"/> matching the <see cref="ItemRarity"/>.</returns>
-		public static SolidColorBrush GetBrushByRarity(ItemRarity rarity)
-		{
-			return rarity switch
-			{
-				ItemRarity.Broken => new SolidColorBrush(Colors.Gray),
-				ItemRarity.Common => new SolidColorBrush(Colors.White),
-				ItemRarity.Rare => new SolidColorBrush(Colors.Yellow),
-				ItemRarity.MonsterRare => new SolidColorBrush(Colors.GreenYellow),
-				ItemRarity.Epic => new SolidColorBrush(Colors.Blue),
-				_ => new SolidColorBrush(Colors.Purple),
-			};
-		}
-	}
+        public override string ToString()
+        {
+            return $"{Name} {GetItemVersionValue})";
+        }
+
+        protected string GetItemVersionValue()
+        {
+            return ItemVersion == ItemVersion.Original
+                ? string.Empty
+                : $"({EnumValueProvider.GetValue(ItemVersion)})";
+        }
+    }
 }
