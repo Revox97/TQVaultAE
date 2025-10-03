@@ -85,8 +85,12 @@
   - [x] Add UI
   - [ ] Save Configuration
   - [ ] Load Configuration
-- [ ] Add git sync
-- [ ] Add backup support (player files etc.)
+- [ ] Backups
+    - [ ] Add git sync
+    - [ ] Add backup support (player files etc.)
+    - [ ] Add Dropbox support
+    - [ ] Add Google Drive support
+    - [ ] Add OneDrive support
 - [ ] About
   - [x] Add UI
   - [ ] Load correct data
