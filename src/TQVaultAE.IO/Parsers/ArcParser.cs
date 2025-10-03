@@ -124,8 +124,6 @@ namespace TQVaultAE.IO.Parsers
                     RealSize = reader.ReadInt32()
                 };
 
-                // What DA Crap
-                // TODO ööööhhhhm why??!
                 _ = reader.ReadInt32();
                 _ = reader.ReadInt32();
 
@@ -137,7 +135,6 @@ namespace TQVaultAE.IO.Parsers
 
                 int firstPart = reader.ReadInt32();
 
-                // We crappin again?!
                 _ = reader.ReadInt32();
                 _ = reader.ReadInt32();
 
@@ -153,12 +150,11 @@ namespace TQVaultAE.IO.Parsers
 
         private void ReadFileNames(BinaryReader reader)
         {
-            int fileNamesOffset = (int)reader.BaseStream.Position;
 
             reader.BaseStream.Seek(fileNamesOffset, SeekOrigin.Begin);
 
             byte[] buffer = new byte[2048];
-            ASCIIEncoding ascii = new();
+            ASCIIEncoding asciiEncoding = new();
 
             for (int i = 0; i < _records.Length; ++i)
             {
@@ -169,8 +165,8 @@ namespace TQVaultAE.IO.Parsers
 
                 if (bufferSize>= 1)
                 {
-                    char[] chars = new char[ascii.GetCharCount(buffer, 0, bufferSize - 1)];
-                    ascii.GetChars(buffer, 0, bufferSize - 1, chars, 0);
+                    char[] chars = new char[asciiEncoding.GetCharCount(buffer, 0, bufferSize - 1)];
+                    asciiEncoding.GetChars(buffer, 0, bufferSize - 1, chars, 0);
 
                     _records[i].FileName = new string(chars);
                 }
@@ -207,18 +203,17 @@ namespace TQVaultAE.IO.Parsers
 
         private ArcFile CreateArcFile()
         {
-            // TODO Great naming skills
-            Dictionary<string, ArcDirEntry> dictionary = new(_records.Length);
+            Dictionary<string, ArcDirEntry> directories = new(_records.Length);
 
             for (int i = 0; i < _records.Length; ++i)
             {
                 if (_records[i].IsActive)
-                    dictionary.Add(_records[i].FileName, _records[i]);
+                    directories.Add(_records[i].FileName, _records[i]);
             }
 
             return new ArcFile(_path)
             {
-                DirectoryEntries = dictionary,
+                DirectoryEntries = directories,
             };
         }
     }

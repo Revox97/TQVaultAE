@@ -32,21 +32,18 @@
 
 		public static bool CanPlayerEquip(this Item item, Character player, int percentageStrength = 100, int percentageDexterity = 100, int percentageIntelligence = 100)
 		{
-            if (item is not EquipableItem equipableItem)
-                throw new InvalidOperationException($"Item must be of type {typeof(EquipableItem)}.");
-
-            if (player.Statistics.Level < equipableItem.Requirements.Level)
+            if (player.Statistics.Level < item.EquipmentComponent.Requirements.Level)
                 return false;
 
-            int actualStrengthRequirement = equipableItem.Requirements.Strength / 100 * percentageStrength;
+            int actualStrengthRequirement = item.EquipmentComponent.Requirements.Strength / 100 * percentageStrength;
             if (player.Statistics.Attributes.Strength < actualStrengthRequirement) 
                 return false;
 
-            int actualDexterityRequirement = equipableItem.Requirements.Dexterity / 100 * percentageDexterity;
+            int actualDexterityRequirement = item.EquipmentComponent.Requirements.Dexterity / 100 * percentageDexterity;
             if (player.Statistics.Attributes.Dexterity < actualDexterityRequirement) 
                 return false;
 
-            int actualIntelligenceRequirement = equipableItem.Requirements.Intelligence / 100 * percentageIntelligence;
+            int actualIntelligenceRequirement = item.EquipmentComponent.Requirements.Intelligence / 100 * percentageIntelligence;
             if (player.Statistics.Attributes.Intelligence < actualIntelligenceRequirement)
                 return false;
 

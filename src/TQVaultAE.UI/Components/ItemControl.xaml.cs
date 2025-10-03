@@ -4,6 +4,7 @@ using System.Windows.Media;
 using TQVaultAE.Models.Builders;
 using TQVaultAE.Models.EventArgs;
 using TQVaultAE.Models.Game;
+using TQVaultAE.Models.Game.Enumerations;
 using TQVaultAE.Services;
 using TQVaultAE.UI.Models;
 
@@ -28,9 +29,9 @@ namespace TQVaultAE.UI.Components
         {
             InitializeComponent();
 
-            Item item = new ItemBuilder().Build();
+            Item item = new ItemBuilder(ItemCategory.Gear).Build();
             DataSource = new ItemControlModel(item);
-            CalculateBrushes((SolidColorBrush)item.Color);
+            CalculateBrushes((SolidColorBrush)item.ColorComponent?.Color);
             DrawRarityHighlight();
             DrawItem();
 
@@ -40,7 +41,7 @@ namespace TQVaultAE.UI.Components
             InitializeComponent();
 
             DataSource = new ItemControlModel(item);
-            CalculateBrushes((SolidColorBrush)item.Color);
+            CalculateBrushes((SolidColorBrush)item.ColorComponent.Color);
             DrawRarityHighlight();
             DrawItem();
         }

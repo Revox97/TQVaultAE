@@ -1,17 +1,17 @@
-﻿using TQVaultAE.Models.Game.Enumerations;
-
-namespace TQVaultAE.Models.Game
+﻿namespace TQVaultAE.Models.Game
 {
     public class Equipment
     {
-        private Weapon _weaponOne;
+        private Item _weaponOne;
 
-        public Weapon WeaponOne
+        public Item WeaponOne
         {
             get => _weaponOne;
             set
             {
-                if (value.RequiredEquipmentSlots == RequiredEquipmentSlots.One)
+                // TODO add replacement
+                //if (value.RequiredEquipmentSlots == RequiredEquipmentSlots.One)
+                if (true)
                 {
                     _weaponOne = value;
                     return;
@@ -22,14 +22,16 @@ namespace TQVaultAE.Models.Game
             }
         }
 
-        private Weapon _weaponTwo;
+        private Item _weaponTwo;
 
-        public Weapon WeaponTwo
+        public Item WeaponTwo
         {
             get => _weaponTwo;
             set
             {
-                if (value.RequiredEquipmentSlots == RequiredEquipmentSlots.One)
+                // TODO add replacement
+                //if (value.RequiredEquipmentSlots == RequiredEquipmentSlots.One)
+                if (true)
                 {
                     _weaponTwo = value;
                     return;
@@ -40,14 +42,16 @@ namespace TQVaultAE.Models.Game
             }
         }
 
-        private Weapon _shieldOne;
+        private Item _shieldOne;
 
-        public Weapon ShieldOne
+        public Item ShieldOne
         {
             get => _shieldOne;
             set
             {
-                if (value.RequiredEquipmentSlots == RequiredEquipmentSlots.One)
+                // TODO Add replacement
+                //if (value.RequiredEquipmentSlots == RequiredEquipmentSlots.One)
+                if (true)
                 {
                     _shieldOne = value;
                     return;
@@ -58,14 +62,16 @@ namespace TQVaultAE.Models.Game
             }
         }
 
-        private Weapon _shieldTwo;
+        private Item _shieldTwo;
 
-        public Weapon ShieldTwo
+        public Item ShieldTwo
         {
             get => _shieldTwo;
             set
             {
-                if (value.RequiredEquipmentSlots == RequiredEquipmentSlots.One)
+                // TODO Add replacement
+                //if (value.RequiredEquipmentSlots == RequiredEquipmentSlots.One)
+                if (true)
                 {
                     _shieldTwo = value;
                     return;
@@ -76,20 +82,20 @@ namespace TQVaultAE.Models.Game
             }
         }
 
-        public GearItem Head { get; set; }
+        public Item Head { get; set; }
 
-        public GearItem Torso { get; set; }
+        public Item Torso { get; set; }
 
-        public GearItem Arms { get; set; }
+        public Item Arms { get; set; }
 
-        public GearItem Legs { get; set; }
+        public Item Legs { get; set; }
 
-        public GearItem RingOne { get; set; }
+        public Item RingOne { get; set; }
 
-        public GearItem RingTwo { get; set; }
+        public Item RingTwo { get; set; }
 
-        public GearItem Charm { get; set; }
+        public Item Charm { get; set; }
 
-        public GearItem Artifact { get; set; }
+        public Item Artifact { get; set; }
     }
 }

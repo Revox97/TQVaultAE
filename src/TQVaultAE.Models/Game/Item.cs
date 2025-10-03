@@ -1,15 +1,21 @@
-﻿using System.ComponentModel;
-using System.Configuration;
-using System.Drawing;
-using System.Windows.Media;
+﻿using System.Drawing;
 using System.Windows.Media.Imaging;
 using TQVaultAE.Models.Game.Enumerations;
+using TQVaultAE.Models.Game.Interfaces;
 
 namespace TQVaultAE.Models.Game
 {
-    // TODO Add dlc version
 	public abstract class Item
 	{
+        // TODO make them private use Getters instead
+        public readonly IEquipmentComponent? EquipmentComponent = null!;
+        public readonly ISizeComponent SizeComponent;
+        public readonly IStackingComponent? StackingComponent = null!;
+        public readonly IItemColorComponenent? ColorComponent = null!;
+        public readonly IItemProducer ItemProducerComponent = null!;
+
+        public ItemCategory ItemType;
+
 		/// <summary>
 		/// The seed of the item.
 		/// </summary>
@@ -21,12 +27,6 @@ namespace TQVaultAE.Models.Game
 		public string Name { get; set; } = string.Empty;
 
         public ItemVersion ItemVersion { get; set; }
-
-        public abstract Brush Color { get; }
-
-        public abstract Brush HoverColor { get; }
-
-        public abstract bool HasVisualAccent { get; } 
 
         /// <summary>
         /// The description of the item.
@@ -53,6 +53,7 @@ namespace TQVaultAE.Models.Game
 		/// <summary>
 		/// The location of the item in the grid.
 		/// </summary>
+        // TODO Handle this somewhere else, not in item
 		public Point Location { get; set; }
 
 		/// <summary>

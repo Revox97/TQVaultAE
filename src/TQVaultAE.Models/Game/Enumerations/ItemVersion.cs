@@ -13,6 +13,7 @@ namespace TQVaultAE.Models.Game.Enumerations
         [Description("(ATL)")]
         Atlantis,
         [Description("(EE)")]
-        EternalEmbers
+        EternalEmbers,
+        Unknown
     }
 }

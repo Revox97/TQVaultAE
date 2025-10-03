@@ -31,24 +31,27 @@ namespace TQVaultAE.UI.Components
 
 			// TODO REMOVE
 			List<Item> items = [
-				new ItemBuilder().SetName("Peter Lusting")
-                                 .SetRarity(ItemRarity.Legendary)
-                                 .SetLocation(0, 0)
-                                 .SetSize(2, 2)
-                                 .SetIcon((BitmapImage)ImagePaths.ItemMocks.TwoByTwo)
-                                 .Build(),
-				new ItemBuilder().SetName("Hans Müller")
-                                 .SetRarity(ItemRarity.Rare)
-                                 .SetLocation(2, 2)
-                                 .SetSize(2, 4)
-                                 .SetIcon((BitmapImage)ImagePaths.ItemMocks.TwoByFour)
-                                 .Build(),
-				new ItemBuilder().SetName("Ich bin sogar ein Item")
-                                 .SetRarity(ItemRarity.Rare)
-                                 .SetLocation(1, 7)
-                                 .SetSize(2, 2)
-                                 .SetIcon((BitmapImage)ImagePaths.ItemMocks.TwoByTwo)
-                                 .Build(),
+				new ItemBuilder(ItemCategory.Gear)
+                    .AddName("Peter Lusting")
+                    .AddRarity(ItemRarity.Legendary)
+                    .AddLocation(0, 0)
+                    .AddSize(2, 2)
+                    .AddIcon((BitmapImage)ImagePaths.ItemMocks.TwoByTwo)
+                    .Build(),
+				new ItemBuilder(ItemCategory.Gear)
+                    .AddName("Hans Müller")
+                    .AddRarity(ItemRarity.Rare)
+                    .AddLocation(2, 2)
+                    .AddSize(2, 4)
+                    .AddIcon((BitmapImage)ImagePaths.ItemMocks.TwoByFour)
+                    .Build(),
+				new ItemBuilder(ItemCategory.Gear)
+                    .AddName("Ich bin sogar ein Item")
+                    .AddRarity(ItemRarity.Rare)
+                    .AddLocation(1, 7)
+                    .AddSize(2, 2)
+                    .AddIcon((BitmapImage)ImagePaths.ItemMocks.TwoByTwo)
+                    .Build(),
 			];
 
 			_tabItems[2] = items;

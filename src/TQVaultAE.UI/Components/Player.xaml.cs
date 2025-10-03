@@ -5,6 +5,7 @@ using System.Windows.Media.Imaging;
 using TQVaultAE.Models.Builders;
 using TQVaultAE.Models.EventArgs;
 using TQVaultAE.Models.Game;
+using TQVaultAE.Models.Game.Enumerations;
 using TQVaultAE.Models.Services;
 using TQVaultAE.Models.Services.Observers;
 using TQVaultAE.UI.Resources;
@@ -33,18 +34,21 @@ namespace TQVaultAE.UI.Components
 
 			// TODO REMOVE
 			List<Item> items = [
-				new ItemBuilder().SetLocation(0, 0)
-                                 .SetSize(2, 2)
-                                 .SetIcon((BitmapImage)ImagePaths.Buttons.InventoryBag.Up)
-                                 .Build(),
-				new ItemBuilder().SetLocation(2, 2)
-                                 .SetSize(2, 2)
-                                 .SetIcon((BitmapImage)ImagePaths.Buttons.InventoryBag.Up)
-                                 .Build(),
-				new ItemBuilder().SetLocation(4, 0)
-                                 .SetSize(2, 2)
-                                 .SetIcon((BitmapImage)ImagePaths.Buttons.InventoryBag.Up)
-                                 .Build(),
+				new ItemBuilder(ItemCategory.Gear)
+                    .AddLocation(0, 0)
+                    .AddSize(2, 2)
+                    .AddIcon((BitmapImage)ImagePaths.ItemMocks.TwoByTwo)
+                    .Build(),
+				new ItemBuilder(ItemCategory.Gear)
+                    .AddLocation(2, 2)
+                    .AddSize(2, 2)
+                    .AddIcon((BitmapImage)ImagePaths.ItemMocks.TwoByTwo)
+                    .Build(),
+				new ItemBuilder(ItemCategory.Gear)
+                    .AddLocation(4, 0)
+                    .AddSize(2, 2)
+                    .AddIcon((BitmapImage)ImagePaths.ItemMocks.TwoByTwo)
+                    .Build(),
 			];
 			_mainSackItems = items;
 			_additionalSackItems[1] = items;
