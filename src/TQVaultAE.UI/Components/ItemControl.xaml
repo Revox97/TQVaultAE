@@ -8,7 +8,7 @@
              xmlns:model="clr-namespace:TQVaultAE.UI.Models;assembly=TQVaultAE.UI"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="450"
-             d:DataContext="{d:DesignInstance Type=model.ItemControlModel, IsDesignTimeCreatable=True}"
+             d:DataContext="{d:DesignInstance Type=model:ItemControlModel, IsDesignTimeCreatable=True}"
              MouseEnter="UserControl_MouseEnter" MouseLeave="UserControl_MouseLeave">
     <UserControl.Resources>
         <ResourceDictionary>

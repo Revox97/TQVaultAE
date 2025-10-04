@@ -8,9 +8,14 @@ namespace TQVaultAE.UI.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is bool input
-                ? (object)(input ? Visibility.Visible : Visibility.Collapsed)
-                : throw new ArgumentException($"{value} must be of type {typeof(bool)}.");
+            if (value is not bool input)
+                throw new ArgumentException($"{value} must be of type {typeof(bool)}.");
+
+            Visibility invisible = parameter is string invisibleValue && invisibleValue.Equals("COLLAPSED", StringComparison.OrdinalIgnoreCase)
+                ? Visibility.Collapsed
+                : Visibility.Hidden;
+
+            return input ? Visibility.Visible : invisible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -27,6 +27,15 @@ namespace TQVaultAE.Models.Game
         /// </summary>
         public string Description { get; set; }
 
+        /// <summary>
+        /// The second line of the description (if there is one) of the item.
+        /// </summary>
+        public string? AdditionalDescription { get; set; }
+
+        public bool HasAdditionalDescription => AdditionalDescription is not null;
+
+        public bool IsDlc => ItemVersion != ItemVersion.Original;
+
 		/// <summary>
 		/// The location of the item in the grid.
 		/// </summary>

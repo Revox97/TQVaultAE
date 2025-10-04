@@ -5,6 +5,7 @@ namespace TQVaultAE.UI.Models
 {
     public class ItemControlModel : DependencyObject
     {
+        // TODO Get rid of dependency property
         internal static DependencyProperty ItemProperty = DependencyProperty.Register(nameof(Item), typeof(Item), typeof(ItemControlModel));
 
         public Item Item
@@ -13,6 +14,7 @@ namespace TQVaultAE.UI.Models
             set => SetValue(ItemProperty, value);
         }
 
+        // Design time constructor
         public ItemControlModel()
         {
 

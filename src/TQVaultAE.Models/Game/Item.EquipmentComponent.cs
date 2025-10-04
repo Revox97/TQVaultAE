@@ -1,4 +1,5 @@
-﻿using TQVaultAE.Models.Game.Enumerations;
+﻿using System.Collections.ObjectModel;
+using TQVaultAE.Models.Game.Enumerations;
 using TQVaultAE.Models.Game.Interfaces;
 
 namespace TQVaultAE.Models.Game
@@ -9,12 +10,12 @@ namespace TQVaultAE.Models.Game
 
         public bool IsEquippable => _equipmentComponent is not null;
 
-        public ItemAttribute[] Attributes
+        public ObservableCollection<ItemAttribute> Attributes
         {
             get
             {
                 return IsEquippable
-                    ? [.. _equipmentComponent!.Attributes]
+                    ? new ObservableCollection<ItemAttribute>([.. _equipmentComponent!.Attributes])
                     : throw new NotSupportedException("Item is not equipable and therefore has no attributes.");
             }
         }

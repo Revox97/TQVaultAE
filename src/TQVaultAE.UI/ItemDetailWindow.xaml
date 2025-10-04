@@ -4,11 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TQVaultAE.UI"
+        xmlns:model="clr-namespace:TQVaultAE.UI.Models;assembly=TQVaultAE.UI"
+        xmlns:conv="clr-namespace:TQVaultAE.UI.Converters"
+        d:DataContext="{d:DesignInstance Type=model:ItemDetailWindowModel, IsDesignTimeCreatable=True}"
         mc:Ignorable="d"
         WindowStyle="None"
+        AllowsTransparency="True"
         Background="#44000000"
         Title="ItemDetailWindow" Height="Auto" Width="Auto">
     <Window.Resources>
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <conv:ItemRequirementToVisibilityConverter x:Key="ItemRequirementToVisibilityConverter"/>
         <Style x:Key="LabelBase" TargetType="{x:Type Label}">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Padding" Value="0"/>
@@ -33,52 +39,64 @@
     </Window.Resources>
     <Border BorderThickness="1" BorderBrush="Gray" Width="Auto" Height="Auto">
         <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto" Width="Auto" Margin="5" x:Name="DataContainer">
-            <Label Style="{StaticResource LabelName}" Content="Rancor Of Fire"/>
-            <Label Style="{StaticResource LabelDescription}" Content="75 - 91 Damage"/>
-            <Label Style="{StaticResource LabelDescription}" Content="Speed: Average"/>
+            <Label Style="{StaticResource LabelName}" Content="{Binding ItemName}" d:Content="Rancor Of Fire"/>
+            <Label Style="{StaticResource LabelDescription}" Content="{Binding Item.Description}" d:Content="75 - 91 Damage"/>
+            <Label Style="{StaticResource LabelDescription}" Content="{Binding Item.AdditionalDescription}" d:Content="Speed: Average" 
+                   Visibility="{Binding Item.HasAdditionalDescription, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=COLLAPSED}" d:Visibility="Visible"/>
 
-            <!-- TODO Make this a collection -->
-            <Label Style="{StaticResource LabelAttribute}" Content="15 Vitality Damage"/>
-            <Label Style="{StaticResource LabelAttribute}" Content="3.0% Chance of 50 % Reduction to Enemy's Health"/>
-            <Label Style="{StaticResource LabelAttribute}" Content="6 Fire Damage"/>
-            <Label Style="{StaticResource LabelAttribute}" Content="+8% Fire Damage"/>
-            <Label Style="{StaticResource LabelAttribute}" Content="+8% Burn Damage"/>
+            <ListView BorderThickness="0" Background="Transparent" Padding="0" Height="auto" ItemsSource="{Binding Item.Attributes}" d:ItemsSource="{Binding DesignAttributes}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Padding" Value="0"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Style="{StaticResource LabelAttribute}" Margin="0" Content="{Binding Value}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
             <Grid Style="{StaticResource HorizontalLine}"/>
-            <Label Style="{StaticResource LabelBase}" Content="itemSeed: 12345 (0x00001234) (19.4%)"/>
-            <Label Style="{StaticResource LabelBase}" Foreground="Green" Content="Immortal Throne Item"/>
+            <Label Style="{StaticResource LabelBase}" Content="{Binding Item.Seed}" d:Content="itemSeed: 12345 (0x00001234) (19.4%)"/>
+            <Label Style="{StaticResource LabelBase}" Foreground="Green" Content="{Binding ItemDlcName}" d:Content="Immortal Throne Item"
+                   Visibility="{Binding Item.IsDlc, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=COLLAPSED}" d:Visibility="Visible"/>
 
-            <!-- TODO Only show if item has requirements -->
-            <Grid Style="{StaticResource HorizontalLine}"/>
-            <Label Style="{StaticResource LabelBase}">
+            <Grid Style="{StaticResource HorizontalLine}"
+                  Visibility="{Binding Item.Requirements, Converter={StaticResource ItemRequirementToVisibilityConverter}}" d:Visibility="Visible"/>
+            <Label Style="{StaticResource LabelBase}"
+                   Visibility="{Binding Item.Requirements, Converter={StaticResource ItemRequirementToVisibilityConverter}, ConverterParameter=STRENGTH}" d:Visibility="Visible">
                 <Label.Content>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Required Strength: "/>
-                        <TextBlock Text="314"/>
+                        <TextBlock Text="{Binding Item.Requirements.Strength}" d:Text="314"/>
                     </StackPanel>
                 </Label.Content>
             </Label>
-            <Label Style="{StaticResource LabelBase}">
+            <Label Style="{StaticResource LabelBase}"
+                   Visibility="{Binding Item.Requirements, Converter={StaticResource ItemRequirementToVisibilityConverter}, ConverterParameter=DEXTERITY}" d:Visibility="Visible">
                 <Label.Content>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Required Dexterity: "/>
-                        <TextBlock Text="83"/>
+                        <TextBlock Text="{Binding Item.Requirements.Dexterity}" d:Text="83"/>
                     </StackPanel>
                 </Label.Content>
             </Label>
-            <Label Style="{StaticResource LabelBase}" Visibility="Collapsed">
+            <Label Style="{StaticResource LabelBase}"
+                   Visibility="{Binding Item.Requirements, Converter={StaticResource ItemRequirementToVisibilityConverter}, ConverterParameter=INTELLIGENCE}" d:Visibility="Visible">
                 <Label.Content>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Required Intelligence: "/>
-                        <TextBlock Text="0"/>
+                        <TextBlock Text="{Binding Item.Requirements.Intelligence}" d:Text="0"/>
                     </StackPanel>
                 </Label.Content>
             </Label>
-            <Label Style="{StaticResource LabelBase}">
+            <Label Style="{StaticResource LabelBase}"
+                   Visibility="{Binding Item.Requirements, Converter={StaticResource ItemRequirementToVisibilityConverter}, ConverterParameter=LEVEL}" d:Visibility="Visible">
                 <Label.Content>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Required Player Level: "/>
-                        <TextBlock Text="29"/>
+                        <TextBlock Text="{Binding Item.Requirements.Level}" d:Text="29"/>
                     </StackPanel>
                 </Label.Content>
             </Label>

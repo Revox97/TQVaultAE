@@ -6,6 +6,7 @@ using TQVaultAE.Models.EventArgs;
 using TQVaultAE.Models.Game;
 using TQVaultAE.Models.Game.Enumerations;
 using TQVaultAE.Services;
+using TQVaultAE.UI.Controllers;
 using TQVaultAE.UI.Models;
 
 namespace TQVaultAE.UI.Components
@@ -15,6 +16,10 @@ namespace TQVaultAE.UI.Components
     /// </summary>
     public partial class ItemControl : UserControl
     {
+        private readonly ItemControlController _controller;
+        private readonly ItemControlModel _model;
+
+        // TODO Remove dependency property use NotifyPropertyChanged
         public static readonly DependencyProperty DataSourceProperty = DependencyProperty.Register(nameof(DataSource), typeof(ItemControlModel), typeof(ItemControl));
         private LinearGradientBrush _normalBrush = null!;
         private LinearGradientBrush _hoverBrush = null!;
@@ -25,25 +30,17 @@ namespace TQVaultAE.UI.Components
             set => SetValue(DataSourceProperty, value);
         }
 
-        // TODO Can most likely be removed
-        //public ItemControl()
-        //{
-        //    InitializeComponent();
-
-        //    Item item = new ItemBuilder(ItemCategory.Gear).Build();
-        //    DataSource = new ItemControlModel(item);
-        //    DataContext = DataSource;
-        //    CalculateBrushes((SolidColorBrush)item.Color);
-        //    DrawRarityHighlight();
-        //    DrawItem();
-        //}
-
         public ItemControl(Item item)
         {
             InitializeComponent();
 
-            DataSource = new ItemControlModel(item);
-            DataContext = DataSource;
+            _model = new(item);
+            DataContext = _model;
+            _controller = new ItemControlController(this, _model);
+
+            // TODO Remove this
+            DataSource = _model;
+
             CalculateBrushes((SolidColorBrush)item.Color);
             DrawRarityHighlight();
             DrawItem();
@@ -93,12 +90,14 @@ namespace TQVaultAE.UI.Components
         private void UserControl_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             HighlightColorPanel.Fill = _hoverBrush;
+            _controller.ShowItemDetailsWindow();
             ItemHoverService.GetInstance().Notify(this, new ItemOverEventArgs() { ItemName = DataSource.Item.Name }); // , Rarity = DataSource.Item.Rarity
         }
 
         private void UserControl_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             HighlightColorPanel.Fill = _normalBrush;
+            _controller.CloseItemDetailsWindow();
             ItemHoverService.GetInstance().Notify(this, new ItemOverEventArgs() { IsMouseOver = false });
         } 
     }
