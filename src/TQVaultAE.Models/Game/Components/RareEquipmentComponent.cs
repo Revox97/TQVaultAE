@@ -7,7 +7,7 @@ namespace TQVaultAE.Models.Game.Components
     {
         public ItemRarity Rarity { get; set; } = ItemRarity.Rare;
 
-        public ItemRequirements Requirements => throw new NotImplementedException();
+        public ItemRequirements Requirements { get; set; } = default;
 
         // TODO default one, some atlantis items support two slots tough
         public int NumberCharmSlots => 1;
@@ -16,9 +16,8 @@ namespace TQVaultAE.Models.Game.Components
 
         public List<ItemAttribute> Attributes => [];
 
-        public Affix? Prefix => throw new NotImplementedException();
-
-        public Affix? Suffix => throw new NotImplementedException();
+        public Affix? Prefix { get; set; }
+        public Affix? Suffix { get; set; }
 
         public bool CanEquipCharm() => true;
     }

@@ -24,20 +24,20 @@ namespace TQVaultAE.Models.Game.Components
 
         public bool IsMaximum => StackSize == MaxStackSize;
 
-        public void AddToStack()
+        public void AddToStack(int amount)
         {
-            if (StackSize + 1 > MaxStackSize)
+            if (StackSize + amount > MaxStackSize)
                 throw new InvalidOperationException("Stack size exceeds maximum limit");
 
-            StackSize++;
+            StackSize += amount;
         }
 
-        public void RemoveFromStack()
+        public void RemoveFromStack(int amount)
         {
-            if (StackSize - 1 < 0)
+            if (StackSize - amount < 1)
                 throw new InvalidOperationException("Stack size would be less then one.");
 
-            StackSize--;
+            StackSize += amount;
         }
     }
 }

@@ -23,12 +23,13 @@ namespace TQVaultAE.UI.Components
 		{
 			ArgumentNullException.ThrowIfNull(args, nameof(args));
 
-			if (args.IsMouseOver)
-			{
-				ItemNameContent.Content = args.ItemName;
-                ItemNameContent.Foreground = (sender as Item).ColorComponent.Color; // TODO Rework args so it sends the actual item
+            if (sender is ItemControl itemControl)
+            {
+                Item item = itemControl.DataSource.Item;
+				ItemNameContent.Content = item.ToString();
+                ItemNameContent.Foreground = item.Color;
                 return;
-			}
+            }
 
 			ItemNameContent.Content = string.Empty;
 		}

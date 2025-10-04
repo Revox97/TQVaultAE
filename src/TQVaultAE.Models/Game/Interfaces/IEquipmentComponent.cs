@@ -5,7 +5,7 @@ namespace TQVaultAE.Models.Game.Interfaces
     public interface IEquipmentComponent
     {
         ItemRarity Rarity { get; set; }
-		ItemRequirements Requirements { get; }
+		ItemRequirements Requirements { get; set; }
         int NumberCharmSlots { get; }
         List<Item> Charms { get; }
         List<ItemAttribute> Attributes { get; }

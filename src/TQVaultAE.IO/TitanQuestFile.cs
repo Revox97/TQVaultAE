@@ -1,13 +1,15 @@
 ﻿using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
 using TQVaultAE.IO.Parsers;
+using TQVaultAE.Models.Game.Enumerations;
+using TQVaultAE.Services;
 
 namespace TQVaultAE.IO
 {
     internal partial class TitanQuestFile
     {
         public const string ExtPlayer = ".chr";
+
 		/// <summary>
 		/// The character's private stash.
 		/// </summary>
@@ -22,7 +24,6 @@ namespace TQVaultAE.IO
         /// List of TQ save file extensions
         /// </summary>
         public static string[] AllowedExtensions => [ExtPlayer, ExtSharedStashBackup, ExtSharedStash];
-
 
 		public byte[] Content { get; private set; }
 
@@ -92,19 +93,9 @@ namespace TQVaultAE.IO
 		/// </summary>
 		public void Parse()
 		{
-            //Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            //Encoding encoding1252 = Encoding.GetEncoding(1252);
-            //string contentAsString = encoding1252.GetString(Content);
-
-            // TODO Use file parser here instead
             ChrFileRecord result = new ChrFileParser().Parse(Content);
 
-            // Regex save file / Where the magic lies
-    //        List<Match> keyMatches = [.. KeyMatchRegex().Matches(contentAsString).Cast<Match>().Where(m => m.Success)];
-
-    //        Records = [.. keyMatches.Select(m => new TitanQuestFileRecord(this, m))
-				//// Remove all keys that don't match keylen (false match.Success)
-				//.Where(m => m.KeyLengthAsInt == m.KeyName.Length)];
+            //Records = [.. keyMatches.Select(m => new TitanQuestFileRecord(this, m))
         }
 
 		private const int PlayerHeaderVersionValueTq = 1;

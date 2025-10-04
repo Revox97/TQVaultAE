@@ -1,4 +1,6 @@
-﻿namespace TQVaultAE.IO
+﻿using TQVaultAE.Models.Game.Enumerations;
+
+namespace TQVaultAE.IO
 {
     internal class TitanQuestDataTypeAttribute(TitanQuestVersion version, TitanQuestFileDataType datatype)
     {

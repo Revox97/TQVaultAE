@@ -12,8 +12,10 @@ namespace TQVaultAE.UI.Builder
 
         internal EquipmentModelBuilder AddWeaponOne(Item item)
         {
-            ArgumentNullException.ThrowIfNull(item, nameof(item));
+            _model.WeaponOne = item;
+            return this;
 
+            //ArgumentNullException.ThrowIfNull(item, nameof(item));
             //if (item.ItemType == ItemType.WeaponOneHanded)
             //{
             //    _model.WeaponOne = item;
@@ -29,12 +31,15 @@ namespace TQVaultAE.UI.Builder
 
             //throw new ArgumentException($"Item must be of type {ItemType.WeaponOneHanded} or {ItemType.WeaponTwoHanded}.");
 
-            return null!;
+            //return null!;
         }
 
         internal EquipmentModelBuilder AddWeaponTwo(Item item)
         {
-            ArgumentNullException.ThrowIfNull(item, nameof(item));
+            _model.WeaponTwo = item;
+            return this;
+
+            //ArgumentNullException.ThrowIfNull(item, nameof(item));
 
             //if (item.ItemType == ItemType.WeaponOneHanded)
             //{
@@ -50,12 +55,15 @@ namespace TQVaultAE.UI.Builder
             //}
 
             //throw new ArgumentException($"Item must be of type {ItemType.WeaponOneHanded} or {ItemType.WeaponTwoHanded}.");
-            return null!;
+            //return null!;
         }
 
         internal EquipmentModelBuilder AddShieldOne(Item item)
         {
-            ArgumentNullException.ThrowIfNull(item, nameof(item));
+            _model.ShieldOne = item;
+            return this;
+
+            //ArgumentNullException.ThrowIfNull(item, nameof(item));
 
             //if (item.ItemType != ItemType.Shield && item.ItemType != ItemType.WeaponOneHanded)
             //    throw new ArgumentException($"Item must be of type {ItemType.WeaponOneHanded} or {ItemType.Shield}.");
@@ -63,13 +71,16 @@ namespace TQVaultAE.UI.Builder
             //if (_model.WeaponOne?.ItemType == ItemType.WeaponTwoHanded)
             //    _model.WeaponOne = item.ItemType == ItemType.Shield ? null! : item;
 
-            _model.ShieldOne = item;
-            return this;
+            //_model.ShieldOne = item;
+            //return this;
         }
 
         internal EquipmentModelBuilder AddShieldTwo(Item item)
         {
-            ArgumentNullException.ThrowIfNull(item, nameof(item));
+            _model.ShieldTwo = item;
+            return this;
+
+            //ArgumentNullException.ThrowIfNull(item, nameof(item));
 
             //if (item.ItemType != ItemType.Shield && item.ItemType != ItemType.WeaponOneHanded)
             //    throw new ArgumentException($"Item must be of type {ItemType.WeaponOneHanded} or {ItemType.Shield}.");
@@ -77,8 +88,8 @@ namespace TQVaultAE.UI.Builder
             //if (_model.WeaponTwo?.ItemType == ItemType.WeaponTwoHanded)
             //    _model.WeaponTwo = item.ItemType == ItemType.Shield ? null! : item;
 
-            _model.ShieldTwo = item;
-            return this;
+            //_model.ShieldTwo = item;
+            //return this;
         }
 
         internal EquipmentModelBuilder AddHeadArmor(Item item)

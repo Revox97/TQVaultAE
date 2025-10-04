@@ -35,6 +35,7 @@ namespace TQVaultAE.UI.Resources
 
     public class ItemMockPaths
     {
+        public readonly ImageSource OneByOne = new BitmapImage(new Uri("pack://application:,,,/TQVaultAE.UI;component/Resources/Img/MockItem1x1.png"));
         public readonly ImageSource TwoByOne = new BitmapImage(new Uri("pack://application:,,,/TQVaultAE.UI;component/Resources/Img/MockItem2x1.png"));
         public readonly ImageSource TwoByTwo = new BitmapImage(new Uri("pack://application:,,,/TQVaultAE.UI;component/Resources/Img/MockItem2x2.png"));
         public readonly ImageSource TwoByThree = new BitmapImage(new Uri("pack://application:,,,/TQVaultAE.UI;component/Resources/Img/MockItem2x3.png"));

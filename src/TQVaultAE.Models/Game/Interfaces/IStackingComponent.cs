@@ -5,7 +5,7 @@
         int MaxStackSize { get; }
         int StackSize { get; }
         bool IsMaximum { get; }
-        void AddToStack();
-        void RemoveFromStack();
+        void AddToStack(int amount = 1);
+        void RemoveFromStack(int amount = 1);
     }
 }

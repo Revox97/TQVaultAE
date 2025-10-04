@@ -32,25 +32,43 @@ namespace TQVaultAE.UI.Components
 			// TODO REMOVE
 			List<Item> items = [
 				new ItemBuilder(ItemCategory.Gear)
-                    .AddName("Peter Lusting")
-                    .AddRarity(ItemRarity.Legendary)
+                    .AddName("Peter Lustig")
+                    .AddDescription("I am a funny item")
+                    .AddEquipmentComponent(ItemRarity.Legendary)
+                    .AddRequirements(1, 10, 10, 10)
+                    .AddItemVersion(ItemVersion.Original)
                     .AddLocation(0, 0)
                     .AddSize(2, 2)
                     .AddIcon((BitmapImage)ImagePaths.ItemMocks.TwoByTwo)
                     .Build(),
 				new ItemBuilder(ItemCategory.Gear)
                     .AddName("Hans Müller")
-                    .AddRarity(ItemRarity.Rare)
+                    .AddDescription("I am a Hans Müller")
+                    .AddEquipmentComponent(ItemRarity.Rare)
+                    .AddRequirements(1, 10, 10, 10)
+                    .AddItemVersion(ItemVersion.ImmortalThrone)
                     .AddLocation(2, 2)
                     .AddSize(2, 4)
                     .AddIcon((BitmapImage)ImagePaths.ItemMocks.TwoByFour)
                     .Build(),
 				new ItemBuilder(ItemCategory.Gear)
-                    .AddName("Ich bin sogar ein Item")
-                    .AddRarity(ItemRarity.Rare)
+                    .AddName("RealItem")
+                    .AddDescription("Ich bin sogar ein Item")
+                    .AddEquipmentComponent(ItemRarity.Common)
+                    .AddRequirements(1, 10, 10, 10)
+                    .AddItemVersion(ItemVersion.EternalEmbers)
                     .AddLocation(1, 7)
                     .AddSize(2, 2)
                     .AddIcon((BitmapImage)ImagePaths.ItemMocks.TwoByTwo)
+                    .Build(),
+                // TODO Charms can also have requirements! -> Maybe a seperate component is required
+				new ItemBuilder(ItemCategory.Charm)
+                    .AddName("Legendary Charmboy")
+                    .AddDescription("Ich bin ein Charm")
+                    .AddItemVersion(ItemVersion.EternalEmbers)
+                    .AddLocation(5, 9)
+                    .AddStacking()
+                    .AddIcon((BitmapImage)ImagePaths.ItemMocks.OneByOne)
                     .Build(),
 			];
 

@@ -1,7 +1,7 @@
-﻿namespace TQVaultAE.IO
+﻿namespace TQVaultAE.Models.Game.Enumerations
 {
     [Flags]
-    internal enum TitanQuestVersion
+    public enum TitanQuestVersion
     {
         Original = 1 << 0,
         ImmortalThrone = 1 << 1,

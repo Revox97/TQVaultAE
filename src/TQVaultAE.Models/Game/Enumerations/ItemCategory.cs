@@ -11,5 +11,6 @@
         Potion,
         Scroll,
         Weapon,
+        Quest,
     }
 }

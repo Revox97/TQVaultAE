@@ -35,21 +35,37 @@ namespace TQVaultAE.UI.Components
 			// TODO REMOVE
 			List<Item> items = [
 				new ItemBuilder(ItemCategory.Gear)
+                    .AddName("Gear Item of Pain")
+                    .AddDescription("I am the painfull gear item")
+                    .AddItemVersion(ItemVersion.Ragnarok)
+                    .AddEquipmentComponent(ItemRarity.Legendary)
+                    .AddRequirements(1, 10, 10, 10)
                     .AddLocation(0, 0)
                     .AddSize(2, 2)
                     .AddIcon((BitmapImage)ImagePaths.ItemMocks.TwoByTwo)
                     .Build(),
 				new ItemBuilder(ItemCategory.Gear)
+                    .AddName("Gear Item of Journeying")
+                    .AddDescription("I am the walking gear item")
+                    .AddItemVersion(ItemVersion.Atlantis)
+                    .AddEquipmentComponent(ItemRarity.Rare)
+                    .AddRequirements(1, 10, 10, 10)
                     .AddLocation(2, 2)
                     .AddSize(2, 2)
                     .AddIcon((BitmapImage)ImagePaths.ItemMocks.TwoByTwo)
                     .Build(),
 				new ItemBuilder(ItemCategory.Gear)
+                    .AddName("Gear Item of Energy")
+                    .AddDescription("I am a energyfull gear item")
+                    .AddItemVersion(ItemVersion.EternalEmbers)
+                    .AddEquipmentComponent(ItemRarity.Legendary)
+                    .AddRequirements(1, 10, 10, 10)
                     .AddLocation(4, 0)
                     .AddSize(2, 2)
                     .AddIcon((BitmapImage)ImagePaths.ItemMocks.TwoByTwo)
                     .Build(),
 			];
+
 			_mainSackItems = items;
 			_additionalSackItems[1] = items;
 

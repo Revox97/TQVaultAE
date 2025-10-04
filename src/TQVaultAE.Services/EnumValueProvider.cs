@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
 
-namespace TQVaultAE.IO
+namespace TQVaultAE.Services
 {
-    internal class EnumValueProvider
+    public class EnumValueProvider
     {
         public static string GetValue(Enum value)
         {

@@ -150,6 +150,7 @@ namespace TQVaultAE.IO.Parsers
 
         private void ReadFileNames(BinaryReader reader)
         {
+            int fileNamesOffset = (int)reader.BaseStream.Position;
 
             reader.BaseStream.Seek(fileNamesOffset, SeekOrigin.Begin);
 

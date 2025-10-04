@@ -21,7 +21,7 @@ namespace TQVaultAE
 				base.OnStartup(e);
 
                 // TEST REMOVE
-                new CharacterFileReader().ReadPlayerFile(@"C:\Users\Leo\Documents\TQVaultTestData\Main\_IL 3 IR o Y\Player.chr");
+                //new CharacterFileReader().ReadPlayerFile(@"C:\Users\Leo\Documents\TQVaultTestData\Main\_IL 3 IR o Y\Player.chr");
                 // TEST REMOVE
 
                 AssemblyName assemblyName = Assembly.GetExecutingAssembly().GetName();

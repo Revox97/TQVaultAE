@@ -7,7 +7,7 @@ namespace TQVaultAE.Models.Game.Components
     {
         public ItemRarity Rarity { get; set; } = ItemRarity.Broken;
 
-        public ItemRequirements Requirements => throw new NotImplementedException();
+        public ItemRequirements Requirements { get; set; } = default;
 
         // TODO some Atlantis items can have two (Should not apply for broken)
         public int NumberCharmSlots => 1;
@@ -16,9 +16,8 @@ namespace TQVaultAE.Models.Game.Components
 
         public List<ItemAttribute> Attributes => [];
 
-        public Affix? Prefix => null;
-
-        public Affix? Suffix => null;
+        public Affix? Prefix { get; set; }
+        public Affix? Suffix { get; set; }
 
         public bool CanEquipCharm() => true;
     }

@@ -31,7 +31,7 @@ namespace TQVaultAE.UI.Components
 
             Item item = new ItemBuilder(ItemCategory.Gear).Build();
             DataSource = new ItemControlModel(item);
-            CalculateBrushes((SolidColorBrush)item.ColorComponent?.Color);
+            CalculateBrushes((SolidColorBrush)item.Color);
             DrawRarityHighlight();
             DrawItem();
 
@@ -41,7 +41,7 @@ namespace TQVaultAE.UI.Components
             InitializeComponent();
 
             DataSource = new ItemControlModel(item);
-            CalculateBrushes((SolidColorBrush)item.ColorComponent.Color);
+            CalculateBrushes((SolidColorBrush)item.Color);
             DrawRarityHighlight();
             DrawItem();
         }
@@ -53,6 +53,7 @@ namespace TQVaultAE.UI.Components
 
         private void CalculateBrushes(SolidColorBrush itemBrush)
         {
+            // TODO Might not be required anymore due to hover color property
             Color normal = Color.FromArgb(50, itemBrush.Color.R, itemBrush.Color.G, itemBrush.Color.B);
             Color highlight = Color.FromArgb(240, itemBrush.Color.R, itemBrush.Color.G, itemBrush.Color.B);
 
