@@ -14,7 +14,7 @@ namespace TQVaultAE.Models.Game
             {
                 return CanStack
                     ? _stackingComponent!.StackSize
-                    : throw new InvalidOperationException("Item is not stackable.");
+                    : 0;
             }
         }
 

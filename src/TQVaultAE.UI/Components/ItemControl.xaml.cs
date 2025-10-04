@@ -25,22 +25,25 @@ namespace TQVaultAE.UI.Components
             set => SetValue(DataSourceProperty, value);
         }
 
-        public ItemControl()
-        {
-            InitializeComponent();
+        // TODO Can most likely be removed
+        //public ItemControl()
+        //{
+        //    InitializeComponent();
 
-            Item item = new ItemBuilder(ItemCategory.Gear).Build();
-            DataSource = new ItemControlModel(item);
-            CalculateBrushes((SolidColorBrush)item.Color);
-            DrawRarityHighlight();
-            DrawItem();
+        //    Item item = new ItemBuilder(ItemCategory.Gear).Build();
+        //    DataSource = new ItemControlModel(item);
+        //    DataContext = DataSource;
+        //    CalculateBrushes((SolidColorBrush)item.Color);
+        //    DrawRarityHighlight();
+        //    DrawItem();
+        //}
 
-        }
         public ItemControl(Item item)
         {
             InitializeComponent();
 
             DataSource = new ItemControlModel(item);
+            DataContext = DataSource;
             CalculateBrushes((SolidColorBrush)item.Color);
             DrawRarityHighlight();
             DrawItem();

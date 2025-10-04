@@ -1,9 +1,26 @@
-﻿using TQVaultAE.Models.Game;
+﻿using System.Windows;
+using TQVaultAE.Models.Game;
 
 namespace TQVaultAE.UI.Models
 {
-    public class ItemControlModel(Item item)
+    public class ItemControlModel : DependencyObject
     {
-        public Item Item { get; set; } = item;
+        internal static DependencyProperty ItemProperty = DependencyProperty.Register(nameof(Item), typeof(Item), typeof(ItemControlModel));
+
+        public Item Item
+        {
+            get => (Item)GetValue(ItemProperty);
+            set => SetValue(ItemProperty, value);
+        }
+
+        public ItemControlModel()
+        {
+
+        }
+
+        public ItemControlModel(Item item)
+        {
+            Item = item;
+        }
     }
 }
