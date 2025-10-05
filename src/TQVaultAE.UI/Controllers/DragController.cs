@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using TQVaultAE.Models.Game;
 
 namespace TQVaultAE.UI.Controllers
@@ -18,6 +19,13 @@ namespace TQVaultAE.UI.Controllers
         public Point CurrentLocation { get; } = currentLocation;
     }
 
+    public delegate void MouseMovedEventHandler(object source, MouseMovedEventArgs args);
+
+    public class MouseMovedEventArgs(Point position) : EventArgs
+    {
+        public Point Position { get; } = position;
+    }
+
     internal class DragController
     {
         private static DragController? s_instance;
@@ -25,6 +33,7 @@ namespace TQVaultAE.UI.Controllers
 
         public event ItemDraggedChangedEventHandler ItemDraggedChanged;
         public event ItemMovedEventHandler ItemMoved;
+        public event MouseMovedEventHandler MouseMoved;
 
         private Item? _currentItem = null;
 
@@ -37,6 +46,14 @@ namespace TQVaultAE.UI.Controllers
             }
 
             return s_instance;
+        }
+
+        private Point _mousePosition;
+
+        public void UpdateMousePosition(Point position)
+        {
+            _mousePosition = position;
+            MouseMoved?.Invoke(this, new MouseMovedEventArgs(position));
         }
 
         public void SetItem(Item item)
@@ -57,7 +74,7 @@ namespace TQVaultAE.UI.Controllers
             if (_currentItem is null)
                 return;
 
-            ItemMoved.Invoke(this, new ItemMovedEventArgs(_currentItem, newLocation));
+            ItemMoved?.Invoke(this, new ItemMovedEventArgs(_currentItem, newLocation));
         }
 
         private DragController() { }

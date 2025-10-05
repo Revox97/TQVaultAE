@@ -1,6 +1,8 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using TQVaultAE.UI.Controllers;
 using TQVaultAE.UI.Models;
 
@@ -11,7 +13,8 @@ namespace TQVaultAE.UI.Pages
     /// </summary>
     public partial class MainWindowPage : Page
     {
-        private MainWindowController _controller;
+        private readonly MainWindowController _controller;
+        private readonly DragController _dragController;
 
 		private readonly VaultPage _vaultPage;
 		private readonly ConfigurationPage _configurationPage;
@@ -21,6 +24,9 @@ namespace TQVaultAE.UI.Pages
         {
             InitializeComponent();
 
+            _dragController = DragController.GetInstance();
+            Mouse.AddPreviewMouseMoveHandler(this, OnMouseMoved);
+
 			DataContext = new MainWindowPageModel();
 
 			_vaultPage = new VaultPage();
@@ -29,6 +35,12 @@ namespace TQVaultAE.UI.Pages
             _controller = new MainWindowController();
 
 			ButtonVault.IsChecked = true;
+        }
+
+        private void OnMouseMoved(object sender, MouseEventArgs e)
+        {
+            Point position = e.GetPosition(this);
+            _dragController.UpdateMousePosition(position);
         }
 
 		private void ButtonVault_Checked(object sender, RoutedEventArgs e)
