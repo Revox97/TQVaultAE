@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using TQVaultAE.UI.Components;
 using TQVaultAE.UI.Models;
 
@@ -32,6 +30,7 @@ namespace TQVaultAE.UI.Controllers
 
         private Point GetWindowPosition()
         {
+            // TODO Calculate different values, if window would be off screen | Needs to be done within the window itself
             Point screenPoint = _instance.PointToScreen(new Point(0, 0));
             screenPoint.X += _instance.ActualWidth + 10;
             screenPoint.Y -= 5;

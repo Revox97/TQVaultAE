@@ -10,6 +10,12 @@
 - [ ] Save transfer area
 - [ ] Save relics area
 - [ ] Localization (Settings NOT WINDOWS!)
+- [ ] Items Detail Window
+    - [x] Add layout
+    - [x] Add data structure
+    - [x] Add position
+    - [ ] Add correct bindings
+    - [ ] Handle position if offscreen
 - [ ] Items
   - [ ] Rarity support
     - [x] Apply background color
