@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TQVaultAE.UI"
         xmlns:model="clr-namespace:TQVaultAE.UI.Models;assembly=TQVaultAE.UI"
-        d:DataContext="{d:DesignInstance Type=model:ItemDetailWindowModel, IsDesignTimeCreatable=True}"
+        d:DataContext="{d:DesignInstance Type=model:ItemDragWindowModel, IsDesignTimeCreatable=True}"
         mc:Ignorable="d"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
         Height="Auto" Width="Auto">
     <Grid Margin="5">
-        <Image Source="/TQVaultAE.UI;component/Resources/Img/MockItem2x2.png"/>
+        <Image Source="{Binding Item.Icon}" d:Source="/TQVaultAE.UI;component/Resources/Img/MockItem2x2.png"/>
     </Grid>
 </Window>

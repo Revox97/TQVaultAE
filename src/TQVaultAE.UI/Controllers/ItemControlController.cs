@@ -33,7 +33,7 @@ namespace TQVaultAE.UI.Controllers
         {
             Point openingLocation = GetItemControlPosition();
             
-            new ItemDragWindow()
+            new ItemDragWindow(_model.Item)
             {
                 WindowStartupLocation = WindowStartupLocation.Manual,
                 Left = openingLocation.X,
