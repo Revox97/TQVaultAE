@@ -25,14 +25,14 @@
                 <ColumnDefinition Width="5"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Source="/Resources/Img/Majestic Chest.png" Stretch="Uniform" 
+            <Image Grid.Column="0" Source="/TQVaultAE.UI;component/Resources/Img/icon_character.png" Stretch="Uniform" 
                    HorizontalAlignment="Center" VerticalAlignment="Center" />
             <ComboBox Grid.Column="2" Margin="0 15" SelectedIndex="0" Style="{StaticResource SimpleComboBoxStyle}">
-                <ComboBoxItem Content="Value1"></ComboBoxItem>
-                <ComboBoxItem Content="Value2"></ComboBoxItem>
-                <ComboBoxItem Content="Value3"></ComboBoxItem>
-                <ComboBoxItem Content="Value4"></ComboBoxItem>
-                <ComboBoxItem Content="Value5"></ComboBoxItem>
+                <ComboBoxItem Content="Player 1"></ComboBoxItem>
+                <ComboBoxItem Content="Player 2"></ComboBoxItem>
+                <ComboBoxItem Content="Player 3"></ComboBoxItem>
+                <ComboBoxItem Content="Player 4"></ComboBoxItem>
+                <ComboBoxItem Content="Player 5"></ComboBoxItem>
             </ComboBox>
         </Grid>
         <local:Player Grid.Row="2"/>

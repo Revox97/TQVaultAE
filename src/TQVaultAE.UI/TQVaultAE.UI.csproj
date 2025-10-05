@@ -30,6 +30,7 @@
     <None Remove="Resources\Img\button_minimize_over.png" />
     <None Remove="Resources\Img\button_minimize_up.png" />
     <None Remove="Resources\Img\caravan_background.jpg" />
+    <None Remove="Resources\Img\icon_character.png" />
     <None Remove="Resources\Img\icon_majestic_chest.png" />
     <None Remove="Resources\Img\item_accent.png" />
     <None Remove="Resources\Img\mainwindow_background.jpg" />
@@ -136,6 +137,7 @@
     <Resource Include="Resources\Img\equipment_weapon1_overlay.png" />
     <Resource Include="Resources\Img\equipment_weapon2_background.png" />
     <Resource Include="Resources\Img\equipment_weapon2_overlay.png" />
+    <Resource Include="Resources\Img\icon_character.png" />
     <Resource Include="Resources\Img\icon_majestic_chest.png" />
     <Resource Include="Resources\Img\item_accent.png" />
     <Resource Include="Resources\Img\mainwindow_background.jpg" />
