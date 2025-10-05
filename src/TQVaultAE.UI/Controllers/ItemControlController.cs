@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 using TQVaultAE.UI.Components;
 using TQVaultAE.UI.Models;
 
@@ -13,11 +14,11 @@ namespace TQVaultAE.UI.Controllers
 
         internal void ShowItemDetailsWindow()
         {
-            Point openingPosition = GetWindowPosition();
+            Point openingPosition = GetDetailsWindowPosition();
 
             _detailsWindow = new ItemDetailWindow(_model.Item)
             {
-                WindowStartupLocation = System.Windows.WindowStartupLocation.Manual,
+                WindowStartupLocation = WindowStartupLocation.Manual,
                 Left = openingPosition.X,
                 Top = openingPosition.Y,
                 SizeToContent = SizeToContent.WidthAndHeight
@@ -28,14 +29,32 @@ namespace TQVaultAE.UI.Controllers
 
         internal void CloseItemDetailsWindow() => _detailsWindow?.Close();
 
-        private Point GetWindowPosition()
+        internal void ShowItemDragWindow()
         {
-            // TODO Calculate different values, if window would be off screen | Needs to be done within the window itself
-            Point screenPoint = _instance.PointToScreen(new Point(0, 0));
-            screenPoint.X += _instance.ActualWidth + 10;
-            screenPoint.Y -= 5;
+            Point openingLocation = GetItemControlPosition();
+            
+            new ItemDragWindow()
+            {
+                WindowStartupLocation = WindowStartupLocation.Manual,
+                Left = openingLocation.X,
+                Top = openingLocation.Y,
+                Width = _instance.ActualWidth,
+                Height = _instance.ActualHeight,
+            }.Show();
+        }
 
-            return screenPoint;
+        private Point GetDetailsWindowPosition()
+        {
+            Point itemControlPosition = GetItemControlPosition();
+            itemControlPosition.X += _instance.ActualWidth + 10;
+            itemControlPosition.Y -= 5;
+
+            return itemControlPosition;
+        }
+
+        private Point GetItemControlPosition()
+        {
+            return _instance.PointToScreen(new Point(0, 0));
         }
     }
 }

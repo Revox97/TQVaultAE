@@ -9,7 +9,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="450"
              d:DataContext="{d:DesignInstance Type=model:ItemControlModel, IsDesignTimeCreatable=True}"
-             MouseEnter="UserControl_MouseEnter" MouseLeave="UserControl_MouseLeave">
+             MouseEnter="UserControl_MouseEnter" MouseLeave="UserControl_MouseLeave"
+             MouseLeftButtonUp="UserControl_MouseLeftButtonUp">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
