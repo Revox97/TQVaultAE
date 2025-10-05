@@ -16,19 +16,21 @@
         <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <conv:ItemRequirementToVisibilityConverter x:Key="ItemRequirementToVisibilityConverter"/>
         <Style x:Key="LabelBase" TargetType="{x:Type Label}">
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="Padding" Value="0"/>
             <Setter Property="Margin" Value="2 0"/>
             <Setter Property="Foreground" Value="Gray"/>
         </Style>
         <Style x:Key="LabelName" TargetType="{x:Type Label}" BasedOn="{StaticResource LabelBase}">
-            <Setter Property="Foreground" Value="GreenYellow"/><!-- Bind color -->
+            <Setter Property="Foreground" Value="{Binding Item.HoverColor}"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
         </Style>
         <Style x:Key="LabelDescription" TargetType="{x:Type Label}" BasedOn="{StaticResource LabelBase}">
             <Setter Property="Foreground" Value="White"/>
         </Style>
         <Style x:Key="LabelAttribute" TargetType="{x:Type Label}" BasedOn="{StaticResource LabelBase}">
-            <Setter Property="Foreground" Value="Blue"/>
+            <Setter Property="Foreground" Value="#00a2ff"/>
         </Style>
         <Style x:Key="HorizontalLine" TargetType="{x:Type Grid}">
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -39,7 +41,7 @@
     </Window.Resources>
     <Border BorderThickness="1" BorderBrush="Gray" Width="Auto" Height="Auto">
         <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto" Width="Auto" Margin="5" x:Name="DataContainer">
-            <Label Style="{StaticResource LabelName}" Content="{Binding ItemName}" d:Content="Rancor Of Fire"/>
+            <Label Style="{StaticResource LabelName}" Content="{Binding ItemName}" d:Content="Rancor Of Fire" d:Foreground="GreenYellow"/>
             <Label Style="{StaticResource LabelDescription}" Content="{Binding Item.Description}" d:Content="75 - 91 Damage"/>
             <Label Style="{StaticResource LabelDescription}" Content="{Binding Item.AdditionalDescription}" d:Content="Speed: Average" 
                    Visibility="{Binding Item.HasAdditionalDescription, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=COLLAPSED}" d:Visibility="Visible"/>

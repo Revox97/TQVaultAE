@@ -8,7 +8,7 @@ namespace TQVaultAE.Models.Game.Interfaces
 		ItemRequirements Requirements { get; set; }
         int NumberCharmSlots { get; }
         List<Item> Charms { get; }
-        List<ItemAttribute> Attributes { get; }
+        List<ItemAttribute> Attributes { get; set; }
         Affix? Prefix { get; }
         Affix? Suffix { get; }
         bool CanEquipCharm();

@@ -9,7 +9,7 @@ namespace TQVaultAE.UI.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is ItemRequirements requirements)
+            if (value is ItemRequirements requirements && requirements != default)
             {
                 if (parameter is string requirementName)
                 {
@@ -24,8 +24,6 @@ namespace TQVaultAE.UI.Converters
 
                     if (requirementName.Equals("INTELLIGENCE", StringComparison.OrdinalIgnoreCase))
                         return requirements.Intelligence > 0 ? Visibility.Visible : Visibility.Collapsed;
-
-                    return Visibility.Collapsed;
                 }
 
                 return Visibility.Visible;

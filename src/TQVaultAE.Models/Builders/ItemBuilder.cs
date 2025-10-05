@@ -23,7 +23,6 @@ namespace TQVaultAE.Models.Builders
         private string _name = string.Empty;
         private BitmapImage? _icon = null!;
         private ItemVersion _itemVersion = ItemVersion.Unknown;
-        private ItemAttribute[] _attributes = [];
         private Point? _location = null;
 
         public ItemBuilder(ItemCategory targetCategory)
@@ -57,7 +56,7 @@ namespace TQVaultAE.Models.Builders
         public ItemBuilder AddLocation(int x, int y) => AddLocation(new Point(x, y));
 
         // TODO Should not be handled within item
-        public ItemBuilder AddLocation(System.Drawing.Point point)
+        public ItemBuilder AddLocation(Point point)
         {
             _location = point;
             return this;
@@ -105,7 +104,7 @@ namespace TQVaultAE.Models.Builders
             return this;
         }
 
-        public ItemBuilder AddRequirements(int level, int strength, int dexterity, int intelligence)
+        public ItemBuilder AddRequirements(int level = -1, int strength = -1, int dexterity = -1, int intelligence = -1)
         {
             if (_targetCategory is not ItemCategory.Gear and not ItemCategory.Weapon and not ItemCategory.Artifact)
                 throw new InvalidOperationException($"Requirements are not valid for type '{_targetCategory}'.");
@@ -117,13 +116,17 @@ namespace TQVaultAE.Models.Builders
             return this;
         }
 
-        public void AddAttributes(params ItemAttribute[] attributes)
+        public ItemBuilder AddAttributes(params ItemAttribute[] attributes)
         {
             if (_targetCategory is ItemCategory.Potion or ItemCategory.Dye)
                 throw new InvalidOperationException($"Type {_targetCategory} cannot have attributes.");
 
+            if (_equipmentComponent is null)
+                throw new InvalidOperationException("Item must be equipable.");
+
             // TODO Increment instead of overwrite
-            _attributes = attributes;
+            _equipmentComponent.Attributes = [.. attributes];
+            return this;
         }
 
         public void AddCharm(Item charm)
