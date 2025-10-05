@@ -6,6 +6,13 @@
              xmlns:local="clr-namespace:TQVaultAE.UI.Components"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="400">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/TQVaultAE.UI;component/Templates/ComboBoxTemplate.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
@@ -20,7 +27,10 @@
             </Grid.ColumnDefinitions>
             <Image Grid.Column="0" Source="pack://application:,,,/TQVaultAE.UI;component/Resources/Img/icon_majestic_chest.png" Stretch="Uniform" 
                    HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <Label Grid.Column="2" Content="This will become the vault drop down" Foreground="White" FontSize="16" VerticalContentAlignment="Center"/>
+            <ComboBox Grid.Column="2" Margin="0 15" SelectedIndex="0" Style="{StaticResource SimpleComboBoxStyle}">
+                <ComboBoxItem Content="Value1"></ComboBoxItem>
+                <ComboBoxItem Content="Value2"></ComboBoxItem>
+            </ComboBox>
         </Grid>
         <local:Vault Grid.Row="2"/>
     </Grid>
