@@ -29,14 +29,16 @@
   - [x] Add UI
 - [ ] Add multi character support
   - [ ] Load actual items
-  - [ ] Add character selection
-    - [ ] Add icon for selection
+  - [x] Add character selection
+    - [ ] Load actual characters
+    - [ ] Implement switching
+    - [x] Add icon for selection
   - [ ] Add storage area support
 - [ ] Vault component
     - [x] Add UI
     - [ ] Multi vault support
       - [ ] Load actual items
-      - [ ] Vault selection
+      - [x] Vault selection
     - [ ] Vault customization
       - [ ] Icon customization (Configuration)
       - [ ] Name customization (Configuration)
