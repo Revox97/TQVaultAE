@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
-        Background="#44000000"
+        Background="#DD000000"
         Title="ItemDetailWindow" Height="Auto" Width="Auto">
     <Window.Resources>
         <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
@@ -58,7 +58,7 @@
             </ListView>
 
             <Grid Style="{StaticResource HorizontalLine}"/>
-            <Label Style="{StaticResource LabelBase}" Content="{Binding Item.Seed}" d:Content="itemSeed: 12345 (0x00001234) (19.4%)"/>
+            <Label Style="{StaticResource LabelBase}" Content="{Binding ItemSeedValue}" d:Content="itemSeed: 12345 (0x00001234) (19.4%)"/>
             <Label Style="{StaticResource LabelBase}" Foreground="Green" Content="{Binding ItemDlcName}" d:Content="Immortal Throne Item"
                    Visibility="{Binding Item.IsDlc, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=COLLAPSED}" d:Visibility="Visible"/>
 

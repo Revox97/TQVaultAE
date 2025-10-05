@@ -13,7 +13,7 @@ namespace TQVaultAE.Models.Game.Components
 
         public List<Item> Charms => [];
 
-        public List<ItemAttribute> Attributes => throw new NotImplementedException();
+        public List<ItemAttribute> Attributes => [];
 
         public Affix? Prefix { get; set; }
         public Affix? Suffix { get; set; }

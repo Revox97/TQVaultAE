@@ -16,7 +16,7 @@ namespace TQVaultAE.Models.Game
             {
                 return IsEquippable
                     ? new ObservableCollection<ItemAttribute>([.. _equipmentComponent!.Attributes])
-                    : throw new NotSupportedException("Item is not equipable and therefore has no attributes.");
+                    : [];
             }
         }
 
@@ -81,7 +81,7 @@ namespace TQVaultAE.Models.Game
             {
                 return IsEquippable
                     ? _equipmentComponent!.Requirements
-                    : throw new NotSupportedException("Item is not equipable and therefore has no requirements.");
+                    : default;
             }
         }
     }

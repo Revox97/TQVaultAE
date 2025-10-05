@@ -40,14 +40,14 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <Rectangle x:Name="HighlightColorPanel"/>
-        <Image Grid.Row="0" Grid.Column="0"/>
-        <Image Grid.Row="0" x:Name="ItemSlotContent" Grid.Column="0" Margin="5" 
-               Style="{StaticResource ItemSlotContent}"
-               HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Label Content="{Binding Item.StackSize}"
-               HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="11" Visibility="{Binding Item.CanStack, Converter={StaticResource BoolToVisibilityConverter}}"
-               Padding="0" Margin="0 0 2 1" Foreground="White" FontWeight="Bold"/>
-    </Grid>
+        <Grid>
+            <Rectangle x:Name="HighlightColorPanel"/>
+            <Image Grid.Row="0" Grid.Column="0"/>
+            <Image Grid.Row="0" x:Name="ItemSlotContent" Grid.Column="0" Margin="5" 
+                   Style="{StaticResource ItemSlotContent}"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Content="{Binding Item.StackSize}"
+                   HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="11" Visibility="{Binding Item.CanStack, Converter={StaticResource BoolToVisibilityConverter}}"
+                   Padding="0" Margin="0 0 2 1" Foreground="White" FontWeight="Bold"/>
+        </Grid>
 </UserControl>

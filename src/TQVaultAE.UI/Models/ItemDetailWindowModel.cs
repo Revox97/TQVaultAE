@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Windows;
 using TQVaultAE.Models.Game;
 using TQVaultAE.Models.Game.Enumerations;
@@ -20,14 +21,16 @@ namespace TQVaultAE.UI.Models
             }
         }
 
-        private string _itemName;
         public string ItemName
         {
-            get => _itemName;
-            set
+            get
             {
-                _itemName = value;
-                OnPropertyChanged(nameof(ItemName));
+                string name = Item.Name;
+
+                if (Item.StackSize != 0)
+                    name += $" ({Item.StackSize})";
+
+                return name;
             }
         }
 
@@ -39,6 +42,19 @@ namespace TQVaultAE.UI.Models
             ItemVersion.ImmortalThrone => "Immortal Throne Item",
             _ => string.Empty
         };
+
+        public string ItemSeedValue
+        {
+            get
+            {
+                int seed = Item.Seed;
+
+                return new StringBuilder("itemSeed: ")
+                    .Append(seed)
+                    .Append(" (0x").Append(seed.ToString("X")).Append(')')
+                    .Append(" (").Append("10%").Append(')').ToString(); // TODO Get correct percentage value
+            }
+        }
 
         // Constructor for design time
         public ItemDetailWindowModel()
