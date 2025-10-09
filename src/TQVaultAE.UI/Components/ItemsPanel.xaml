@@ -11,8 +11,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
                     <Style x:Key="ItemSlotBackground" TargetType="{x:Type Border}">
-                        <Setter Property="Background" Value="#2A2222"/>
-                        <Setter Property="BorderBrush" Value="#bbbbbb"/>
+                        <Setter Property="Background" Value="#2E291F"/>
+                        <Setter Property="BorderBrush" Value="#8E8c81"/>
                         <Setter Property="BorderThickness" Value=".6"/>
                     </Style>
                 </ResourceDictionary>

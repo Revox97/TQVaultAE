@@ -46,7 +46,7 @@ namespace TQVaultAE.UI.Controllers
 
         private Vector _popupOffsetFromMouse;
 
-        internal void ShowItemDragWindow()
+        internal void ShowItemDragPopup()
         {
             Point mouseScreen = GetMouseScreenPosition();
             Vector popupSize = new(_instance.ActualWidth, _instance.ActualHeight);

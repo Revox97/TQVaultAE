@@ -109,7 +109,7 @@ namespace TQVaultAE.UI.Components
 
         private void UserControl_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            _controller.ShowItemDragWindow();
+            _controller.ShowItemDragPopup();
         }
     }
 }
