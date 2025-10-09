@@ -74,9 +74,9 @@ namespace TQVaultAE.UI.Components
 			];
 
 			_tabItems[2] = items;
-
 			ContentScaleService.GetInstance().AddObserver(this);
         }
+        
 
 		public void Notify(object sender, ContentScaleUpdatedEventArgs args)
 		{

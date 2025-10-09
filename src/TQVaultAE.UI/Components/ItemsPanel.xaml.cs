@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using TQVaultAE.Models.Game;
 using TQVaultAE.UI.Controllers;
 using TQVaultAE.UI.Models;
@@ -34,7 +35,42 @@ namespace TQVaultAE.UI.Components
 
             _model = new ItemsPanelModel(items);
             _controller = new ItemsPanelController(this, _model);
+            DragController.GetInstance().ItemMoved += HandleItemDrag;
 			LoadItems();
+        }
+
+        private Point GetCurrentPanelTopLeft()
+        {
+            //Window window = Window.GetWindow(this);
+            return new Point(0, 0);
+            // TODO CODE NEEDS TO GO HERE
+        }
+
+        private void HandleItemDrag(object source, ItemMovedEventArgs args)
+        {
+            double itemPositionX = args.CurrentLocation.X;
+            double itemPositionY = args.CurrentLocation.Y;
+
+            UpdateLayout();
+            Point topLeft = GetCurrentPanelTopLeft();
+
+            if (itemPositionX >= topLeft.X && itemPositionX <= topLeft.X + ActualWidth
+             && itemPositionY >= topLeft.Y && itemPositionY <= topLeft.Y + ActualHeight)
+            {
+                foreach (object? item in BackgroundContainer.Children)
+                {
+                    if (item is Border border)
+                        border.Background = new SolidColorBrush(Colors.Green);
+                }
+            }
+            else
+            {
+                foreach (object? item in BackgroundContainer.Children)
+                {
+                    if (item is Border border)
+                        border.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#2E291F");
+                }
+            }
         }
 
         public void SwitchContent(List<Item> items) => _model.Items = items;

@@ -48,6 +48,8 @@ namespace TQVaultAE.UI.Controllers
             return s_instance;
         }
 
+        private DragController() { }
+
         private Point _mousePosition;
 
         public void UpdateMousePosition(Point position)
@@ -68,7 +70,6 @@ namespace TQVaultAE.UI.Controllers
             IsItemDragged = false;
         }
 
-        // TODO used by drag window to notify the controller
         public void MoveItem(Point newLocation)
         {
             if (_currentItem is null)
@@ -76,8 +77,6 @@ namespace TQVaultAE.UI.Controllers
 
             ItemMoved?.Invoke(this, new ItemMovedEventArgs(_currentItem, newLocation));
         }
-
-        private DragController() { }
 
         private bool _isItemDragged = false;
         public bool IsItemDragged

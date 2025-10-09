@@ -74,11 +74,16 @@ namespace TQVaultAE.UI.Controllers
                     }
                 },
                 HorizontalOffset = mouseScreen.X + _popupOffsetFromMouse.X,
-                VerticalOffset = mouseScreen.Y + _popupOffsetFromMouse.Y
+                VerticalOffset = mouseScreen.Y + _popupOffsetFromMouse.Y,
             };
 
             _instance.Container.Children.Add(_itemDragPopup);
             _itemDragPopup.IsOpen = true;
+            _itemDragPopup.MouseRightButtonUp += (s, e) =>
+            {
+                _instance.Container.Children.Remove(_itemDragPopup);
+                _dragController.UnsetItem();
+            };
             
             _dragController.SetItem(_model.Item);
         }
@@ -92,6 +97,7 @@ namespace TQVaultAE.UI.Controllers
 
             _itemDragPopup.HorizontalOffset = mouseScreen.X + _popupOffsetFromMouse.X;
             _itemDragPopup.VerticalOffset = mouseScreen.Y + _popupOffsetFromMouse.Y;
+            _dragController.MoveItem(new Point(_itemDragPopup.HorizontalOffset, _itemDragPopup.VerticalOffset));
         }
 
         private static Point GetMouseScreenPosition()
