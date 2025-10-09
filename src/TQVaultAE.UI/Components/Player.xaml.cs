@@ -8,6 +8,7 @@ using TQVaultAE.Models.Game;
 using TQVaultAE.Models.Game.Enumerations;
 using TQVaultAE.Models.Services;
 using TQVaultAE.Models.Services.Observers;
+using TQVaultAE.Services;
 using TQVaultAE.UI.Resources;
 
 namespace TQVaultAE.UI.Components

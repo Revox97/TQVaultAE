@@ -2,6 +2,7 @@
 using TQVaultAE.Models.EventArgs;
 using TQVaultAE.Models.Services;
 using TQVaultAE.Models.Services.Observers;
+using TQVaultAE.Services;
 
 namespace TQVaultAE.UI.Components
 {

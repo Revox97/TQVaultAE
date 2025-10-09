@@ -1,7 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using TQVaultAE.Models.EventArgs;
 using TQVaultAE.Models.Game;
+using TQVaultAE.Models.Services;
+using TQVaultAE.Models.Services.Observers;
 using TQVaultAE.UI.Controllers;
 using TQVaultAE.UI.Models;
 
@@ -10,15 +13,53 @@ namespace TQVaultAE.UI.Components
     /// <summary>
     /// Interaction logic for ItemsPanel.xaml
     /// </summary>
-    public partial class ItemsPanel : UserControl
+    public partial class ItemsPanel : UserControl, IContentScaleObserver
     {
-		private readonly double _cellWidthHeight;
-        public readonly int Columns;
-        public readonly int Rows;
+		private double _cellWidthHeight;
+        //public readonly int Columns;
+        //public readonly int Rows;
 
         private readonly ItemsPanelModel _model;
         private readonly ItemsPanelController _controller;
 
+        internal static DependencyProperty ColumnsProperty = DependencyProperty.Register(nameof(Columns), typeof(int), typeof(ItemsPanelModel));
+        public int Columns
+        {
+            get => (int)GetValue(ColumnsProperty);
+            set => SetValue(ColumnsProperty, value);
+        }
+
+        internal static DependencyProperty RowsProperty = DependencyProperty.Register(nameof(Rows), typeof(int), typeof(ItemsPanelModel));
+        public int Rows
+        {
+            get => (int)GetValue(RowsProperty);
+            set => SetValue(RowsProperty, value);
+        }
+
+        public ItemsPanel()
+        {
+            InitializeComponent();
+
+            _model = new ItemsPanelModel([]);
+            _controller = new ItemsPanelController(this, _model);
+            ContentScaleService.GetInstance().AddObserver(this);
+            DragController.GetInstance().ItemMoved += HandleItemDrag;
+        }
+
+        public void Notify(object sender, ContentScaleUpdatedEventArgs args)
+        {
+            _cellWidthHeight = args.General.ItemCellDimensions.Width;
+			InitializePanel();
+
+			Size dimensions = CalculateDimensions(_cellWidthHeight, Columns, Rows, new Thickness(2, 0, 2, 2));
+			ItemsPanelBorder.Height = dimensions.Height;
+			ItemsPanelBorder.Width = dimensions.Width;
+            ItemsPanelBorder.BorderThickness = new Thickness(2, 0, 2, 2); // TODO Set this via dependencyProperty
+            Height = dimensions.Height;
+			LoadItems();
+        }
+
+        // TODO Remove once replaced in all locations
         public ItemsPanel(List<Item> items, double columnWidthHeight, int columns, int rows, Thickness borderThickness)
         {
             InitializeComponent();
@@ -35,24 +76,18 @@ namespace TQVaultAE.UI.Components
 
             _model = new ItemsPanelModel(items);
             _controller = new ItemsPanelController(this, _model);
-            DragController.GetInstance().ItemMoved += HandleItemDrag;
+            //DragController.GetInstance().ItemMoved += HandleItemDrag;
 			LoadItems();
         }
 
-        private Point GetCurrentPanelTopLeft()
-        {
-            //Window window = Window.GetWindow(this);
-            return new Point(0, 0);
-            // TODO CODE NEEDS TO GO HERE
-        }
-
+        // TODO use all edges to calculate not just topleft (popup)
         private void HandleItemDrag(object source, ItemMovedEventArgs args)
         {
             double itemPositionX = args.CurrentLocation.X;
             double itemPositionY = args.CurrentLocation.Y;
 
             UpdateLayout();
-            Point topLeft = GetCurrentPanelTopLeft();
+            Point topLeft = PointToScreen(new Point(0, 0));
 
             if (itemPositionX >= topLeft.X && itemPositionX <= topLeft.X + ActualWidth
              && itemPositionY >= topLeft.Y && itemPositionY <= topLeft.Y + ActualHeight)
@@ -170,5 +205,26 @@ namespace TQVaultAE.UI.Components
 		}
 
         internal void Sort() => _controller.Sort();
+
+        public void AddObserver(IContentScaleObserver observer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveObserver(IContentScaleObserver observer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+            ContentScaleService.GetInstance().RemoveObserver(this);
+            GC.SuppressFinalize(this);
+        }
+
+        public void Notify(object sender, WindowSizeUpdatedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -8,6 +8,7 @@ using TQVaultAE.Models.Game;
 using TQVaultAE.Models.Game.Enumerations;
 using TQVaultAE.Models.Services;
 using TQVaultAE.Models.Services.Observers;
+using TQVaultAE.Services;
 using TQVaultAE.UI.Resources;
 
 namespace TQVaultAE.UI.Components
@@ -97,17 +98,17 @@ namespace TQVaultAE.UI.Components
 
 		private void CreateItemsPanel(ContentScaleUpdatedEventArgs args)
 		{
-			Container.Children.Remove(_panel);
-			Thickness thickness = new(2, 0, 2, 2);
+			//Container.Children.Remove(_panel);
+			//Thickness thickness = new(2, 0, 2, 2);
 			
-			_panel = new(LoadContent(), args.General.ItemCellDimensions.Width, Columns, Rows, new Thickness(2, 0, 2, 2));
+			//_panel = new(LoadContent(), args.General.ItemCellDimensions.Width, Columns, Rows, new Thickness(2, 0, 2, 2));
 
-			Container.Children.Add(_panel);
-			Grid.SetRow(_panel, 1);
-			Grid.SetColumn(_panel, 1);
+			//Container.Children.Add(_panel);
+			//Grid.SetRow(_panel, 1);
+			//Grid.SetColumn(_panel, 1);
 
-			Container.ColumnDefinitions[1].Width = new GridLength(ItemsPanel.CalculateDimensions(args.General.ItemCellDimensions.Width, Columns, Rows, thickness).Width);
-			Container.RowDefinitions[0].Height = new GridLength(args.VaultTab.VaultPanel.ButtonWidthHeight);
+			//Container.ColumnDefinitions[1].Width = new GridLength(ItemsPanel.CalculateDimensions(args.General.ItemCellDimensions.Width, Columns, Rows, thickness).Width);
+			//Container.RowDefinitions[0].Height = new GridLength(args.VaultTab.VaultPanel.ButtonWidthHeight);
         }
 
 		private List<Item> LoadContent(int id = -1)
