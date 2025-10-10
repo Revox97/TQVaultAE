@@ -14,6 +14,9 @@
     <Window.Styles>
         <StyleInclude Source="avares://TQVaultAE/Styles/TQWindowStyles.axaml"/>
     </Window.Styles>
+    <Design.DataContext>
+        <vm:TQWindowViewModel/>
+    </Design.DataContext>
     <Grid Margin="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="19"/>
