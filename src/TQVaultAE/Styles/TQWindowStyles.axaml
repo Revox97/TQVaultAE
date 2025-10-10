@@ -1,0 +1,129 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Border Padding="20">
+        <StackPanel>
+            <Border Padding="10" HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="1">
+                <Label Classes="LabelTitle" Content="TQVaultAE 5.0.0.0"/>
+            </Border>
+            <StackPanel Orientation="Horizontal">
+                <Border Width="50" Height="50" Margin="10">
+                    <Button Classes="ButtonNavigation ButtonMinimize" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Border>
+                <Border Width="50" Height="50" Margin="10">
+                    <Button Classes="ButtonNavigation ButtonMaximize" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Border>
+                <Border Width="50" Height="50" Margin="10">
+                    <Button Classes="ButtonNavigation ButtonClose" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Border>
+            </StackPanel>
+        </StackPanel>
+      <!-- Add Controls for Previewer Here -->
+    </Border>
+  </Design.PreviewWith>
+    <Style Selector="Button.ButtonNavigation">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="0">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+    </Style>
+
+    <Style Selector="Button.ButtonMinimize">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_minimize_up.png"
+                            TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+            </Setter.Value> 
+        </Setter>
+    </Style>
+
+    <Style Selector="Button.ButtonMinimize:pointerover">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_minimize_over.png"
+                            TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style Selector="Button.ButtonMinimize:pressed">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_minimize_down.png"
+                            TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style Selector="Button.ButtonMaximize">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_maximize_up.png"
+                            TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+            </Setter.Value> 
+        </Setter>
+    </Style>
+
+    <Style Selector="Button.ButtonMaximize:pointerover">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_maximize_over.png"
+                            TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style Selector="Button.ButtonMaximize:pressed">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_maximize_down.png"
+                            TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style Selector="Button.ButtonClose">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_close_up.png"
+                            TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Margin" Value="0 1 0 0"/>
+    </Style>
+
+    <Style Selector="Button.ButtonClose:pointerover">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_close_over.png"
+                            TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style Selector="Button.ButtonClose:pressed">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_close_down.png"
+                            TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style Selector="Label.LabelTitle">
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Height" Value="19"/>
+        <Setter Property="FontSize" Value="9"/>
+        <Setter Property="Padding" Value="7 1 7 2"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+</Styles>
