@@ -4,8 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TQVaultAE.Views.VaultPage">
-    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-           HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-         Welcome to Avalonia!
-    </Label>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="4"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="4"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="4"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="1" Background="Blue">
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="3" Background="Orange">
+        </Grid>
+    </Grid>
 </UserControl>

@@ -47,6 +47,7 @@
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Margin" Value="0 10 0 4"/>
     </Style>
 
     <Style Selector="Button.ButtonMinimize">
@@ -110,7 +111,7 @@
                             TileMode="None" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
             </Setter.Value>
         </Setter>
-        <Setter Property="Margin" Value="0 1 0 0"/>
+        <Setter Property="Margin" Value="0 3 0 0"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalContentAlignment" Value="Right"/>

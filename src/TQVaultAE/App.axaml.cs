@@ -23,7 +23,7 @@ namespace TQVaultAE
                 DisableAvaloniaDataAnnotationValidation();
 
                 // TODO Update startup logic
-                VaultPage content = new();
+                MainPage content = new();
                 desktop.MainWindow = new TQWindow(content);
             }
 

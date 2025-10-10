@@ -72,13 +72,13 @@
                     <ColumnDefinition Width="20"/>
                     <ColumnDefinition Width="4"/>
                 </Grid.ColumnDefinitions>
-                <Button Margin="1" Grid.Column="0" Classes="ButtonNavigation ButtonMinimize" Command="{Binding MinimizeCommand}"/>
-                <Button Margin="1" Grid.Column="2" Classes="ButtonNavigation ButtonMaximize" Command="{Binding MaximizeCommand}"/>
+                <Button Margin="2" Grid.Column="0" Classes="ButtonNavigation ButtonMinimize" Command="{Binding MinimizeCommand}"/>
+                <Button Margin="2" Grid.Column="2" Classes="ButtonNavigation ButtonMaximize" Command="{Binding MaximizeCommand}"/>
             </Grid>
         </Grid>
         
         <!-- Button Close -->
-        <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" Command="{Binding CloseCommand}" Classes="ButtonNavigation ButtonClose"/>
+        <Button Grid.Row="0" Margin="0 3 0 0" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" Command="{Binding CloseCommand}" Classes="ButtonNavigation ButtonClose"/>
 
          <!-- Border left -->
         <Border Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Classes="BorderSide"/>

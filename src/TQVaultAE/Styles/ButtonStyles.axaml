@@ -1,0 +1,92 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Border Padding="20">
+        <StackPanel>
+            <ToggleButton Content="Toggle" Classes="ToggleButtonMain" FontSize="14" Width="120" Height="30" Margin="0 10"/>
+            <Button Content="Button" Classes="ButtonMain" FontSize="14" Width="120" Height="30" Margin="0 10"/>
+        </StackPanel>
+    </Border>
+  </Design.PreviewWith>
+    <Style Selector="Button.ButtonMain">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="0" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}"
+                                          FontSize="{TemplateBinding FontSize}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_main_up.jpg"
+                            TileMode="None" Stretch="Fill" AlignmentX="Center" AlignmentY="Center"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+    <Style Selector="Button.ButtonMain:pointerover">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_main_over.jpg"
+                            TileMode="None" Stretch="Fill" AlignmentX="Center" AlignmentY="Center"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style Selector="Button.ButtonMain:pressed">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_main_down.jpg"
+                            TileMode="None" Stretch="Fill" AlignmentX="Center" AlignmentY="Center"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style Selector="ToggleButton.ToggleButtonMain">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="0" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}"
+                                          FontSize="{TemplateBinding FontSize}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_main_up.jpg"
+                            TileMode="None" Stretch="Fill" AlignmentX="Center" AlignmentY="Center"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+    <Style Selector="ToggleButton.ToggleButtonMain:pointerover">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_main_over.jpg"
+                            TileMode="None" Stretch="Fill" AlignmentX="Center" AlignmentY="Center"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style Selector="ToggleButton.ToggleButtonMain:checked">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_main_down.jpg"
+                            TileMode="None" Stretch="Fill" AlignmentX="Center" AlignmentY="Center"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</Styles>
