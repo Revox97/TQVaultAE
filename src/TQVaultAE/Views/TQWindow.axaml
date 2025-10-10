@@ -51,33 +51,18 @@
             </Grid.ColumnDefinitions>
 
             <!-- Border TOP-LEFT-CORNER-->
-            <Border Grid.Row="0" Grid.Column="0">
-                <Border.Background>
-                    <ImageBrush Source="avares://TQVaultAE/Assets/Img/window_border_corner_top_left.png" AlignmentX="Left" AlignmentY="Top" TileMode="None" Stretch="Fill"/>
-                </Border.Background>
-            </Border>
+            <Border Grid.Row="0" Grid.Column="0" Classes="BorderTopLeftCorner"/>
 
             <!-- BORDER TOP-LEFT -->
-            <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
-                <Border.Background>
-                    <ImageBrush Source="avares://TQVaultAE/Assets/Img/window_border_top_left.png" AlignmentX="Left" AlignmentY="Top" TileMode="None" Stretch="Fill"/>
-                </Border.Background>
-            </Border>
+            <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Classes="BorderTopLeft"/>
 
             <!-- BORDER TOP-CENTER -->
-            <Border Grid.Row="0" Grid.Column="2">
-                <Border.Background>
-                    <ImageBrush Source="avares://TQVaultAE/Assets/Img/window_border_top_center.png" AlignmentX="Left" AlignmentY="Center" TileMode="None" Stretch="Fill"/>
-                </Border.Background>
+            <Border Grid.Row="0" Grid.Column="2" Classes="BorderTopCenter">
                 <Label Content="{Binding Title}" Classes="LabelTitle"/>
             </Border>
 
             <!-- BORDER TOP-RIGHT -->
-            <Border Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2">
-                <Border.Background>
-                    <ImageBrush Source="avares://TQVaultAE/Assets/Img/window_border_top_right.png" AlignmentX="Left" AlignmentY="Center" TileMode="None" Stretch="Fill"/>
-                </Border.Background>
-            </Border>
+            <Border Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" Classes="BorderTopRight"/>
 
             <!-- MIN/MAX BUTTONS -->
             <Grid Grid.Column="3" Grid.Row="0" HorizontalAlignment="Right">
@@ -87,53 +72,27 @@
                     <ColumnDefinition Width="20"/>
                     <ColumnDefinition Width="4"/>
                 </Grid.ColumnDefinitions>
-                <Button Margin="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Classes="ButtonNavigation ButtonMinimize" Command="{Binding MinimizeCommand}"/>
-                <Button Margin="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Classes="ButtonNavigation ButtonMaximize" Command="{Binding MaximizeCommand}"/>
+                <Button Margin="1" Grid.Column="0" Classes="ButtonNavigation ButtonMinimize" Command="{Binding MinimizeCommand}"/>
+                <Button Margin="1" Grid.Column="2" Classes="ButtonNavigation ButtonMaximize" Command="{Binding MaximizeCommand}"/>
             </Grid>
         </Grid>
         
         <!-- Button Close -->
-        <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" Command="{Binding CloseCommand}"
-                HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Classes="ButtonNavigation ButtonClose"/>
+        <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" Command="{Binding CloseCommand}" Classes="ButtonNavigation ButtonClose"/>
 
          <!-- Border left -->
-        <Border Grid.Row="1" Grid.RowSpan="3" Grid.Column="0">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/window_border_side.png"
-                            Stretch="Fill" AlignmentX="Center" AlignmentY="Top" TileMode="None" />
-            </Border.Background>
-        </Border>
+        <Border Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Classes="BorderSide"/>
 
         <!-- Border right -->
-        <Border Grid.Row="2" Grid.RowSpan="2" Grid.Column="4">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/window_border_side.png"
-                            Stretch="UniformToFill" AlignmentX="Right" AlignmentY="Top" TileMode="None" />
-            </Border.Background>
-        </Border>
+        <Border Grid.Row="2" Grid.RowSpan="2" Grid.Column="4" Classes="BorderSide"/>
 
         <!-- Border corner bottom left -->
-        <Border Grid.Row="4" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/window_border_corner_bottom_left.png"
-                            Stretch="UniformToFill" AlignmentX="Left" AlignmentY="Bottom" TileMode="None"/>
-            </Border.Background>
-        </Border>
+        <Border Grid.Row="4" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" Classes="BorderBottomLeft"/>
 
         <!-- Border bottom -->
-        <Border Grid.Row="5" Grid.Column="2">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/window_border_bottom.png"
-                            Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Bottom" TileMode="None"/>
-            </Border.Background>
-        </Border>
+        <Border Grid.Row="5" Grid.Column="2" Classes="BorderBottom"/>
 
         <!-- Border corner bottom right -->
-        <Border Grid.Row="4" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/window_border_corner_bottom_right.png"
-                            Stretch="UniformToFill" AlignmentX="Right" AlignmentY="Bottom" TileMode="None"/>
-            </Border.Background>
-        </Border>
+        <Border Grid.Row="4" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" Classes="BorderBottomRight"/>
     </Grid>
 </Window>

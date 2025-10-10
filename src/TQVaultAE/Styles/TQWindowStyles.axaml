@@ -1,24 +1,36 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <Design.PreviewWith>
-    <Border Padding="20">
-        <StackPanel>
-            <Border Padding="10" HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="1">
-                <Label Classes="LabelTitle" Content="TQVaultAE 5.0.0.0"/>
-            </Border>
-            <StackPanel Orientation="Horizontal">
-                <Border Width="50" Height="50" Margin="10">
-                    <Button Classes="ButtonNavigation ButtonMinimize" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+    <Border Padding="20" Background="LightGray">
+        <StackPanel Orientation="Horizontal">
+            <Border Classes="BorderSide" Height="250" Width="5" Margin="5"/>
+            <StackPanel>
+                <Border Margin="10" HorizontalAlignment="Center">
+                    <Label Classes="LabelTitle" Content="TQVaultAE 5.0.0.0"/>
                 </Border>
-                <Border Width="50" Height="50" Margin="10">
-                    <Button Classes="ButtonNavigation ButtonMaximize" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                </Border>
-                <Border Width="50" Height="50" Margin="10">
-                    <Button Classes="ButtonNavigation ButtonClose" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                </Border>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Border Width="50" Height="50" Margin="10">
+                        <Button Classes="ButtonNavigation ButtonMinimize" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    </Border>
+                    <Border Width="50" Height="50" Margin="10">
+                        <Button Classes="ButtonNavigation ButtonMaximize" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    </Border>
+                    <Border Width="50" Height="50" Margin="10">
+                        <Button Classes="ButtonNavigation ButtonClose" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    </Border>
+                </StackPanel>
+                <Border Classes="BorderTopLeft" Height="10" Width="200" Margin="5"/>
+                <Border Classes="BorderTopCenter" Height="10" Width="200" Margin="5"/>
+                <Border Classes="BorderTopRight" Height="10" Width="200" Margin="5"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Border Classes="BorderBottomLeft" Height="20" Width="20" Margin="5"/>
+                    <Border Classes="BorderTopLeftCorner" Height="40" Width="5" Margin="5"/>
+                    <Border Classes="BorderBottomRight" Height="20" Width="20" Margin="5"/>
+                </StackPanel>
+                <Border Classes="BorderBottom" Height="5" Width="200" Margin="5"/>
             </StackPanel>
+            <Border Classes="BorderSide" Height="250" Width="5" Margin="5"/>
         </StackPanel>
-      <!-- Add Controls for Previewer Here -->
     </Border>
   </Design.PreviewWith>
     <Style Selector="Button.ButtonNavigation">
@@ -33,6 +45,8 @@
         </Setter>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
     </Style>
 
     <Style Selector="Button.ButtonMinimize">
@@ -97,6 +111,9 @@
             </Setter.Value>
         </Setter>
         <Setter Property="Margin" Value="0 1 0 0"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Right"/>
     </Style>
 
     <Style Selector="Button.ButtonClose:pointerover">
@@ -125,5 +142,77 @@
         <Setter Property="VerticalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+    <Style Selector="Border.BorderTopLeftCorner">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/window_border_corner_top_left.png"
+                            AlignmentX="Left" AlignmentY="Top" TileMode="None" Stretch="Fill"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style Selector="Border.BorderTopLeft">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/window_border_top_left.png"
+                            AlignmentX="Left" AlignmentY="Top" TileMode="None" Stretch="Fill"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style Selector="Border.BorderTopRight">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/window_border_top_right.png"
+                            AlignmentX="Left" AlignmentY="Center" TileMode="None" Stretch="Fill"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style Selector="Border.BorderTopCenter">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/window_border_top_center.png"
+                            AlignmentX="Left" AlignmentY="Center" TileMode="None" Stretch="Fill"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style Selector="Border.BorderSide">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/window_border_side.png"
+                            Stretch="Fill" AlignmentX="Center" AlignmentY="Top" TileMode="None"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style Selector="Border.BorderBottom">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/window_border_bottom.png"
+                            Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Bottom" TileMode="None"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style Selector="Border.BorderBottomLeft">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/window_border_corner_bottom_left.png"
+                            Stretch="UniformToFill" AlignmentX="Left" AlignmentY="Bottom" TileMode="None"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style Selector="Border.BorderBottomRight">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/window_border_corner_bottom_right.png"
+                            Stretch="UniformToFill" AlignmentX="Right" AlignmentY="Bottom" TileMode="None"/>
+            </Setter.Value>
+        </Setter>
     </Style>
 </Styles>
