@@ -50,12 +50,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TQVaultAE.IO\TQVaultAE.IO.csproj" />
-    <ProjectReference Include="..\TQVaultAE.Models\TQVaultAE.Models.csproj" />
-    <ProjectReference Include="..\TQVaultAE.Services\TQVaultAE.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Components\Equipment.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

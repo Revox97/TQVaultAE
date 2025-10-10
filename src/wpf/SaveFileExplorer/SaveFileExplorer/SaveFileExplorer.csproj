@@ -9,8 +9,4 @@
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\TQVaultAE.IO\TQVaultAE.IO.csproj" />
-  </ItemGroup>
-
 </Project>
