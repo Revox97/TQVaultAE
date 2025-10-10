@@ -24,7 +24,7 @@ namespace TQVaultAE
 
                 // TODO Update startup logic
                 MainPage content = new();
-                desktop.MainWindow = new TQWindow(content);
+                desktop.MainWindow = new TQWindow(content, "TQVaultAE 5.0.0.0");
             }
 
             base.OnFrameworkInitializationCompleted();

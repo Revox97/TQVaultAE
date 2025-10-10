@@ -38,6 +38,8 @@ namespace TQVaultAE.ViewModels
         {
         });
 
+        internal static void OpenAboutWindow() => new TQWindow(new AboutPage(), "About TQVaultAE", 575, 400, false, WindowCloseAction.CloseWindow) { Title = "About TQVaultAE" }.Show();
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected void OnPropertyChanged([CallerMemberName] string? name = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

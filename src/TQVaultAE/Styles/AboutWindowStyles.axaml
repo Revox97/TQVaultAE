@@ -1,0 +1,36 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Border Padding="20" Background="#332c1c">
+        <StackPanel>
+            <Label Content="Title label" Classes="AboutLabel AboutLabelTitle"/>
+            <Label Content="Normal label" Classes="AboutLabel"/>
+            <Label Content="Normal label" Classes="AboutLabel"/>
+            <ScrollViewer VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch">
+                <StackPanel>
+                    <TextBlock>
+                        TQVaultAE by Revox97 (<HyperlinkButton NavigateUri="mailto:">TODO Add mail</HyperlinkButton>)
+                        <LineBreak/>
+                        <LineBreak/>
+                        Contributors:
+                        <LineBreak/>
+                        TODO: Add contributors here
+                    </TextBlock>
+                </StackPanel>
+            </ScrollViewer>
+        </StackPanel>
+    </Border>
+  </Design.PreviewWith>
+    <Style Selector="Label.AboutLabel">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Padding" Value="2"/>
+    </Style>
+    <Style Selector="Label.AboutLabelTitle">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+    </Style>
+    <!--<Styles Selector="ScrollViewer.AboutScrollViewer">
+        
+    </Styles>-->
+
+</Styles>

@@ -1,6 +1,7 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using TQVaultAE.ViewModels;
 
@@ -20,8 +21,15 @@ public partial class MainPage : UserControl
         ToggleButtonVault.IsCheckedChanged += VaultCheckedChanged;
         ToggleButtonSearch.IsCheckedChanged += SearchCheckedChanged;
         ToggleButtonSettings.IsCheckedChanged += SettingsCheckedChanged;
+        AboutIcon.PointerReleased += OpenAboutWindow;
 
         ToggleButtonVault.IsChecked = true;
+    }
+
+    private void OpenAboutWindow(object? sender, PointerReleasedEventArgs e)
+    {
+        if (e.InitialPressMouseButton == MouseButton.Left)
+            MainPageViewModel.OpenAboutWindow();
     }
 
     private void VaultCheckedChanged(object? sender, RoutedEventArgs e)

@@ -1,0 +1,75 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:TQVaultAE.ViewModels"
+             x:DataType="vm:AboutPageViewModel"
+             mc:Ignorable="d"
+             Background="#332c1c" Width="555" Height="375"
+             x:Class="TQVaultAE.Views.AboutPage">
+    <UserControl.Styles>
+        <StyleInclude Source="avares://TQVaultAE/Styles/AboutWindowStyles.axaml"/>
+        <StyleInclude Source="avares://TQVaultAE/Styles/ButtonStyles.axaml"/>
+    </UserControl.Styles>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="110"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="5"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="175"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" VerticalAlignment="Top">
+            <Image Source="/Assets/Img/about.jpg" Width="175"/>
+        </Border>
+        <StackPanel Grid.Row="1" Grid.Column="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Label Padding="10 0 0 0" Classes="AboutLabel AboutLabelTitle" Content="TQVaultAE"/>
+            <Label Padding="10 0 0 0" Classes="AboutLabel" Content="Version 5.0.0.0" Margin="0 0 0 10"/>
+            <Label Padding="10 0 0 0" Classes="AboutLabel" Content="Copyright © 2006-2012 by Brandon Wallace"/>
+            <Label Padding="10 0 0 0" Classes="AboutLabel" Content="Copyright © 2025 by Leopold Pohlmann"/>
+        </StackPanel>
+        <Border Grid.Column="3" Grid.Row="2" BorderBrush="White" BorderThickness="1">
+            <ScrollViewer>
+                <StackPanel>
+                    <TextBlock Foreground="White" Margin="0" Padding="10 0 0 0">
+                        TQVaultAE by Revox97 (<HyperlinkButton NavigateUri="mailto:">TODO Add mail</HyperlinkButton>)
+                        <LineBreak/>
+                        <LineBreak/>
+                        Contributors:
+                        <LineBreak/>
+                        TODO: Add contributors here
+                        <LineBreak/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        <LineBreak/>
+                        TEST
+                    </TextBlock>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+        <Button Grid.Row="3" Grid.Column="3" Classes="ButtonMain" Width="120" Content="OK" HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{Binding CloseWindow}"/>
+    </Grid>
+</UserControl>

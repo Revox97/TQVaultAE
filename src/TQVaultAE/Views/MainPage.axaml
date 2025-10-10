@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:TQVaultAE.ViewModels"
              x:DataType="vm:MainPageViewModel"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="500"
              x:Class="TQVaultAE.Views.MainPage">
     <UserControl.Styles>
         <StyleInclude Source="avares://TQVaultAE/Styles/ButtonStyles.axaml"/>
@@ -21,6 +21,11 @@
                 <ToggleButton Classes="ToggleButtonMain" Width="120" Margin="2 0" Content="Search" x:Name="ToggleButtonSearch"/>
                 <ToggleButton Classes="ToggleButtonMain" Width="120" Margin="2 0" Content="Configuration" x:Name="ToggleButtonSettings"/>
                 <Button Classes="ButtonMain" Width="120" Margin="2 0" Content="Save"/>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 30 0">
+                <Label Content="Search bar goes here" Foreground="White" Margin="0 0 40 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24"/>
+                <Image Source="avares://TQVaultAE/Assets/Img/icon_majestic_chest.png" x:Name="AboutIcon"/>
+                <Label Content="TQVault" Foreground="Gold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24"/>
             </StackPanel>
         </DockPanel>
         <Border Grid.Row="1" x:Name="ContentContainer">
