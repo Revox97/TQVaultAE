@@ -2,10 +2,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:TQVaultAE.Views;assembly=TQVaultAE"
+             xmlns:vm="using:TQVaultAE.ViewModels"
+             x:DataType="vm:VaultPageViewModel"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TQVaultAE.Views.VaultPage">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="4"/>
         </Grid.RowDefinitions>
@@ -16,9 +20,13 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="4"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0" Grid.Column="1" Background="Blue">
+        <Border Grid.Row="0" Grid.Column="1" Child="{Binding ItemContainerSelectorLeft}"/>
+        <Border Grid.Row="0" Grid.Column="3" Child="{Binding ItemContainerSelectorRight}"/>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <local:VaultControl/>
         </Grid>
-        <Grid Grid.Row="0" Grid.Column="3" Background="Orange">
+        <Grid Grid.Row="1" Grid.Column="3" Background="Yellow">
+            <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Player / Vault"/>
         </Grid>
     </Grid>
 </UserControl>
