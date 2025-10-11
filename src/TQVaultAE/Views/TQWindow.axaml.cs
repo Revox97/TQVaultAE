@@ -27,7 +27,7 @@ public partial class TQWindow : Window
         });
     }
 
-    public TQWindow(Control content, string title, double initialWidth = 1100d, double initialHeight = 800d, bool allowResize = true, WindowCloseAction closeAction = WindowCloseAction.ExitApplication)
+    public TQWindow(Control content, string title, double initialWidth = 1300d, double initialHeight = 900d, bool allowResize = true, WindowCloseAction closeAction = WindowCloseAction.ExitApplication)
     {
         InitializeComponent();
         DataContext = new TQWindowViewModel(this, title, initialWidth, initialHeight, allowResize, closeAction);

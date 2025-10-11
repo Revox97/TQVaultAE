@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TQVaultAE.Views.VaultControl">
-    <Grid Background="Red">
+    <Grid>
         <Label Content="I am a vault control" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
     </Grid>
 </UserControl>

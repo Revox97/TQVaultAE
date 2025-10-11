@@ -25,7 +25,7 @@
         <Grid Grid.Row="1" Grid.Column="1">
             <local:VaultControl/>
         </Grid>
-        <Grid Grid.Row="1" Grid.Column="3" Background="Yellow">
+        <Grid Grid.Row="1" Grid.Column="3">
             <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Player / Vault"/>
         </Grid>
     </Grid>

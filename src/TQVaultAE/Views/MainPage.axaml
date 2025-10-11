@@ -10,6 +10,10 @@
         <StyleInclude Source="avares://TQVaultAE/Styles/ButtonStyles.axaml"/>
     </UserControl.Styles>
     <Grid>
+        <Grid.Background>
+            <ImageBrush Source="avares://TQVaultAE/Assets/Img/mainwindow_background.jpg"
+                        AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>

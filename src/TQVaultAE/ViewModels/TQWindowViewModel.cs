@@ -50,8 +50,8 @@ namespace TQVaultAE.ViewModels
 
         public string Title { get; set; } = "TQVaultAE 5.0.0.0";
 
-        public double Width { get; set; } = 1100d;
-        public double Height { get; set; } = 800d;
+        public double Width { get; set; } = 1300d;
+        public double Height { get; set; } = 700d;
 
         public bool CanResize { get; set; } = true;
 
