@@ -11,20 +11,20 @@
 - [ ] Save relics area
 - [ ] Localization (Settings NOT WINDOWS!)
 - [ ] Items Detail Window
-    - [x] Add layout
-    - [x] Add data structure
-    - [x] Add position
+    - [ ] Add layout
+    - [ ] Add data structure
+    - [ ] Add position
     - [ ] Add correct bindings
     - [ ] Handle position if offscreen
 - [ ] Items
   - [ ] Rarity support
-    - [x] Apply background color
+    - [ ] Apply background color
     - [ ] Show red bg color if requirements are not met
-    - [x] Item rarity overlay
+    - [ ] Item rarity overlay
       - [ ] Define colors
       - [ ] Redo this to allow correct scaling (if possible using gradients)
       - [ ] Hide rarity overlay for requirements not met, potions, relics, etc.
-  - [x] Hover color support
+  - [ ] Hover color support
 - [ ] Add save functionality
   - [x] Add UI
 - [ ] Add multi character support
@@ -32,10 +32,10 @@
   - [x] Add character selection
     - [ ] Load actual characters
     - [ ] Implement switching
-    - [x] Add icon for selection
+    - [ ] Add icon for selection
   - [ ] Add storage area support
 - [ ] Vault component
-    - [x] Add UI
+    - [ ] Add UI
     - [ ] Multi vault support
       - [ ] Load actual items
       - [x] Vault selection
@@ -45,14 +45,14 @@
     - [ ] Autosort
 - [ ] Player component
   - [ ] Inventory
-    - [x] Add UI
+    - [ ] Add UI
     - [ ] Load actual items
     - [ ] Autosort
     - [ ] Multisack support
     - [ ] Support for characters with less then four sacks
         - [ ] Hide tabs for non available sacks
   - [ ] Equipment
-    - [x] Add UI
+    - [ ] Add UI
     - [ ] Load actual items
     - [ ] Add rings support
     - [ ] Statistics
@@ -60,11 +60,11 @@
       - [ ] Add correct background
       - [ ] Scale font size
   - [ ] Add transfer area support
-    - [x] Add UI
+    - [ ] Add UI
     - [ ] Load actual items
     - [ ] Autosort
   - [ ] Add relic area support
-    - [x] Add UI
+    - [ ] Add UI
     - [ ] Load actual items
     - [ ] Autosort
 - [ ] Search functionality (menu bar)
@@ -90,7 +90,7 @@
       - [ ] Add search result component
   - [ ] Add search controller
 - [ ] Configuration
-  - [x] Add UI
+  - [ ] Add UI
   - [ ] Save Configuration
   - [ ] Load Configuration
 - [ ] Backups
@@ -126,49 +126,49 @@
 ***TO DO***
 - [ ] Add icon
   - [ ] Create icon
-- [x] Add UI
-- [x] Read chr files
+- [ ] Add UI
+- [ ] Read chr files
 - [ ] Read dxb files
 - [ ] Read dxg files
 - [ ] Implement export functionality
 - [ ] Rename copy button to save
 - [ ] Add localization
 - [ ] File Infos
-  - [x] Add UI
+  - [ ] Add UI
   - [ ] Bind actual data
-    - [x] File path
-      - [x] Make it a link
-      - [x] On click open directory
-    - [x] File size
-    - [x] File name
-    - [x] File ext
+    - [ ] File path
+      - [ ] Make it a link
+      - [ ] On click open directory
+    - [ ] File size
+    - [ ] File name
+    - [ ] File ext
     - [ ] File version
     - [ ] Found keys
     - [ ] Data type errors
     - [ ] Unknown Segments
-- [x] Detected Keys
-  - [x] Add UI
-  - [x] Bind actual data
-- [ ] Key
-  - [x] Add UI
+- [ ] Detected Keys
+  - [ ] Add UI
   - [ ] Bind actual data
-    - [x] Key name
-    - [x] Offset
-    - [x] Length
-    - [x] IsSubStructureOpening
-    - [x] IsStructureClosing
+- [ ] Key
+  - [ ] Add UI
+  - [ ] Bind actual data
+    - [ ] Key name
+    - [ ] Offset
+    - [ ] Length
+    - [ ] IsSubStructureOpening
+    - [ ] IsStructureClosing
     - [ ] IsUnknownSegment
     - [ ] IsDataTypeError
     - [ ] IsKeyValue
 - [ ] Value
-  - [x] Add UI
+  - [ ] Add UI
   - [ ] Bind actual data
-    - [x] Offset
-    - [x] Length
+    - [ ] Offset
+    - [ ] Length
     - [ ] DataType
-    - [x] As Int
-    - [x] As bool
-    - [x] As String
+    - [ ] As Int
+    - [ ] As bool
+    - [ ] As String
     - [ ] As Byte[]
 - [ ] Menu
   - [ ] File
@@ -180,14 +180,13 @@
     - [ ] Fetch transfer area
     - [ ] Fetch mod players
       - [ ] Figure out what mod means here
-  - [x] Help
-    - [x] About
+  - [ ] Help
+    - [ ] About
 
 ***NEW FEATURES***
 - [ ] Add hex data explorer
 
 ***FIXES***
-- [x] Fix wrong data collection of nested tree view items
 
 ***
 **ARZ EXPLORER**
