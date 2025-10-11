@@ -1,4 +1,3 @@
-using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
@@ -15,7 +14,6 @@ public partial class MainPage : UserControl
     {
         InitializeComponent();
         _viewModel = new MainPageViewModel();
-
         DataContext = _viewModel;
 
         ToggleButtonVault.IsCheckedChanged += VaultCheckedChanged;
