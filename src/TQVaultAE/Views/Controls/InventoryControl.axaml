@@ -61,19 +61,19 @@
             </Grid.ColumnDefinitions>
             <Border Grid.Column="0" Margin="1 0">
                 <Border.Background>
-                    <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_inventorybag_up.png"
+                    <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_inventorybag_down.png"
                                 AlignmentX="Left" AlignmentY="Bottom" Stretch="Fill" TileMode="None"/>
                 </Border.Background>
             </Border>
             <Border Grid.Column="1" Margin="1 0">
                 <Border.Background>
-                    <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_inventorybag_up.png"
+                    <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_inventorybag_down.png"
                                 AlignmentX="Left" AlignmentY="Bottom" Stretch="Fill" TileMode="None"/>
                 </Border.Background>
             </Border>
             <Border Grid.Column="2" Margin="1 0">
                 <Border.Background>
-                    <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_inventorybag_up.png"
+                    <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_inventorybag_down.png"
                                 AlignmentX="Left" AlignmentY="Bottom" Stretch="Fill" TileMode="None"/>
                 </Border.Background>
             </Border>

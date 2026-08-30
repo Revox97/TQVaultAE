@@ -33,7 +33,7 @@ public partial class VaultControl : UserControl, IWindowResizeObserver
     {
         for (int i = 0; i < Tabs; i++)
         {
-            Bitmap bitmap = new(AssetLoader.Open(new Uri("avares://TQVaultAE/Assets/Img/button_inventorybag_up.png")));
+            Bitmap bitmap = new(AssetLoader.Open(new Uri("avares://TQVaultAE/Assets/Img/button_inventorybag_down.png")));
             Border item = new()
             {
                 Background = new ImageBrush(bitmap),

@@ -15,14 +15,54 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <local:InventoryControl Grid.Row="0"/>
-        <TabControl Grid.Row="2">
+        <TabControl Grid.Row="2" HorizontalAlignment="Left">
             <TabItem Header="Equipment">
+                <Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <local:EquipmentControl x:Name="ItemsPanel__Equipment"
+                                          Grid.Column="0"
+                                          Margin="10 10 2 10"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Top"/>
+                        <local:CharacterStatisticsControl x:Name="ItemsPanel__PlayerStatistics"
+                                          Grid.Column="1"
+                                          Margin="2 10 10 10"
+                                          HorizontalAlignment="Stretch"
+                                          VerticalAlignment="Stretch"/>
+                    </Grid>
+                    
+                </Border>
             </TabItem>
             <TabItem Header="Storage Area">
+                <Border>
+                    <local:ItemsPanel x:Name="ItemsPanel__StorageArea"
+                                      BorderBrush="Yellow" BorderThickness="1"
+                                      Margin="10"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                </Border>
             </TabItem>
             <TabItem Header="Transfer Area">
+                <Border>
+                    <local:ItemsPanel x:Name="ItemsPanel__TransferArea"
+                                      BorderBrush="Yellow" BorderThickness="1"
+                                      Margin="10"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                </Border>
             </TabItem>
-            <TabItem Header="Relic Value">
+            <TabItem Header="Relic Vault">
+                <Border>
+                    <local:ItemsPanel x:Name="ItemsPanel__RelicVault"
+                                      BorderBrush="Yellow" BorderThickness="1"
+                                      Margin="10"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                </Border>
             </TabItem>
         </TabControl>
     </Grid>

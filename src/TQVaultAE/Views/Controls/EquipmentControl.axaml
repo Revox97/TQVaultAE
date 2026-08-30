@@ -1,0 +1,192 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="TQVaultAE.Views.Controls.EquipmentControl">
+    <Grid x:Name="Equipment__Container" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.Background>
+            <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_background.png"
+                        AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- WEAPON 1 -->
+        <Border Grid.Row="1" Grid.RowSpan="4" Grid.Column="1">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_weapon1_background.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+        <Border Grid.Row="1" Grid.RowSpan="4" Grid.Column="1">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_weapon1_overlay.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+
+        <!-- HEAD ARMOR -->
+        <Border Grid.Row="1" Grid.Column="3">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_head_background.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+        <Border Grid.Row="1" Grid.Column="3">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_head_overlay.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+
+        <!-- SHIELD 1 -->
+        <Border Grid.Row="1" Grid.RowSpan="4" Grid.Column="5">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_shield1_background.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+        <Border Grid.Row="1" Grid.RowSpan="4" Grid.Column="5">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_shield1_overlay.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+
+        <!-- NECKLACE -->
+        <Border Grid.Row="3" Grid.Column="3">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_necklace_background.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+        <Border Grid.Row="3" Grid.Column="3">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_necklace_overlay.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+
+        <!-- BODY ARMOR -->
+        <Border Grid.Row="5" Grid.RowSpan="2" Grid.Column="3">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_torso_background.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+        <Border Grid.Row="5" Grid.RowSpan="2" Grid.Column="3">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_torso_overlay.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+
+        <!-- RELIC -->
+        <Border Grid.Row="6" Grid.Column="1">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_artifact_background.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+        <Border Grid.Row="6" Grid.Column="1">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_artifact_overlay.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+
+        <!-- ARM ARMOR -->
+        <Border Grid.Row="6" Grid.Column="5">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_arms_background.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+        <Border Grid.Row="6" Grid.Column="5">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_arms_overlay.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+        
+        <!-- WEAPON 2 -->
+        <Border Grid.Row="8" Grid.RowSpan="4" Grid.Column="1">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_weapon2_background.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+        <Border Grid.Row="8" Grid.RowSpan="4" Grid.Column="1">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_weapon2_overlay.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+
+        <!-- FOOT ARMOR -->
+        <Border Grid.Row="8" Grid.Column="3">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_legs_background.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+        <Border Grid.Row="8" Grid.Column="3">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_legs_overlay.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+
+        <!-- SHIELD 2 -->
+        <Border Grid.Row="8" Grid.RowSpan="4" Grid.Column="5">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_shield2_background.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+        <Border Grid.Row="8" Grid.RowSpan="4" Grid.Column="5">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_shield2_overlay.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+
+        <!-- Rings -->
+        <!-- TODO: Split into two separate ui elements -->
+        <Border Grid.Row="10" Grid.Column="3">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_rings_background.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+        <Border Grid.Row="10" Grid.Column="3">
+            <Border.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_rings_overlay.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Border.Background>
+        </Border>
+    </Grid>
+</UserControl>

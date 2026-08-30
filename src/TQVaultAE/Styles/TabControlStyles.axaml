@@ -5,56 +5,65 @@
     <Border Padding="20">
         <TabControl>
             <TabItem Header="Tab Item 1">
-                <StackPanel>
+                <Border Height="500" Width="400">
                     <Label Content="Content"/>
-                </StackPanel>
+                </Border>
             </TabItem>
             <TabItem Header="Tab Item 2">
-                <StackPanel>
+                <Border Height="500" Width="400">
                     <Label Content="Content"/>
-                </StackPanel>
+                </Border>
             </TabItem>
             <TabItem Header="Tab Item 3">
-                <StackPanel>
+                <Border Height="500" Width="400">
                     <Label Content="Content"/>
-                </StackPanel>
+                </Border>
             </TabItem>
         </TabControl>
     </Border>
   </Design.PreviewWith>
 
     <Style Selector="TabControl">
-        <Setter Property="Background" Value="Blue"/>
+        <Setter Property="Padding" Value="0"/>
     </Style>
       <Style Selector="TabItem">
           <Setter Property="Foreground" Value="White"/>
-          <Setter Property="FontWeight" Value="DemiBold"/>
+          <Setter Property="FontSize" Value="16"/>
           <Setter Property="Margin" Value="2 0"/>
-          <Setter Property="Padding" Value="10 0"/>
+          <Setter Property="Padding" Value="10 3"/>
+          <Setter Property="VerticalContentAlignment" Value="Center"/>
           <Setter Property="Background">
               <Setter.Value>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/tab_stash_up.png"
-                            AlignmentX="Left" AlignmentY="Bottom" Stretch="Fill" TileMode="None"/>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/tab_stash_down.png"
+                            AlignmentX="Left" AlignmentY="Bottom" Stretch="None" TileMode="None"/>
               </Setter.Value>
           </Setter>
           <Setter Property="Template">
               <Setter.Value>
                   <ControlTemplate>
                       <Border Margin="{TemplateBinding Margin}" Background="{TemplateBinding Background}">
-                          <Label VerticalAlignment="Center" Margin="{TemplateBinding Padding}"
+                          <Label VerticalAlignment="Bottom" Margin="{TemplateBinding Padding}"
                                  Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" Content="{TemplateBinding Header}"/>
                       </Border>
                   </ControlTemplate>
               </Setter.Value>
           </Setter>
       </Style>
+    <Style Selector="TabControl /template/ ContentPresenter">
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/caravan_background.jpg"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <Style Selector="TabItem:selected">
           <Setter Property="Foreground" Value="White"/>
-          <Setter Property="FontWeight" Value="DemiBold"/>
           <Setter Property="Background">
               <Setter.Value>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/tab_stash_down.png"
-                            AlignmentX="Left" AlignmentY="Bottom" Stretch="Fill" TileMode="None"/>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/tab_stash_up.png"
+                            AlignmentX="Left" AlignmentY="Bottom" Stretch="None" TileMode="None"/>
               </Setter.Value>
           </Setter>
     </Style>
@@ -62,7 +71,7 @@
       <Setter Property="Background">
           <Setter.Value>
             <ImageBrush Source="avares://TQVaultAE/Assets/Img/tab_stash_over.png"
-                        AlignmentX="Left" AlignmentY="Bottom" Stretch="Fill" TileMode="None"/>
+                        AlignmentX="Left" AlignmentY="Bottom" Stretch="None" TileMode="None"/>
           </Setter.Value>
       </Setter>
     </Style>

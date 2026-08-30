@@ -29,7 +29,8 @@
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 30 0">
                 <Label Content="Search bar goes here" Foreground="White" Margin="0 0 40 0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24"/>
                 <Image Source="avares://TQVaultAE/Assets/Img/icon_majestic_chest.png" x:Name="AboutIcon"/>
-                <Label Content="TQVault" Foreground="Gold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24"/>
+                <Label Content="TQVault" 
+                       Foreground="#d8c370" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24"/>
             </StackPanel>
         </DockPanel>
         <Border Grid.Row="1" x:Name="ContentContainer">

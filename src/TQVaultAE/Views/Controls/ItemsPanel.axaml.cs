@@ -36,6 +36,19 @@ public partial class ItemsPanel : UserControl
                 Grid.SetColumn(item, k);
             }
         }
+
+        // TODO DUMMY, REMOVE
+        ItemControl dummyItem = new(new()
+        {
+            Name = "Sample item name",
+            ItemLevel = 4,
+        });
+
+        ItemsContainer.Children.Add(dummyItem);
+        Grid.SetRow(dummyItem, 2);
+        Grid.SetColumn(dummyItem, 4);
+        Grid.SetColumnSpan(dummyItem, 2);
+        Grid.SetRowSpan(dummyItem, 2);
     }
 
     internal void UpdateUI()

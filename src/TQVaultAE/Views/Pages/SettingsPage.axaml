@@ -4,5 +4,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TQVaultAE.Views.Pages.SettingsPage">
-    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center">I am the settings page</Label>
+    <UserControl.Styles>
+        <StyleInclude Source="avares://TQVaultAE/Styles/TabControlStyles.axaml"/>
+    </UserControl.Styles>
+    <TabControl>
+        <TabItem Header="General">
+            <Grid>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Game">
+            <Label Content="General settings"/>
+        </TabItem>
+        <TabItem Header="Audio">
+            <Label Content="General settings"/>
+        </TabItem>
+        
+    </TabControl>
 </UserControl>

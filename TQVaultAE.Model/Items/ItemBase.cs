@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Text;
+using System.Text.Json.Serialization;
+using TQVaultAE.Model.Enumerations;
+
+namespace TQVaultAE.Model.Items
+{
+    /// <summary>
+    /// Represents a Titan Quest item.
+    /// </summary>
+    public class ItemBase
+    {
+        [JsonPropertyName("name")]
+        public string Name { get; set; } = string.Empty;
+
+        [JsonPropertyName("classification")]
+        public ItemClassification Classification { get; set; }
+
+        [JsonPropertyName("class")]
+        public ItemClass Class { get; set; }
+
+        [JsonPropertyName("position")]
+        public Point Position { get; set; }
+
+        [JsonPropertyName("size")]
+        public Size Size { get; set; }
+
+        [JsonPropertyName("iconPath")]
+        public Uri IconPath { get; set; } = null!;
+
+        [JsonPropertyName("baseItemProperties")]
+        public List<string> BaseItemProperties { get; set; } = [];
+
+        [JsonPropertyName("additionalItemProperties")]
+        public List<string> AdditionalItemProperties { get; set; } = [];
+
+        [JsonPropertyName("ItemLevel")]
+        public int ItemLevel { get; set; }
+
+        [JsonPropertyName("databasePath")]
+        public string DatabasePath { get; set; } = string.Empty;
+
+        // TODO Add remaining properties
+    }
+}

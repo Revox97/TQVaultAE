@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using TQVaultAE.Views.Controls;
 
@@ -31,8 +32,8 @@ namespace TQVaultAE.ViewModels
         // Design time constructor
         public VaultPageViewModel()
         {
-            ItemContainerSelectorLeft = new ContentSelectorComboBox();
-            ItemContainerSelectorRight = new ContentSelectorComboBox();
+            ItemContainerSelectorLeft = new ContentSelectorComboBox(new Uri("avares://TQVaultAE/Assets/Img/icon_majestic_chest.png"));
+            ItemContainerSelectorRight = new ContentSelectorComboBox(new Uri("avares://TQVaultAE/Assets/Img/icon_character.png"));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

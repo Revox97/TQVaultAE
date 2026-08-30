@@ -11,5 +11,8 @@
   
     <Application.Styles>
         <FluentTheme />
+        <Style Selector=":is(TopLevel)">
+            <Setter Property="FontFamily" Value="avares://TQVaultAE/Resources/Fonts/Albertus MT Regular.otf"/>
+        </Style>
     </Application.Styles>
 </Application>

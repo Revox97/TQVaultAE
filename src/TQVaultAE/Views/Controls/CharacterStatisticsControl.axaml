@@ -1,0 +1,166 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="450"
+             x:Class="TQVaultAE.Views.Controls.CharacterStatisticsControl">
+    <UserControl.Styles>
+        <Style Selector="Label">
+            <Setter Property="FontSize" Value="7"/>
+        </Style>
+    </UserControl.Styles>
+    <Border>
+        <Border.Background>
+            <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_background.png"
+                        AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+        </Border.Background>
+        <Grid Margin="10 5" x:Name="CharacterStatistics__Container">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="1" Grid.Row="0" Content="Level"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="0" Content="67"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="1" Content="Class"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="1" Content="Runesmith"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="2" Content="Masteries"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="2" Content="Defense+Runes"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="3" Content="XP"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="3" Content="123456789"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="4" Content="Difficulty"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="4" Content="Epic"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="5" Content="Money"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="5" Content="12394599"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="6" Content="Skill Points"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="6" Content="0"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="7" Content="Attribute Points"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="7" Content="0"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="8" Content="Strength"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="8" Content="123"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="9" Content="Dexterity"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="9" Content="54"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="10" Content="Intelligence"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="10" Content="143"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="11" Content="Health"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="11" Content="10000"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="12" Content="Energy"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="12" Content="2000"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="13" Content="Time Played"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="13" Content="1293387"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="14" Content="Deaths"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="14" Content="12"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="15" Content="Kills"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="15" Content="12129"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="16" Content="XP From Kills"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="16" Content="12191929"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="17" Content="Health Pots Used"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="17" Content="123"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="18" Content="Energy Pots Used"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="18" Content="12"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="19" Content="Hits Received"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="19" Content="12123"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="20" Content="Hits Inflicted"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="20" Content="121232"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="21" Content="Critical Hits"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="21" Content="121"
+                   Foreground="GreenYellow"/>
+            <Label Grid.Column="1" Grid.Row="22" Content="Critical Hits Received"
+                   FontWeight="DemiBold" Foreground="White"
+                   HorizontalContentAlignment="Right"/>
+            <Label Grid.Column="2" Grid.Row="22" Content="12"
+                   Foreground="GreenYellow"/>
+        </Grid>
+    </Border>
+</UserControl>

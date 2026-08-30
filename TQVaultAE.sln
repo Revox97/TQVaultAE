@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31903.59
+# Visual Studio Version 18
+VisualStudioVersion = 18.9.12120.119 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE", "src\TQVaultAE\TQVaultAE.csproj", "{249D8918-4DF1-44B7-AC20-4F8F4700E9CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Model", "TQVaultAE.Model\TQVaultAE.Model.csproj", "{3972EC1C-E483-40E3-87CA-A8303B04E132}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +22,10 @@ Global
 		{249D8918-4DF1-44B7-AC20-4F8F4700E9CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{249D8918-4DF1-44B7-AC20-4F8F4700E9CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{249D8918-4DF1-44B7-AC20-4F8F4700E9CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3972EC1C-E483-40E3-87CA-A8303B04E132}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3972EC1C-E483-40E3-87CA-A8303B04E132}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3972EC1C-E483-40E3-87CA-A8303B04E132}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3972EC1C-E483-40E3-87CA-A8303B04E132}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
