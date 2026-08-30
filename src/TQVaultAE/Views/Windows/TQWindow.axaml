@@ -8,8 +8,9 @@
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="1"
-        x:Class="TQVaultAE.Views.TQWindow"
+        x:Class="TQVaultAE.Views.Windows.TQWindow"
         CanResize="{Binding CanResize}"
+        Resized="Window_Resized"
         Icon="/Assets/Img/icon_majestic_chest.png"
         Title="TQWindow" Height="{Binding Height}" Width="{Binding Width}">
     <Window.Styles>

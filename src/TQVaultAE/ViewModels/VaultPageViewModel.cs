@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using TQVaultAE.Views;
+using TQVaultAE.Views.Controls;
 
 namespace TQVaultAE.ViewModels
 {

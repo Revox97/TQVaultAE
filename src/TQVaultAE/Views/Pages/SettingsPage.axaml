@@ -3,8 +3,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="TQVaultAE.Views.VaultControl">
-    <Grid>
-        <Label Content="I am a vault control" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-    </Grid>
+             x:Class="TQVaultAE.Views.Pages.SettingsPage">
+    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center">I am the settings page</Label>
 </UserControl>

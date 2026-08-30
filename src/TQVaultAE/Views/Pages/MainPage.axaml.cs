@@ -4,7 +4,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using TQVaultAE.ViewModels;
 
-namespace TQVaultAE.Views;
+namespace TQVaultAE.Views.Pages;
 
 public partial class MainPage : UserControl
 {

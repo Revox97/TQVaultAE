@@ -5,7 +5,7 @@
              xmlns:vm="using:TQVaultAE.ViewModels"
              x:DataType="vm:MainPageViewModel"
              mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="500"
-             x:Class="TQVaultAE.Views.MainPage">
+             x:Class="TQVaultAE.Views.Pages.MainPage">
     <UserControl.Styles>
         <StyleInclude Source="avares://TQVaultAE/Styles/ButtonStyles.axaml"/>
     </UserControl.Styles>

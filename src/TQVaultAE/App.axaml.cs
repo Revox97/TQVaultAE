@@ -3,7 +3,8 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-using TQVaultAE.Views;
+using TQVaultAE.Views.Pages;
+using TQVaultAE.Views.Windows;
 
 namespace TQVaultAE
 {
@@ -24,7 +25,7 @@ namespace TQVaultAE
 
                 // TODO Update startup logic
                 MainPage content = new();
-                desktop.MainWindow = new TQWindow(content, "TQVaultAE 5.0.0.0");
+                desktop.MainWindow = new TQWindow(content, "TQVaultAE 5.0.0.0", isMainWindow: true);
             }
 
             base.OnFrameworkInitializationCompleted();

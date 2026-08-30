@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:TQVaultAE.Views.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TQVaultAE.Views.Controls.CharacterControl">
+    <UserControl.Styles>
+        <StyleInclude Source="avares://TQVaultAE/Styles/TabControlStyles.axaml"/>
+    </UserControl.Styles>
+    <Grid HorizontalAlignment="Left">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <local:InventoryControl Grid.Row="0"/>
+        <TabControl Grid.Row="2">
+            <TabItem Header="Equipment">
+            </TabItem>
+            <TabItem Header="Storage Area">
+            </TabItem>
+            <TabItem Header="Transfer Area">
+            </TabItem>
+            <TabItem Header="Relic Value">
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using TQVaultAE.ViewModels;
 
-namespace TQVaultAE.Views;
+namespace TQVaultAE.Views.Controls;
 
 public partial class ContentSelectorComboBox : UserControl
 {

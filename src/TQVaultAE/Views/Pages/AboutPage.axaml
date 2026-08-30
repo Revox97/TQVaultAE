@@ -6,7 +6,7 @@
              x:DataType="vm:AboutPageViewModel"
              mc:Ignorable="d"
              Background="#332c1c" Width="555" Height="375"
-             x:Class="TQVaultAE.Views.AboutPage">
+             x:Class="TQVaultAE.Views.Pages.AboutPage">
     <UserControl.Styles>
         <StyleInclude Source="avares://TQVaultAE/Styles/AboutWindowStyles.axaml"/>
         <StyleInclude Source="avares://TQVaultAE/Styles/ButtonStyles.axaml"/>

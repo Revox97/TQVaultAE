@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace TQVaultAE.Views;
+namespace TQVaultAE.Views.Pages;
 
 public partial class SearchPage : UserControl
 {

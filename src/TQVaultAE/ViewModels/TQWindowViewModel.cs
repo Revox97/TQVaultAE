@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Windows.Input;
 using Avalonia.Controls;
-using Avalonia.Rendering.Composition;
 using CommunityToolkit.Mvvm.Input;
-using TQVaultAE.Views;
+using TQVaultAE.Views.Windows;
 
 namespace TQVaultAE.ViewModels
 {

@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:TQVaultAE.Views.Controls"
+             mc:Ignorable="d" d:DesignWidth="490" d:DesignHeight="550"
+             x:Class="TQVaultAE.Views.Controls.VaultControl">
+    <Grid x:Name="ControlContainer">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="2"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25"/>
+            <ColumnDefinition Width="2"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2"/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="Tabs__Container"
+                    Grid.Row="0" Grid.Column="2"
+                    Background="Transparent">
+        </Grid>
+        <Panel Background="Yellow" Grid.Row="1" Grid.Column="1"/>
+        <Panel Background="Yellow" Grid.Row="1" Grid.Column="2"/>
+        <Panel Background="Yellow" Grid.Row="2" Grid.Column="1"/>
+        <Panel Background="Yellow" Grid.Row="2" Grid.Column="3"/>
+        <Panel Background="Yellow" Grid.Row="1" Grid.Column="3"/>
+        <Panel Background="Yellow" Grid.Row="3" Grid.Column="1"/>
+        <Panel Background="Yellow" Grid.Row="3" Grid.Column="3"/>
+        <Panel Background="Yellow" Grid.Row="3" Grid.Column="2"/>
+        <Button Grid.Row="2" Grid.Column="0" Height="80" x:Name="Button__Sort"
+                VerticalAlignment="Top" HorizontalAlignment="Stretch">
+            <Button.Background>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_autosort_rotated_up.png"
+                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+            </Button.Background>
+        </Button>
+        <local:ItemsPanel x:Name="ItemsPanel" Grid.Row="2" Grid.Column="2"/>
+    </Grid>
+</UserControl>

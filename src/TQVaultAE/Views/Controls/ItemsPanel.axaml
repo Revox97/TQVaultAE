@@ -3,6 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="TQVaultAE.Views.SettingsPage">
-    <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center">I am the settings page</Label>
+             x:Class="TQVaultAE.Views.Controls.ItemsPanel">
+    <Grid Grid.Row="2" Grid.Column="2" x:Name="ItemsContainer"
+          Background="#2e291f">
+    </Grid>
 </UserControl>

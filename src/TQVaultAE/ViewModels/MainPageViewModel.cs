@@ -3,7 +3,8 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.Input;
-using TQVaultAE.Views;
+using TQVaultAE.Views.Pages;
+using TQVaultAE.Views.Windows;
 
 namespace TQVaultAE.ViewModels
 {
@@ -34,9 +35,7 @@ namespace TQVaultAE.ViewModels
 
         internal void SwitchPage(Control newPage) => CurrentPage = newPage;
 
-        public ICommand SaveCommand => new RelayCommand(() =>
-        {
-        });
+        public ICommand SaveCommand => new RelayCommand(() => { });
 
         internal static void OpenAboutWindow() => new TQWindow(new AboutPage(), "About TQVaultAE", 575, 400, false, WindowCloseAction.CloseWindow) { Title = "About TQVaultAE" }.Show();
 
