@@ -1,0 +1,96 @@
+
+# Titan Quest File Formats
+
+* The file formats is described in a psudeo c++ format.
+* The most basic things in a file are the C++ stdint integers and float numbers. They are listed in a table below.
+* Using them structures are created to describe things, such as the TqVec3 below.   
+* A structure can contain other structures, such as TqCoord. 
+* A member of a structure can be listed as an array with [] after the name. 
+    * Size can be a constant number. ex TqVec3 axis[3]. 
+    * Most of the time it is member of the same or another structure that descibe how many there are in the file.  
+* Finally there is a file layout struct in the end that use all the structs described before to explain the format.
+* Some things can be connected to the version number of a struct. A comment // after the member describe for what version the member should be included or excluded.  
+
+~~~~
+// 	Integer type with a width of 8, 16, 32, or 64 bits.
+//  The u ones are unsigned and only positive numbers. 
+int8_t      uint8_t     // 1 byte      
+int16_t     uint16_t    // 2 byte
+int32_t     uint32_t    // 4 byte
+float                   // 4 byte
+~~~~
+
+# Common structures
+## TqVec2 and TqVec3 
+Used for positons and directions in 2D or 3D. 
+
+~~~~
+TqVec2
+    float x
+    float y
+
+TqVec3
+    float x
+    float y
+    float z
+~~~~
+
+## Color 
+
+~~~~
+TqColor
+    float r
+    float g
+    float b
+    float a
+~~~~
+
+## TqCoord
+This is a transform in 3D with the three unit axis and a position. 
+
+~~~~
+TqCoord
+    TqVec3    xAxis
+    TqVec3    yAxis
+    TqVec3    zAxis
+    TqVec3    origin
+~~~~
+
+## TqQuat
+A quaternion is used the describe rotation. 
+
+~~~~
+TqQuat
+    float x
+    float y
+    float z
+    float w
+~~~~
+
+## TqString 
+A tqstring have a number that tell you how long the string is then there is that number of characters in the string. 
+
+~~~~
+TqString    
+    uint length            // Number of characters
+    uchar name[length]
+~~~~
+
+# Asset files
+* [msh format](asset_msh.md.html) - Mesh.
+* [mif format](../viewer_mif.md.html) - Mesh information file.
+* [anm format](asset_anm.md.html) - Animation.
+* [aif format](../viewer_aif.md.html) - Animation information file. 
+* [tex format](asset_tex.md.html) - Textures
+* [mdl format](asset_mdl.md.html) - 
+
+
+
+
+    
+
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

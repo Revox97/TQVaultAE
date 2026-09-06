@@ -1,6 +1,8 @@
+using System.Globalization;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using TQVaultAE.Resources;
 using TQVaultAE.Views.Pages;
 using TQVaultAE.Views.Windows;
 
@@ -15,6 +17,8 @@ namespace TQVaultAE
 
         public override void OnFrameworkInitializationCompleted()
         {
+            Lang.Culture = new CultureInfo("en-US"); // TODO get language from settings
+
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 // TODO Update startup logic
@@ -24,5 +28,13 @@ namespace TQVaultAE
 
             base.OnFrameworkInitializationCompleted();
         }
+
+        // Todo Create localization service
+        //public void SwitchLanguage(string cultureCode)
+        //{
+        //    Lang.Culture = new CultureInfo(cultureCode);
+        //    // Raise PropertyChanged for all localized properties
+        //    // or reload the view to pick up new strings
+        //}
     }
 }

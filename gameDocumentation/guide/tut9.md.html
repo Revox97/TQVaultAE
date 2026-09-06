@@ -1,0 +1,134 @@
+(#) Tutorial 9 -    Making a Trigger 
+
+
+This section introduces the Quest Editor – not to be confused with the Titan Quest Editor, which is used to create maps.  Quests are created for the game in quest (“.qst”) files. Each quest file consists of a series of triggers that control the flow of the quest. Each trigger has a series of conditions and actions such that when all of the conditions for that trigger are met, the actions of that trigger are performed. For this tutorial we will be setting up a simple trigger such that when a player enters an area, he or she gains 10 experience points. 
+ 
+Setup 
+
+1. Open the Art Manager 
+2. Under ‘Mod’ go to ‘Select’ and choose Tutorial09 
+3. Go to the ‘Build’ menu and select ‘Build’   All database records are now accessible by the editors. 
+ 
+# Triggers 
+ 
+**Quest Files** 
+
+The trigger we will be creating will be part of a previously existing quest. 
+
+1. Open up the Quest Editor. 
+2. Go to “File -> Select Mod…” and choose “Tutorial09” 
+3. In the open file window, select and open 'CustomMaps -> Tutorial09 -> source -> Quests -> TutorialExperience_Trigger.qst'.  
+    * You will see that the only thing in it right now is an entry called “Only One Step”. Triggers are grouped into steps to help the designer follow the flow of the mission better. 
+ 
+![ ](guide_images/tutorials/tut9_questeditor.png)
+
+**Creating the Trigger.**
+
+1. Select the step you will be adding the trigger to. 
+2. Click the 'Create New Trigger' button in the toolbar. 
+    * A new trigger will appear under the "Only One Step" step.
+
+![ ](guide_images/tutorials/tut9_trigger.png)    
+
+3. Select the step you just created. 
+4. You will see a list of properties in the Properties Pane at the base of the screen.
+    * To change a property, double click on the cell next to the property name, and type in a new value. 
+5. Enter the value "The Trigger" into the Name field of the trigger you created. 
+ 
+ 
+ 
+ 
+ 
+# Conditions 
+ 
+A trigger is a set of conditions and actions such that when all of the conditions are met, the actions are performed. We'll start by creating the trigger's conditions. In this case, the condition that activates the trigger is when the player enters a specific area. 
+ 
+**Creating a Condition**
+
+1. Select the Conditions entry under the trigger you wish to add the condition to.
+
+![ ](guide_images/tutorials/tut9_condition1.png)   
+
+2. Click the 'Create New Condition' button. 
+    * This brings up the 'Add New Condition' window. Inside the window is a list of the possible condition types. 
+
+![ ](guide_images/tutorials/tut9_condition_icon.png) 
+
+3. Select 'Enter Bounding Volume'. 
+
+![ ](guide_images/tutorials/tut9_condition2.png) 
+
+4. Click the 'OK' button.  
+    * The condition is set set to activate when the player enters a bounding volume, but we still have to specify which bounding volume. 
+5. Select the condition and look at the Properties Pane.
+    * You'll notice it has a property called BaseDatabaseRecord. This is where we establish which bounding volume the player has to enter to activate this trigger. 
+6. Click on the value field of the BaseDatabaseRecord property. 
+    * You'll notice that you can type the path in like you normally would on any other property. But you'll also notice there's an ellipsis on the right side of the field that you can click. If you click on this ellipsis it will take the value of whatever asset you have selected in the Asset Chooser Pane on the right. This is very helpful when you don't want to have to type a long, difficult path. 
+
+![ ](guide_images/tutorials/tut9_condition3.png)     
+
+7. In the asset chooser, find and select '<root> -> CustomMaps -> Tutorial09 -> database -> Records -> TutorialSphere_Of_Experience.dbr'. 
+8. If it's not already selected, select the 'Enter Bounding Volume' condition you just created. 
+9. In the Properties Pane, select the data field of the BaseDatabaseRecord property, and click on the ellipsis. 
+    * The path to the Tutorial-Sphere_Of_Experience will appear on its own.  
+    *So there we have it. The condition is set so that when the player enters the volume, something will happen. But what's going to happen? For that, we'll need to set up an action. 
+
+![ ](guide_images/tutorials/tut9_condition4.png)     
+
+ 
+# Actions 
+ 
+**Creating an Action**
+
+1. Select the 'Actions' entry under the trigger to which you wish to add the action.
+
+![ ](guide_images/tutorials/tut9_action1.png)    
+
+2. Click the 'Create New Action' button. 
+    * This brings up the 'Add New Action' window. The window features a list of all the possible action types.
+
+![ ](guide_images/tutorials/tut9_action_icon.png)        
+
+3. Select 'Give Player N, N, N Experience'. 
+
+![ ](guide_images/tutorials/tut9_action2.png)  
+
+4. Press 'OK'.  
+    * Now the trigger is set up to give the player experience when they enter the area, but we still have to establish how much. 
+5. Select the new action to view its properties.
+    * The three properties we are concerned with are ExperienceEpic, ExperienceLegendary, and ExperienceNormal. These determine how much experience will be given to the player depending on the difficulty setting. 
+6. You can set them to whatever value you want, but if you need some numbers, I set them all to 100. 
+
+![ ](guide_images/tutorials/tut9_action3.png)  
+
+# Saving and Building a Quest 
+ 
+Saving and Building the Quest File  So now we're done creating the quest. Now we have to save and build it. 
+ 
+1. Save it by selecting 'File -> Save' from the menu bar at the top of the window.  Once the quest file is saved, it needs to be built. 
+2. Open up the Art Manager. 
+3. Select the Tutorial09 Mod 
+4. Build it.  But wait, we’re not done yet!
+
+![ ](guide_images/tutorials/tut9_build.png)  
+
+5. Open the Editor, Choose Tutorial09, and select the .wrl file in the maps folder 
+6. In the menu bar, go to “Quests -> Select Files…” and choose “Tutorial-Experience_Trigger.qst” 
+7. Save the level, return to the Art Manager, and build all again. 
+ 
+Now we are ready to give this quest a whirl in-game! 
+ 
+**Testing Your Trigger**
+
+1. Fire up the Titan Quest game. 
+2. Select 'Custom Quest' from the main game menu 
+3. Select 'Tutorial09 ~ Tutorial-Sphere_of_Experience.map' in the Map Pane. 
+4. Select 'Start' 
+5. Direct the character into the fancy-tiled circle.  If everything has been done correctly, you will see a notification that you have received some experience points.
+ 
+
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

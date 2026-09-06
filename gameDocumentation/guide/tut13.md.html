@@ -1,0 +1,38 @@
+(#) Tutorial 13 - Other
+
+This tool is used to link objects together. First one creates a group and each group is given a name and a type.
+
+# Proxy Group Types
+
+Monsters in the world are spawned with Proxies and by putting a proxy in a group you can change its behavior. It can also be used to spawn proxy shrines that boost the player. 
+* Default: If the proxy is in no group it will act like default.
+* Unified Proxies: Make all the proxies in the same group use the same pool.
+* Unique Proxies: When a Unique Proxies group is used only one proxy will spawn from the group. 
+
+# Wanderers and Patrollers
+To make the world a bit more lifelike it is possible to have NPC's (wanderers) or monsters (patrollers) that walk around in the world. The setup is the same for both but they use different group types. NPC’s that have the idleBetweenWaypoints set in the DBR will pause at each waypoint.
+
+1. Create the waypoints. If you make waypoints for NPC's use the classtype NpcWanderPoint and for monsters use the classtype PatrolPoint in the dbr’s you place out.
+2. Group the waypoints. Use the group type Wander Points or Patrol Points.  
+3. Group the NPC's or monsters. Put the mobs in the NPC Wanderers or ProxyPatrollers group type.
+4. Link the waypoint group and the mob group. Select the mob group, select Link mode and then click the black dot for the waypoint group. 
+
+# Shrine's
+All respawn shrines in an act should be in the same group. All teleport shrines in an act should be in the same group. 
+
+Any Entity
+Bandari
+Bandari Teleport Points
+Decorations
+Monsters And Weapons
+Patrollers
+Terracotta Warriros
+
+
+
+
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

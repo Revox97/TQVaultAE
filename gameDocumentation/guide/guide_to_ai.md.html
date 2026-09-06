@@ -1,0 +1,203 @@
+(#) Guide -  AI
+
+# The Controller Record 
+
+A creature's Controller is a separate DBR linked in the main creature record that defines the creature's AI including senses, aggression, flee behavior and more.
+
+Controllers can be found in \Controllers, \Xpack\AI Controllers and \Xpack2\AI Controllers.
+Consequently, new X3 Controllers should be placed in \Xpack2\AI Controllers. - Usually starting as a copy of some existing controller with similar behavior.
+
+
+Their class and template is always ControllerMonster with the exception of single bosses like the Grey sisters which have some unique mechanic. (But even then, the class is often the only thing that differs.)
+
+
+# Fleeing 
+
+**FleeBehavior**
+
+Different conditions to trigger fleeing.
+
+* FleeWhenEnemyClose (ranged/mages) uses the enemyTooClose entry in Senses. 5m is usually a good value.
+* FleeOnLowHealth may be influenced by lowHealthTriggerLevel in the Creature’s Character Sounds.
+* FleeOnDamage good for shy enemies like birds
+
+**FleeTime, FleeDelay**
+
+Time of running helplessly / immunity to being re-feared in ms
+
+**fleeTarget**
+
+“Home” is the spawn/leash point
+
+**fleeDistance**
+
+in m, may stop fleeing early if reached before time runs out
+
+**ClearAngerWhenFleeing / ResetOriginAfterFleeing**
+
+ResetOrigin moves the “home” point. This can be useful to occasionally break a boss’ leash when used with a low chance on damage and basically no actual fleeing.
+
+
+# Pursuit 
+
+PursuitTime in ms, MaxPursuitDistance in meters. The latter is important for bosses in order to set their “leash point”. (Considering that players may attempt to kite.)
+
+# SkillUsage 
+
+“WhenEnemyIsSeen” is the safest setting for any Behavior settings. Avoid “wheneverPossible” with repeatable buffs or enemies may be locked in endless loops.
+
+Leader refers to the master from a pet’s POV.
+
+# Roaming 
+
+Roam refers to enemies moving around their spawn points while Wander is for pets moving around their master/”Leader”.
+
+**Min/MaxTimeBeforeRoam** 
+
+Defines how long they wait initially and after every movement.
+
+**TeleportToLeaderDistance** 
+
+Important for monsters because players can mind-control them. A value of ~30 makes sure this does not happen in undesirable ways.
+
+# Patrolling 
+
+Not used except maybe for NPCs.
+
+# Distress Calls 
+
+Controls the response to distressCall events (as set in a creature’s Character tab).
+
+If DistressCallResponseBehavior limits this to “same group”, it specify which group below.
+The group would have to match the calling creature’s distressCallGroup.
+The race would have to match the calling creature’s characterRacialProfile.
+
+
+E.g. a roaring Dinosaur with characterRacialProfile “Beast” and distressCallGroup “Raptor” would alert any allied monsters within its distressCallRadius that
+
+* are also Beasts and respond to their own race
+* respond to the “Raptor” group regardless of who they are
+* respond to any call whatsoever
+
+# RandomAnger 
+
+Probably used to make aggro behavior a bit more unpredictable through a chance to add extra anger towards random enemies in the vicinity, but practical effects are subtle at best. Would need more testing.
+
+
+# Dodging 
+
+Configures ability to sidestep an incoming Projectile.
+DodgeDelay in ms(!) is important here, as too low values may lock an enemy in a constant “dodge dance” when faced with many projectiles. Use at least 1000.
+
+Either triggered when the enemy enters the notificationRadius set in a Projectile’s ProjectileConfig, or at a default distance within sight.
+
+# Attacking 
+
+**leadChance**
+
+Chance to lead targets with weapon or spell projectiles. **Any monsters that can equip thrown/ROH weapons must have 0 here**, because trying to lead with these will cause the game to crash!
+
+**RepositionChance**
+
+Chance for ranged characters to change position when their last shot got blocked by an obstacle. Basically defines how smart they are. Use generously (up to 100%) unless you want them stationary.
+
+**RandomRepositionChance**
+
+Chance for any characters to move a bit before each attack. Good for making combat more dynamic (e.g. agile melee fighters) but don’t go over 50.
+
+Sleep / Emote
+
+Self-explanatory / not used afaik
+
+
+# PetBehaviour 
+
+First half controls behavior towards pets, second is for pets.
+
+**ignorePetsChance**
+
+Chance to ignore pets (target player only - for bosses or extra smart enemies)
+
+**ignorePetsInterval**
+
+Time interval in seconds (?) until ignorePets state is re-rolled
+
+**petAngerTransference**
+
+% of pet-generated anger to be transferred to the player at all times
+(enemies do not ignore them, but are aware that you are sending them)
+
+**petTargetLevelRange / LeastAttacked/ GreatestHealth**
+
+Tweaks which opponents someone's pets choose as their target. Generally unused.
+
+
+# Senses 
+
+**viewDistance**
+
+How far a creature can see. Affects anger generation and skill use.
+
+* If this does not match longRangeMax in a creature’s Skill Configuration, the shorter range defines how far it is able to cast.
+* 30+ means extreme range (slightly off screen) e.g. for stationary Bosses
+
+**enemyTooClose**
+
+In meters, see Fleeing.
+
+**innerViewDistance**
+
+Personal space, used for increased anger towards nearby opponents.
+
+**maxYViewDistance**
+
+Possibly to make enemies UNable to look up or down, but no discernible effect. Default seems to be no limit.
+Setting this high does not help enemies to see up ledges better, where the blocked LoS between them and the player’s feet is the real issue.
+
+# AngerManagement 
+Every AI-controlled creature has a separate anger meter for each enemy creature around them. There is a debug command (character.ShowAngerLevels true) to display these.
+
+**AngerTolerance**
+
+Threshold of anger before an enemy starts attacking.
+Possibly required delta before switching targets.
+
+**AttackedAnger**
+
+Anger added towards an enemy when attacked
+
+**AllyAttackedAnger**
+
+Anger added towards an enemy when they attack an ally (within sight)
+
+**ForgiveRate**
+
+Rate of anger decay
+
+**SightAngerRate**
+
+Anger generated per second while enemy is in sight
+
+**InnerSightAngerRate**
+
+Anger generated per second while enemy is within innerViewDistance. Usually significantly higher (up to double) in order to avoid ignoring nearby enemies just to chase someone who has been in sight a bit longer.
+
+**ProjectileAnger**
+
+Anger generated by projectiles flying in the enemy’s direction. These do not have to hit (-> AttackedAnger) but merely pass by within their notificationRadius (set in a Projectile’s ProjectileConfig).
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

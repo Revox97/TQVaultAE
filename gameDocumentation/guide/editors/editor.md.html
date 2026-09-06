@@ -1,0 +1,240 @@
+
+The Editor is used to create and modify the world the game takes place in. There are two modes it can show the world in. Layout mode lets you create levels and position them and editor mode lets you modify the levels. Switching mode change the menu bar, the toolbar and the view of the world. 
+
+
+
+# Layout Mode 
+
+## Menu - Layout mode 
+
+### File
+
+**New World**
+**Open World**
+**Save all**
+**Force Save all**
+**Reload resources **
+**Automtic Reload Resources **
+**Exit **
+
+### View
+**Log** 
+
+### Pathing
+**First Pass**
+
+### Region
+To create a level you need to add a new Region of either the type Terrain or Grid to the world. This is done in the Layout Mode.
+
+**Add New Terrain…**
+Will let you add a region with the type terrain. A terrain is the overworld where you are able to edit the levels of terrain as you wish and have a Day/Night Cycle.
+
+**Add New Grid…** 
+Will let you add a region with the type grid. This is for the underground and is edited on a grid layout.
+
+**Add Existing Region…** W
+Will let you add an already created region to the world at its center. You can always jump there by pressing.
+
+**Merge from world** 
+
+**Remove Region**
+Remove a region from the world.
+
+**Replace objects **
+
+**Rotate Region **
+Rotate a region. 
+
+**Recompute bounding box**
+Computes the bounding box of the region. Use when done rotating a region. 
+
+
+**Toggle zone view **
+Turning on Toggle Zone View lets you see which regions are connected to which zone. The world in Titan Quest is separated by Acts which then are separated by Zones. For example the first act in the game is called Greece, which has 7 associated zones in total, Helos, Sparta, Megara, Delphi, Parnassus, Athens and Knossos. Zones are mainly used for the portal functionality and are displayed in the Portal Map. 
+
+![](editor_actzone.png)
+
+**Add to zone** 
+To add an existing region to a zone you first need to select the region and then choose “Add To Zone”. This will open a new window with a selection of zone-DBRs.You need a DBR for each zone containing the information of the zone and portal names as well as the locations for the Portal Map.
+
+**Split into floors**
+
+**Clean duplicate layers **
+
+**Load all **
+
+**Changed to optimized region**
+
+### Quest
+Here the quest files (created in the quest editor) is added to be part of the world. 
+
+### Build
+### Help
+Open the documentation or show information about the editor. This menu is the same in both editor modes. 
+
+## Toolbar - Layout mode 
+
+### Center on world
+Clicking on this button centers the view to the center of the world. 
+
+### Viewmode 
+Select between to view to layout of the world in Top down view or perspective view. 
+
+### Jump to region
+Switch to editor mode with the view cented on the region you had selected in the layout view. 
+
+### Region toggle move 
+By default the regions in layout mode can not be moved around. Toggle this to allow the movement of regions. The selected region will show arrows that you can click and drag to move them around. 
+
+# Editor Mode 
+
+## Menu - Editor mode 
+
+
+### File
+### View
+### Pathing
+### Edit
+### Region
+### World 
+### Camera 
+### Filters 
+
+### Temp Group Menu 
+Let you group items in the editor and move them around as a single unit. This is saved with the level. To select a group select one of it's members and then press G to select all of them. 
+
+**Add Group (Shift-G)**
+
+Select any number of items in the editor (Ctrl+click) and use this menu option to group them. 
+
+**Undo Group ()**
+Select any number of items in the editor and use this to remove all of them from any group. 
+
+## Toolbar - Editor mode 
+
+### Entity
+
+### Group
+
+**ProxyPatrollers**
+
+**Unified Proxies **
+
+**Unique Proxies **
+
+Only one proxy in the group will be activated in each game. One is is to group shrines in a area so only one appear at random each play.  
+
+**Any Entity**
+
+**Decorations **
+
+**Patrol Points **
+
+**Monsters and Weapons **
+
+**Patrollers**
+
+**Wanger Points **
+
+**NPC Wanderers **
+
+**TeleportShrine **
+
+**RespawnShrine**
+
+Link the respawn shrines in the same act. 
+
+**Bandari **
+
+**Bandari Teleport Points **
+
+**Terracotta Warriors **
+
+
+
+
+### Passeble
+
+### Layer Painting 
+Layers are used in a variety of ways, from adding fog and lighting to the levels, the background music as well as the names that is presented in the game for each area. The different kinds of layers are accessed from the dropdown menu “Layer:”. To create a new layer you click the “New”-button and a layer called “New Sector Style” is added to the layer list. The name for the layer can be changed in the “Style Name:”-box. All layers that are created and the changes made to them are saved in the world-file (.wrl).
+
+![XXX](editor_layer_new.png)
+
+Adding the layers to the levels works similar to the Brush and Passable tools as you paint the layers to the world. The properties of the layers are presented in the game as the player walks inside the painted layers. It is not possible for layers of the same type (Fog/Lighting, Sound etc.) to be added on top of another.
+
+Layer painting view - The checkered area visualizes the painted area and the blue arrow represents the player position.
+
+* you can Ctrl-click to fill the entire level, useful for most layers. 
+* Decrease radius with key 219 ( ´ ) and increase with 221 ( Å )
+* Press z to show the name of the layer below the arrow and to select it in the list. 
+
+### Fog/Lighting Layer
+
+* Depth Fog - Camera fog, gets thicker the more the player zooms out.
+* Height Fog - Environmental fog, attaches to the ground and environment and is unaffected by the camera.
+* Fog Color - By pulling the sliders for Red/Green/Blue you can choose the color of the fog.
+
+![XXX](editor_layer_fog.png)
+
+* Light Color - The option to edit the color of the base lighting. If all 3 colors are turned to 0 all shadows will disappear.
+* Sky Ambient Color - The option to edit the color of the lighting coming from the sky.
+* Ground Ambient Color - The option to edit the color of the ground lighting.
+
+![XXX](editor_layer_lighting.png)
+
+* Ambient Particles - Feature to attach ambient particles, like snow or rain, to the in-game camera.
+
+![XXX](editor_layer_particles.png)
+
+#### Reflection Fade
+
+![XXX](editor_layer_reflection.png)
+
+### Name Layer
+This is the name that show when the player enters a new area and also when the player place a personal teleporter.
+
+* Localization Tag: The text to display to the player. Tags are set in localization text files.
+* Cinematic Display: If this box is checked the name display in the center of the screen when the player enter the area. 
+* Display Once: If checked the name only show the first time the player enters the area. 
+
+![XXX](editor_layer_name.png)
+
+### Sound Layer
+Sets the ambient sounds and background music for the area. The music and sounds are setup in dbr-files that are then referenced in the sound layer. 
+
+* Ambient Music: The background music played in the area. 
+* Ambient Sound: Ambient sound played in the area (wind, animal, crowd noises).
+* Event Music: Special music played in the painted area.
+
+![XXX](editor_layer_sound.png)
+
+### Boss Layer
+The boss layer is not for the music itself but to determine the area where the boss music is played. It have no settings as the music is connected to the boss monster.  
+
+![XXX](editor_layer_boss.png)
+
+### Day/Night cycle
+This layer control the game day/night cycle and atmospheric effects. It have it's own window for settings that is shown by the Open Editor button. 
+
+![XXX](editor_layer_daynight.png)
+
+●	At the top of the editor window you can see the time lapse window, a illustration of the effects that will occur from sunrise to sunset.
+●	Lighting Setup - Add/Remove/Clone one Setup, visible as an sphere, and change its Light, Sky and Ground Color. The Setup sphere can be moved inside the time lapse window to adjust its time.
+●	Day Night Cycle - Edit the angle in which the sun (lighting) moves during the day.
+
+![XXX](editor_layer_daynight2.png)
+
+### Bloom Layer
+The Bloom Layer is used to add bloom effect to the area by adjusting Brightness, Contrast and Saturation.
+
+![XXX](editor_layer_bloom.png)
+
+### Post process layer 
+
+![XXX](editor_layer_post.png)
+
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

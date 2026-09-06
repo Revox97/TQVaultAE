@@ -1,0 +1,37 @@
+(#) Tutorial - Transparency in Grid Systems
+
+As you probably know, tile pieces and features in Grid Systems go transparent when between the player character and the camera. This effect is automatically active if not removed. This tutorial will show you how to remove and control the transparency on chosen objects. 
+
+**Removing Transparency**
+
+Let's say you've got a grid piece containing 1 floor object, 1 lower wall object and 1 upper wall object. You'd want the wall to go transparent when the character is behind it, but only the upper wall and not the lower wall (nor the floor).
+
+1. Open the object in Autodesk 3ds Max.
+2. In Max, select the objects you want the transparency to be deactivated on. In this case the lower wall and the floor. 
+3. When selected, right-click and choose Object Properties.
+4. Go to User Defined on the far right.
+5. Enter "Section=NoTransparency" in the box.
+
+These objects will no longer go transparent, even if they're between the character and the camera.
+
+**Controlling Transparency**
+
+If you have, for example, a grid piece containing 2 walls (like a corner piece), you'd still want both of the walls to have active transparency but you don't want both walls to go transparent when you're behind just one of them. You can seperate the transparency on these objects.
+
+1. Open the object in Autodesk 3ds Max.
+2. In Max, select one of the objects you want separate transparency on.
+3. When selected, right-click and choose Object Properties.
+4. Go to User Defined on the far right.
+5. Enter "Section=Wall01" in the box.
+6. Repeat this on every object in the scene you want separate transparency on, but change the number in the text line: "Section=Wall02", "Section=Wall03", "Section=Wall04" etc. 
+
+These object will now go transparent separately.
+
+
+
+
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

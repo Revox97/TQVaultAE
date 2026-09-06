@@ -1,0 +1,182 @@
+(#) THE ANIMATION PROCESS IN TITAN QUEST EXPANSIONS: RAGNARÖK AND ATLANTIS 
+
+# PREPARE THE SCENE AND MODEL
+
+Open 3ds Max 2012 and load the Ironlore plugin.
+The rigs and animations are done in 3dsMax 2012, this is because the artmanager needs models in the format .mdl, and animations in .anm, and the plugin we are using for that is only compatible with 3dsMax 2012 and older. 
+The animations are done in 30 fps. A good way to make sure the models have the right size is to import an older model to the scene and scale the new one to the proper size. 
+
+# REFERENCING
+
+There seems to be no way in 3dsMax to create a working reference like you can in Maya, where you can import a rigged low poly mesh and start animating in a new scene, while waiting for the real mesh to skin to the rig in the original file.
+In Max you can import objects as references, but you can only animate their position as a whole group, this means you can move the rig around in the scene, but not rotate the different controls.
+ 
+A good thing is that the skinning in Max is very easy and can be copied and mirrored in a quick way, so there is no need to reskin the model in each file, just in the original mesh file when the finished model is imported. 
+
+This creates the workflow:
+Receive blocked out mesh with correct proportions -> Adjust the rig (or create it) to fit the model -> Skin it swiftly, don’t waste time here, it’s gonna be redone anyway -> Start animating, saving the different animations as new scenes (or if you prefer to create all animations in the same scene.)
+When you get the real mesh you skin it to the model file, and export it as .mdl with the ironlore max plugin.
+
+# RIGGING
+
+Make sure the model is above ground plane to avoid problems with pets not being able to attack the enemy.
+Place the joints from the proper view. Although it seems like they have had a different world orientation when creating the vanilla rigs, the same as Maya, with Y pointing up. In Max 2012 you can’t change the input mode though, so the best is to use an old rig with similar look as the new model and
+ tweak it. The joint orientations is very important if the character will be wearing gear, since it is equipped wrong if the joint orientations are wrong.
+
+You can open an old model, delete the mesh and rearrange the bones for an easy way to create a new rig. This makes sure the bone orientations are correct. In that case you have to unlink the bones from the controllers, move them and link them together, then use Realign and Reset Stretch in Bone Tools.
+ When they are at the right places, you can align the controllers and point helpers to their new places and remake the linking hierarchy. 
+The rig structure should be set up like this:
+
+* Point Helper
+* Controller (Made by boxes with a default material, where Wire is checked in Shader Basic Parameters.)
+* Bone
+
+And repeat. 
+All bones must be a child of a controller, and all controllers must be child of a point helper. See picture:
+ 
+![ The legs are exceptions because they are driven by the IK chains and just need to be parented to point helpers to the waist.](guide_images/animation/rigstructure.png)
+
+**Freeze transforms**
+Don’t forget to freeze transform on the controllers (alt right click). This is how you reset the rig to bind pose during animation.
+
+**Driven Keys**
+Reaction manager is not stable, and sometimes crashes when you use it. If you want to use it you can try, but in this project it didn't work, so we animated everything by hand.
+
+**Naming**
+
+* PointXX (numbered when created)
+* CTRL_L_Femur
+* Bone_L_Femur
+* NUBXX (Nub bones are numbered when created and renamed to NUB)
+
+Use Max very convenient rename tool for this. 
+
+**Schematic view**
+
+It’s a good tool to get an overview of the rig hierarchy. Select “move children” and “free all” to stop all the nodes flying around when you arrange in the view. 
+
+# HITBOX
+
+All enemies have one or more hitboxes parented to their bones. Usually it’s one, but larger enemies can have more. The hitbox always centers around its pivot in the engine, so it does not need to be aligned to a bone in 3dsMax, just linked to it.
+
+# SKINNING
+
+It is important to include everything that affects the mesh, or else it will not behave properly in the engine. For example you have to add the helper/locator MoveAxis to the skin, since that is the node that acts as a root and decides the move speed.
+
+**Armor Pieces**
+
+All armor pieces are skinned into all the character skeletons that can wear them.
+Move the pivots to the appropriate bones. 
+
+* Greaves skinned to shin left and right. 
+* Bracers/Armband skinned to wrist and forearm left and right. 
+* Armor skinned to spine_01, spine_02, right and left clavicle, and other bones needed. 
+* Helmet skinned to head_bone. 
+
+Don’t use the Nub bones for skinning. 
+
+Hide the player character and other armor pieces if present and export it with the plugin MaxPlugins.dlo as a .mdl. The skinning data is saved and in the art manager the skinned bones and the mesh will be visible and animated.  
+
+# ANIMATION
+
+**To think about**
+
+The player character animations can be sped up in the game, depending of new skills or game speed, so small movements might become weird (like lifting a foot in an attack animation). 
+
+Begin with the idle, since it is the start and end pose for all the other animations (because of limited blending possibilities). 
+
+Import the Player Character in the scene and put it in front of the monster, to be able to aim the attacks against the player. 
+
+**Enemy animations**
+
+* 2-3 basic attacks (Alpha, Beta & Gamma) 
+* Run
+* Walk
+* Long Idle (for when before the enemy has seen the player)
+* Attack Idle. Only if it's needed. Usually they dont have cooldowns on their attacks and an attack idle is never played. Better to have one though. 
+* 1-2 alert anims, for when the enemy notice you. 
+* Death, if needed. Plenty of the creatures have them, but in game most goes into ragdoll. Some, like harpies, have them assigned. 
+* Stun, for when the monster is stunned.
+* Spawn, when necessary. 
+* Skills. Variating how many.
+
+# EXPORT ANIMATION FROM 3DS MAX TO TQ ENGINE
+
+Before opening your scenes, always load the plugin MaxPlugins.dlo. Export the rig as .mdl and the animations as .anm. 
+
+Export everything in the scene, don’t select anything. Hide what you don’t want to export. 
+
+The file ending must be in small letters. .anm and .mdl
+
+Root motion (the animation on the MoveAXIS helper) should also be included and is even important, since some creatures moves in an irregular speed that is determined when the animation was made. (See Talos_Run and BoarMan01_Run for example.)
+
+When you export them from 3dsMax you save them in the source folder in the project. After that you open the art manager, right click the file and create an asset. When you do that, you can assign the .aif file that specifies on what frame the animation should spawn sounds or particle effects,
+and where the attack should do harm. The aif file is described in another document. When you make an asset out of the mdl file you can assign a mif file (see mif documentation document). After that you go to the tab assets and build the files, or the whole project.
+Then you can assign it to the creature in the dbr. 
+
+There seems to be some kind of short automatic interpolation between the animations in the engine. Only a few transition animations exist where the changes would have been too dramatic, and it is for the player character between attack idle and long idle.
+
+# SOME DBR NOTES
+
+**All groups -> Character Bio -> Character Parameters -> Character Speed -> characterRunSpeed**
+Regulates the speed at which the running animation plays and therefore the speed the character moves towards the player. Seems to be a modifier to regulate speed buffs etc.  
+
+**All groups -> Animation Sets -> Unarmed -> unarmedRunAnimSpeed (SAME FOR THE OTHER WEAPON TABS)**
+Speeds up the running animation so the character runs faster towards the player. This enables tweaks in the engine, if you want an animation to be played slower or faster in general. 
+
+**All Groups -> Movement Parameters -> minRotationSpeed**
+Regulates the minimum rotation speed the character can have while pursuing the player. A good minimum speed is 1, or else the character can start twitching too much.  
+
+**All Groups -> Movement Parameters -> maxRotationSpeed**
+Regulates the maximum rotation speed the character can have while chasing the player. If it’s set too high the character can start twitching. A number of 12 seems to work fine, it keeps the character turned towards the player. 
+
+**Pathing Size**
+How close to the PC the enemy will stay before attacking is decided by ….dbr -> Character -> Pathing Size. If the enemy stands too far away or too close you can tweak this by changing pathing size between small, medium or large. 
+
+**Death animations and ragdolls**
+What decides if an enemy uses ragdoll or a death animation is not super clear. If it has a death anim in the anim dbr, and no ragdoll in the .mif it seems like it defaults on death anim. There is some settings to play with. In Death Parametres you can set overrideRagdollBehaviour to: 
+ 
+* Blank
+* Crumple
+* TakeHit
+* Random
+
+If it is set to Crumple, and doLateCrumple is set to 1, it will do the death anim even though it has a ragdoll assigned. 
+
+# RAGDOLLS
+
+Open up your mesh in the viewer without choosing any animation. Click [Build Default Physics Data] in the Ragdoll menu. 
+Then choose File -> Save MIF.
+
+When you create assets on the source-mesh select you new .mif in the MIF-field, alternatively double click the file in the asset tab and assign the mif there. 
+Build your mod again and restart the viewer.
+You can now choose Ragdoll -> Edit Rigid Bodies to modify them as shown in this picture. 
+
+![](guide_images/animation/ragdoll1.png)
+
+What is important here is to make the ragdolls large enough to cover the mesh, or else it will collapse into itself. 
+
+In the tab fuse rigid bodies you can choose to merge/combine/lock different rigid bodies to each other, but this works a bit unexpectedly and needs more research.
+
+In view joint constraints you decide what type of joint that connects the two rigid bodies. The different types are: 
+
+* None
+* Ball
+* Hinge
+* Fixed
+* Universal
+
+They don’t really behave as you would expect them to, so trial and error is best here. 
+
+The box breakable is useful for loose parts of the mesh. If a mechanical head or a skinned weapon is suppose to ragdoll, you can break if apart from the rest of the mesh, if the skinning allows it.
+
+
+
+
+
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+
+

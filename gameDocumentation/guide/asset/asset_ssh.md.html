@@ -1,0 +1,135 @@
+(#) Formats - SSH
+
+The .ssh files contain the directx graphic shaders the game use. 
+
+* Most contain two set of shaders, one for DirectX9 and one for DirectX11. This is the API.
+* Each API can then have different shaders for different generations of graphic cards. Mostly a DX9 thing. This is the generation.
+* Each generation is described in four blocks of information. 
+    * blockParameters
+    * blockConstants
+    * blockStyles
+    * blockMetadata
+
+# BlockHeader
+Each block start with the same header. It gives the type of block and the length of it. 
+
+~~~~~~~~~~~~~~~~~~   
+    uint32_t    blockType;
+    uint32_t    length;
+~~~~~~~~~~~~~~~~~~   
+
+# Block 
+
+## 0 = blockParameters
+
+~~~~~~~~~~~~~~~~~~   
+    uint32_t    numParameters
+    Parameter   parameters[numParameters]
+        TqString    name
+        uint32_t    type
+        uint32_t    numElements
+        Bool        editable
+        Bool        bound
+        Value       value   
+~~~~~~~~~~~~~~~~~~   
+
+## 1 = blockConstants
+~~~~~~~~~~~~~~~~~~   
+    uint32_t    numConstants
+~~~~~~~~~~~~~~~~~~   
+
+## 2 = blockStyles
+
+~~~~~~~~~~~~~~~~~~   
+    uint32_t    numStyles
+    Styles      styles[numStyles]
+        TqString    name
+        int32_t     sortOrder 
+        uint32_t    numPasses
+        Pass        Passes 
+            Uint            numStateBindings
+            StateBinding    StateBindings[numStateBindings]
+                int32_t     state
+                uint32_t    stateIndex
+                Bool        constant
+                UInt32      valueIndex
+~~~~~~~~~~~~~~~~~~   
+
+## 3 = blockMetadata
+~~~~~~~~~~~~~~~~~~   
+    uint32_t    flags       // Bitflags 
+                            // bit 0 set: FOLIAGE
+                            // bit 1 set: SKINNED
+~~~~~~~~~~~~~~~~~~   
+
+
+# NameList
+~~~~~~~~~~~~~~~~~~   
+    TqString    name                // name of generation  
+    uint32_t    length              // Length of section 
+    Block       blocks[]            // Until end of nameList
+~~~~~~~~~~~~~~~~~~   
+
+# API
+~~~~~~~~~~~~~~~~~~   
+    uint8_t     apiIdentifier       // 0 for RenderApi_Direct3D and 1 for RenderApi_Direct3D11.
+    uint32_t    length              // Number of bytes this API block is. 
+    Namelist    generations[]       // Until end of API
+~~~~~~~~~~~~~~~~~~   
+
+# SSH File Layout
+
+~~~~~~~~~~~~~~~~~~   
+    uint8_t     tag[3]              // The characters SSH.
+    uint8_t     version             // Always the number 6.
+    API         api[2]
+~~~~~~~~~~~~~~~~~~   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+__Basic data structures__
+
+~~~~~~~~~~~~~~~~~~
+Ssh Header:    
+    VertexDeclaration   decl            // There's a guarantee that all contained
+                                        // vertex-/pixel-shaders have identical
+                                        // declarations.
+
+Value
+    TypeSpecData
+        UInt32          Type_Int
+        Bool            Type_Bool
+        String          Type_String
+        Float[12]       Type_Float4x3
+        Float[16]       Type_Float4x4
+        String          Type_Texture
+        Float           Type_Float
+        Float[2]        Type_Float2
+        Float[3]        Type_Color3
+        Float[3]        Type_Float3
+        Float[4]        Type_Color4
+        Float[4]        Type_Float4
+        VertexShader    Type_VertexShader
+        PixelShader     Type_PixelShader
+
+VertexDeclaration
+    Uint8 numDeclarations
+    Byte decl[numDeclarations]
+~~~~~~~~~~~~~~~~~~
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

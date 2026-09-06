@@ -1,0 +1,557 @@
+(#) Guide - Monsters
+
+The Monster Record contains a monster's core settings and references related records and assets such as AI, gear/loot, mesh, sounds and animations.
+Monster records themselves are linked to in proxy pools, summoning skills, or rarely as on-death spawns in other monster records.
+
+Generally, all enemies and bosses, including their pets, use the "monster" class.
+As such, their bio values and damage receive standard scaling (difficulty bonuses) as defined in game/monstergamebalanceattributes.dbr.
+In addition, difficulty-related 'array' values can be used for extra tweaking, and monsters often use them for difficulty-dependent levels of skills, including some passive skills specifically used for balance.
+
+Please look at existing monster records e.g. from xpack2/creatures/monster as examples.
+
+# Monster Parameters 
+
+**ambientSound,
+ambientPeriodMin/Max**
+
+A sound pak the enemy may play at any time while alive (and near the FOV) in the designated intervals. E.g. Bandit babble.
+Better to err on the low end when it comes to frequency here, especially for grouped enemies.
+
+**alertSound,
+alertSoundChance**
+
+Sound an enemy may play when acquiring a new target. - May happen more than once.
+Again, adjust this to the frequency of the enemy (~10% on fodder to 100% on bosses).
+
+**rampageSound,
+rampageSoundChance**
+
+Sound the monster may play when falling below the low health threshold (lowHealthTriggerLevel), if set.
+-> Basically the same as lowHealthSound but with less than 100% chance.
+
+**controller **
+
+The Monster's Controller is a separate DBR that sets the monster's AI including senses, aggression, flee behavior and more.
+This is an important part of every enemy and should be chosen with care. Also should never be left blank.
+-> Monsters which may equip ROH weapons (thrown) must not have an AI that includes a Lead Chance for projectiles, because this combination will cause a crash!
+-> Aggressive/Defensive is for pets only
+
+Controllers can be found in \Controllers, \Xpack\ai controllers and \Xpack2\ai controllers.
+
+**monster Classification** 
+
+The monster classification determines the color of the monster’s name in the Target Info section of the HUD as well as the multipliers the monster uses to determine the quality of its loot. 
+
+* Common : Gray. used for fodder monsters that pose minimal challenge individually 
+* Champion : Yellow. used for mid-tier monsters that pose some challenge individually but throw in additional mechanics in a group fight and should be prioritized. 
+* Hero: Orange. used for hero monsters with custom skill sets. They are marked by a hero star above their head. 
+* Quest: Purple. Used for quest-related monster groups or mini-bosses.
+* Boss: Red. Used for large bosses
+
+**fleeSound, 
+fleeSoundChance**
+
+Chance to play when AI triggers the monster to flee (on damage/proximity)
+
+**fleeAnimChance**
+
+The fleeing anim may replaces the normal run anim if set
+
+**petAttackSound**
+
+When a pet confirms a move/attack order
+
+**petAcknowledgeSound**
+
+When selecting a pet to give direct orders
+
+**deathFromEnemyRange**
+
+Kills an actor when any hostile actor enters its vicinity.
+Useful for mines, suicide bombers and the like, or the invisible ‘rat’ that grants Surtr invincibility until you enter the arena.
+
+**monsterMesh/BaseTexture/BumpTexture**
+
+Not the regular mesh/texture/bump.
+Arrays of random options that may replace them for the sake of variety.
+
+**perPartyMemberDropItemName****
+
+This parameter is used to set what item this monster drops per player in a multiplayer session.
+
+**lifeTime**
+
+Time to live, in ms, from the moment of spawn/load. Can be used to limit the duration of on-death spawns or make chains of them (can be useful in rare cases).
+-> On summoned actors, this is overridden by the spawnObjectsTimeToLive defined in the summon skill.
+
+**aliveSound**
+
+Constantly loops while the monster is nearby and alive. Use only for subtle hover effects or the like.
+-> Alternatively use loopingRunningSound
+
+**treasureProxyName**
+
+Enter proxy here if a boss drops an orb.
+
+**dropItems **
+
+A bool for whether the monster can drop what it has equipped. Set to False for summons (usually) or on-death spawners and to true for everything else.
+-> Pro tip: Even when set to 0, items from the Misc section of Initial Equipment (which are not actually worn) will still drop. Sciron's first form uses this to drop a helmet during transition, for example, while his real helmet dissolves along with the other gear.
+
+**giveXP **
+
+A bool to disable XP gain. Compare dropItems. 
+
+**MonsterMusic,
+MonsterMusicRadius**
+
+Which music pak a boss plays if the player is within its radius and there is a boss music layer in the map area.
+
+
+# Character 
+
+**charLevel** 
+
+The monster's base Level (before LevelGapFixer modification in Epic and Legendary), always written as an array for normal;epic;legendary values.
+Mostly used in a proxy's selection of spawns. Affects things like base XP and ability to be mind controlled. And of course a general indicator of relative strength.
+
+**experiencePoints **
+
+Bonus experience (before multipliers) for killing this monster, generally only set for heroes and above, up to ~2k for main bosses.
+
+**walkSpeed**
+
+-> Use the walk animation’s speed instead
+
+**handHitDamageMin/Max**
+
+The damage the monster does on basic attacks when attacking without a weapon. Because this means they will not have better gear in higher difficulties, they also need the passive damage skill Records\Skills\Monster Skills\Passive_Buffs\PhysDmg_MeleeOnly.dbr or the respective 01 / 02 versions for smaller / swarming enemies at level 1;2;3 (array).
+
+* -> If the enemy has a weapon, the hand hit stat is ignored. And the scaling skill used in that case is a flat damage addition at a fixed level (around 20 in act 5) to go with varying weapons: Records\XPack\Skills\MonsterSkills\Passive\BonusDamage_Physical.dbr
+* -> Unarmed monsters can still use attack skills or passive skills with extra damage/effects unless these specifically require a certain weapon type.
+
+**footHitDamageMin/Max**
+
+Like hand, but only used when an animation specifically calls for a foot attack (very rare). Useful for special cases when you want weapon-using enemies to attack unarmed, like a Croc Man swinging its tail to stun.
+
+**characterGenderProfile**
+
+The Gender Profile is used mostly for players and humanoid monsters and tells equipment pieces to use special "gendered" shapes instead of the default -  if these can be found in the respective item's Armor Parameters.
+* -> Of course it could also be used to do this in any other context, e.g. to hide pieces "worn" by a monster until they drop.
+ 
+**characterRacialProfile**
+
+The Racial Profile is used to tag the monster with various races for the purposes of Bonus Damage. A monster may have more than one profile at a time.
+The curent races are: Beast, Beastman, Undead, Ghost, Demon, Magical, Construct, Device, Plant, Insectiod, Giant, Telkine, Titan, Olympian (=Deity)
+
+**defaultHeadPiece**
+
+Helmet the creature will wear if not wearing another, and when dead. Used for hair on humans.
+
+**weaponScale**
+
+Scales up the model size of weapons and shields in relation to the monster. (They already scale along with the monster's overall size.) When the weapons drop, they are reduced back down to the original scale.
+
+**attack/defenseSlots**
+
+Attack Slots are important for very large monsters so that pets and other entities can attack them at the same time. The Default of 4 (-> one per 90°) is sufficient in most cases, bosses have 6-8 since X2. Particularly large monsters -or those which can only be reached within a small radial angle, like Surtr 2- may need more.
+
+**pathingSize, specialExtent**
+
+Defines whether the enemy can move through narrow spaces and the radius around the center point that is added to skill ranges (large ~1.5m) when attacking. Our specialExtent hack allows to set a custom radius for the latter.
+
+**startVisible **
+
+If set to 0 the monster is initially loaded invisible. This is important for monsters that are ambushing. These monsters must have an appear callback as part of their spawn animation or else they will remain invisible when attacking.
+
+**distressCall** 
+
+How the monster calls for help. If set to true, the range determines how far the distress call reaches, the group determines the group of monsters that is called (all monsters that have the group set here in their controller will respond), the call time is the delay between additional distress calls and the max calls is the maximum number of times the monster will call for help. 
+
+**invincible** 
+
+useful for quests (though they can also set this) or entities based on invisible monsters like environment traps.
+
+**hiddenFromCombat **
+
+If true, the monster will not be targetable or generate aggro. Its name will not display, yet it may attack.
+
+**causesAnger**
+
+Wheher or not the monster generates aggro on non-player actors, i.e. enemies or player pets.
+
+**angerMultiplier** 
+
+Useful for pets to wither make them tank better (Monster Lure) or generate less attention (Traps)
+
+**upper/lower HealthDisplayPercentage **
+
+Used for bosses with multiple phases to keep one continuous health progress 
+bar across all phases. The Upper is the 'full' % of health and Lower is the 'dead' % of Health displayed. 
+
+**triggerBoundingVolumes**
+
+Ability to interact with quest BVs. Usually reserved for (N)PCs.
+
+
+# Character Sounds
+Note Other interesting sounds are a located in the following sections: 
+* Monster Parameters: Ambient, Alert (also Rampage and Flee)
+* Animation Sounds: Death, Vox, Critical Hit , Body Fall and special animation references 
+
+**attackSound**
+
+Sound when an unarmed attack hits.
+
+**swipeSound**
+
+Sound when swinging unarmed. (Weapons have their own swipe sounds.)
+
+**stunSound**
+
+Always played when receiving a stun (unless resisted 100%+). Independent on the stun’s duration.
+
+**lowHealthSound**
+
+Sound to play when health drops low, usually not used except on players. Can be useful though, e.g. on Ylva or escort quest companions.
+
+**lowHealthTriggerLevel**
+
+Health % at which the low health sound plays. This may also influence the low health fleeing condition if set.
+
+**impactSound, impactSoundChance**
+
+Sound when taking damage, e.g. slimy squish or skeleton bone rattle. May be limited to weapon attacks (needs checking).
+
+**loopingRunningSound**
+
+Does what it says, compare aliveSound.
+
+**splashSound**
+
+Sound when item/ragdoll falls into water
+
+
+
+
+# Character Effects
+
+**dyingFxPak**
+
+On-death effect, alternative or addition to deathEffect.
+
+* FxPak is aligned relative to ground while the deathEffect (not a Pak) may move with the dying enemy.
+
+
+# Movement Parameters
+
+**maxRotationSpeed**
+
+Can be useful for large enemies. The limit only really becomes notable at numbers <5
+
+**disallowRotation**
+
+Useful for some stationary actors e.g. Guardian Stones.
+
+# Death Parameters
+
+**deleteBehavior**
+
+Dissolved and faded corpses are currently not deleted at the end of the effect, and will be visible again when returning to an area later.
+
+* None - corpse remains
+* Dissolve - Do so over dissolveTime seconds in dissolveTexture shape (either standard 'CloudTEST' or 'StatueBreaking' for cracks) using dissolveColor.
+* Fade - Fades out (ghosts), works better on some GPUs than others.
+* Dissolve on callback - Like dissolve except nothing happens unless there is a death animation which also contains a respective callback. Useful for choreographed boss deaths.
+
+**actorToSpawnOnDeath**
+
+Spawns an actor (or two) the instant the monster dies.
+
+* Works well with short-timed dissolves.
+* Can be used to spawn friends from enemies and vice versa.
+
+**waitForCallbackToSpawn**
+Addition to the above, requires a death anim with a respective callback
+
+**actorToSpawnForMyBones**
+
+Used to overlay a dissolving enemy with another mesh (skeleton) as it dies. The new actor is already dead and copies the same death animation. 
+
+* Make sure there is one.
+
+**deathEffect**
+
+Standard death effect (not an FxPak)
+
+**overrideRagdollBehavior**
+
+Set 'Crumple' when using doLateCrumple=1 just to be safe.
+
+* Crumple - Falls down using only the velocity of the current animation
+* TakeHit - Rigidbodies around the 'target' get velocity specified.  Others get random
+* Random - All rigidbodies get some random amount of velocity
+
+**doLateCrumple**
+
+Bool that actually translates to 'Play Death Animation'
+
+* Set to make sure the death animation is used
+* Care: Using this when no death anim is available will result in 'scarecrows'.
+
+
+# Animation Sets
+
+Monster animations are stored in an Animation Table DBR. This Record is assigned to the monster here. The section has sub-fields where you can enter individual animations for the monster if charAnimationTableName is left blank, but generally you should use an Animation Set. If you have a monster with very limited animations, such as a trap, then it can make sense to assign them directly.
+
+* Pro tip: You can turn a monster with individual animations into an animation table for wider use by making a copy and changing its template to CharAnimationTable.tpl
+
+
+# Animation Sounds
+
+Though some are found in other sections, most of the important sounds are in here.
+
+**criticalHitSound** 
+* Played whenever the monster receives a crit.
+* Care: This can happen very often when fighting high level players that focus on OA or debuff DA, to the point that it is safer not to use this unless tested otherwise. Definitely not a good combination with elaborate screams.
+
+**deathSound**
+
+The more the merrier.
+
+**voxSound, voxSoundChance**
+
+Sound that may play when enemies swing / cast spells at you and the animation calls for it. Around 25% is good, depending on the size of enemy crowds.
+
+**voiceSound**
+
+Sound to play when a (special attack / cast) animation calls for it. Usually used at 100% for a guaranteed sound as opposed to Vox. Often the same file.
+
+**specialAttackSound / genericSound**
+
+Further sounds that may be called by special animations.
+
+**bodyFallSound**
+
+Sound when a “main” ragdoll piece hits the floor, or when the death anim calls it.
+
+
+# Footsteps
+
+Footstep sounds / decals, but only if the run anim contains an actual step.
+So far limited to PCs and some bosses.
+
+
+# Actor Variables
+
+**description**
+
+The monster's name tag. Anything not recognized as a tag will be displayed in the game as is, and not localized (can be used for placeholders).
+
+**mesh**
+
+The monster's standard model. Please contact your local artist for locations.
+May be overridden by a random mesh from the monsterMesh array (in Monster Parameters) if defined.
+
+**base/bumpTexture**
+
+* A default set of textures usually comes with the mesh, but it does not hurt to always fill these in anyway. Variants should also be in the same path location as the mesh.
+* The bump texture includes the specular map.
+* Monsters can also have a glow texture, but these can ONLY be attached directly to the mesh at this point in time.
+
+**scale**
+
+Scales the monster along with its gear and hitbox. Also multiplies movement speed accordingly (bigger steps) - compensate via characterRunSpeed if needed.
+
+**displayAsQuestItem**
+
+Adds a (!) marker with the monster's name to the minimap.
+
+**unloadedBoundingBoxExtents**
+
+To give a boss some volume even after it is dead.
+
+**quest 0/1**
+
+Marks an object as quest critical in the Editor (prompt on deletion). No in-game effect.
+
+
+# Character Bio
+
+**Natural Resistance **
+
+This sub-section is where you set the monster’s baseline resists to various damage types and forms of crowd control. Mind that all enemies do can reach 100%+ immunity and do receive at least +30 to all these in Legendary, so 50 is high. Monters that equip armor or jewellery may receive further random bonuses, which is why humanoids usually have only few inherent resists.
+
+* Bleeding Resistance is still missing in the list and currently has to be added by creating a passive skill like records\skills\monster skills\defense_resistbleeding.dbr
+* So far enemies receive it through their “racial” resistance packages e.g. for Constructs and Undead.
+
+
+# Character Parameters
+
+Set things like Strength, Dexterity, Intelligence, Life and Energy. Mind that the first three multiply their respective damage types.
+On characterLife (Health) it can be useful to use the N/E/L array option for boss balancing.
+
+**characterIncreasedExperience**
+
+Experience bonus for PCs. Usually granted by items or shrines.
+
+**characterPhysToElementalRatio**
+
+* X2’s new conversion of base weapon damage.
+* Usually not inherent but granted through skills or items.
+
+**characterRun/Attack/SpellCastSpeed**
+
+Base values for these. As opposed to making skills or items, you actually want to edit these here and not the modifiers.
+
+**Regeneration**
+
+Inherent regeneration or modifiers.
+
+Because these do not scale much throughout difficulties, but monster health increases massively, it requires an array of characterLifeRegen values like 10/25/50 to achieve about the same health % per second regeneration on a Troll Crusher.
+
+**characterOffensive/DefensiveAbility**
+
+* These may be bugged. -> Use Dexterity to adjust a character's combat skill.
+* Also increases via difficulty bonuses.
+
+**characterDefensiveBlockRecoveryReduction**
+
+* % of reduction to the 2.5-3s shield cooldown after a successful block.
+* Usually not inherent but granted by buffs, though special enemies could have it.
+
+**characterEnergyAbsorptionPercent**
+
+This is absorption of mana when being hit by enemy spells (e.g. Runemaster skill).
+
+**characterDodgePercent / DeflectProjectile**
+
+* Chance to dodge melee or projectile attacks (up to a cap of 80%).
+* Usually granted by skills or items. Likely bugged if entered as inherent ability.
+* Use these passive skills like instead:
+    * records\skills\monster skills\defense\dodge_1%perlevelx100.dbr
+    * records\skills\monster skills\defense\dodgeprojectile_1%perlevelx100.dbr
+
+
+# Reward
+
+Set an appropriate goldGeneratorChance (<5% for fodder to 100% for boss chests) and goldGenerator quality (common to Typhon) here.
+
+
+# Skill Tree 
+
+This is where all of the monster’s skills are assigned. The skill level can be a fixed value or an array that increases the levels according to difficulty. 
+
+
+# Skill Configuration
+
+Controls how a monster uses active skills from its skill tree.
+-> Make sure they are included there with non-zero levels.
+
+Notably, there are many cases where monsters ignore a skill's inherent cooldown in favor of their own settings.
+
+**attackSkillName**
+
+The monster's main attack skill, spammed on cooldown.
+If blank it uses the normal weapon attack.
+
+**buffSelfSkillName**
+
+Tells the monster to use this skill to buff itself, whether there are allies nearby 
+or not. The skill should have a cooldown, else the monster may spam it and get stuck. 
+
+**buffOtherSkillName**
+
+Tells the monster to use this skill only to buff allies. It will not use this skill 
+unless allies are around to be buffed. The cooldown for this skill should be set on the skill itself, or else it may get spammed. 
+
+**healSkill**
+
+Tells the monster to use this skill to heal allies. It will not use it to heal itself. 
+Further heal parameters are found in its AI file.
+
+**healSkillDelay**
+
+Tells the monster to wait this many seconds minimum between heals. 
+
+**berserkSkillName**
+
+tells the monster to use this skill when it is low on health. Paired with lowHealthTriggerLevel, which is a percent entered as 0-100. 
+
+**dyingSkillName**
+
+Tells the monster to cast this skill when it dies. Useful for creating explosions on death. 
+
+**initialSkillName**
+
+Tells the monster to cast this skill when it spawns. This is used for monster auras. As opposed to buffSelfSkillName, it will not attempt to recast this when dispelled.
+ 
+**specialAttack#SkillName**
+
+Controls up to 5 specific skills based on the following sub-parameters:
+
+**specialAttack#Timeout**
+
+How many seconds into combat the monster will wait before using this skill.
+Possibly resets when acquiring a new target.
+
+**specialAttack#Delay**
+
+How many seconds the monster will wait between uses of this skill, i.e. custom cooldown.
+The real cooldown will be ignored even if this is blank, making it spammable.
+
+**specialAttack#Chance**
+
+Is the chance that the monster will use the skill when available. This chance is checked after every attack, or every few frames when not attacking.
+This means that a melee fighter will swing about four times before using a 20% chance skill when engaged in melee, but may fire it every couple of seconds (delays allowing) when at range with no other attack options.
+
+**specialAttack#Range**
+
+is the range the player must be in for the monster to consider using the skill. The 
+options are AnyRange, Short, Medium and Long. The values for these are set at the bottom. 
+
+**shortRangeMin/Max etc.**
+
+See above. Usually, Short is 0-4 for melee, the others vary based on need up to ~30 for a stationary boss like Porcus.
+Longer distances require a respective Sight Range in AI's Senses section!
+
+**chainInitialSkill**
+
+Used to tell the monster to use a specific sequence of skills. The initialSkill is 
+the triggering skill. The chainNextSkill is what skill it will use after the triggering skill is used. The chainBehavior tells the monster what the target is for the NextSkill.
+* -> Pro tip: This can be used to cram a 6th special attack into a boss fight, like Surtr II summoning an Infernal to harass sniping players after putting up his reflective shield.
+
+
+
+
+# Initial Equipment 
+
+This section determines the equipment the monster is wearing and actively benefiting from. This means that any bonuses the gear has will be applied to the monster. It also means that the equipment will drop as part of the WYSIWYG Loot System. 
+
+The only exception to this is the Misc sub-section, where you can assign loot that is not bein equipped but can still drop from the monster (even when dropItems is set to 0).
+
+Always in 3-entry arrays for the 3 difficulties. These usually link to loot tables or their master tables, but can in theory link to individual items.
+Care: Easy to overlook missing entries 2 and 3 due to already long paths!
+
+Usual numbers & conventions
+
+* Chance to equip x: Around 20%, slightly more for torso armor.
+* Item1 - Common, chance 5000
+* Item3 - Monster Infrequent, chance 20-30
+* Item5 - Unique, chance 4-6
+
+# Misc
+Usually for dropping potions, relics/charms, scrolls and amulets.
+
+
+
+
+
+
+
+
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

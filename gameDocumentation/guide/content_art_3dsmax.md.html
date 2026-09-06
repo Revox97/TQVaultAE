@@ -1,0 +1,250 @@
+
+# 3DS Max
+
+Working with Titan Quest requires 3DStudio Max 2012 (3DS Max 2012 14.0 Update 12, (32-bit)). To set up 3DStudio Max to work with models for Titan Quest, you will need to (get plugin). 
+This plugin will allow you to access files from the Art Manager and assign textures, create materials with shaders specific to Titan Quest and add other attributes to the models.
+
+
+The following steps will guide you through loading the Plugin into 3DStudio Max:
+
+1. Access the "Customize" drop-down menu.
+2. Choose the "Plug-in Manager..." option.
+3. In the Plug-in Manager window, rigt-click and select "Load New Plug-in..."
+4. Navigate to where your plug-in is located. The plug-in is named "MaxPlugins.dlo"
+5. For efficiency, we recommend creating a shortcut to the script file somewhere that is easily accessible, as it will need to be loaded every time you start 3DStudio Max to access the functions described in the following sections.
+6. To view shader materials use the DirectX driver in 3DSMax (Costumize/Preference Settings/ViewPorts/DisplayDrivers).
+
+
+# Textures
+
+Creating a texture is nothing we will cover specifically in this walkthrough. However, some things to take note of is that in Titan Quest, the Specularity information should be applied to the Alpha channel of the Normal/Bump map.
+The textures must be scaled in the power of two, but can be of even dimensions of 2:1. (eg. 512x512, 1024x1024, 512x1024 etc.)
+
+There are several different texture types used in Titan Quest, each of which will require certain different steps when building them in the Art Manager.
+Your texture files should be located under the Source folder. From here, they will be built into Assets in the Art Manager.
+
+The following steps will take you through the process of building the different textures in the Art Manager.
+
+![](guide_images/art/texture_example01.png)
+
+1. Under the Sources tab of the Art Manager, locate the folder in which your texture file is located and click it, its contents will be shown in the window to the right.
+2. Right click your texture file and choose "Auto-Create Asset". This will prompt you to choose an Asset Type. In this case, where the texture is going to be applied to a game asset, the Asset Type should be specified as "Texture", press "OK" to continue.
+3. You will be faced with a window labeled "Texture Properties". Here you specify the different properties for your texture.
+The following steps show the different properties used by different texture types. 
+
+Diffuse and Emissive maps: 
+Format should be set to "DXT3 (explicit alpha)"
+The Normal map box should remain unchecked.
+
+Normal: Format should be set to "DXT5 (interpolated alpha)"
+The Normal map box should remain unchecked.
+
+Bump: Format should be set to "DXT5 (interpolated alpha)"
+The Normal map box should be checked.
+
+4. Press "OK".
+
+Your texture has now been built into an Asset that can be found under the Asset tab in the Art Manager, and be accessed from the shader menu in 3DS Max.
+
+## Bitmaps
+1. Under the Source tab of the Art Manager, locate the folder in which your texture file is located and click it, its contents will be shown in the window to the right.
+2. Right click your texture file and choose "Auto-Create Asset". This will prompt you to choose an Asset Type. In this case, where the texture is going to be applied to a UI asset/Icon,the Asset Type should be specified as "Bitmap", press "OK" to continue.
+3. You will be face with a window labeled "Asset Properties". Here you specify the source file for your bitmap. Usually this is already filled in based on the source file you're building from.
+4. Press "OK".
+
+Your bitmap has now been built into an Asset that can be found under the Asset tab in the Art Manager, and be accessed from the shader menu in 3DS Max.
+
+
+
+# Models
+
+## Grid models for dungeons
+
+When creating a grid for dungeons or caves in Titan Quest, we usually begin by setting up the database using an existing database as a guideline. These steps will guide you though setting up a database and applying the correct template.
+
+1. In the Art Manager, locate the "Database" tab and click it.
+2. Locate an existing .dbr file with the "GridSystem.tpl" template. To find out which template a .dbr uses, or change it, double click the .dbr and navigate to File -> "Set Template...".
+3. A .dbr with the "GridSystem.tpl" should have three groups visible in the left hand window. "Header", "Pieces" and "Transparency".
+4. In the "Header" group we can change the name of the actor, see the class, and add our own description that will be visible in various places in the Art Manager.
+5. In the "Pieces" group we can define "cellSpacing" as well as which meshes will make up your Grid System: 
+
+"cellSpacing" defines the size of your grid tiles. You can alter them in X, Y an Z axis.  
+
+Meshes are divided into two groups, namely "Pieces" and "Features". 
+"Pieces" are meshes containing walls and floors that automatically fit together when we define walls and floors with the "Grid" tool in the Editor. Double clicking the rightmost textbox next to the different wall pieces will allow us to specify which .msh files will be used in our grid system.
+Note that it is important to keep the same structure as is already defined. For example, a straight wall should always be placed in "wallPieceBaseA", while a floor should always be placed in "wallPieceBaseI".
+
+Features are unique assets that correspond to the grid and are placed manually within the Grid System. Examples of features would be stairs and cave entrances.
+To add a feature, we will first need to create a "feature array". To do this, double click the textbox to the far right of the "feature" entry.
+In the window that opens, you can add features by clicking the "New" button under "Array Editing Controls" as many times as necessary. You can then define which mesh to be used in the array by double clicking the "Value" box of the corresponding "Index" entry.
+You can also use the "Move Up" and "Move Down" buttons to alter the order in which the features will be shown in the Editor. 
+Note that the Editor uses the numerical value to determine which features goes where, so altering the order will also change which meshes are displayed where in the Editor if they are already placed. 
+When we are done with adding features to our array, we have to press the "Apply" button to commit our changes. 
+
+
+The following information will concern technical applications in 3DStudio Max, and will not cover the specific modeling of a tileable grid. We recommend that you locate and examine already existing grid systems by inspecting them in 3DStudio Max.
+
+Walls in dungeons and caves are divided into a lower and upper portion. The reason for this is to allow the upper portion to fade away as the player stands behind it, keeping the lower part visible. To accomplish this we will need to define some properties of the lower parts by following these steps:
+
+1. Select the lower part of our grid tile and right click on it. In the drop down menu, select "Object Properties...".
+2. In the "Object Properties" window, locate and click the "User Defined" tab.
+3. In the textbox, enter "Section=NoTransparency" with the capitalization shown here, this will tell the engine to keep the parts with this specific property from going transparent.    
+
+
+## Stitching/Blending
+
+If we want parts of our mesh to attach to the in-game terrain, we will have to make them stitch, and if we want them to project the terrain texture, we will need to make them blend. The Plug-in provides tools to do just that, and in this section we will guide you through how to do it. In our example, we will be using a beautiful yellow box. The blue faces are the parts that we are going to blend with the terrain texture, while the outer edges of the blue faces will be stitched to the terrain. 
+
+![](guide_images/art/stitchblend_example01.png)
+
+To enable us to stitch and blend, we will need to apply a modifier to our mesh. Select the model and locate and click the "Tile" modifier in the "Modifier List".
+
+To stitch the mesh to the in-game terrain, follow these steps. 
+
+1. Access the "Tile" modifier in the modifier stack.
+2. Select "Edge Selection".
+3. Select the edges on the mesh that you want to attach to the in-game terrain. Note that these need to be connected in a full loop.
+4. When the edges are selected, tick the "Stitch to terrain" box under the "Edge properties" section. If everything went the way it should, green arrows will indicate that the edge will be stitched. If a loop is not closed, a small yellow box will indicate where it is left open. 
+
+![The tile modifier options](guide_images/art/stitchblend_example03.png) ![Box indicating an open loop](guide_images/art/stitchblend_example02.png) 
+
+To blend select faces with the terrain texture, follow these steps.
+
+1. Access the "Tile" modifier in the modifier stack.
+2. Select "Face Selection".
+3. Select the faces on the model that you want to blend.
+4. In the "Face Properties" section, specify a Physics type and tick the "Blend with terrain" checkbox. The Physics type determines if footprints are enabled as well as the sound played when the player walks on the faces.
+5. If everything went the way it should, the faces should now be displayed as dark green to indicate that they will blend with the in-game terrain.
+
+Note that to create collisions for meshes with the "Tile" modifier, we will need to create a Physics mesh (See Collision section).
+
+
+
+
+## Materials (textures/shaders)
+
+1. With the Plug-in loaded, and a model ready to recieve materials, navigate to the "Material Editor" (default hotkey "M"). Select a "Default" material and press the "Get material" button, this will open a new window called "Material/Map Browser".
+
+![](guide_images/art/material_example01.png)
+
+2. In the "Material/Map Browser", double-click the option "Shader". The "Default" material should now be a "Shader" material and look like in the image below. Be sure to name your materials to better keep track of them. 
+
+![](guide_images/art/material_example02.png)
+
+3. To choose a shader type, press the button located next to the "Shader" textbox. This will open a window prompting us to select a shader file (.ssh) to apply to the material.
+
+![](guide_images/art/material_example03.png)
+
+4. In this case, we are creating a box to be used in the game. It will not be animated or have any special textures. It is a static asset that will use a diffuse, normal and specular map. Therefore, we will locate and use the "standardstatic.ssh" shader.
+5. Going back to the "Material Editor" window, we can see that our material has received new parameter options relating to the "standardstatic" shader: "specularPower", "baseTexture" and "bumpTexture". The "specularPower" value determines how glossy the texture will look. The standard value is 1. In the remaining parameter boxes we will apply our texture files. Note that we will have to build our textures in the Art Manager before they can be accessed in 3DS Max.
+6. In "baseTexture", we will apply our Diffuse map, and in "bumpTexture" we will apply our Bump or Normal map. To do this, we will click the button in each corresponding parameter box, locate the texture and press "Ok".
+7. Now when the material is complete with textures and shader type, we will apply it to our asset. There are a number of ways to do this. 
+Either by dragging/dropping the material onto the asset, or by selecting the asset in the viewport, and with the material selected press the "Assign Material to Selection" button.
+
+
+
+
+## Collision 
+To create custom collision data for our models, we will need to apply either hitboxes or physics meshes in 3DStudio Max. The following section will guide you through the process of creating both hitboxes and physics meshes. 
+
+### Hitboxes:
+
+Hitboxes are the most basic collision entity in Titan Quest. To create hitboxes, follow these steps.
+
+1. Under the "Create" tab in 3DStudio Max, locate the "Helpers" button.
+2. In the menu, select "HitBox".  To create a hitbox, simply click and drag in the viewport. Note that an object can have several hitboxes if needed.
+3. In the menu that appears we can later specify measurements and name our hitbox.
+4. Export the hitbox(es) along with the base mesh according to the export instructions found in the "Exporting" section.
+
+Note that Hitboxes won't work when applied to stitched meshes or grid models.
+
+
+### Physics meshes:
+
+To add collison data to stiched models and grid models, we will need to create a Physics mesh in the same scene. This mesh will be a simplified version of our "more detailed" model, and act as a collision. 
+
+In this case, we are working with a box that will be stitched and blended. Our physics mesh is a direct duplicate of our base mesh, with the same coordinates and vertex positions. 
+It is important that this mesh in named "Physics", specifically spelled and capitalized like this.
+Note that only the vertices along the sticthed edge needs to be in the same position as the base mesh to allow pathing to work properly. 
+We want the red faces of the model to act as a collider for the player, while they should be able to walk on top of the green faces. To achieve this, take the following steps.
+
+![](guide_images/art/physics_example01.png)
+  
+1. Select a "Default" material, and name it "Physics_Unwalkable"; This material specifies that the player cannot walk on top of these faces. We will define this material by giving it a red color.
+2. Select a second "Default" material and name it "Physics_Dirt"; This will allow the player to walk on top of the faces with this material applied. We will define this material by giving it a green color. The walkable materials can be named after the names listed in the "Tile" modifiers "Face Properties".
+3. Apply these materials to the fitting parts of the model.
+4. Export the "Physics" mesh along with the base mesh according to the export instructions found in the "Exporting" section.
+
+
+When it comes to grid models used in dungeons and caves, the same principles apply.
+
+
+
+
+# Exporting
+
+To export our model, we will need to do so using a new file extension added by the Plug-in. While exporting, make sure that the "Save as type:" box in set to "Model Exporter (*.MDL)".
+It is important that you name your model with the file extension, **actually typing out ".mdl"with lower case letters after the file name** , otherwise the Art Manager will have trouble recognizing the file type.
+Make sure you export the model under the Source folder, to be able to access and build it in the Art Manager later on.
+
+
+
+
+## Building .mdl-files in the Art Manager
+
+The following steps will take you through the process of building the model in the Art Manager.
+
+1. Under the Sources tab of the Art Manager, locate the folder in which the .mdl file is located and click it, its contents will be shown in the window to the right.
+2. Right click the .mdl file and choose "Auto-Create Asset". This will prompt us to specify the Model Properties. The Source should automatically be set to use our model. In the "MIF:" textbox we can assign a .mif file. The "Vertex Colors" checkbox should only be checked if the shader we are using has any vertex color information, for example the "standardvertexcolorstatic.ssh" shader. In our case, we do not have to worry about any of that.
+3. Press "OK".
+4. Our .mdl file has now been built into an asset using an .msh file extension, that can be located under the "Assets" tab, and used in a database.
+
+
+
+
+# Portals
+
+In the world, the portal dbr utilizes the "GridEntrance.tpl" template. As part of a grid system they should be made as features.
+
+A portal system is made up of two separate objects in 3DStudio Max, namely "choke points" and "portals". 
+The "portal" object is a plane upon which the choke point will project an image. This projection is based on what the connected portals chokepoint "sees".
+Note that it is important to keep the relationship between the chokepoint and the portal consistent at all times. The rotation and translation of the "chokepoint" significantly alters what is projected upon the portal plane.
+When creating an asset containing a portal system, we recommend that you locate and use an already existing and functional portal system as a base. 
+
+
+# MaxPlugin
+
+## Object Properties
+On objects it is possible to set custom properties by right clicking the object and select Object Properties. Then select the user defined tab.
+
+Section=NoTransparency
+Disable the transparency on mesh as it gets between the player and the camera. 
+
+## Model Exporter - ModelExporter : SceneExport
+Found in the File Export dialog box. Export the scene to a .mdl file.
+
+## TileExporter - TileModifier : Modifier
+Found in Modify/Object-Space Modifiers/Tile. It is used to paint the physics mesh of object with the type of Physics material used by each polygon. 
+
+## Animation Exporter - AnimExport : SceneExport
+Found in the File Export dialog box. Export the animation to a .anm file.
+
+## Shader Material - ShaderMtl : Mtl 
+Found in the Material Editor as the material Shader. Select shader and it reads shader parameters and make them possible to modify. Not showing in 3dsmax at the moment but works when exported into game. 
+
+## HitBox - HitBox : GizmoObject
+Found in Create/Helpers. The collision shapes of the mesh.   
+
+## MAX Server - MaxServer : UtilityObj
+Makes it possible to setup 3DS Max to respond to ArtManager clients over network and to export files for them. Clients send files to server, it export them and then clients get the result file back. 
+
+## TEX - BitmapIO_DDS : BitmapIO  
+Reads tex files. 
+
+## ExportObject - ExportObject : GizmoObject
+Found in Create/Helpers/Export Object. Looks like a small 3d floppy disk. When saving the scene the 3DS Max will run to model exporter and the animation exporter and attach the content at the end of the 3dsmax file. That way the ArtManager can read the data from the max file.
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

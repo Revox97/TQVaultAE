@@ -1,0 +1,215 @@
+(#) Tutorial 1 - Basic Navigation and Object placement 
+
+This first tutorial is an introduction to making your way around the editor and setting your level up so it can be playable in-game. We are not going to do anything fancy just yet, we will just be setting up a skirmish against a couple of monsters so we can get into the game and fighting as soon as possible. 
+
+# Loading a World in the Editor  
+The first thing you're prompted to do when you fire up the Titan Quest Editor is select a world to open. 
+
+1. Under 'Mod Name', select 'Tutorial01' from the dropdown. 
+2. A directory tree will appear.  Expand 'Maps' and select 'Tutorial-Basic_Navigation.wrl'
+3. Click 'OK'  
+
+![Open world box in the editor](guide_images/editor/editor_selectworld.png)
+
+# Navigating the Editor 
+## Navigating in Layout Mode  
+When the world loads, the first screen you will come to is the Layout Mode screen. This will show you the world and all of the levels within it. A level is a small segment of the world that can be moved around like a puzzle piece. By splitting the world up into levels, the game is able to stream content as the player navigates a world without pausing to load for long periods of time. 
+ 
+![Layout tab in the editor](guide_images/editor/editor_layout.png)
+
+As your worlds get bigger, you will need to move the camera around in Layout Mode to get a better view of the arrangement of levels across the world. 
+
+1. To pan the camera across the world, hold the right mouse button and move the mouse. 
+2. To rotate the camera around the world, hold down the middle mouse button and move the mouse left or right. 
+3. To zoom the camera in and out in Layout mode, roll the mouse wheel up and down.  
+
+Choosing a Level to Edit 
+
+1. Select the box in the middle of the layout mode screen.  Notice that it becomes highlighted and its name is superimposed over it. Layout mode is good for placement of levels and getting a feel for where different regions will go in relation to everything else. Now that we want to get to actual level editing, we need to enter Editor Mode. We can do this in either Layout Mode or Editor Mode. 
+
+Layout Mode: 
+1. Select a level to edit. 
+2. Press the mode change button. 
+
+![ ](guide_images/tutorials/tut1_changemodebutton.png)
+
+Editor Mode:
+1. Select the Editor Mode tab at the base of the screen. 
+2. Once you are in Editor Mode, use the rolldown list in the top-right corner of the window to select the level you wish to edit. 
+
+![ ](guide_images/tutorials/tut1_selectlevel.png)
+
+
+## Navigating in Editor Mode  
+After a brief loading period, you should be looking at some grassy hills like those pictured below. This is the level we will be editing. As the whole level does not fit onto the screen
+
+![Editor tab in the editor](guide_images/editor/editor_editmode.png)
+
+1. To pan across the surface of the terrain, hold the right mouse button down and move the mouse. 
+2. To rotate the camera around a spot on the terrain, hold the middle mouse button down and move the mouse left or right. 
+3. If you need to zoom in and out, you can roll the mouse wheel up and down to get closer or farther away from the ground. 
+ 
+ 
+# Object Placement 
+Now that we know how to find our way around the level, let's start placing some objects. To place an object, you must select what type of object you want and then click where you want it to appear on the terrain in the Level Edit Pane. We'll start off by placing a few satyrs. 
+
+1. Select the Object Placement Tool. ![ ](guide_images/editor_tools/editor_tool_entity.png)
+2. In the directory pane on the right, locate and select the object 'records -> creature -> monster -> satyr -> am_peltast02'. 
+3. Click on the terrain in the Level Edit Pane to place the satyr. 
+4. To place another satyr, click again on the name of the object in the Directory Pane. 
+5. Then, click on the terrain in the Level Edit Pane.
+
+![ ](guide_images/tutorials/tut1_place_.png)
+
+Tips 
+
+* Multiple copies of the same object can be placed by holding control while left-clicking. 
+* Checking the random rotation or random scale checkboxes in the Creation Parameters pane, on the right, will drop objects with a randomized orientation or scale. This way multiple objects won’t be aligned in exactly the same way.  
+* Checking the snap to grid option snaps the placement of the object to the nearest intersection points on the height map grid. This is especially useful for lining up things like walls and buildings.  
+* Some times the object we want to select is behind other objects, for these cases, besides rotating the camera, we can also use Left Shift key to make the selection scroll through all objects under the cursor.
+
+Deleting objects is pretty intuitive. 
+
+1. Select an object. 
+2. Press the Delete key on the keyboard. 
+ 
+# Object Movement 
+So what happens if we place an object, and we want to move it somewhere else? There are three types of movement for an object: lateral movement, vertical movement, and rotation.  
+
+**Lateral Movement**
+ 
+Lateral Movement of Objects determines where on the terrain the object will be.
+![ ](guide_images/tutorials/tut1_moveicon.png)
+
+1. Left click on an object to select it. A movement indicator will appear at the base of the object.  
+2. Move the mouse to the center of the symbol (where the pink cross is). You'll notice this causes the mouse icon to turn into the four-way arrow icon and the cross to turn white.   
+3. When this icon appears, you can click and drag the object across the terrain. 
+
+![ ](guide_images/tutorials/tut1_lateralmovement.png)
+
+**Vertical Movement of Objects**
+
+Vertical Movement determines how high above or below the terrain the object will be. 
+![ ](guide_images/tutorials/tut1_upicon.png)
+
+1. Select an object. 
+2. Move the mouse so that it is resting on the inner circle of the indicator. You will notice that the mouse icon changes to just an up-and-down arrow and the circle turns white. 
+3. At this point, by clicking and dragging the mouse up or down, you can move the object up into the air or down below the ground. 
+4. Pressing the Spacebar will move all selected objects so that they are the same level as the ground under them.  Note that this will only work for the terrain level.  If you want to place objects on other objects, you’ll have to eyeball it. 
+ 
+**Rotation of Objects**  
+
+Objects can rotate around the 3 axis (X/Forward, Y/Up, Z/Right).
+![ ](guide_images/tutorials/tut1_rotateicon.png)
+
+1. First, select the object. 
+2. Move the mouse over the circle you want to rotate around. X is Red, Y is Green, Z is Blue. The mouse pointer should change to an arrow chasing it's tail and the selected axis turns white. 
+3. Click and drag the mouse left and right to change the rotation the object. Bear in mind that this mode isn't very sensitive to mouse movement, so you'll have to drag a long way to do a 180. 
+
+Tip: You can toggle between world and object/local space by clicking 'W'.
+
+![ ](guide_images/tutorials/tut1_rotation.png) 
+
+**Scaling of Certain Objects**  
+
+Some objects, like decoration objects, support uniform scaling. 
+![ ](guide_images/tutorials/tut1_leftrighticon.png)
+
+1. Select an object. 
+2. Move the mouse over the orange circle at the right of the object. You will notice that the mouse icon changes to just a left-and-right arrow and the orange circle becomes white.
+3. Click and drag the mouse left and right to change the scale the object.
+
+Tip: Clicking with Left Ctrl pressed will reset the actor to it's default scale, set in the record.
+
+![ ](guide_images/tutorials/tut1_scaling.png) 
+
+**Selecting Multiple Objects at Once**
+
+There are two ways to select multiple objects in the editor: the selection box, and Ctrl + left-clicking.  
+
+Selection Box
+
+1. While left-clicking, drag a large selection box by moving the mouse. 
+2. All objects within this box will be selected. 
+
+Ctrl-Clicking
+
+1. Left-click an object. 
+2. While holding the Ctrl key, left-click another object. 
+3. Each new object is added to the group.  
+
+Tip: Pressing 1 will hide/unhide all selected objects. 
+
+**Copy and Pasting Objects**
+
+Objects in the game can be copied and pasted to other locations in the world.  
+
+1. Select an object or objects.  
+2. While selected, press Ctrl + C 
+3. Press Ctrl + V to paste the object(s) in the world. Pasted objects will appear in the center of the screen.  
+ You can highlight multiple objects by drawing a box, with the mouse or clicking on an object and then clicking on other objects while holding Ctrl key. These objects can be moved as a group laterally, vertically, or rotated around a central axis.  
+ 
+ 
+# Spawn Points 
+So now we have enemies, but where does the player appear? We specify where the player appears with a spawn point. The spawn point is where the player will enter the world when the game begins (the model used to represent the spawn point has no effect on what your character will look like). Spawn points should not be confused with respawn points, which are objects that, when activated, act as a place for the player character to reappear after they die. We will discuss respawn points more in Tutorial 7. If no respawn points have been activated, the player will also respawn here when they die. You always need to have at least one spawn point in a world or your character will never appear, and you will not be able to start your mod. If you place more then one spawnpoint the newest one will be used.
+
+Placing a Spawn Point 
+
+1. In the Directory Pane, navigate to the folder 'records -> controls'. 
+2. Select the object labeled 'spawnplayer'.  A 'spawnplayer' object is placed and manipulated like any other object. 
+3. Click on the terrain in the Level Edit Pane to place a spawn point (see section 1.3).  
+
+![ ](guide_images/tutorials/tut1_spawn.png)
+
+# Completing Your World and Levels 
+So we've got all our objects placed, let's make our way towards going into the game and tearing it up! We have a few things we need to do first. In the Editor, we need to build pathing meshes and maps. Pathing meshes determine where and how players and other actors can move about the level. The 'Map' in this case, is the image displayed on the minimap in the in-game user interface. These are both done in Layout Mode. You will need to rebuild pathing meshes and maps any time you edit the terrain or move objects around the map. 
+
+**Building a Pathing Mesh** 
+
+1. Enter Layout Mode by clicking the 'Layout Mode' tab at the bottom of the window. 
+2. Select 'Build -> Rebuild All Pathing' from the Menu Bar.  A progress bar will appear to give you an indicator of when it's done. 
+3. Press 'OK' to close the Level Progress window. 
+
+![ ](guide_images/tutorials/tut1_buildpath.png)
+
+**Building Maps**
+
+1. In Layout Mode, select 'Build -> Rebuild All Maps' from the Menu Bar.  A progress bar will appear to give you an indicator of when it's done. 
+
+**Save Any Changes**
+1. Select 'File -> Save All' in the menu bar.  Once you've saved any changes to your world and all your levels, we're done in the Editor. But we've still a few steps left to go. 
+ 
+# Building a Map 
+The next couple of steps will involve Titan Quest's Art Manager. Most often, we'll be using the Art Manager to take our raw source data (.wrl, .jpg) and bake it into a file asset that is optimal for Titan Quest (.tex, .map). Titan Quest reads in environment information from the .map file type. To make a map, a designer must take a .wrl and any .lvl's used in the world and bake them into a Map.  In the interest of avoiding the more complicated steps this early, a .map has already been created that includes the .wrl and .lvl that we were using in the editor. 
+
+![ ](guide_images/tutorials/tut1_artmanager_overlay.png)
+
+**Building a .map**
+
+1. Start by finding the folder the .map is in.
+2. Open up the Art Manager and select “Tutorial01” from the Mod menu. 
+3. Select Build menu and click on Build.  You will see some activity in the pane at the bottom of the screen. When the Art Manager is done processing the .map, it will tell you the total build time for the action.
+
+![ ](guide_images/tutorials/tut1_buildmap.png)
+
+**Playing Your Map**
+
+So, our map is all set! Let's go into Titan Quest and try it out. 
+
+1. Fire up the main Titan Quest game. 
+2. Select Play Custom Quest from the main menu. 
+3. Select “Tutorial01 ~ tutorial_basic-navigation.map” from the list 4) Click the Start button to play your map. 
+
+Remember
+
+1. You must always place at least one a Spawn Point on your map 
+2. Build pathing and map when you make changes to either 
+3. After you have saved your map, you must re-build your mod to see the changes in-game 
+
+
+
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

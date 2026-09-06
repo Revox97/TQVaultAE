@@ -1,0 +1,48 @@
+
+# Titan Quest Maya
+
+Maya is 3D creation suite. Titan Quest artmanager can use Fbx files exported by maya and other software.
+
+# Setup In maya
+* You need to use DirectX11 rendering in maya. To do that switch the viewport in Preferences/Display/Rendering engine to DirectX11.
+* Enable the dx11shader plugin in Maya's plug-in manager to use directx11 shaders in maya.
+* Install they titan quest maya shelf found in Toolset\maya_shelf
+    * Copy the files in the icons folder to your MayaLT2020\icons
+    * Copy the files in the shelves folder to MayaLT2020\scripts\shelves
+    * Load the new shelf in maya 
+
+# Use a titan quest material on a mesh
+* Assign a dx11 material to the mesh. 
+* The shaderfiles is found in Toolset\shaders in your toolset directory. 
+    * Standardstatic is the one most used. 
+    * The parameters to set found below Parameters/Material
+    * baseTexture and bumpTexture are the ones to use. 
+
+# Maya Notes 
+* Max 4 joints can influence each vertex. If more there will be a warning and the mesh will look broken in game. Use Rigging/Skin/Edit influences/Set Max Influence to fix. 
+* If your mesh is transparent in game you might have selected the wrong shader. Check that you have Standardstatic and not StandardstaticT.
+* For animated meshes use the shader standardskinned. 
+* For animations the maya playback range is the one that will be exported. 
+
+# Tiles 
+Tiles are outdoor objects that interact with the terrain in Titan Quest. To set it up the Blind Data feature is used in maya. The Titan Quest maya shelf has buttons for Stitch with terrain and Blend with terrain to mark edges and polygons with blind data. 
+
+# The Titan Quest/RedPanda Maya Shelf
+
+## Add new hitbox ![ ](guide_images/maya/TitanQuest_hitbox_add.png)
+Hitboxes provide basic collision for things placed in the world that the player can't not walk on. A object can have several hitboxes if needed. Keep it as few as possible. Click this box to place a hitbox and then rotate and scale it as needed to fit where it needs to be. Then press Sync hitboxes.
+
+## Sync hitboxes ![ ](guide_images/maya/TitanQuest_hitbox_sync.png)
+Each time you modify the hitboxes transform press this to update the size stored in them. 
+
+## Stitch with terrain ![ ](guide_images/maya/TitanQuest_stich_off.png) ![ ](guide_images/maya/TitanQuest_stich_on.png)
+Edges on the mesh can be marked as stitch with terrain. It will then modify the terrain around it to match the edges so it looks like the mesh fits into the terrain. Uses blind data id 5010.
+
+## Blend with terrain ![ ](guide_images/maya/TitanQuest_blend_off.png) ![ ](guide_images/maya/TitanQuest_blend_on.png)
+Triangles in the mesh can be marked as blend with terrain. It will then take it's material from the terrain below it. Uses blind data id 5000. Use Shaders\TileBlendingStatic.ssh on the material assigned to the selected polygons. 
+
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

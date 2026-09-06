@@ -3,13 +3,52 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:loc="using:TQVaultAE.Resources"
              x:Class="TQVaultAE.Views.Pages.SettingsPage">
     <UserControl.Styles>
         <StyleInclude Source="avares://TQVaultAE/Styles/TabControlStyles.axaml"/>
+        <StyleInclude Source="avares://TQVaultAE/Styles/SettingsPageStyles.axaml"/>
     </UserControl.Styles>
     <TabControl>
         <TabItem Header="General">
-            <Grid>
+            <Grid Margin="15 10 15 10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <GroupBox Classes="Settings__GroupBox" Header="Startup" Grid.Column="0">
+                    <StackPanel>
+                        <CheckBox Classes="Settings__Checkbox" Content="Bypass title screen"/>
+                        <CheckBox Classes="Settings__Checkbox" Content="Load the last opened Character"/>
+                        <CheckBox Classes="Settings__Checkbox" Content="Load the last opened Vault"/>
+                        <CheckBox Classes="Settings__Checkbox" Content="Pre-Load all vault and character files"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Classes="Settings__GroupBox" Header="Features" Grid.Column="2">
+                    <StackPanel>
+                        <CheckBox Classes="Settings__Checkbox" Content="Hot reload"/>
+                        <CheckBox Classes="Settings__Checkbox" Content="Bypass confirmation messages"/>
+                        <CheckBox Classes="Settings__Checkbox" Content="Enable Auto stacking"/>
+                        <CheckBox Classes="Settings__Checkbox" Content="Enable detailed tooltip view"/>
+                        <CheckBox Classes="Settings__Checkbox" Content="Player Equipment read only"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Classes="Settings__GroupBox" Header="{x:Static loc:Lang.Settings__General_Backup}" Grid.Row="2" Grid.Column="0">
+                    <StackPanel>
+                        <CheckBox Classes="Settings__Checkbox" Content="{x:Static loc:Lang.Settings__General_Backup_Enable}"/>
+                        <CheckBox Classes="Settings__Checkbox" Content="{x:Static loc:Lang.Settings__General_Backup_PlayerSaves}"/>
+                        <Label Classes="Settings__Label" Content="{x:Static loc:Lang.Settings__General_Backup_RepositoryUrl}"/>
+                        <TextBox Classes="Settings__Textbox"/>
+                    </StackPanel>
+                </GroupBox>
             </Grid>
         </TabItem>
         <TabItem Header="Game">

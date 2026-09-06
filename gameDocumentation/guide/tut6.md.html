@@ -1,0 +1,93 @@
+(#) Tutorial 6 -    Dungeons and Grids 
+
+Up to this point, all of the areas we've been exploring have been outdoor environments. They take place in terrain type regions. Titan Quest also contains another type of region, known as a grid. A grid is essentially a board of tiles onto which the floor and walls can be painted. Grids are optimal for indoor, dungeon-type levels. Grids have three major components: floor, walls, and features.  The ground is any area that the player is allowed to walk on. Walls can be drawn throughout the level to create a maze for the player, and features are other aspects of the dungeon that can merge with the walls and the floor. Features often contain portals which allow a grid to be connected to another region. We'll be talking more about portals in a later tutorial. 
+ 
+**Checking Out the Environment** 
+
+1. Open the Editor. 
+2. Select mod Tutorial06
+3. Find and open up 'Tutorial-Dungeon_Crawl_Grid.lvl' in the Editor Mode. You'll see that there is already a little bit of dungeon floor stretching out across the screen. There are also some walls dividing the area into a few rooms. 
+
+
+# Grid Systems  ![ ](guide_images/editor_tools/editor_tool_grid.png)
+
+**Selecting a System**
+
+1. Select the grid edit tool. 
+    * A purple plane with a lattice drawn onto it will appear. This shows the extents of the level grid. Floor and wall tiles cannot be painted beyond the bounds of the grid.  
+    * The first step when designing a grid is to choose a system for your grid. A system is like an aesthetic theme for your grid. Each system has its own types of walls, floors and features that can be swapped for different art assets automatically by changing the grid's system.  Let's try changing this dungeon's system. 
+2. Click the ellipsis next to the System field in the Grid Types Pane.  
+    * This brings up a browser window of all of the available grid systems. 
+3. Browse for and select 'Records -> Underground -> Egypt -> EgyptCrypt.dbr'. 
+
+![ ](guide_images/tutorials/tut6_gridtype.png)
+
+The dungeon will change from a series of natural, green walls to some brown, stone walls. 
+
+![ ](guide_images/tutorials/tut6_gridtype_example.png)
+
+# Painting a Grid 
+ 
+**Painting the Floor**
+
+We'll start off by painting some more floor area for the player to run around in. In the Grid Types pane on the right, you will see a pick box named Floor.
+
+1. Select the 'Floor' Floor type.  
+    * Like water, there is no erase option per se. You need to select the 'No Floor' Floor type in order to get rid of any floor tiles you wish to remove.
+2. Click and drag the paintbrush over the tiles of the grid to paint floor tiles.  
+    * Each tile you drag the mouse across should become occupied with a stone floor tile. 
+
+![ ](guide_images/tutorials/tut6_floor.png)
+
+**Painting the Walls**
+
+Walls are painted very similarly to floors.
+
+1. Select the Wall type you want from the Walls pick box in the Grid Types Pane. 
+    * Like the floor, there is no delete wall option, so you'll have to use the "No Wall" trick. 
+2. Click on the edge of a wall to place a wall segment. By dragging the mouse across the grid you will be able to draw a stretch of wall under the path of the mouse. 
+
+![ ](guide_images/tutorials/tut6_wall.png)
+
+**Placing Features**
+
+Another aspect that can be painted onto a grid is features. Features are special aspects of a dungeon such as doors.
+
+1. Select 'Dng_Egypt01_Base_EntranceG_Int01' from the Features picker in the Grid Types pane. 
+
+![ ](guide_images/tutorials/tut6_features1.png)
+
+2. Click to drop it on one of the tiles between the two torches at the end of the grid. Now the dungeon has a proper door. 
+
+![ ](guide_images/tutorials/tut6_features2.png)
+
+
+**A note on multiple floors.**
+
+While it is possible to create dungeons with multiple floors using the editors, this feature is not supported with the provided tilesets.  We recommend doing what we did – link multiple dungeon grids with staircases.
+
+# Finishing A World With a Grid 
+
+**Placing Objects on a Grid**
+
+Objects can be placed on a grid region the same way they are on terrain.
+
+
+1. Select the Object Placement Tool. 
+2. Select an object to place from the Directory Pane. 
+3. Click on the grid to place the object. 
+ 
+
+**Building a World With a Grid**
+
+Worlds with grid regions are built the same way as any other world. 
+
+1. Build all pathing and maps.
+2. Save all files. 
+3. Assemble the .wrl and .lvl's into a .map. Remember that if you split one of your grids into separate floors, each floor .lvl must be included in the .map as well. 
+4. Build the .map
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

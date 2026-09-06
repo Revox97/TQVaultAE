@@ -1,0 +1,123 @@
+(#) Guide - Containers
+
+![](guide_images/dbr/dbr_containers.png)
+
+
+# container
+![](guide_images/dbr/dbr_container.png)
+
+This record contains the core settings and references related records such as loot, mesh, sound and animations.
+Container records themselves are linked in (proxy) accessory pools.
+
+Name the new container according to the degree of difficulty it will appear on:
+
+(1 = Normal, 2 = Epic and 3 = Legendary)
+The quality it has, usually corresponds to ~3 sections within an act:
+(Example: a, b, c for early/mid/late)
+What kind of chest it its:
+(Example: humanchest, bonepile or goldenchest)
+
+
+
+After the chest is created and saved you have to choose the template you want (FixedItemContainer). This is done the first time you open the dbr. 
+
+## Container Config
+Here you will config the animation and sound for opening the container. Also if the chest should be locked to a hero, boss or similar. If the chest is locked to an enemy, you can set the radius. This mean that if an enemy at or above a specific tier (e.g. hero) is within this radius, the chest is locked until the enemy is outside the area or has been killed. Mind that “Quest” ranks above “Boss”.
+
+## Config
+In Config you set more information about a locked container, for example to display whether it is locked by a monster or a quest.
+
+* lockedTextTag: is the information the player gets in the game if locked.
+* Locked: is set: 1 = Yes or 0 = No.
+* perPartyMemberDropItemName: is a specific item the chest will drop to all players in a multiplayer session, such as a quest item, in addition to other drops.
+
+## Skill 
+Skill fired when the chest is opened. Used by trapped chests to spawn (invisible stationary) trap monsters.
+
+## Animation Sounds
+Not used - use openSound and lockedSound instead.
+
+## Loot
+* levelEquationFile: Possible multiplier, but same equation is used for all chests.
+* tables: This is where you put the link to the loot table dbr. (Loot table contains the items this chest drops, or a collection of such tables if it’s a Master Table.)
+* lootClassification: Is selected from a list of: Common, Champion and Hero and affects the average quality/rarity of items included (e.g. chance of double affixes).
+
+## Actor Variables
+This section is used to change the physical appearance of the chest. Such as mesh, textures, transparency and shadows.
+
+* Description: The container’s name tag. Anything not recognized as a tag will be displayed in the game as is, and not localized (can be used for placeholders and is shown in-game when hovering the mouse over the chest).
+* Mesh: The container’s standard model. - Make sure to assign fitting idle & open animations.
+base/bump Texture: A default set of textures usually comes with the mesh, but it does not hurt to always fill these in anyway. Variants should also be in the same path location as the mesh. The bump texture includes the specular map.
+* Scale: Scales the container along with its hitbox.
+* DisplayAsQuestItem (0/1): Adds a (!) marker with the container’s name to the minimap.
+* Quest (0/1): Marks an object as quest critical in the Editor (prompt on deletion). No in-game effect.
+
+## Bonus
+(Not functional)
+
+## Rewards
+
+The chance that gold will drop in percent from this chest. The dbr link to the gold generator (of appropriate quality).
+
+# Proxies
+
+A proxy lets you spawn a group of Actors (usually enemies) around a central Accessory (container). Both of these entities are randomly picked from their respective tables, the enemy pool  and the accessory pool. Proxy DBRs are made in the Art Manager and then placed in the Editor.
+
+The same proxy can use more than one pool. You should have different accessory pools for the different difficulties to spawn appropriate loot chests. Enemy pools are usually only defined for normal difficulty, which means they will also be used in Epic and Legendary. But they can have several pools to draw from for the same difficulty.
+
+* To create a new Proxy, first go to database in your ArtManager
+* Go to containers under item and then proxies. Create a new record-file by right click and choose new and then record, or copy an old one.
+* Choose the template you want. (Example: Proxy.tpl)
+
+## Proxy Config
+
+Under this group you put the difficulty equations for the proxy. The chance in percent that this proxy will run in-game, default 100%.
+
+## Proxy Tables
+This is where you enter the enemy pools unless you want a proxy to spawn ONLY an accessory -> Chest Proxy.
+Of course an enemy proxy can also have no accessory - usually small proxies, or ambush proxies you don’t want to give away.
+
+## Accessory
+
+In this group you link the dbr of accessory pools for each difficulty level. Each pool contains a chest with all the loot.The name of each dbr should contain a number 1-3 (1 = normal, 2 = Epic and 3 = Legendary)
+
+
+Actor Variables
+This section is used to change the physical appearance of the proxy in the Editor. Such as mesh, textures, transparency and shadows. Quest: Marks an object as quest critical in the Editor (prompt on deletion).
+
+
+# Loot tables
+A Master Table is just a table containing further loot tables, while regular Loot Tables link to fixed items. Often either one can be entered in a loot field.
+
+![](guide_images/dbr/dbr_loot_tables.png)
+
+## Config
+**Number spawn min / max equation: ** A formula for numbers of items the chest will drop. This formula is usually based on the numberOfPlayers in the game session.
+
+**Gold generator level:** Affects the amount of gold that a generator drops from the chest.
+
+# Loot1 - 6
+Number of loot sets for this loot table. Each set can have multiple items in them to drop as explained below.
+
+**LootChance: ** The relative chance (weight) that an item from this set will drop as opposed to items from other loot#. 
+**LootName: ** The dbr. file of  the list of items to drop from. Can also link items directly.
+**LootWeight:** The relative chance (weight) that lootname# will drop. Always in relation to the sum of all weights.
+
+# Accessory pools
+Accessory pools, like enemy pools, contain a list of possible chests with weights. One of them is selected and spawned at the center of the proxy.
+
+# Fixed Item
+In this group you set the chance in percent that a chest appears (fixedItemChance) and link the containers that can spawn with relative weights. Usually three different containers are linked - common, infrequent and rare. Possibly also trapped.
+
+
+
+
+
+
+
+
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

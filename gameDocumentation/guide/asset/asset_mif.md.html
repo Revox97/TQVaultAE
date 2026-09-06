@@ -1,0 +1,68 @@
+(#) .mif - Mesh Information File  
+
+A mif file is used to specify some of the extra parameters and settings in a model.
+
+# Format
+* The file is in text format.
+* A tag is in the form of Tag { param = value }.
+* A string value should be inside quotation marks.
+* A vec3 value inside ().
+
+# Tags
+
+**CreateEntity entity= attach=**
+
+**SkeletonEmitterBones [*]**
+
+**AttachPoint name= parent= origin=() xAxis=() yAxis=() zAxis()**
+
+**RigidBodyDescription**
+
+* parentName
+* childName
+* parentOrigin
+* parentXAxis
+* parentYAxis
+* parentZAxis
+* childOrigin
+* childXAxis
+* childYAxis
+* childZAxis
+* Extents Collision detection and physics
+* Collides Collision detection and physics
+* Density Collision detection and physics Default: 100
+* playFallSound True if this body should be used to play the fall sound the first time it collides.
+* FusedBone Extra bones that have been attached.
+    * Name
+    * Origin
+    * xAxis
+    * yAxis
+    * zAxis
+
+**JointDescription**
+
+* rigidBody0
+* rigidBody1
+* jointType Not sure if relevant but PhysicsRagDoll::GetJointType() always returns Universal.
+    * Ball
+    * Fixed
+    * Universal
+    * Hinge
+* jointConnection
+* jointAxis0
+* loStop0
+* hiStop0
+* jointAxis1
+* loStop1
+* hiStop1
+* Breakable
+* breakChance [0..100]
+
+
+
+
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

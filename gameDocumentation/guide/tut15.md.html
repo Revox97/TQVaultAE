@@ -1,0 +1,42 @@
+(#) Tutorial 15 - Custom Language
+
+In this tutorial we will explain how you can create a custom language with a custom font. 
+
+# Create a new mod/use an old one
+The first thing you need to do is create a new mod or use an old and open it in the artmanger.
+Create a folder in the source tab with the name of your language. In this folder you need to put all the txt files with your language.
+After that you need to right click on all the txt files and select **Auto-Create Asset**.
+
+# Add Custom font
+The custom font is an optional feature if you are using latin characters, otherwise you will have to add a font. 
+In the source tab you have to create a folder called **Font**. After that you can add a .tff file to that folder. 
+Right click on the file and select **Auto-Create Asset**.
+
+**We support only .ttf files.**
+
+# Add modinfo
+Press build in the artmanger and we are done with it. Navigate to the resource folder in your mod directory.
+Here you should see one or more .arc files. If can't you have done something wrong or you are in the wrong folder. 
+
+In this folder you need to create a new file with the name "modinfo.ini". It's really important that you spell this right or you mod will not work.
+
+![ ](guide_images/custom_language/folderPath.png)
+
+# Modinfo
+Open "modinfo.ini". Add **[Language]** at the top of the file, below that you need to add **languagefile1=placeholder.arc** Where you will need to replace placeholder.arc with the name of your file.
+
+Below that add **languagename1=Placeholder**, this is what will be shown in game at the language drop down menu. 
+
+If you have a custom font you need to add languagefont1="font name.fnt" below.
+
+![ ](guide_images/custom_language/modinfo.png)
+
+# Add more custom languages
+You can add several custom languages in the same mod. The only thing you need to do is repeat the steps but replace the numbers in the modinfo.ini file and add one to the previous number.
+
+![ ](guide_images/custom_language/multilanguage.png)
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

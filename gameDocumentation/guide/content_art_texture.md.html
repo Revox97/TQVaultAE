@@ -1,0 +1,39 @@
+
+# Textures
+
+Creating a texture is nothing we will cover specifically in this walkthrough. However, some things to take note of is that in Titan Quest, the Specularity information should be applied to the Alpha channel of the Normal/Bump map.
+The textures must be scaled in the power of two, but can be of even dimensions of 2:1. (eg. 512x512, 1024x1024, 512x1024 etc.)
+
+There are several different texture types used in Titan Quest, each of which will require certain different steps when building them in the Art Manager.
+Your texture files should be located under the Source folder. From here, they will be built into Assets in the Art Manager.
+
+The following steps will take you through the process of building the different textures in the Art Manager.
+
+![](guide_images/art/texture_example01.png)
+
+1. Under the Sources tab of the Art Manager, locate the folder in which your texture file is located and click it, its contents will be shown in the window to the right.
+2. Right click your texture file and choose "Auto-Create Asset". This will prompt you to choose an Asset Type. In this case, where the texture is going to be applied to a game asset, the Asset Type should be specified as "Texture", press "OK" to continue.
+3. You will be faced with a window labeled "Texture Properties". Here you specify the different properties for your texture.
+The following steps show the different properties used by different texture types. 
+
+Diffuse and Emissive maps: 
+Format should be set to "DXT3 (explicit alpha)"
+The Normal map box should remain unchecked.
+
+Normal: Format should be set to "DXT5 (interpolated alpha)"
+The Normal map box should remain unchecked.
+
+Bump: Format should be set to "DXT5 (interpolated alpha)"
+The Normal map box should be checked.
+
+4. Press "OK".
+
+Your texture has now been built into an Asset that can be found under the Asset tab in the Art Manager, and be accessed from the shader menu in 3DS Max.
+
+
+
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

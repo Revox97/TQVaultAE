@@ -1,0 +1,42 @@
+(#) Tutorial 4 -   Quest Objects 
+
+So we know how to create a world, make interesting terrain, and throw some enemy dudes at the player. But what if the player wants more motivation for killing monsters than money and XP? For that, we need to assemble quests. Each quest file helps organize both the actions that the game needs to take to progress and the conditions that trigger these actions. Triggers can be set up to do everything from opening doors, to killing objects, to giving Skill Points. For this example, we are going to be working with a simple "go kill the monster that's terrorizing the people" quest. The player starts off by talking to a Villager. When the player talks to the Villager, the Villager tells the player to go kill the Monster. The player then goes and kills the Monster. When the player returns to the Villager, the Villager gives the player a reward. The quest and all related database records have already exist. All we need to do is place the objects used in that quest into our map, and the quest will run when a player plays on our map. 
+
+**Setup**
+
+1.	Open the Art Manager 
+2.	Under ‘Mod’ go to ‘Select’ and choose Tutorial04
+3.	Go to the ‘Build’ menu and select ‘Build’   Now the database records are accessible in the Editor, and we’re ready to go. 
+
+**Checking Out the Environment**
+
+1. Open the Editor
+2. Select the ‘Tutorial04’ mod, and open ‘Tutorial-Quest_Objects.wrl.’  
+    * We have a world with some nice terrain and a few decorations. More importantly though, we have a quest object that is vital to this quest. This quest object is the Villager. The Villager is the fat old man standing next to his hut. However, we're missing an object that is vital to this mission. If the Villager is going to tell the player to go kill the Monster, we had best make sure there is a Monster present for the player to kill. 
+ 
+**Placing a Quest Object**
+
+For this tutorial a unique object called 'Tutorial-Quest_Satyr' was created. He is just like an 'am_peltast_02' type satyr, but this particular Quest Satyr is necessary to complete this particular quest. 
+
+1. Load up the level 'custommaps\Tutorial04\source\Tutorial-Quest_Objects_Terrain.wrl'.
+2. Select the Object Placement Tool.  
+3. Expand the “Monsters” tree, and select “tutorial-quest_satyr”  (All the standard Titan Quest assets are under the “records” tree.  When you create your own database records, they will appear under the folders you create them in, and appear around the “records” folder.  When you import records, you should move it to your own folders, otherwise it will appear hidden somewhere deep in a subfolder of a subfolder under “records”.) 
+4. Place the 'Tutorial-Quest_Satyr' anywhere in the level you like simply by left-clicking at that spot on the map. 
+    * You can alter the player's experience just based on where you put it. The player may have to battle their way up the side of a mountain or face an ambush in the valley depending on which you think would be more fun. The point is, the trigger for this particular quest is based on a specific object type. 
+  
+**Build and Save the Map**
+
+Don't forget to build and save when you're done editing the world. 
+
+1. Rebuild all pathing meshes and maps if you changed the scenery or terrain at all. 
+2. Select 'File -> Save All' in the Menu Bar in the Editor. 
+3. Open the Art Manager. 
+4. Build all. 
+5. Try out your map in game.
+
+
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

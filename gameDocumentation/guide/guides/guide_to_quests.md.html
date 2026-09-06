@@ -1,0 +1,17 @@
+(#) Guide - Quests 
+
+
+# Boatmen
+
+I will now explain how to make a NPC that you can talk to to take a boat to another region. But it could say in the dialogue that it casts a spell on you or whatever.
+
+1. First of all; like most things you need unique NPC’s in the database. You also want unique dialogues in ModTexts.txt. You also need to “fly” to the arrival point in the world editor, zoom in close to the ground and write down the camera coordinates. This has to be done in world01 since otherwise coordinates will be local.
+
+2. Then you need a quest. I think we can have all of them in the same quest-file but maybe that is not a nice way to work. I think we should do it initially though because it saves time. Here is a overly complex quest where you have to save the boatman's friend before he offers you his help. But i’ve marked the important part.
+
+3. Use the quest action Boat Dialog X with target N, N, N. Set the NPC to the boatmands dbr and the x,y,z to the postion to where to teleport the player. Tag should be a question to the player if they wish to be teleported to x. 
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

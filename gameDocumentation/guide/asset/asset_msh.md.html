@@ -1,0 +1,266 @@
+(#) Formats - MSH
+
+The mesh files are the 3d models loaded by the game. Both static (houses, sword, etc) and animated models (players, monsters, etc) use this format.
+
+**Chunk**
+The .msh is a binary chunk based format. After the msh file header there are one chunk after another until the end of the file. Each chink starts with a small ChunkHeader with a chunkId. The rest of the data in a chunk depends on the chunkId so all the chunkId are listed in it's own section below.
+
+~~~~~~~~~~~~~~~~~~
+Chunk:
+    uint  chunkId;
+    uint  length;
+    char  data[length]
+
+HeaderMsh:    
+    uchar Tag[3];        // The characters MSH.
+    uchar version;       // 11
+    Chunk chunks[]       // Until end of file.
+~~~~~~~~~~~~~~~~~~
+
+(#) 0 = Chunk_SourceFileName
+
+Contains a string with the source file used to create the .msh file.
+
+~~~~
+Chunk_SourceFileName
+    TqString    name
+~~~~
+
+(#) 1 = MSHDataChunk
+
+~~~~
+XXX
+~~~~
+
+(#) 2 = Chunk_Physics
+
+~~~~
+physicSurfaceType
+    0   Unwalkable			
+    1   Grass 		
+    2   Dirt 		
+    3   Sand  		
+    4   Snow 		
+    5   Stone 		
+    6   Wood  		
+    7   Water 		
+    100 None 		
+
+PhysicFaces    
+    uint32_t    vertex1
+    uint32_t    vertex2
+    uint32_t    vertex3
+    uint32_t    physicSurfaceType
+
+TreeNode    
+    TqVec3    bboxOrigin
+    TqVec3    bboxExtents
+    uint32_t  firstFace
+    uint32_t  numFaces
+    uint32_t  child0
+    uint32_t  child1
+
+Chunk_Physics
+    uint32_t        version                 // Current 2
+    uint32_t        numFaces
+    uint32_t        numVertices
+    uint32_t        numNodes                // If version >= 2
+    PhysicFaces     PhysicFaces[numFaces]
+    TqVec3          vertices[numVertices]
+    TreeNode        nodes[numNodes]         // If version >= 2
+~~~~
+
+(#) 3 = Chunk_MIF
+
+The [mif or Mesh Information File](../viewer_mif.md.html) for the msh. 
+
+~~~~
+uint8_t     mif[chunk.length]
+~~~~
+
+(#) 4 = Chunk_Vertices
+
+~~~~
+Element
+    uint32_t    element[numElements]
+
+Vertex
+    uint8_t     vertexdata[vertexSize]
+
+Chunk_Vertices
+    uint32_t    numElements
+    uint32_t    vertexSize
+    uint32_t    numVerts
+    Element     elements[numElements]     
+    Vertex      vertices[numVerts]  
+
+        TqVec3      position
+        TqVec2      texcoord
+        TqVec3      normal
+        uint32_t    vertexcolor        // If hasVertexColors
+        uint8_t     boneId[4]          // If numBones > 0
+        float       boneWeight[4]      // If numBones > 0
+        TqVec3      tangent            // if hasTangentSpaceVectors
+        TqVec3      binormal           // if hasTangentSpaceVectors
+~~~~
+
+
+(#) 5 = Chunk_Faces
+
+~~~~
+Face
+    uint16_t      vertex1
+    uint16_t      vertex2
+    uint16_t      vertex3
+
+FaceSet
+    uint32_t        materialIndex
+    uint32_t        firstFace
+    uint32_t        numOfFaces
+    uint32_t        sectionIndex    // if version > 10
+    TqVec3          bboxOrigin      // if version > 10
+    TqVec3          bboxExtents     // if version > 10
+    uint32_t        numOfBones
+    uint32_t        boneId[numOfBones]  
+
+Chunk_Faces
+    uint32_t    numOfFaces
+    uint32_t    numOfFaceSets
+    Face        faces[numOfFaces]
+    FaceSet     sets[numOfFaceSets]
+~~~~
+
+
+(#) 6 = Chunk_Bones
+
+~~~~
+Bone
+    uint8_t     name[32]
+    uint32_t    firstChild
+    uint32_t    numOfChildren
+    TqCoord     relcoords
+
+Chunk_Bones
+    uint32_t    numOfBones
+    Bone        bones[numOfBones]
+~~~~
+
+(#) 7 = Chunk_Materials
+
+~~~~
+
+ParameterType
+    0   Type_Int				uint32_t
+    1   Type_Bool				uint32_t
+    2   Type_String				TqString
+    3   Type_Float4x3		    float32[12]	
+    4   Type_Float4x4		    float32[16]	
+    7   Type_Texture			TqString
+    10  Type_Float			    float32	
+    8   Type_Float2			    float32[2]	
+    9   Type_Float3		        float32[3]		
+    11  Type_Float4				float32[4]
+    12  Type_Color3				float32[3]
+    13  Type_Color4				float32[4]
+
+
+Parameter    
+    TqString    parameterName
+    uint32_t    type
+    ???         data
+    // The data for the parameter that depends on the type.
+    // Check the value of type against the ParameterType 
+    // table to to know what data is next. 
+
+Material
+    TqString    shaderName
+    uint32_t    numParameters
+    Parameter   parameters[numParameters]
+        
+Chunk_Materials
+    uint32_t     numMaterials
+    Material materials[numMaterials]
+~~~~
+
+
+(#) 8 = Chunk_HitBoxes   
+
+~~~~
+hitbox
+    uint8_t     name[32]
+    TqVec3      extents
+    TqCoord     coords
+    uint32_t    parentBone
+
+Chunk_HitBoxes
+    uint32_t    numOfHitboxes
+    hitbox      hitboxes[numOfHitboxes]
+
+~~~~
+
+(#) 9 = Chunk_Contours
+
+~~~~
+ContourVertex
+    TqVec3    position
+    TqVec3    normal
+
+Contour    
+    uint32_t        numVertices
+    ContourVertex   contourVertices[numVertices]
+
+Chunk_Contours
+    uint32_t    numContours
+    Contour     contours[numContours]
+~~~~
+
+
+(#) 10 = Chunk_BoundingBox
+
+~~~~
+Chunk_BoundingBox
+    TqVec3     min
+    TqVec3     max
+~~~~
+
+(#) 11 = Chunk_BlendedFaces
+
+~~~~
+BlendFace 
+    uint16_t    vertex1
+    uint16_t    vertex2
+    uint16_t    vertex3
+
+Chunk_BlendedFaces
+    uint32_t    numBlendedFaces
+    BlendFace   faces[numBlendedFaces]
+      
+~~~~
+
+(#) 12 = Chunk_Portals
+
+~~~~
+Triangle
+    TqVec3    vertex1
+    TqVec3    vertex2
+    TqVec3    vertex3
+
+Portal
+    uint32_t numOfTriangles
+    Triangle triangles[numOfTriangles]
+
+Chunk_Portals
+    uint32_t    numOfPortals
+    Portal      portals[numOfPortals]
+~~~~
+
+(#) 13 = Chunk_Sections
+
+~~~~
+    uint32_t    numOfSections
+    TqString    section[numOfSections]
+~~~~
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

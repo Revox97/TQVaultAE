@@ -1,0 +1,74 @@
+(#) Editors - Viewer 
+
+The viewer is used to look at meshes (.msh) and animations (.anm) that are in the game.  
+
+
+
+
+# Getting Viewer to work
+If you dont see anything in the list to the left then you have not setup your directories properly in the ArtManager. Additional browse directories need to have two paths seperated by semicolons ( ; ) . The first is to where the game is installed, it will most likley be the same as working dir. The second should be to where you build your mod to so you can see the models you create for your mod. So Build dir/customsmaps/MODNAME.
+
+# View meshes and Animations 
+
+## View a mesh
+* To view a mesh expand the tree to the left to find the mesh and then double click on it. 
+* To modify the view of it move the mouse holding down a button. 
+    * Right mouse and to pan around.
+    * Middle mouse to rotate around.
+* Zoom in and out with the mouse scroll wheel.
+
+## View a animation
+* To viw a animation you should have a mesh first. Then select the animation, often found in a /anm directory.
+* press play button to view animation and press again to stop it. 
+* use the slider below the view to select a specifc frame. 
+
+# Save changes in the viewer
+
+There are a few things that can be modified for meshes and animations in the viewer. The information that can be changed about a mesh is stored in a mif file and the animations store things in a aif file. Both of them are text files that can be modified in a text editor if you wish. When building a .msh asset file in the artmanager you can tell it what mif file to use. The same can be done for animations with the aif file. When they are build the files are then added to the exported mesh or animation. 
+
+* [mesh information file (.mif) format](../asset/asset_mif.md.html) 
+* [Animation Information file (.aif) format](../asset/asset_aif.md.html)
+
+# Attach points
+
+
+# Ragdoll
+
+The viewer is used to build ragdolls for animated creaters to be used when they die. A ragdoll is very simple physics primitives connected to the joints of the mesh and to each other. 
+
+1. Open up your mesh in the viewer and use the menu as in image.
+
+![Layout tab in the editor](viewer_ragdoll.png)
+
+
+2. The choose File→ Save MIF. Currently we have a bug so that the viewer wants to create the .mif in a location that does not exist. Create that location then copy the created mif into the same path as the source-mesh.
+3. When you auto-create assets on the source-mesh select you new .mif in the MIF-field.
+4. Build your mod again and look at the mesh in the viewer once more.
+5. You can now choose Ragdoll→ Edit Rigid Bodies to modify them as shown in this picture. What data they should have however is beyond me at the moment.
+
+![Layout tab in the editor](viewer_rigidbody.png)
+
+Unfortunatly we can not look at any vanilla-creatures to compare the difference they have, probably because the viewer tries to read the .mif from an invalid path. But the Automatoi (robot) that drops all of it’s bodyparts upon death; has breakable=true on all of its JointDescriptions. Boarman has them all set to false.
+If you want the body to fall apart like the Automatoi you would likely need to rig it differently. Rigid Bind? ( not smoothbind ), every body part needs to be separate and bound to one skeleton.
+
+In the menu ViewJointsForm you can choose what type of joint the different rigid bodies should have between them. The alternatives are:
+
+* Ball - have not seen this option used in the vanilla files
+* Hinge
+* Fixed
+* Universal - old files have this in random places
+
+You can fuse the bones that should be stuck together. This feature is unstable and not very logical, some bones can be fused and some can’t. The reasons for this is yet to be discovered. In the old files you can see there are more than one bone fused to the same root, but when i try to do so in the viewer it sometimes doesn’t work. 
+
+
+
+
+
+
+
+
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

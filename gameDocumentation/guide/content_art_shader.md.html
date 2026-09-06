@@ -1,0 +1,81 @@
+
+# Shaders
+Shaders are found in resources\shaders\shaders.arc. The are compiled and stored in .ssh files. The path to them in game and in files is stored as shaders\standardstatic.ssh. The file name start with the type of shader and then the flags for what features it have. Each shader have some parameters that you can set in 3DS max that tweak how it will look. 
+
+Some shaders exist in two versions, one of them with a t at the end of the name, ex standardstatic and standardstatic<B>t</B>. The t stands for transparent and is used when the objects is in front of a player and it needs to turn transparenct to show the player character. The t shaders are used by the game and should not be used for things you create. 
+
+# What shader to use
+Here are the shaders and what they are used for. Example meshes is listed to look at in the viewer.  
+
+## Standard
+The shader to use in almost all cases. 
+
+**Static or Skinned**
+The first choice is to select the skinned or the static one. Use the skinned if you create a mesh with a skeleton and the static one in other cases. 
+
+* standardskinned: 
+    * creatures\ambient\camel\camel01
+    * items\equipmentarmor\magechestfemale01.msh
+* standardstatic: 
+    * sceneryorient\structure\camps\tenttiger02.msh
+
+**blended** 
+
+* standardblendedstatic: sceneryorient\nature\cliff\bridgetile01.msh
+* standardblendedskinned: creatures\monster\bat\bat01.msh
+
+**envmap** 
+Uses environment map. 
+
+* standardenvmap: sceneryolympus\structure\city\olympuscity_a.msh
+* standardenvmapskinned: sceneryolympus\structure\statue\statueapollo01.msh
+
+**glow** 
+Add glow so areas of the mesh remain in light even if the area it's in is dark. 
+
+* standardglowstatic: scenerygreece\nature\tree\treeoliveburnt01.msh
+* standardglowskinned: creatures\monster\eurynomus\eurynomus01
+
+**noculling**
+The shader do not cull backfaces. 
+
+* standardskinnednoculling: XPack3\Creatures\Monster\Lion\LionMane
+
+**wiggle** 
+Adds a procedural wave motion to the veritces controlled by the vertex color alpha
+
+* standardwigglestatic: XPack\items\equipmentweapons\bow\u_bow08
+* standardwiggleskinned: XPack\creatures\npc\mediterranean\medmedea01_a.msh
+
+**vertexcolors** 
+???
+
+## AdditiveScroll
+A see though material that animates the uv coordinates. Used for ghost, ice and effects. 
+
+* additivescrollskinned: creatures\monster\ghost\ghost01.msh
+* additivescrollstatic: scenerygreece\structure\camps\monstercamp\obsidanrocksmall01
+* additivescrollvertexcolorskinned: effects\bosseffects\aktaios_godlight
+* additivescrollvertexcolorstatic: items\shrines\babylon_portalgatearch
+
+## Iridescent
+
+* iridescentskinned: items\equipmentarmband\default\medusaarmbandfemale01
+
+## Water
+
+* Waterfall: Used for waterfalls and flowing water in fountains. 
+* WaterRipple: Used on non moving water in fountains. 
+
+## tileblendingstatic
+
+## undergroundouterwall
+
+## foliage
+Used on a bush or the leafs of a tree. Transparent and moves a bit. 
+
+* scenerygreece\nature\bush\barriershrub01.msh
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

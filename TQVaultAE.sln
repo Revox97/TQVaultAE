@@ -10,17 +10,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE", "src\TQVaultAE\TQVaultAE.csproj", "{249D8918-4DF1-44B7-AC20-4F8F4700E9CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Model", "TQVaultAE.Model\TQVaultAE.Model.csproj", "{3972EC1C-E483-40E3-87CA-A8303B04E132}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Model", "src\TQVaultAE.Model\TQVaultAE.Model.csproj", "{3972EC1C-E483-40E3-87CA-A8303B04E132}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Persistence", "TQVaultAE.Persistence\TQVaultAE.Persistence.csproj", "{8B97C8A6-8118-4B55-985D-467C8DDEDE9F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Persistence", "src\TQVaultAE.Persistence\TQVaultAE.Persistence.csproj", "{8B97C8A6-8118-4B55-985D-467C8DDEDE9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Application", "TQVaultAE.Application\TQVaultAE.Application.csproj", "{DBC2CA6A-B2A6-46D3-BF51-230F8AA32EC2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Application", "src\TQVaultAE.Application\TQVaultAE.Application.csproj", "{DBC2CA6A-B2A6-46D3-BF51-230F8AA32EC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Upgrader", "TQVaultAE.Upgrader\TQVaultAE.Upgrader.csproj", "{FED1B594-3BFD-4FBE-82A3-6BB421C46BDE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Upgrader", "src\TQVaultAE.Upgrader\TQVaultAE.Upgrader.csproj", "{FED1B594-3BFD-4FBE-82A3-6BB421C46BDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Backup", "TQVaultAE.Backup\TQVaultAE.Backup.csproj", "{1697C957-DEEB-46AE-A476-8D24B9F67219}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Backup", "src\TQVaultAE.Backup\TQVaultAE.Backup.csproj", "{1697C957-DEEB-46AE-A476-8D24B9F67219}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Events", "TQVaultAE.Events\TQVaultAE.Events.csproj", "{4931CAD1-04FC-48B5-93DC-15E4C0C7158A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Events", "src\TQVaultAE.Events\TQVaultAE.Events.csproj", "{4931CAD1-04FC-48B5-93DC-15E4C0C7158A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Arz", "src\TQVaultAE.ArzProvider\TQVaultAE.Arz.csproj", "{4775CD3F-7E31-4191-8447-75FB5D0D0128}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.IO", "src\TQVaultAE.IO\TQVaultAE.IO.csproj", "{2628AABA-BC8F-4D7D-9260-CECC44CC76DB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{07A64351-D990-44C5-85B7-E64B47F1F6D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.ArzTests", "src\tests\TQVaultAE.ArzTests\TQVaultAE.ArzTests.csproj", "{92547FAD-6502-4971-9FE1-FD2D534015FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,9 +64,24 @@ Global
 		{4931CAD1-04FC-48B5-93DC-15E4C0C7158A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4931CAD1-04FC-48B5-93DC-15E4C0C7158A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4931CAD1-04FC-48B5-93DC-15E4C0C7158A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4775CD3F-7E31-4191-8447-75FB5D0D0128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4775CD3F-7E31-4191-8447-75FB5D0D0128}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4775CD3F-7E31-4191-8447-75FB5D0D0128}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4775CD3F-7E31-4191-8447-75FB5D0D0128}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2628AABA-BC8F-4D7D-9260-CECC44CC76DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2628AABA-BC8F-4D7D-9260-CECC44CC76DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2628AABA-BC8F-4D7D-9260-CECC44CC76DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2628AABA-BC8F-4D7D-9260-CECC44CC76DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92547FAD-6502-4971-9FE1-FD2D534015FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92547FAD-6502-4971-9FE1-FD2D534015FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92547FAD-6502-4971-9FE1-FD2D534015FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92547FAD-6502-4971-9FE1-FD2D534015FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{92547FAD-6502-4971-9FE1-FD2D534015FB} = {07A64351-D990-44C5-85B7-E64B47F1F6D8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B01F052C-256B-4CDD-848F-338522FC5644}

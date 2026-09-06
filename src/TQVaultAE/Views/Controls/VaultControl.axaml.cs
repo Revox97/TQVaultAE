@@ -48,7 +48,9 @@ public partial class VaultControl : UserControl, IMainWindowChangedObserver
                 HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch,
                 VerticalAlignment = Avalonia.Layout.VerticalAlignment.Stretch,
                 Margin = new Thickness(1, 0),
-                Content = i + 1
+                Content = i + 1,
+                HorizontalContentAlignment = Avalonia.Layout.HorizontalAlignment.Center,
+                VerticalContentAlignment = Avalonia.Layout.VerticalAlignment.Center,
             };
 
             item.Classes.Add("ToggleButtonVaultTab");

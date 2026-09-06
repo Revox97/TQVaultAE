@@ -1,0 +1,30 @@
+
+# Models & Animations 
+
+There are three programs the toolset support to create 3D content for Titan Quest. In order from best to less features there is 3DSMax, Maya and Blender. Things are added to maya and blender over time and with blender the python code available.
+
+* [3DSMax](content_art_3dsmax.md.html): Create all things titan quests use in 3d and animation. 
+* [Maya](content_art_maya.md.html): For non animated decoration placed in the world. 
+* [Blender](content_art_blender.md.html): Only support load of .msh files.
+
+* [Mesh](content_art_models.md.html): How to create mesh files (msh).
+* [Items](content_art_items.md.html): How to create meshes to be used as equipment in the game. 
+* [Grids](content_art_grid.md.html): The meshes used in the indoor areas. 
+* [Animations](content_art_anm.md.html): How to create animations (anm).
+
+# Change the textures on a mesh / reskin
+
+The paths to the textures to use in a mesh is stored in the .msh file and so it the name of the shader to use. If you only wish to modify the textures there are two ways. 
+
+## Set it in the dbr 
+You can use the baseTexture and the bumpTexture field in the dbr to override the texures in a mesh. Only works if it only have a single texture. 
+
+## Modify the texture in the artmanager
+
+1. Copy the mesh file put it into you source folder then auto-create and asset for it. 
+2. Go to the asset tab and right click the asset and select view.
+3. Use the overide boxes below to select the material to the left. Then the textures to the right to overide them.
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

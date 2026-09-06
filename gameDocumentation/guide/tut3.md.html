@@ -1,0 +1,163 @@
+(#) Tutorial 3 -  Basic Terrain 
+
+Alright, so the last tutorial taught us a few of the steps necessary for making a level that is playable in-game. We also learned about customizing levels by changing the arrangement of characters and scenery. This tutorial will tell us how to sculpt the terrain to make our own personal world. 
+
+1. Open the Editor. 
+2. Select mod “Tutorial03” 
+3. Open up 'Tutorial-Basic_Terrain_Terrain.lvl.wrl' in Editor Mode. 
+  
+# The Bump/Dip Tool ![ ](guide_images/editor_tools/editor_tool_raise.png)
+
+The first and most basic sculpting tool available is the Bump/Dip Tool. This is used to raise and lower the terrain under the paint brush. 
+
+**Using the Bump/Dip Tool**
+
+1. Select the Bump/Dip Tool in the toolbar. 
+2. Move the mouse over the terrain in the Level Edit Pane.  You will see two concentric circles with a small X in the center being projected onto the ground. This is the tool's paintbrush. It is a visual representation of where changes will occur when the tool is used. 
+3. Left-click and hold on the terrain.  A mound rises below the paintbrush. 
+4. Left-click and slowly drag across the terrain.  A dune starts to rise and extends in the path that the paintbrush travels. 
+5. Hold the Shift key, click and drag.  The ground below the paintbrush is lowered. 
+
+![ ](guide_images/editor/editor_raise.png)
+ 
+# Paintbrush Properties 
+
+The effect of several tools can be changed by changing its brush properties. If a tool's paintbrush properties can be changed they will appear in the Brush Properties Pane on the right side of the screen. All of the brush properties can be changed by typing in new values into each field. The three standard brush properties are Radius, Strength, and Speed. 
+
+**Brush Radius**
+
+The first property is Radius, which affects the size of the area the paintbrush will affect. 
+
+1. Enter a new value into the Radius field in the Brush Properties Pane.  The size of the circles on the terrain will change.  The paintbrush's radius can also be changed with hotkeys. 
+2. Press the '[' key.  The paintbrush's radius will shrink. 3) Press the ']' key.  The paintbrush's radius will grow. 
+
+**Brush Strength** 
+
+The second paintbrush property is Strength. Strength describes how much the brush will affect the terrain as it gets towards the edge of the brush. A low strength will have it pulling mostly the middle, and a high strength sculpts almost uniformly across the paintbrush. 
+
+1. Select the Bump/Dip Tool. 
+2. Enter a value of 10% in the Strength field in the Brush Properties Pane. 
+3. Left-Click and hold the paintbrush in one spot on the terrain.  The terrain will rise very sharply in the middle of the paintbrush but the terrain near the edges of the paintbrush is almost unchanged. 
+4. Enter a value of 100% in the Strength field in the Brush Properties Pane. 
+5. Left-Click and hold the paintbrush in one spot on the terrain.  The terrain under the paintbrush rises at a nearly uniform rate. 
+
+![ ](guide_images/tutorials/tut3_brush_strength.png)
+![ ](guide_images/tutorials/tut3_brush_strength2.png)
+
+**Brush Speed**
+
+The last property, Speed, affects how quickly the brush pushes and pulls on the terrain. 
+
+1. Select the Bump/Dip tool. 
+2. Enter a value of 10 into the Speed field in the Brush Properties Pane.
+3. Left click and hold the paintbrush in one spot on the terrain.  It takes several seconds before there is any noticeable effect on the terrain. 
+4. Enter a value of 500 into the Speed field in the Brush Properties Pane. 
+5. Left click and hold the paintbrush in one spot on the terrain.  A large hill quickly rises out of the terrain. 
+
+# The Noise Tool ![ ](guide_images/editor_tools/editor_tool_raise.png)
+
+The next tool is the Noise Tool. The Noise tool creates a series of bumps and dips under the area of the paintbrush. This can help add some flavor to unnaturally smooth terrain. It features the three standard brush properties.  
+ 
+![ ](guide_images/editor/editor_noise.png)
+ 
+# The Smooth Tool ![ ](guide_images/editor_tools/editor_tool_smooth.png)
+After that, we have the Smooth Tool. Smoothing helps average out the slope of the terrain under the paintbrush. This is useful for making lumpy terrain more (wait for it...) smooth. It has the standard brush properties of Radius, Strength, and Speed. 
+
+![ ](guide_images/editor/editor_smooth.png)
+
+# The Plateau Tool ![ ](guide_images/editor_tools/editor_tool_plateau.png)
+
+Next up is the Plateau Tool. The Plateau Tool moves all of the terrain under the paintbrush into a flat area at a specific height.   In addition to Radius, Strength, and Speed, the plateau tool also has the Height Property. The Height property determines the height at which the flattened terrain will be raised to. One way this can be changed is by typing a value into the field. 
+
+1. Select the Plateau Tool. 
+2. Enter the value "10" into the Height property in the Plateau Properties Pane. 
+3. Left-Click and drag the paintbrush across the terrain.  A plateau rises up along the path of the paintbrush.  A the plateau's height can also be determined by sampling the height at a specific point on the terrain.
+4. Move the paintbrush so that the center of it is about halfway up the side of the plateau. 
+5. Hold the Shift key. 
+6. Left-click.  
+    * The height property will change to the height of the point you shift-clicked on.
+    * The Height property can also be changed visually. 
+7. Hold the Control key. 
+8. Move the mouse up and down.
+    * A wireframe cylinder will rise up or drop into the ground to give you a visual representation of how high the plateau will be. 
+ 
+![ ](guide_images/editor/editor_plateau.png)
+
+# The Relative Plateau Tool ![ ](guide_images/editor_tools/editor_tool_relative.png)
+
+The next tool is the Relative Plateau Tool. This raises all of the terrain underneath the paintbrush up a specific amount. This is helpful if, for example, you sculpted some nice terrain, but decide you needed it all to be 10 meters higher. Rather than use the Bump/Dip Tool to try to raise everything 10 meters and risk losing the shape of the terrain, you can just use the relative plateau tool and paint the area to be 10 meters higher.  
+
+In addition to the standard brush properties, Relative Plateau has another property called Offset. This determines how high up the relative plateau will be in comparison to where it was before. 
+  
+![ ](guide_images/editor/editor_plateau_relative.png)
+
+# The Terrain Copy/Paste Tool ![ ](guide_images/editor_tools/editor_tool_copyterrain.png)
+
+The Terrain Copy/Paste Tool is good when you want to have two similar areas in your world, but don't want to have to sculpt the terrain twice.
+
+1. Select the Terrain Copy/Paste Tool.
+    * When you have the tool selected, you'll notice the paintbrush has an additional square around it. As with other brush-based tools, the paintbrush for the Copy/Paste * Tool can be made wider or narrower by pressing the '[' or ']' key respectively. 
+2. Move the paintbrush so that the square contains all of the terrain you want to copy. 
+3. Left-click the mouse.  
+    * Notice the paintbrush has turned into a ghost image of the shape of the terrain you copied.  
+    * If need be, you can also rotate the ghost image of the terrain. 
+4. Press ',' or '.'  to rotate the terrain counter-clockwise or clockwise respectively. 
+5. Move the paintbrush to the area where you want to paste the the copied terrain. 
+6. Left-click the mouse to paste the copied terrain. 
+7. To clear the ghost terrain image and terrain clipboard, press Spacebar. 
+  
+![ ](guide_images/editor/editor_copy.png)
+
+# The Ramp Tool ![ ](guide_images/editor_tools/editor_tool_ramp.png)
+
+The Ramp Tool is a way to create a smooth incline from one elevation point to another. 
+
+To create a ramp, just click and drag from one point on the terrain to another. The editor will automatically create a smooth ramp between those two points of different elevation.  (Which means creating a ramp on flat ground will have no effect!)  
+
+The width of the ramp can be set in the Ramp Properties Pane on the right. 
+  
+![ ](guide_images/editor/editor_ramp.png)
+
+# The Texture Paint Tool ![ ](guide_images/editor_tools/editor_tool_paint.png)
+
+In addition to sculpting the terrain, we can also paint textures onto the terrain to give it more character. 
+
+**Adding a Texture Layer**
+
+1. Start by selecting the Texture Paint Tool.  
+    * Each terrain texture is a different texture layer. The user paints the opacity for various areas of each layer. Areas of a texture with a low opacity will show more of the layers below than an area with high opacity. The texture layers the user is currently using are displayed in the Texture Layers Pane on the right side of the screen. The layers that are lower on the list will be drawn on top. So if the list had, in order from top to bottom, rock, dirt and grass in it, it would draw the rock, then the dirt on the rock, and then the grass on top of the dirt. 
+2. To add a layer, click the 'Add Layer' button underneath the list box.  
+    * This opens up the Texture Picker window. 
+3. Navigate through the folders in the Directory Pane on the Left.  
+    * Each of the textures present in that folder are listed in the Folder Pane on the right with a small thumbnail of the texture.
+4. Select a texture in the Folder Pane.  
+    * A larger sample of that texture appears at the base of the Texture Picker window.  5) When you are satisfied with your texture choice, click 'OK'. 
+5. When you are satisfied with your texture choice, click 'OK'. 
+
+![Texture Picker window](guide_images/editor/editor_texturepicker.png)
+
+**Painting With a Texture Layer**
+
+Terrain textures are painted directly onto the terrain. 
+
+1. Select the Texture Paint Tool
+2. Select a texture layer from the Texture Layers Pane. 
+3. Move the paintbrush over the terrain 
+4. Click and drag to paint the area you want the texture to appear on. 
+
+![ ](guide_images/tutorials/tut3_paint_layer.png)
+
+
+In order to blend the textures together, the user can adjust the opacity of the paintbrush in the Texture Opacity Pane on the right. Each texture is designed such that as the opacity goes down certain areas disappear first, so pebbles will stay visible as dirt disappears, and foliage will shrink.  
+
+Opacity can be changed by entering a value into the Opacity field in the Texture Opacity Pane dragging the slider next to the field. The opacity can also be set to the multiples of 10% by using the number row on the keyboard. 
+ 
+![ ](guide_images/tutorials/tut3_paint_opacity.png)
+
+
+
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

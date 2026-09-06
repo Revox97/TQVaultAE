@@ -1,0 +1,86 @@
+(#) Guide - Enemies
+
+Creating Enemies - Quick guide in 20 steps
+
+It is usually easiest to start with a copy of a similar enemy and go from there in order not to miss any values and at least have some stand-in sounds, AI etc. Otherwise
+
+1. Create a New Record in /creatures/monster/_enemytype_/
+2. Choose database/templates/monster.tpl
+3. Save and name appropriately
+    * The names usually follow the form aX_Classname_YY.dbr with
+    * 'a' meaning standard variant (further letters for higher tiers e.g. b=Norse Trolls) 
+    * 'X' being **m**(elee) / **r**(anged) / **s**(pellcaster)
+    * 'Classname” is the name denoting the monster type, e.g. Wolfrider
+    * 'YY' being the monster’s medium level on Normal (+-2 copies added later).
+    * Ex: /creatures/monster/troll/am_wolfrider_41.dbr 
+
+4. Then, referring to the Guide to Monster Parameters, properly enter the following:
+    * controller
+    * charLevel
+    * handHitDamageMin/Max IF unarmed
+    * The fitting passive damage skill depending on enemy size or weapon use
+    * characterRacialProfile
+    * swipeSound and attackSound IF unarmed
+    * stunSound
+    * charAnimationTableName
+    * deathSound
+    * voxSound
+    * bodyFallSound
+    * description (name tag)
+    * mesh
+    * characterStrength/Dexterity/Intelligence (250-400 dex in A5)
+    * characterLife (range ~ 1000-3000) and also characterMana if using skills
+    * skillName# - see 7., use “1;2;3” (unarmed) or 15-30 (weapon)
+    * Add a weapon to Right/Left Hand for melee/ranged weapon users.
+
+5. Extra Skills
+    * Add a skill of your choice to the Skill Tree
+    * Give it a level or array of levels for N/E/L e.g. 4;5;6 (X2 monster skills usually go to 10)
+    * If not passive, create an entry for the skills use in the Skill Configuration.
+    * Repeat with as many extra skills as needed.
+    
+6. Extra Equipment / Loot
+    * Add fitting armor pieces with respective chances to body parts
+    * Add appropriate potion, relic and scroll/recipe drops (compare similar enemy)
+    * Add a fitting goldGenerator and chance to generate, maybe bonus XP
+
+7. Proxies
+    * Create a spawn pool and add your monster(s) to it -> Proxy & Pool Guide
+    * Create a proxy, linking your spawn pool and an asset
+    * Place proxy in map
+
+Profit!
+
+(#) Creating a Hero 
+
+1. Copy 2-3 champion / interesting base classes
+
+2. Rename from e.g. am_brute_44 to x2hero_brute_50
+
+3. Edit values:
+    * >Monster parameters:
+        * monsterClassification: Hero
+    * >Character:
+        * charLevel: +2-4 (sync with name)
+        * experiencePoints: 750
+
+        * >Actor Variables:
+            * Scale +0.1-0.2 (10%+ of base scale)
+
+        * >Character Bio:
+            * Str/Int/Dex +50% / ~300 (judge by enemy type)
+            * Champion Health (characterLife) ~ 2x / ~4000
+            * Mana 5x / ~2500
+
+    *>SkillTree:
+        *records\skills\boss skills\hero_conversionimmunity.dbr
+        *1;2;3
+
+4. Hero Star
+    * Hero Star uses Prey_Effect attachment
+
+
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
+
+

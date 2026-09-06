@@ -1,0 +1,64 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Grid Background="Black" Height="600" Width="1000">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <GroupBox Classes="Settings__GroupBox" Header="General" Grid.Column="0">
+                <StackPanel>
+                    <CheckBox Classes="Settings__Checkbox" Content="Bypass title screen"/>
+                    <Label Classes="Settings__Label" Content="I am a label"/>
+                    <TextBox Classes="Settings__Textbox" Text="I am a textbox"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Classes="Settings__GroupBox" Header="Backup" Grid.Column="2">
+        
+            </GroupBox>
+        </Grid>
+    </Design.PreviewWith>
+
+    <!-- Add Styles Here -->
+    <Style Selector="GroupBox.Settings__GroupBox">
+        <Setter Property="BorderBrush" Value="White"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="HeaderTemplate">
+            <DataTemplate>
+                <TextBlock Classes="groupBoxHeader" Text="{Binding}"/>
+            </DataTemplate>
+        </Setter>
+    </Style>
+    <Style Selector="GroupBox.Settings__GroupBox TextBlock.groupBoxHeader">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+    </Style>
+
+    <Style Selector="CheckBox.Settings__Checkbox">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+    <Style Selector="CheckBox.Settings__Checkbox /template/ Border#NormalRectangle">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="White"/>
+    </Style>
+
+    <Style Selector="CheckBox.Settings__Checkbox:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style Selector="Label.Settings__Label">
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style Selector="TextBox.Settings__Textbox">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="gray"/>
+        <Setter Property="BorderBrush" Value="White"/>
+    </Style>
+
+</Styles>
