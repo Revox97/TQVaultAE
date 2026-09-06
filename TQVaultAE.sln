@@ -22,7 +22,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Backup", "src\TQV
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Events", "src\TQVaultAE.Events\TQVaultAE.Events.csproj", "{4931CAD1-04FC-48B5-93DC-15E4C0C7158A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Arz", "src\TQVaultAE.ArzProvider\TQVaultAE.Arz.csproj", "{4775CD3F-7E31-4191-8447-75FB5D0D0128}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.TitanQuestDataProviders", "src\TQVaultAE.ArzProvider\TQVaultAE.TitanQuestDataProviders.csproj", "{4775CD3F-7E31-4191-8447-75FB5D0D0128}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.IO", "src\TQVaultAE.IO\TQVaultAE.IO.csproj", "{2628AABA-BC8F-4D7D-9260-CECC44CC76DB}"
 EndProject

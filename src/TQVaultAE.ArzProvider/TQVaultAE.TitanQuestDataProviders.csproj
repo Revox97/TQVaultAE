@@ -10,8 +10,4 @@
     <ProjectReference Include="..\TQVaultAE.IO\TQVaultAE.IO.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
