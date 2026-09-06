@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
-using TQVaultAE.Arz;
 using TQVaultAE.Arz.Model;
-using TQVaultAE.IO;
+using TQVaultAE.TitanQuestDataProviders.Database;
 
 namespace TQVaultAE.ArzTests
 {

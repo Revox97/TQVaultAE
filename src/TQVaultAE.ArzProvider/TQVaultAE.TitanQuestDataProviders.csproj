@@ -10,4 +10,8 @@
     <ProjectReference Include="..\TQVaultAE.IO\TQVaultAE.IO.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="SaveGame\" />
+  </ItemGroup>
+
 </Project>

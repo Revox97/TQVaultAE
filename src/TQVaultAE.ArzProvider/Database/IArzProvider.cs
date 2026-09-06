@@ -1,6 +1,6 @@
 ﻿using TQVaultAE.Arz.Model;
 
-namespace TQVaultAE.Arz
+namespace TQVaultAE.TitanQuestDataProviders.Database
 {
     public interface IArzProvider
     {

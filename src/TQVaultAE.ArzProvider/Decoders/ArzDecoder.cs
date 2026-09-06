@@ -1,28 +1,17 @@
 ﻿using System.Buffers.Binary;
 using System.Text;
 using TQVaultAE.Arz.Model;
-using TQVaultAE.IO;
 
-namespace TQVaultAE.Arz
+namespace TQVaultAE.TitanQuestDataProviders.Decoders
 {
-    /// <summary>
-    /// Represents an provider, which reads, decodes and provides <see cref="ArzFile"/>s.
-    /// </summary>
-    public class ArzProvider : IArzProvider
+    internal sealed class ArzDecoder
     {
-        /// <summary>
-        /// Reads and decodes the provided <paramref name="path"/> into an <see cref="ArzFile"/>.
-        /// </summary>
-        /// <param name="path">The path, in which the file is located.</param>
-        /// <returns>The decoded <see cref="ArzFile"/>, that has been provided in <paramref name="path"/>.</returns>
-        public async Task<ArzFile> ReadAsync(string path)
+        internal static async Task<ArzFile> DecodeAsync(byte[] content, string path)
         {
-            byte[] content = await new FileReader().ReadBytesAsync(path).ConfigureAwait(false);
             Span<byte> bytes = content.AsSpan();
-
             ArzHeaders headers = ReadHeaders(bytes);
-            string[] infoItems = ReadDbrTable(content, headers.InfoTableStart, headers.InfoTableSize);
-            ArzRecord[] records = ReadRecordTable(content, headers.RecordTableStart, headers.RecordTableSize, headers.RecordTableCount, ref infoItems);
+            string[] infoItems = ReadDbrTable(bytes, headers.InfoTableStart, headers.InfoTableSize);
+            ArzRecord[] records = ReadRecordTable(bytes, headers.RecordTableStart, headers.RecordTableSize, headers.RecordTableCount, ref infoItems);
 
             return new ArzFile()
             {
@@ -77,6 +66,7 @@ namespace TQVaultAE.Arz
             return dbrTable;
         }
 
+        // TODO, if required for more files -> move into separate class
         private static string ReadCString(ReadOnlySpan<byte> data, ref int offset)
         {
             int length = BinaryPrimitives.ReadInt32LittleEndian(data[offset..]);
