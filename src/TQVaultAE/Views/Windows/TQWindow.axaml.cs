@@ -6,6 +6,7 @@ using TQVaultAE.ViewModels;
 using Avalonia.Media;
 using Avalonia.Input;
 using TQVaultAE.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace TQVaultAE.Views.Windows;
 
@@ -42,7 +43,7 @@ public partial class TQWindow : Window
 
     private void BorderTopCenterMouseDown(object? sender, PointerPressedEventArgs e)
     {
-        if (e.GetCurrentPoint(null).Properties.IsLeftButtonPressed && VisualRoot is Window window)
+        if (e.GetCurrentPoint(null).Properties.IsLeftButtonPressed && VisualRoot!.Parent is Window window)
             window.BeginMoveDrag(e);
     }
 
@@ -55,8 +56,8 @@ public partial class TQWindow : Window
     {
         if (_isMainWindow)
         {
-            WindowResizeController windowResizeController = WindowResizeController.GetInstance();
-            windowResizeController.Update(e);
+            IWindowResizeController windowResizeController = Program.Services.GetRequiredService<IWindowResizeController>();
+            windowResizeController.Invoke(e);
         }
     }
 }

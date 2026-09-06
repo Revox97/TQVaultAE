@@ -6,13 +6,13 @@
         mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="450"
         x:DataType="vm:TQWindowViewModel"
         ExtendClientAreaToDecorationsHint="True"
-        ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="1"
         x:Class="TQVaultAE.Views.Windows.TQWindow"
         CanResize="{Binding CanResize}"
         Resized="Window_Resized"
         Icon="/Assets/Img/icon_majestic_chest.png"
-        Title="TQWindow" Height="{Binding Height}" Width="{Binding Width}">
+        Title="TQWindow" Height="{Binding Height}" Width="{Binding Width}"
+        Window.WindowDecorations="BorderOnly">
     <Window.Styles>
         <StyleInclude Source="avares://TQVaultAE/Styles/TQWindowStyles.axaml"/>
     </Window.Styles>

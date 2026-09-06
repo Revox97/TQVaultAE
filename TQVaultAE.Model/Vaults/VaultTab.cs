@@ -15,17 +15,30 @@ namespace TQVaultAE.Model.Vaults
         [JsonPropertyName("id")]
         public Guid Id { get; init; }
 
+        [JsonPropertyName("vault")]
+        public Guid VaultId { get; init; }
+
+        [JsonIgnore()]
+        public Vault Vault { get; init; } = null!;
+
         [JsonPropertyName("name")]
         [Length(10, 100, ErrorMessage = "Tab name must be between 10 and 100 characters long.")]
         public string Name { get; set; } = string.Empty;
 
-        [JsonPropertyName("iconPath")]
-        public Uri IconPath { get; set; } = null!;
+        [JsonPropertyName("iconId")]
+        public Guid IconId { get; set; }
+
+        [JsonIgnore]
+        public IconSet Icon { get; set; } = new IconSet(
+            "defaultIconSet",
+            new Icon("defaultIcon_up", new Uri("avares://TQVaultAE/Assets/Img/button_inventorybag_up.png")),
+            new Icon("defaultIcon_down", new Uri("avares://TQVaultAE/Assets/Img/button_inventorybag_down.png")),
+            new Icon("defaultIcon_hover", new Uri("avares://TQVaultAE/Assets/Img/button_inventorybag_hover.png")));
 
         /// <summary>
         /// Gets or sets which item slots are currently allocated.
         /// </summary>
-        [JsonPropertyName("slotAllocation")]
+        [JsonIgnore]
         public bool[,] SlotAllocation { get; set; } = new bool[Rows,Columns];
 
         [JsonPropertyName("items")]

@@ -1,8 +1,8 @@
-﻿using Avalonia;
+﻿using System.Drawing;
 
-namespace TQVaultAE.Observers.EventArgs
+namespace TQVaultAE.Events.Events
 {
-    public class WindowSizeChangedEventArgs
+    public class MainWindowChangedEvent : IEvent
     {
         /// <summary>
         /// Gets the new (Avalonia) location of the window.
@@ -12,7 +12,8 @@ namespace TQVaultAE.Observers.EventArgs
         /// <summary>
         /// Gets the new (Avalonia) size of the window.
         /// </summary>
-        public Size Size { get; init; }
+        public double Width { get; init; }
+        public double Height { get; init; }
 
         /// <summary>
         /// Gets the new cell size for tq item controls.

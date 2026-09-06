@@ -1,12 +1,15 @@
 using System;
+using Avalonia;
 using Avalonia.Controls;
-using TQVaultAE.Observers;
-using TQVaultAE.Observers.EventArgs;
+using Microsoft.Extensions.DependencyInjection;
+using TQVaultAE.Events;
+using TQVaultAE.Events.Events;
+using TQVaultAE.Events.Observers;
 using TQVaultAE.Services;
 
 namespace TQVaultAE.Views.Controls;
 
-public partial class CharacterControl : UserControl, IWindowResizeObserver
+public partial class CharacterControl : UserControl, IMainWindowChangedObserver
 {
     private int _cellSize;
 
@@ -14,7 +17,8 @@ public partial class CharacterControl : UserControl, IWindowResizeObserver
     {
         InitializeComponent();
 
-        WindowResizeController.GetInstance().AddObserver(this);
+        Program.Services.GetRequiredService<IEventDispatcher>().AddObserver(this);
+
         InitializeUI();
     }
 
@@ -33,9 +37,9 @@ public partial class CharacterControl : UserControl, IWindowResizeObserver
         ItemsPanel__RelicVault.InitializeUI();
     }
 
-    public void Update(WindowSizeChangedEventArgs args)
+    public void Notify(object sender, MainWindowChangedEvent @event)
     {
-        _cellSize = args.CellSize;
+        _cellSize = @event.CellSize;
         UpdateUI();
     }
 
@@ -62,7 +66,7 @@ public partial class CharacterControl : UserControl, IWindowResizeObserver
 
     public void Dispose()
     {
-        WindowResizeController.GetInstance().RemoveObserver(this);
+        Program.Services.GetRequiredService<IEventDispatcher>().RemoveObserver(this);
         GC.SuppressFinalize(this);
     }
 

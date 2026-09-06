@@ -14,13 +14,12 @@ namespace TQVaultAE.ViewModels
 {
     internal class ContentSelectorComboBoxViewModel : INotifyPropertyChanged, INotifyCollectionChanged
     {
-        private IBrush? _icon;
         public IBrush? Icon
         {
-            get => _icon;
+            get;
             set
             {
-                _icon = value;
+                field = value;
                 OnPropertyChanged(nameof(Icon));
             }
         }
@@ -28,13 +27,12 @@ namespace TQVaultAE.ViewModels
         // TODO This needs to be more generic
         public ObservableCollection<ItemContainer> Items { get; set; } = [];
 
-        private ItemContainer? _selectedItem;
         public ItemContainer? SelectedItem
         {
-            get => _selectedItem;
+            get;
             set
             {
-                _selectedItem = value;
+                field = value;
                 OnPropertyChanged(nameof(SelectedItem));
             }
         }

@@ -1,73 +1,24 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using Avalonia.Controls;
-using TQVaultAE.Observers;
-using TQVaultAE.Observers.EventArgs;
+﻿using Avalonia.Controls;
+using Microsoft.Extensions.DependencyInjection;
+using TQVaultAE.Events;
+using TQVaultAE.Events.Events;
 
 namespace TQVaultAE.Services
 {
-    internal class WindowResizeController
+    internal sealed class WindowResizeController : IWindowResizeController
     {
-        private static WindowResizeController? s_instance;
-        private static readonly SemaphoreSlim s_instanceSemaphore = new(1, 1);
+        private readonly IEventDispatcher _eventDispatcher = Program.Services.GetRequiredService<IEventDispatcher>();
 
-        private readonly List<IWindowResizeObserver> _observers = [];
-
-        internal static WindowResizeController GetInstance()
+        void IWindowResizeController.Invoke(WindowResizedEventArgs args)
         {
-            if (s_instance is null)
+            MainWindowChangedEvent e = new()
             {
-                try
-                {
-                    s_instanceSemaphore.Wait(2000);
-                    s_instance ??= new WindowResizeController();
-                }
-                finally
-                {
-                    s_instanceSemaphore.Release();
-                }
-            }
-
-            return s_instance;
-        }
-
-        private WindowResizeController() { }
-
-        internal void AddObserver(IWindowResizeObserver observer)
-        {
-            if (_observers.Contains(observer))
-                return;
-
-            _observers.Add(observer);
-        }
-
-        internal void RemoveObserver(IWindowResizeObserver observer)
-        {
-            if (!_observers.Contains(observer))
-                return;
-
-            _observers.Remove(observer);
-        }
-
-        internal void Update(WindowResizedEventArgs args)
-        {
-            WindowSizeChangedEventArgs e = new()
-            {
-                Size = args.ClientSize,
+                Width = args.ClientSize.Width,
+                Height = args.ClientSize.Height,
                 CellSize = (int)(args.ClientSize.Width / 50) // TODO dummy value calculate correct result
             };
 
-            _observers.ForEach(x =>
-            {
-                try
-                {
-                    x.Update(e);
-                }
-                catch
-                {
-                    // TODO: Handle exception
-                }
-            });
+            _eventDispatcher.Dispatch(this, e);
         }
     }
 }

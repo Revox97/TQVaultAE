@@ -23,6 +23,7 @@
             <StackPanel Margin="4 0" Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
                 <ToggleButton Classes="ToggleButtonMain" Width="120" Margin="2 0" Content="Vault" x:Name="ToggleButtonVault"/>
                 <ToggleButton Classes="ToggleButtonMain" Width="120" Margin="2 0" Content="Search" x:Name="ToggleButtonSearch"/>
+                <ToggleButton Classes="ToggleButtonMain" Width="120" Margin="2 0" Content="Crafting" IsEnabled="False" x:Name="ToggleButtonCrafting"/>
                 <ToggleButton Classes="ToggleButtonMain" Width="120" Margin="2 0" Content="Configuration" x:Name="ToggleButtonSettings"/>
                 <Button Classes="ButtonMain" Width="120" Margin="2 0" Content="Save"/>
             </StackPanel>

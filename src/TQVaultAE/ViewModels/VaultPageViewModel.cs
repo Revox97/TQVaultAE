@@ -7,24 +7,22 @@ namespace TQVaultAE.ViewModels
 {
     internal class VaultPageViewModel : INotifyPropertyChanged
     {
-        private ContentSelectorComboBox? _itemSelectorComboBoxLeft;
         public ContentSelectorComboBox? ItemContainerSelectorLeft
         {
-            get => _itemSelectorComboBoxLeft;
+            get;
             set
             {
-                _itemSelectorComboBoxLeft = value;
+                field = value;
                 OnPropertyChanged(nameof(ItemContainerSelectorLeft));
             }
-        } 
+        }
 
-        private ContentSelectorComboBox? _itemSelectorComboBoxRight;
         public ContentSelectorComboBox? ItemContainerSelectorRight
         {
-            get => _itemSelectorComboBoxRight;
+            get;
             set
             {
-                _itemSelectorComboBoxRight = value;
+                field = value;
                 OnPropertyChanged(nameof(ItemContainerSelectorRight));
             }
         } 

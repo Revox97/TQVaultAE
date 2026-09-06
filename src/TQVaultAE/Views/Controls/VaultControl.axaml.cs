@@ -4,14 +4,16 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
-using Avalonia.Utilities;
-using TQVaultAE.Observers;
-using TQVaultAE.Observers.EventArgs;
+using Microsoft.Extensions.DependencyInjection;
+using TQVaultAE.Events;
+using TQVaultAE.Events.Events;
+using TQVaultAE.Events.Observers;
+using TQVaultAE.Model.Vaults;
 using TQVaultAE.Services;
 
 namespace TQVaultAE.Views.Controls;
 
-public partial class VaultControl : UserControl, IWindowResizeObserver
+public partial class VaultControl : UserControl, IMainWindowChangedObserver
 {
     private const int Rows = 20;
     private const int Columns = 18;
@@ -19,41 +21,69 @@ public partial class VaultControl : UserControl, IWindowResizeObserver
 
     private int _cellSize = 0;
 
+    public Vault DataSource { get; set; }
+    public VaultTab SelectedTab { get; set; }
+
     public VaultControl()
     {
         InitializeComponent();
 
-        WindowResizeController windowResizeController = WindowResizeController.GetInstance();
-        windowResizeController.AddObserver(this);
+        Program.Services.GetRequiredService<IEventDispatcher>().AddObserver(this);
+
+        DataSource = new Vault();
+        DataContext = DataSource;
 
         InitializeUI();
     }
 
     private void InitializeUI()
     {
-        for (int i = 0; i < Tabs; i++)
+        int i = 0;
+
+        foreach(VaultTab tab in DataSource.Tabs)
         {
-            Bitmap bitmap = new(AssetLoader.Open(new Uri("avares://TQVaultAE/Assets/Img/button_inventorybag_down.png")));
+            Bitmap bitmap = new(AssetLoader.Open(tab.Icon.IconDown.Uri));
             Border item = new()
             {
                 Background = new ImageBrush(bitmap),
                 HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch,
                 VerticalAlignment = Avalonia.Layout.VerticalAlignment.Stretch,
-                Margin = new Thickness(1, 0)
+                Margin = new Thickness(1, 0),
             };
 
             Tabs__Container.Children.Add(item);
 
             Grid.SetRow(item, 0);
             Grid.SetColumn(item, i);
+
+            i++;
         }
 
+        SelectedTab = DataSource.Tabs[0];
+        ((Border)(Tabs__Container.Children[0])).Background = new ImageBrush(new Bitmap(AssetLoader.Open(SelectedTab.Icon.IconUp.Uri)));
         ItemsPanel.InitializeUI();
+
+        //for (int i = 0; i < Tabs; i++)
+        //{
+        //    Bitmap bitmap = new(AssetLoader.Open(new Uri("avares://TQVaultAE/Assets/Img/button_inventorybag_down.png")));
+        //    Border item = new()
+        //    {
+        //        Background = new ImageBrush(bitmap),
+        //        HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch,
+        //        VerticalAlignment = Avalonia.Layout.VerticalAlignment.Stretch,
+        //        Margin = new Thickness(1, 0)
+        //    };
+
+        //    Tabs__Container.Children.Add(item);
+
+        //    Grid.SetRow(item, 0);
+        //    Grid.SetColumn(item, i);
+        //}
     }
 
-    public void Update(WindowSizeChangedEventArgs args)
+    public void Notify(object sender, MainWindowChangedEvent @event)
     {
-        _cellSize = args.CellSize;
+        _cellSize = @event.CellSize;
         UpdateUI();
     }
 
@@ -103,9 +133,7 @@ public partial class VaultControl : UserControl, IWindowResizeObserver
 
     public void Dispose()
     {
-        WindowResizeController windowResizeController = WindowResizeController.GetInstance();
-        windowResizeController.RemoveObserver(this);
-
+        Program.Services.GetRequiredService<IEventDispatcher>().RemoveObserver(this);
         GC.SuppressFinalize(this);
     }
 }

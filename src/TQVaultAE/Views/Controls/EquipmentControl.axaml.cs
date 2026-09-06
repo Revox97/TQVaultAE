@@ -1,24 +1,25 @@
 using System;
 using Avalonia.Controls;
-using TQVaultAE.Observers;
-using TQVaultAE.Observers.EventArgs;
-using TQVaultAE.Services;
+using Microsoft.Extensions.DependencyInjection;
+using TQVaultAE.Events;
+using TQVaultAE.Events.Events;
+using TQVaultAE.Events.Observers;
 
 namespace TQVaultAE.Views.Controls;
 
-public partial class EquipmentControl : UserControl, IWindowResizeObserver
+public partial class EquipmentControl : UserControl, IMainWindowChangedObserver
 {
     private int _cellSize;
 
     public EquipmentControl()
     {
         InitializeComponent();
-        WindowResizeController.GetInstance().AddObserver(this);
+        Program.Services.GetRequiredService<IEventDispatcher>().AddObserver(this);
     }
 
-    public void Update(WindowSizeChangedEventArgs args)
+    public void Notify(object sender, MainWindowChangedEvent @event)
     {
-        _cellSize = args.CellSize;
+        _cellSize = @event.CellSize;
         UpdateUI();
     }
 
@@ -64,7 +65,7 @@ public partial class EquipmentControl : UserControl, IWindowResizeObserver
 
     public void Dispose()
     {
-        WindowResizeController.GetInstance().RemoveObserver(this);
+        Program.Services.GetRequiredService<IEventDispatcher>().RemoveObserver(this);
         GC.SuppressFinalize(this);
     }
 }

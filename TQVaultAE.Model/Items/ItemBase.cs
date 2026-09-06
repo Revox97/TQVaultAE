@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
+﻿using System.Drawing;
 using System.Text.Json.Serialization;
 using TQVaultAE.Model.Enumerations;
 
@@ -10,8 +7,12 @@ namespace TQVaultAE.Model.Items
     /// <summary>
     /// Represents a Titan Quest item.
     /// </summary>
-    public class ItemBase
+    public abstract class ItemBase
     {
+        // TODO find a way to set a unique id per item
+        [JsonPropertyName("id")]
+        public Guid Id { get; set; }
+
         [JsonPropertyName("name")]
         public string Name { get; set; } = string.Empty;
 
@@ -27,8 +28,8 @@ namespace TQVaultAE.Model.Items
         [JsonPropertyName("size")]
         public Size Size { get; set; }
 
-        [JsonPropertyName("iconPath")]
-        public Uri IconPath { get; set; } = null!;
+        [JsonPropertyName("iconDbPath")]
+        public Uri IconDbPath { get; set; } = new Uri("avares://TQVaultAE/Assets/Img/ENERGY02B_UP.TEX");
 
         [JsonPropertyName("baseItemProperties")]
         public List<string> BaseItemProperties { get; set; } = [];

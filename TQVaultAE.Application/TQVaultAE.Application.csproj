@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TQVaultAE.Model\TQVaultAE.Model.csproj" />
+    <ProjectReference Include="..\TQVaultAE.Persistence\TQVaultAE.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

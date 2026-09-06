@@ -35,7 +35,7 @@ namespace TQVaultAE.ViewModels
 
         internal void SwitchPage(Control newPage) => CurrentPage = newPage;
 
-        public ICommand SaveCommand => new RelayCommand(() => { });
+        public ICommand SaveCommand => new RelayCommand(static () => { });
 
         internal static void OpenAboutWindow() => new TQWindow(new AboutPage(), "About TQVaultAE", 575, 400, false, WindowCloseAction.CloseWindow) { Title = "About TQVaultAE" }.Show();
 
