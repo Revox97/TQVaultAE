@@ -29,7 +29,7 @@ namespace TQVaultAE.Model.Items
         public Size Size { get; set; }
 
         [JsonPropertyName("iconDbPath")]
-        public Uri IconDbPath { get; set; } = new Uri("avares://TQVaultAE/Assets/Img/ENERGY02B_UP.TEX");
+        public Uri IconDbPath { get; set; } = new Uri("avares://TQVaultAE/Assets/Img/MockItem1x1.png");
 
         [JsonPropertyName("baseItemProperties")]
         public List<string> BaseItemProperties { get; set; } = [];

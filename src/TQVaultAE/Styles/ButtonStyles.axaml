@@ -3,8 +3,9 @@
   <Design.PreviewWith>
     <Border Padding="20">
         <StackPanel>
-            <ToggleButton Content="Toggle" Classes="ToggleButtonMain" FontSize="14" Width="120" Height="30" Margin="0 10"/>
             <Button Content="Button" Classes="ButtonMain" FontSize="14" Width="120" Height="30" Margin="0 10"/>
+            <ToggleButton Content="Toggle" Classes="ToggleButtonMain" FontSize="14" Width="120" Height="30" Margin="0 10"/>
+            <ToggleButton Content="1" Classes="ToggleButtonVaultTab" FontSize="14" Width="30" Height="30" Margin="0 10" HorizontalAlignment="Center"/>
         </StackPanel>
     </Border>
   </Design.PreviewWith>
@@ -88,5 +89,33 @@
                             TileMode="None" Stretch="Fill" AlignmentX="Center" AlignmentY="Center"/>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style Selector="ToggleButton.ToggleButtonVaultTab /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_inventorybag_down.png"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground" Value="LightGray"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    </Style>
+    <Style Selector="ToggleButton.ToggleButtonVaultTab:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_inventorybag_up.png"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style Selector="ToggleButton.ToggleButtonVaultTab:checked /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_inventorybag_over.png"/>
+            </Setter.Value>
+        </Setter>
+        <!-- Prevents unchecking -->
+        <Setter Property="IsHitTestVisible" Value="False"/>
+        <Setter Property="IsTabStop" Value="False"/>
     </Style>
 </Styles>

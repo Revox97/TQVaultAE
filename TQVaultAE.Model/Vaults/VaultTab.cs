@@ -33,7 +33,7 @@ namespace TQVaultAE.Model.Vaults
             "defaultIconSet",
             new Icon("defaultIcon_up", new Uri("avares://TQVaultAE/Assets/Img/button_inventorybag_up.png")),
             new Icon("defaultIcon_down", new Uri("avares://TQVaultAE/Assets/Img/button_inventorybag_down.png")),
-            new Icon("defaultIcon_hover", new Uri("avares://TQVaultAE/Assets/Img/button_inventorybag_hover.png")));
+            new Icon("defaultIcon_hover", new Uri("avares://TQVaultAE/Assets/Img/button_inventorybag_over.png")));
 
         /// <summary>
         /// Gets or sets which item slots are currently allocated.

@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
@@ -9,7 +11,6 @@ using TQVaultAE.Events;
 using TQVaultAE.Events.Events;
 using TQVaultAE.Events.Observers;
 using TQVaultAE.Model.Vaults;
-using TQVaultAE.Services;
 
 namespace TQVaultAE.Views.Controls;
 
@@ -42,13 +43,35 @@ public partial class VaultControl : UserControl, IMainWindowChangedObserver
 
         foreach(VaultTab tab in DataSource.Tabs)
         {
-            Bitmap bitmap = new(AssetLoader.Open(tab.Icon.IconDown.Uri));
-            Border item = new()
+            ToggleButton item = new()
             {
-                Background = new ImageBrush(bitmap),
                 HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch,
                 VerticalAlignment = Avalonia.Layout.VerticalAlignment.Stretch,
                 Margin = new Thickness(1, 0),
+                Content = i + 1
+            };
+
+            item.Classes.Add("ToggleButtonVaultTab");
+
+            if (i == 0)
+                item.IsChecked = true;
+
+            item.IsCheckedChanged += (s, e) =>
+            {
+                if (s is ToggleButton sender)
+                {
+                    if (sender.IsChecked == true)
+                    {
+                        foreach (ToggleButton button in Tabs__Container.Children.Cast<ToggleButton>())
+                        {
+                            if (button != sender)
+                                button.IsChecked = false;
+                        }
+
+                        // TODO load new tab content aka set binding in model
+                        //ItemsPanel.Items = (sender.DataContext).Items
+                    }
+                }
             };
 
             Tabs__Container.Children.Add(item);
@@ -60,25 +83,8 @@ public partial class VaultControl : UserControl, IMainWindowChangedObserver
         }
 
         SelectedTab = DataSource.Tabs[0];
-        ((Border)(Tabs__Container.Children[0])).Background = new ImageBrush(new Bitmap(AssetLoader.Open(SelectedTab.Icon.IconUp.Uri)));
+        ((ToggleButton)(Tabs__Container.Children[0])).Background = new ImageBrush(new Bitmap(AssetLoader.Open(SelectedTab.Icon.IconUp.Uri)));
         ItemsPanel.InitializeUI();
-
-        //for (int i = 0; i < Tabs; i++)
-        //{
-        //    Bitmap bitmap = new(AssetLoader.Open(new Uri("avares://TQVaultAE/Assets/Img/button_inventorybag_down.png")));
-        //    Border item = new()
-        //    {
-        //        Background = new ImageBrush(bitmap),
-        //        HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch,
-        //        VerticalAlignment = Avalonia.Layout.VerticalAlignment.Stretch,
-        //        Margin = new Thickness(1, 0)
-        //    };
-
-        //    Tabs__Container.Children.Add(item);
-
-        //    Grid.SetRow(item, 0);
-        //    Grid.SetColumn(item, i);
-        //}
     }
 
     public void Notify(object sender, MainWindowChangedEvent @event)

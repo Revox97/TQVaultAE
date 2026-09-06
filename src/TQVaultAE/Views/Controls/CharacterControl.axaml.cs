@@ -1,11 +1,9 @@
 using System;
-using Avalonia;
 using Avalonia.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using TQVaultAE.Events;
 using TQVaultAE.Events.Events;
 using TQVaultAE.Events.Observers;
-using TQVaultAE.Services;
 
 namespace TQVaultAE.Views.Controls;
 
