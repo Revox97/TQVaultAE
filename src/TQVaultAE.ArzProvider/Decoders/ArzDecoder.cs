@@ -1,6 +1,7 @@
 ﻿using System.Buffers.Binary;
 using System.Text;
 using TQVaultAE.Arz.Model;
+using TQVaultAE.TitanQuestDataProviders.Model;
 
 namespace TQVaultAE.TitanQuestDataProviders.Decoders
 {

@@ -2,8 +2,8 @@
 
 namespace TQVaultAE.TitanQuestDataProviders.Database
 {
-    public interface IArzProvider
+    public interface IArcProvider
     {
-        Task<ArzFile> ReadAsync(string path);
+        Task<ArcFile> ReadAsync(string path);
     }
 }

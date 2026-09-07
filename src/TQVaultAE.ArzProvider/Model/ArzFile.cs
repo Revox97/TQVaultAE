@@ -1,4 +1,6 @@
-﻿namespace TQVaultAE.Arz.Model
+﻿using TQVaultAE.Arz.Model;
+
+namespace TQVaultAE.TitanQuestDataProviders.Model
 {
     /// <summary>
     /// Represents an Arz file.

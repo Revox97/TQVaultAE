@@ -1,6 +1,6 @@
-﻿using TQVaultAE.Arz.Model;
-using TQVaultAE.IO;
+﻿using TQVaultAE.IO;
 using TQVaultAE.TitanQuestDataProviders.Decoders;
+using TQVaultAE.TitanQuestDataProviders.Model;
 
 namespace TQVaultAE.TitanQuestDataProviders.Database
 {
