@@ -4,10 +4,16 @@ using TQVaultAE.Events.Observers;
 
 namespace TQVaultAE.Events
 {
+    /// <summary>
+    /// Represents a dispatcher, that registers / unregisters and notifies clients about TQVault <see cref="IEvent"/>s.
+    /// </summary>
     public sealed class EventDispatcher : IEventDispatcher
     {
         private readonly Dictionary<Type, IEventHandler> _handlers = [];
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="EventDispatcher"/>.
+        /// </summary>
         public EventDispatcher()
         {
             InitializeEventHandlers();

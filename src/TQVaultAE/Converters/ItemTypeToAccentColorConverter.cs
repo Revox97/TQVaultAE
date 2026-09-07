@@ -2,7 +2,6 @@
 using System.Globalization;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
-using TQVaultAE.Model;
 using TQVaultAE.Model.Enumerations;
 
 namespace TQVaultAE.Converters
@@ -14,7 +13,7 @@ namespace TQVaultAE.Converters
             //if (value is not ItemClass itemClass)
             //    return value;
 
-            return new SolidColorBrush(new Color(0x66, Model.Colors.TitanQuestPurple.R, Model.Colors.TitanQuestPurple.G, Model.Colors.TitanQuestPurple.B));
+            return new SolidColorBrush(new Color(0x66, Model.UI.Colors.TitanQuestPurple.R, Model.UI.Colors.TitanQuestPurple.G, Model.UI.Colors.TitanQuestPurple.B));
 
             // TODO Use classification for specific item types to get correct color
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TQVaultAE.Model;
 using TQVaultAE.Model.Settings;
+using TQVaultAE.Model.UI;
 
 namespace TQVaultAE.Persistence
 {

@@ -1,7 +1,10 @@
 ﻿using System.Drawing;
 
-namespace TQVaultAE.Model
+namespace TQVaultAE.Model.UI
 {
+    /// <summary>
+    /// Represents colors used in the TQVault user interface.
+    /// </summary>
     public static class Colors
     {
         public static Color TitanQuestAqua { get; }  = Color.FromArgb(0, 255, 255);

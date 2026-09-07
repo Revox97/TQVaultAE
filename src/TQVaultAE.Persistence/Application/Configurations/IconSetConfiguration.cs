@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TQVaultAE.Model;
+using TQVaultAE.Model.UI;
 
 namespace TQVaultAE.Persistence.Application.Configurations
 {

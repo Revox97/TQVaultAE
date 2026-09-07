@@ -2,17 +2,24 @@
 
 namespace TQVaultAE.Events.Events
 {
+    /// <summary>
+    /// Represents an <see cref="IEvent"/> for changes in the main window.
+    /// </summary>
     public class MainWindowChangedEvent : IEvent
     {
         /// <summary>
-        /// Gets the new (Avalonia) location of the window.
+        /// Gets the new location of the main window.
         /// </summary>
         public Point Location { get; init; }
 
         /// <summary>
-        /// Gets the new (Avalonia) size of the window.
+        /// Gets the new width of the main window.
         /// </summary>
         public double Width { get; init; }
+
+        /// <summary>
+        /// Gets the new height of the main window.
+        /// </summary>
         public double Height { get; init; }
 
         /// <summary>
