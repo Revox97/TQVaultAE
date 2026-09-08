@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Avalonia;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using TQVaultAE.Application.Contracts;
+using TQVaultAE.Application.Services;
 using TQVaultAE.Events;
 using TQVaultAE.Persistence;
 using TQVaultAE.Services;
@@ -35,6 +37,8 @@ namespace TQVaultAE
 
             services.AddSingleton<IEventDispatcher, EventDispatcher>();
             services.AddSingleton<IWindowResizeController, WindowResizeController>();
+            services.AddSingleton<IVaultService, VaultService>();
+            services.AddSingleton<ISettingsService, SettingsService>();
 
             Services = services.BuildServiceProvider();
 

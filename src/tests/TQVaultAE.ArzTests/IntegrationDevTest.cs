@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using TQVaultAE.TitanQuestDataProviders.Database;
 using TQVaultAE.TitanQuestDataProviders.Model;
+using TQVaultAE.TitanQuestDataProviders.SaveGame;
 
 namespace TQVaultAE.ArzTests
 {
@@ -21,6 +22,15 @@ namespace TQVaultAE.ArzTests
         {
             string path = "C:\\Users\\Leo\\Documents\\TQVaultTestData\\Items.arc";
             ArcFile result = await new ArcProvider().ReadAsync(path);
+
+            Assert.IsTrue(true);
+        }
+
+        [Test]
+        public async Task TestChrReader()
+        {
+            string path = "C:\\Users\\Leo\\Documents\\TQVaultTestData\\Player.chr";
+            ChrFile result = await new ChrProvider().ReadAsync(path);
 
             Assert.IsTrue(true);
         }

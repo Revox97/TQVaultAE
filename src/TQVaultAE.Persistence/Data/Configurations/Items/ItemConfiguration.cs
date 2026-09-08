@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Drawing;
+using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TQVaultAE.Model.Items;
 
@@ -8,47 +10,68 @@ namespace TQVaultAE.Persistence.Data.Configurations.Items
     {
         public void Configure(EntityTypeBuilder<ItemBase> builder)
         {
+            builder.ToTable("items");
+
+            builder.Property(x => x.Id)
+                   .HasColumnName("id");
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Name)
-                .IsRequired()
-                .HasMaxLength(256);
+                   .IsRequired()
+                   .HasMaxLength(256)
+                   .HasColumnName("name");
 
             builder.Property(x => x.Classification)
-                .IsRequired();
+                   .IsRequired()
+                   .HasColumnName("classification");
 
             builder.Property(x => x.Class)
-                .IsRequired();
+                   .IsRequired()
+                   .HasColumnName("class");
 
             builder.Property(x => x.Position)
-                .IsRequired();
+                   .IsRequired()
+                   .HasConversion(
+                       pos => JsonSerializer.Serialize(pos),
+                       value => JsonSerializer.Deserialize<Point>(value)
+                   )
+                   .HasColumnName("position")
+                   .HasColumnType("TEXT");
 
             builder.Property(x => x.Size)
-                .IsRequired();
+                   .IsRequired()
+                   .HasConversion(
+                       size => JsonSerializer.Serialize(size),
+                       value => JsonSerializer.Deserialize<Size>(value)
+                   )
+                   .HasColumnName("size")
+                   .HasColumnType("TEXT");
 
-            // Icon (linker table)
             builder.Property(x => x.IconDbPath)
-                .IsRequired()
-                .HasConversion(
-                    uri => uri.ToString(),
-                    value => new Uri(value)
-                )
-                .HasColumnType("TEXT");
+                   .IsRequired()
+                   .HasConversion(
+                       uri => uri.ToString(),
+                       value => new Uri(value)
+                   )
+                   .HasColumnName("icon_db_path")
+                   .HasColumnType("TEXT");
 
             // TODO might be an issue with lists in SQLLite, maybe a separate table / json parsing is required
             builder.Property(x => x.BaseItemProperties)
-                .IsRequired();
+                   .IsRequired();
 
             // TODO might be an issue with lists in SQLLite, maybe a separate table / json parsing is required
             builder.Property(x => x.AdditionalItemProperties)
-                .IsRequired();
+                   .IsRequired();
 
             builder.Property(x => x.ItemLevel)
-                .IsRequired()
-                .HasDefaultValue(null);
+                   .IsRequired()
+                   .HasColumnName("level")
+                   .HasDefaultValue(null);
 
             builder.Property(x => x.DatabasePath)
-                .IsRequired();
+                   .IsRequired()
+                   .HasColumnName("tq_db_path");
         }
     }
 }

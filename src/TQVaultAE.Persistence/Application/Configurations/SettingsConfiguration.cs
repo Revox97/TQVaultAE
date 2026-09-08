@@ -10,10 +10,11 @@ namespace TQVaultAE.Persistence.Application.Configurations
         {
             builder.ToTable("settings");
 
-            builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                    .IsRequired()
                    .HasColumnName("id");
+
+            builder.HasKey(x => x.Id);
 
             builder.ComplexProperty(x => x.General, g =>
             {

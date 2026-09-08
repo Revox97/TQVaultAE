@@ -10,6 +10,9 @@ namespace TQVaultAE.Persistence.Application.Configurations
         {
             builder.ToTable("icons");
 
+            builder.Property(x => x.Id)
+                   .HasColumnName("id");
+
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Uri)
@@ -17,6 +20,7 @@ namespace TQVaultAE.Persistence.Application.Configurations
                        uri => uri.ToString(),
                        value => new Uri(value)
                    )
+                   .HasColumnName("uri")
                    .HasColumnType("TEXT");
         }
     }

@@ -1,5 +1,4 @@
 using System.Globalization;
-using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using TQVaultAE.Resources;
@@ -8,7 +7,7 @@ using TQVaultAE.Views.Windows;
 
 namespace TQVaultAE
 {
-    public partial class App : Application
+    public partial class App : Avalonia.Application
     {
         public override void Initialize()
         {

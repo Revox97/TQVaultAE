@@ -2,6 +2,7 @@
 using System.Text.Json.Serialization;
 using TQVaultAE.Model.Enumerations;
 
+// TODO: Add reference to the owning user
 namespace TQVaultAE.Model.Vaults
 {
     /// <summary>

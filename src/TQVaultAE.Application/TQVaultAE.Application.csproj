@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TQVaultAE.ArzProvider\TQVaultAE.TitanQuestDataProviders.csproj" />
     <ProjectReference Include="..\TQVaultAE.Events\TQVaultAE.Events.csproj" />
     <ProjectReference Include="..\TQVaultAE.Model\TQVaultAE.Model.csproj" />
     <ProjectReference Include="..\TQVaultAE.Persistence\TQVaultAE.Persistence.csproj" />

@@ -35,6 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TQVaultAE.Application\TQVaultAE.Application.csproj" />
     <ProjectReference Include="..\TQVaultAE.Events\TQVaultAE.Events.csproj" />
     <ProjectReference Include="..\TQVaultAE.Model\TQVaultAE.Model.csproj" />
     <ProjectReference Include="..\TQVaultAE.Persistence\TQVaultAE.Persistence.csproj" />

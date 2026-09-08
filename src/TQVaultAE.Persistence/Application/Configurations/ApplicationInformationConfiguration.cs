@@ -10,15 +10,15 @@ namespace TQVaultAE.Persistence.Application.Configurations
         {
             builder.ToTable("application");
 
+            builder.Property(x => x.Name)
+                   .IsRequired()
+                   .HasColumnName("name");
+
             builder.HasKey(x => x.Name);
 
-            builder.Property(x => x.Name)
-                .IsRequired()
-                .HasColumnName("name");
-
             builder.Property(x => x.Version)
-                .IsRequired()
-                .HasColumnName("version");
+                   .IsRequired()
+                   .HasColumnName("version");
         }
     }
 }

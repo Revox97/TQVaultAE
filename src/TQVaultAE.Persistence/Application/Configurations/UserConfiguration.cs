@@ -10,13 +10,18 @@ namespace TQVaultAE.Persistence.Application.Configurations
         {
             builder.ToTable("users");
 
-            builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                    .IsRequired()
                    .HasColumnName("id");
 
+            builder.HasKey(x => x.Id);
+
             builder.Property(x => x.Name)
-                   .IsRequired();
+                   .IsRequired()
+                   .HasColumnName("name");
+
+            builder.Property(x => x.Settings)
+                   .HasColumnName("settings_id");
 
             builder.HasOne(x => x.Settings)
                    .WithMany()
