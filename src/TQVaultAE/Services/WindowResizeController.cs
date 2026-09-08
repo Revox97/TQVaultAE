@@ -15,7 +15,7 @@ namespace TQVaultAE.Services
             {
                 Width = args.ClientSize.Width,
                 Height = args.ClientSize.Height,
-                CellSize = (int)(args.ClientSize.Width / 50) // TODO dummy value calculate correct result
+                CellSize = (int)(args.ClientSize.Width / 41.00) // TODO dummy value calculate correct result
             };
 
             _eventDispatcher.Dispatch(this, e);

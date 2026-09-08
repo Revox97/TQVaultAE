@@ -31,12 +31,16 @@ public partial class TQWindow : Window
         });
     }
 
-    public TQWindow(Control content, string title, double initialWidth = 1300d, double initialHeight = 900d, bool allowResize = true, WindowCloseAction closeAction = WindowCloseAction.ExitApplication, bool isMainWindow = false)
+    public TQWindow(Control content, string title, double initialWidth = 1200d, double initialHeight = 800d, bool allowResize = true, WindowCloseAction closeAction = WindowCloseAction.ExitApplication, bool isMainWindow = false)
     {
         InitializeComponent();
         DataContext = new TQWindowViewModel(this, title, initialWidth, initialHeight, allowResize, closeAction);
 
         _isMainWindow = isMainWindow;
+
+        if (_isMainWindow)
+            MinWidth = 1100;
+
         ContentContainer.Children.Add(content);
         BorderTopCenter.PointerPressed += BorderTopCenterMouseDown;
     }
@@ -56,6 +60,8 @@ public partial class TQWindow : Window
     {
         if (_isMainWindow)
         {
+            Height = Width * 0.70;
+
             IWindowResizeController windowResizeController = Program.Services.GetRequiredService<IWindowResizeController>();
             windowResizeController.Invoke(e);
         }

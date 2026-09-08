@@ -42,7 +42,7 @@
         <Border Background="Yellow" Grid.Row="3" Grid.Column="6"/>
 
         <Button Grid.Row="0" Grid.Column="1" x:Name="Button__Sort_Main"
-                VerticalAlignment="Top" HorizontalAlignment="Left">
+                VerticalAlignment="Bottom" HorizontalAlignment="Left">
             <Button.Background>
                 <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_autosort_up.png"
                             AlignmentX="Left" AlignmentY="Bottom" Stretch="Fill" TileMode="None"/>
@@ -74,7 +74,7 @@
                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsCheckedChanged="ToggleButton__SideSackTabOne_IsCheckedChanged">
             </ToggleButton>
             <Button Grid.Row="0" Grid.Column="4" x:Name="Button__Sort_Side"
-                    VerticalAlignment="Top" HorizontalAlignment="Right">
+                    VerticalAlignment="Bottom" HorizontalAlignment="Right">
                 <Button.Background>
                     <ImageBrush Source="avares://TQVaultAE/Assets/Img/button_autosort_up.png"
                                 AlignmentX="Right" AlignmentY="Bottom" Stretch="Fill" TileMode="None"/>

@@ -86,8 +86,14 @@ public partial class InventoryControl : UserControl, INotifyPropertyChanged, IMa
         double sortButtonHeight = _cellSize;
         double sortButtonWidth = sortButtonHeight * 4;
 
-        double tabWidth = _cellSize * 1.2;
-        double tabHeight = _cellSize;
+        //double tabWidth = _cellSize * 1.2;
+        //double tabHeight = _cellSize;
+
+        // Calculated like in VaultControl, needs to be done somewhere else
+        int itemsContainerWidth = 18 * _cellSize;
+
+        double tabWidth = itemsContainerWidth / 12;
+        double tabHeight = tabWidth * 0.8;
 
         ControlContainer.RowDefinitions.Clear();
         ControlContainer.RowDefinitions.Add(new RowDefinition(tabHeight, GridUnitType.Pixel));
