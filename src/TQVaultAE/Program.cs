@@ -38,6 +38,7 @@ namespace TQVaultAE
             services.AddSingleton<IEventDispatcher, EventDispatcher>();
             services.AddSingleton<IWindowResizeController, WindowResizeController>();
             services.AddSingleton<IVaultService, VaultService>();
+            services.AddSingleton<IPlayerService, PlayerService>();
             services.AddSingleton<ISettingsService, SettingsService>();
 
             Services = services.BuildServiceProvider();

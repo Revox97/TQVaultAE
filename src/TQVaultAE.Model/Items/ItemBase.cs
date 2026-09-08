@@ -4,6 +4,7 @@ using TQVaultAE.Model.Enumerations;
 
 namespace TQVaultAE.Model.Items
 {
+    // TODO: TBD replace with Item
     /// <summary>
     /// Represents a Titan Quest item.
     /// </summary>

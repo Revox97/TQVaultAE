@@ -4,6 +4,38 @@ using TQVaultAE.TitanQuestDataProviders.Model;
 namespace TQVaultAE.TitanQuestDataProviders.Decoders
 {
     // TODO works, but files always seem to be structured in the same way, so parsing correct BlockNames should be possible
+    #region CHRDOCU
+    // CHR FILE STRUCTURE
+    // headerVersion - Int32
+    // Followed by data blocks
+    // usually label size (Int32) followed by the label (string)
+    // Then a primitive type
+    // A label can mark the start of a complex block (begin_block)
+    // complex blocks can contain other blocks and/or primitives
+    // complex blocks end on end_block label
+
+    // File Structure:
+    // headerVersion: Int32
+    // playerCharacterClass: String
+    // uniqueId: Guid
+    // streamData: Stream
+    // playerClassTag: String
+    // playerLevel: Int32
+    // playerVersion: Int32
+    // BLOCK0 #PlayerMetadata
+    // BLOCK1 #Skills
+    // BLOCK2 #??UIState??
+    // BLOCK3 #PlayerLevel
+    // BLOCK4 #Temp (not sure what it is used for)
+    // BLOCK5 #PlayerStatistics
+    // controllerStreamed: bool
+    // BLOCK6 #PlayerInventory
+    // BLOCK7 #??Unknown??
+    // BLOCK8 #PlayerEquipment
+    // BLOCK9 #Skillbar
+    // Description: Unknown
+    #endregion CHRDOCU
+
     internal class ChrDecoder
     {
         private const string Label_BeginBlock = "begin_block";
@@ -19,14 +51,15 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
         public static ChrBlock ParseCharacterFile(FileStream stream, BinaryReader reader)
         {
             ChrBlock root = new("Root");
-            
+
+            int blockCount = 0;
             while (stream.Position < stream.Length)
-                ParseNextToken(reader, root);
+                ParseNextToken(reader, root, ref blockCount);
 
             return root;
         }
 
-        private static void ParseNextToken(BinaryReader reader, ChrBlock currentBlock)
+        private static void ParseNextToken(BinaryReader reader, ChrBlock currentBlock, ref int blockCount, int level = 0)
         {
             if (reader.BaseStream.Position >= reader.BaseStream.Length)
                 return;
@@ -41,11 +74,14 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
 
             if (label == Label_BeginBlock)
             {
+                // Seems to be always the same
                 int blockId = reader.ReadInt32();
-                var subBlock = new ChrBlock($"Block_{blockId}");
-                
+                //var subBlock = new ChrBlock($"Block_{blockId}");
+                var subBlock = new ChrBlock($"Block_{level}-{blockCount++}");
+
                 currentBlock.Children.Add(subBlock);
 
+                int subBlockCount = 0;
                 while (true)
                 {
                     long currentPos = reader.BaseStream.Position;
@@ -76,7 +112,7 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
                     }
 
                     reader.BaseStream.Position = currentPos;
-                    ParseNextToken(reader, subBlock);
+                    ParseNextToken(reader, subBlock, ref subBlockCount, level + 1);
                 }
             }
             else
