@@ -19,7 +19,7 @@ namespace TQVaultAE.Application.Services
 
         public async Task<Player> GetPlayerByNameAsync(string name)
         {
-            string path = Path.Combine(_saveDataPath, name[1..]);
+            string path = Path.Combine(_saveDataPath, '_' + name, "Player.chr");
 
             ChrProvider chrProvider = new();
             ChrFile playerFile = await chrProvider.ReadAsync(path).ConfigureAwait(false);

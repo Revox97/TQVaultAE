@@ -43,53 +43,53 @@ namespace TQVaultAE.Model.Vaults
         public bool[,] SlotAllocation { get; set; } = new bool[Rows,Columns];
 
         [JsonPropertyName("items")]
-        public List<ItemBase> Items { get; set; } = [];
+        public List<Item> Items { get; set; } = [];
 
         /// <summary>
         /// Adds an <see cref="ItemBase"/> to the <see cref="VaultTab"/>.
         /// </summary>
         /// <param name="item">The <see cref="ItemBase"/>, which should be added.</param>
         /// <returns><see langword="true"/>, if the <paramref name="item"/> has been added successfully. Otherwise <see langword="false"/>.</returns>
-        public bool AddItem(ItemBase item)
+        public bool AddItem(Item item)
         {
-            for (int i = item.Position.X; i <= item.Position.X + item.Size.Width; i++)
-            {
-                for (int k = item.Position.Y; k <= item.Position.Y + item.Size.Height; k++)
-                {
-                    if (SlotAllocation[k, i])
-                    {
-                        // TODO: Cannot add item, must be handled somehow
-                        return false;
-                    }
-                }
-            }
+            //for (int i = item.Position.X; i <= item.Position.X + item.Size.Width; i++)
+            //{
+            //    for (int k = item.Position.Y; k <= item.Position.Y + item.Size.Height; k++)
+            //    {
+            //        if (SlotAllocation[k, i])
+            //        {
+            //            // TODO: Cannot add item, must be handled somehow
+            //            return false;
+            //        }
+            //    }
+            //}
 
-            for (int i = item.Position.X; i <= item.Position.X + item.Size.Width; i++)
-            {
-                for (int k = item.Position.Y; k <= item.Position.Y + item.Size.Height; k++)
-                    SlotAllocation[k, i] = true;
-            }
+            //for (int i = item.Position.X; i <= item.Position.X + item.Size.Width; i++)
+            //{
+            //    for (int k = item.Position.Y; k <= item.Position.Y + item.Size.Height; k++)
+            //        SlotAllocation[k, i] = true;
+            //}
 
             Items.Add(item);
             return true;
         }
 
-        public bool RemoveItem(ItemBase item)
+        public bool RemoveItem(Item item)
         {
             if (!Items.Contains(item))
                 return false;
 
-            for (int i = item.Position.X; i <= item.Position.X + item.Size.Width; i++)
-            {
-                for (int k = item.Position.Y; k <= item.Position.Y + item.Size.Height; k++)
-                    SlotAllocation[k, i] = false;
-            }
+            //for (int i = item.Position.X; i <= item.Position.X + item.Size.Width; i++)
+            //{
+            //    for (int k = item.Position.Y; k <= item.Position.Y + item.Size.Height; k++)
+            //        SlotAllocation[k, i] = false;
+            //}
 
             Items.Remove(item);
             return true;
         }
 
-        public bool ReplaceItem(ItemBase item)
+        public bool ReplaceItem(Item item)
         {
             throw new NotImplementedException();
         }

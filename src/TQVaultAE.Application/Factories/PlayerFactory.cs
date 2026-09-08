@@ -12,6 +12,7 @@ namespace TQVaultAE.Application.Factories
         {
             Player result = new()
             {
+                Id = input.Root.FindChild("uniqueId")?.AsGuid() ?? Guid.Empty,
                 Version = input.Root.FindChild("playerVersion")?.AsInt32() ?? -1,
                 Name = input.Root.FindElement("myPlayerName")?.AsString() ?? string.Empty,
                 Class = input.Root.FindChild("playerCharacterClass")?.AsString() ?? string.Empty,
@@ -111,7 +112,7 @@ namespace TQVaultAE.Application.Factories
         private static Item ReadItem(ChrBlock item)
         {
             int positionX = item.FindChild("pointX")?.AsInt32() ?? -1;
-            int positionY = item.FindChild("pointX")?.AsInt32() ?? -1;
+            int positionY = item.FindChild("pointY")?.AsInt32() ?? -1;
             Point position = new(positionX, positionY);
 
             Item result = new()

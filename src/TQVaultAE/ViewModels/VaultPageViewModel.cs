@@ -1,46 +1,87 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using Avalonia.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.DependencyInjection;
 using TQVaultAE.Application.Contracts;
+using TQVaultAE.Model.Players;
+using TQVaultAE.Models;
 using TQVaultAE.Views.Controls;
 
 namespace TQVaultAE.ViewModels
 {
-    internal class VaultPageViewModel : INotifyPropertyChanged
+    public class VaultPageViewModel : ObservableObject
     {
-        public ContentSelectorComboBox? ItemContainerSelectorLeft
+        public Player? Player
+        {
+            get;
+            set => SetProperty(ref field, value);
+        }
+
+        public ContentSelectorComboBox? VaultSelector
         {
             get;
             set
             {
                 field = value;
-                OnPropertyChanged(nameof(ItemContainerSelectorLeft));
+                OnPropertyChanged(nameof(VaultSelector));
             }
         }
 
-        public ContentSelectorComboBox? ItemContainerSelectorRight
+        public ContentSelectorComboBox? PlayerSelector
         {
             get;
             set
             {
                 field = value;
-                OnPropertyChanged(nameof(ItemContainerSelectorRight));
+                OnPropertyChanged(nameof(PlayerSelector));
             }
         } 
 
         // Design time constructor
         public VaultPageViewModel()
         {
-            ItemContainerSelectorLeft = new ContentSelectorComboBox(
-                new Uri("avares://TQVaultAE/Assets/Img/icon_majestic_chest.png"),
-                ["Vault1", "Vault2"]);
-            ItemContainerSelectorRight = new ContentSelectorComboBox(
-                new Uri("avares://TQVaultAE/Assets/Img/icon_character.png"),
-                Program.Services.GetRequiredService<IPlayerService>().GetPlayerNamesAsync().Result); // TODO Get rid of result call
+            if (Design.IsDesignMode)
+            {
+                VaultSelector = new ContentSelectorComboBox(
+                    new Uri("avares://TQVaultAE/Assets/Img/icon_majestic_chest.png"),
+                    ["Vault1", "Vault2"]);
+                PlayerSelector = new ContentSelectorComboBox(
+                    new Uri("avares://TQVaultAE/Assets/Img/icon_character.png"),
+                    ["Player1", "Player2"]);
+            }
+            else
+            {
+                VaultSelector = new ContentSelectorComboBox(
+                    new Uri("avares://TQVaultAE/Assets/Img/icon_majestic_chest.png"),
+                    ["Vault1", "Vault2"]);
+                PlayerSelector = new ContentSelectorComboBox(
+                    new Uri("avares://TQVaultAE/Assets/Img/icon_character.png"),
+                    Program.Services.GetRequiredService<IPlayerService>().GetPlayerNamesAsync().Result); // TODO Get rid of result call
+            }
+
+            VaultSelector.SelectionChanged += VaultSelector_SelectionChanged;
+            PlayerSelector.SelectionChanged += PlayerSelector_SelectionChanged;
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string? name = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        // TODO implement
+        private void VaultSelector_SelectionChanged(object? sender, Avalonia.Controls.SelectionChangedEventArgs e)
+        {
+            return;
+        }
+
+        private void PlayerSelector_SelectionChanged(object? sender, Avalonia.Controls.SelectionChangedEventArgs e)
+        {
+            try
+            {
+                Player player = Program.Services.GetRequiredService<IPlayerService>().GetPlayerByNameAsync(((ItemContainer)e.AddedItems[0]!).Name).Result;
+                Player = player;
+            }
+            catch(Exception ex)
+            {
+                // TODO log updating player failed
+            }
+
+            // TODO Get stash
+        }
     }
 }

@@ -14,7 +14,9 @@ public partial class EquipmentControl : UserControl, IMainWindowChangedObserver
     public EquipmentControl()
     {
         InitializeComponent();
-        Program.Services.GetRequiredService<IEventDispatcher>().AddObserver(this);
+
+        if (!Design.IsDesignMode)
+            Program.Services.GetRequiredService<IEventDispatcher>().AddObserver(this);
     }
 
     public void Notify(object sender, MainWindowChangedEvent @event)

@@ -31,10 +31,10 @@ namespace TQVaultAE.Persistence.Data.Configurations
             builder.Property(x => x.Items)
                    .HasColumnName("items");
             
-            builder.HasMany(x => x.Items)
-                   .WithOne()
-                   .HasForeignKey(x => x.Id)
-                   .OnDelete(DeleteBehavior.Restrict);
+            //builder.HasMany(x => x.Items)
+            //       .WithOne()
+            //       .HasForeignKey(x => x.Id)
+            //       .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

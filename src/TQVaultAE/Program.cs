@@ -9,6 +9,7 @@ using TQVaultAE.Application.Services;
 using TQVaultAE.Events;
 using TQVaultAE.Persistence;
 using TQVaultAE.Services;
+using TQVaultAE.ViewModels;
 
 namespace TQVaultAE
 {
@@ -33,7 +34,11 @@ namespace TQVaultAE
             //InitializeDbContextFactories(ref services);
 
             // Register viewModels, services, etc. here
-            // services.AddTransient<MainWindowViewModel>();
+            services.AddTransient<VaultPageViewModel>();
+            services.AddTransient<AboutPageViewModel>();
+            services.AddTransient<TQWindowViewModel>();
+            services.AddTransient<MainPageViewModel>();
+            services.AddTransient<ContentSelectorComboBoxViewModel>();
 
             services.AddSingleton<IEventDispatcher, EventDispatcher>();
             services.AddSingleton<IWindowResizeController, WindowResizeController>();

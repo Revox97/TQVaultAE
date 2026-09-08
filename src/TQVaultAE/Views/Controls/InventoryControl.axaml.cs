@@ -1,21 +1,65 @@
 using System;
+using System.ComponentModel;
+using System.Linq;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Microsoft.Extensions.DependencyInjection;
 using TQVaultAE.Events;
 using TQVaultAE.Events.Events;
 using TQVaultAE.Events.Observers;
+using TQVaultAE.Model.Players;
+using TQVaultAE.ViewModels;
 
 namespace TQVaultAE.Views.Controls;
 
-public partial class InventoryControl : UserControl, IMainWindowChangedObserver
+public partial class InventoryControl : UserControl, INotifyPropertyChanged, IMainWindowChangedObserver
 {
+    public InventoryControlViewModel ViewModel { get; } = new();
+
     private int _cellSize;
+
+    public static readonly StyledProperty<Player?> PlayerProperty =
+        AvaloniaProperty.Register<InventoryControl, Player?>(nameof(Player));
+
+    public Player? Player
+    {
+        get => GetValue(PlayerProperty);
+        set => SetValue(PlayerProperty, value);
+    }
+
+    static InventoryControl()
+    {
+        PlayerProperty.Changed.AddClassHandler<InventoryControl>((control, args) =>
+        {
+            if (control is InventoryControl iControl && args.NewValue is Player newValue)
+            {
+                iControl.ViewModel.SackMain = newValue.Sacks[0];
+                iControl.ViewModel.SelectedSideSack = null;
+
+                if (newValue.SackCount > 1)
+                {
+                    iControl.ViewModel.SackSecundary = newValue.Sacks[1];
+                    iControl.ViewModel.SelectedSideSack = iControl.ViewModel.SackSecundary;
+                    iControl.ToggleButton__SideSackTabOne.IsChecked = true;
+                }
+
+                if (newValue.SackCount > 2)
+                    iControl.ViewModel.SackTertiary = newValue.Sacks[2];
+
+                if (newValue.SackCount > 3)
+                    iControl.ViewModel.SackQuartiary = newValue.Sacks[3];
+            }
+        });
+    }
 
     public InventoryControl()
     {
         InitializeComponent();
 
-        Program.Services.GetRequiredService<IEventDispatcher>().AddObserver(this);
+        if (!Design.IsDesignMode)
+            Program.Services.GetRequiredService<IEventDispatcher>().AddObserver(this);
+
         InitializeUI();
     }
 
@@ -71,6 +115,11 @@ public partial class InventoryControl : UserControl, IMainWindowChangedObserver
         ItemsPanelMain.UpdateUI();
         ItemsPanelSide.UpdateUI();
 
+        //MissingSacksCover.IsVisible = DataSource.SackCount > 1;
+
+        //if (_selectedSideBagIndex < DataSource.SackCount)
+        //    _selectedSideBagIndex = DataSource.SackCount;
+
         Button__Sort_Main.Width = sortButtonWidth;
         Button__Sort_Main.Height = sortButtonHeight;
 
@@ -78,6 +127,7 @@ public partial class InventoryControl : UserControl, IMainWindowChangedObserver
         Button__Sort_Side.Height = sortButtonHeight;
 
         Tabs__Container.ColumnDefinitions.Clear();
+        // TODO remove bag icon if player has not 4 bags
         for (int i = 0; i < 3; i++)
             Tabs__Container.ColumnDefinitions.Add(new ColumnDefinition(tabWidth, GridUnitType.Pixel));
 
@@ -89,5 +139,38 @@ public partial class InventoryControl : UserControl, IMainWindowChangedObserver
     {
         Program.Services.GetRequiredService<IEventDispatcher>().RemoveObserver(this);
         GC.SuppressFinalize(this);
+    }
+
+    private void ToggleButton__SideSackTabOne_IsCheckedChanged(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (sender is ToggleButton toggleButton)
+        {
+            if (toggleButton.IsChecked  == true)
+            {
+                foreach (ToggleButton button in Tabs__Container.Children.Where(x => x.GetType() == typeof(ToggleButton)))
+                {
+                    if (button != toggleButton)
+                        button.IsChecked = false;
+                }
+
+                if (toggleButton == ToggleButton__SideSackTabOne)
+                {
+                    ViewModel.SelectedSideSack = ViewModel.SackSecundary;
+                    return;
+                }
+
+                if (toggleButton == ToggleButton__SideSackTabTwo)
+                {
+                    ViewModel.SelectedSideSack = ViewModel.SackTertiary;
+                    return;
+                }
+
+                if (toggleButton == ToggleButton__SideSackTabThree)
+                {
+                    ViewModel.SelectedSideSack = ViewModel.SackQuartiary;
+                    return;
+                }
+            }
+        }
     }
 }

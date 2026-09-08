@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Linq;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 using TQVaultAE.Model.Items;
@@ -8,31 +9,69 @@ namespace TQVaultAE.Views.Controls;
 
 public partial class ItemsPanel : UserControl
 {
-    internal int Rows { get; set; } = 20;
-    internal int Columns { get; set; } = 18;
+    public static readonly StyledProperty<List<Item>> ItemsProperty =
+        AvaloniaProperty.Register<ItemsPanel, List<Item>>(nameof(Items));
+
+    public static readonly StyledProperty<int> RowsProperty =
+        AvaloniaProperty.Register<ItemsPanel, int>(nameof(Rows));
+
+    public static readonly StyledProperty<int> ColumnsProperty =
+        AvaloniaProperty.Register<ItemsPanel, int>(nameof(Columns));
+
+    public int Rows
+    {
+        get => GetValue(RowsProperty);
+        set => SetValue(RowsProperty, value);
+    }
+
+    public int Columns
+    {
+        get => GetValue(ColumnsProperty);
+        set => SetValue(ColumnsProperty, value);
+    }
 
     internal int CellSize { get; set; }
 
-    public List<ItemBase> Items { get; set; } = [
-        new ArtifactItem()
+    public List<Item> Items
+    {
+        get => GetValue(ItemsProperty);
+        set => SetValue(ItemsProperty, value);
+    }
+
+    static ItemsPanel()
+    {
+        ItemsProperty.Changed.AddClassHandler<ItemsPanel>((control, args) =>
         {
-            Name = "Sample item 1",
-            ItemLevel = 4,
-            Position = new System.Drawing.Point(2, 3),
-            Size = new System.Drawing.Size(2,2)
-        },
-        new ArtifactItem()
-        {
-            Name = "Sample item 2",
-            ItemLevel = 4,
-            Position = new System.Drawing.Point(7, 8),
-            Size = new System.Drawing.Size(2,2)
-        },
-    ];
+            if (control is ItemsPanel itemsPanel && args.NewValue is List<Item> newValue)
+                control.DrawItems(newValue);
+        });
+
+    }
 
     public ItemsPanel()
     {
         InitializeComponent();
+        InitializeUI();
+    }
+
+    private void DrawItems(List<Item> items)
+    {
+        IEnumerable<Control> oldItems = ItemsContainer.Children.ToList().Where(x => x.GetType() == typeof(ItemControl));
+        ItemsContainer.Children.RemoveAll(oldItems);
+
+        foreach (Item item in items)
+        {
+            if (item.Position.X == -1 || item.Position.Y == -1)
+                continue;
+            ItemControl itemControl = new(item);
+
+            ItemsContainer.Children.Add(itemControl);
+            Grid.SetRow(itemControl, item.Position.Y);
+            Grid.SetColumn(itemControl, item.Position.X);
+
+            //Grid.SetColumnSpan(itemControl, item.Size.Width);
+            //Grid.SetRowSpan(itemControl, item.Size.Height);
+        }
     }
 
     internal void InitializeUI()
@@ -57,16 +96,16 @@ public partial class ItemsPanel : UserControl
             }
         }
 
-        foreach(ItemBase item in Items)
-        {
-            ItemControl itemControl = new(item);
+        //foreach(Item item in Items)
+        //{
+        //    ItemControl itemControl = new(item);
 
-            ItemsContainer.Children.Add(itemControl);
-            Grid.SetRow(itemControl, item.Position.Y);
-            Grid.SetColumn(itemControl, item.Position.X);
-            Grid.SetColumnSpan(itemControl, item.Size.Width);
-            Grid.SetRowSpan(itemControl, item.Size.Height);
-        }
+        //    ItemsContainer.Children.Add(itemControl);
+        //    Grid.SetRow(itemControl, item.Position.Y);
+        //    Grid.SetColumn(itemControl, item.Position.X);
+        //    //Grid.SetColumnSpan(itemControl, item.Size.Width);
+        //    //Grid.SetRowSpan(itemControl, item.Size.Height);
+        //}
     }
 
     internal void UpdateUI()

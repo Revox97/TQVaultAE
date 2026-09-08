@@ -29,7 +29,8 @@ public partial class VaultControl : UserControl, IMainWindowChangedObserver
     {
         InitializeComponent();
 
-        Program.Services.GetRequiredService<IEventDispatcher>().AddObserver(this);
+        if(!Design.IsDesignMode)
+            Program.Services.GetRequiredService<IEventDispatcher>().AddObserver(this);
 
         DataSource = new Vault();
         DataContext = DataSource;

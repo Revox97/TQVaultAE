@@ -7,7 +7,8 @@ namespace TQVaultAE.Views.Controls;
 
 public partial class ItemPopup : UserControl, INotifyPropertyChanged
 {
-    public ItemBase DataSource
+    // TODO move into  view model
+    public Item DataSource
     {
         get;
         set
@@ -17,7 +18,7 @@ public partial class ItemPopup : UserControl, INotifyPropertyChanged
         }
     }
 
-    public ItemPopup(ItemBase dataContext)
+    public ItemPopup(Item dataContext)
     {
         InitializeComponent();
         DataSource = dataContext;

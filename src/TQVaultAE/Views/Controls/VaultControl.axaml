@@ -37,6 +37,6 @@
                             AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
             </Button.Background>
         </Button>
-        <local:ItemsPanel x:Name="ItemsPanel" Grid.Row="2" Grid.Column="2"/>
+        <local:ItemsPanel x:Name="ItemsPanel" Grid.Row="2" Grid.Column="2" Rows="20" Columns="18"/>
     </Grid>
 </UserControl>

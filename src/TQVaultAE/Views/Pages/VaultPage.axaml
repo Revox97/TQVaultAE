@@ -20,13 +20,13 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="4"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Row="0" Grid.Column="1" Child="{Binding ItemContainerSelectorLeft}"/>
-        <Border Grid.Row="0" Grid.Column="3" Child="{Binding ItemContainerSelectorRight}"/>
+        <Border Grid.Row="0" Grid.Column="1" Child="{Binding VaultSelector}" />
+        <Border Grid.Row="0" Grid.Column="3" Child="{Binding PlayerSelector}"/>
         <Grid Grid.Row="1" Grid.Column="1">
             <ctrls:VaultControl HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="3">
-            <ctrls:CharacterControl HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <ctrls:CharacterControl HorizontalAlignment="Left" VerticalAlignment="Top" Player="{Binding Player}"/>
         </Grid>
     </Grid>
 </UserControl>

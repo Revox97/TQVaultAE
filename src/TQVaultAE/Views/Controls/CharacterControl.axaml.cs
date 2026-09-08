@@ -1,37 +1,54 @@
 using System;
+using System.Diagnostics;
+using Avalonia;
 using Avalonia.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using TQVaultAE.Events;
 using TQVaultAE.Events.Events;
 using TQVaultAE.Events.Observers;
+using TQVaultAE.Model.Players;
+using TQVaultAE.ViewModels;
 
 namespace TQVaultAE.Views.Controls;
 
 public partial class CharacterControl : UserControl, IMainWindowChangedObserver
 {
+    public CharacterControlViewModel ViewModel { get; set; } = new();
+
     private int _cellSize;
+
+    public static readonly StyledProperty<Player?> PlayerProperty =
+        AvaloniaProperty.Register<CharacterControl, Player?>(nameof(Player));
+
+    public Player? Player
+    {
+        get => GetValue(PlayerProperty);
+        set => SetValue(PlayerProperty, value);
+    }
+
+    static CharacterControl()
+    {
+        PlayerProperty.Changed.AddClassHandler<CharacterControl>((control, args) =>
+        {
+            if (control is CharacterControl characterControl && args.NewValue is Player newValue)
+                characterControl.ViewModel.Player = newValue;
+        });
+    }
 
     public CharacterControl()
     {
         InitializeComponent();
 
-        Program.Services.GetRequiredService<IEventDispatcher>().AddObserver(this);
+        if (!Design.IsDesignMode)
+            Program.Services.GetRequiredService<IEventDispatcher>().AddObserver(this);
 
         InitializeUI();
     }
 
     private void InitializeUI()
     {
-        ItemsPanel__StorageArea.Columns = 16;
-        ItemsPanel__StorageArea.Rows = 15;
         ItemsPanel__StorageArea.InitializeUI();
-
-        ItemsPanel__TransferArea.Columns = 16;
-        ItemsPanel__TransferArea.Rows = 15;
         ItemsPanel__TransferArea.InitializeUI();
-
-        ItemsPanel__RelicVault.Columns = 16;
-        ItemsPanel__RelicVault.Rows = 15;
         ItemsPanel__RelicVault.InitializeUI();
     }
 
@@ -43,12 +60,6 @@ public partial class CharacterControl : UserControl, IMainWindowChangedObserver
 
     private void UpdateUI()
     {
-        //double sortButtonHeight = _cellSize;
-        //double sortButtonWidth = sortButtonHeight * 4;
-
-        //double tabWidth = _cellSize * 1.2;
-        //double tabHeight = _cellSize;
-
         InvalidateMeasure();
         InvalidateArrange();
 
@@ -66,9 +77,5 @@ public partial class CharacterControl : UserControl, IMainWindowChangedObserver
     {
         Program.Services.GetRequiredService<IEventDispatcher>().RemoveObserver(this);
         GC.SuppressFinalize(this);
-    }
-
-    private void ItemsPanel__PlayerStatistics_ActualThemeVariantChanged(object? sender, EventArgs e)
-    {
     }
 }

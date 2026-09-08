@@ -3,6 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="using:TQVaultAE.Views.Controls"
+             x:Name="Root"
+             x:DataType="local:CharacterControl"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TQVaultAE.Views.Controls.CharacterControl">
     <UserControl.Styles>
@@ -14,7 +16,7 @@
             <RowDefinition Height="10"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <local:InventoryControl Grid.Row="0"/>
+        <local:InventoryControl Grid.Row="0" Player="{Binding ViewModel.Player, ElementName=Root}"/>
         <TabControl Grid.Row="2" HorizontalAlignment="Left">
             <TabItem Header="Equipment">
                 <Border>
@@ -28,7 +30,7 @@
                                           Margin="10 10 2 10"
                                           HorizontalAlignment="Left"
                                           VerticalAlignment="Top"/>
-                        <local:CharacterStatisticsControl x:Name="ItemsPanel__PlayerStatistics"
+                        <local:CharacterStatisticsControl x:Name="ItemsPanel__PlayerStatistics" Player="{Binding ViewModel.Player, ElementName=Root}"
                                           Grid.Column="1"
                                           Margin="2 10 10 10"
                                           HorizontalAlignment="Stretch"
@@ -39,7 +41,7 @@
             </TabItem>
             <TabItem Header="Storage Area">
                 <Border>
-                    <local:ItemsPanel x:Name="ItemsPanel__StorageArea"
+                    <local:ItemsPanel x:Name="ItemsPanel__StorageArea" Rows="15" Columns="16"
                                       BorderBrush="Yellow" BorderThickness="1"
                                       Margin="10"
                                       HorizontalAlignment="Center"
@@ -48,7 +50,7 @@
             </TabItem>
             <TabItem Header="Transfer Area">
                 <Border>
-                    <local:ItemsPanel x:Name="ItemsPanel__TransferArea"
+                    <local:ItemsPanel x:Name="ItemsPanel__TransferArea" Rows="15" Columns="16"
                                       BorderBrush="Yellow" BorderThickness="1"
                                       Margin="10"
                                       HorizontalAlignment="Center"
@@ -57,7 +59,7 @@
             </TabItem>
             <TabItem Header="Relic Vault">
                 <Border>
-                    <local:ItemsPanel x:Name="ItemsPanel__RelicVault"
+                    <local:ItemsPanel x:Name="ItemsPanel__RelicVault" Rows="15" Columns="16"
                                       BorderBrush="Yellow" BorderThickness="1"
                                       Margin="10"
                                       HorizontalAlignment="Center"

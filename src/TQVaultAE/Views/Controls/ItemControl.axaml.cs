@@ -7,8 +7,9 @@ namespace TQVaultAE.Views.Controls;
 
 public partial class ItemControl : UserControl
 {
+    // TODO Move into view model
     private Popup? _popup;
-    public ItemBase DataSource { get; init; }
+    public Item Item { get; init; }
 
     // Needed for XAML Designer
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
@@ -18,10 +19,10 @@ public partial class ItemControl : UserControl
         InitializeComponent();
     }
 
-    public ItemControl(ItemBase datasource)
+    public ItemControl(Item item)
     {
         InitializeComponent();
-        DataSource = datasource;
+        Item = item;
     }
 
     private void UserControl_PointerEntered(object? sender, Avalonia.Input.PointerEventArgs e)
@@ -29,13 +30,12 @@ public partial class ItemControl : UserControl
         _popup = new()
         {
             Tag = this,
-            Child = new ItemPopup(DataSource),
+            Child = new ItemPopup(Item),
             Placement = PlacementMode.RightEdgeAlignedTop,
             PlacementTarget = this,
         };
 
         _popup.Opened += Popup_Opened;
-
 
         _popup.Open();
     }

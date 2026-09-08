@@ -6,57 +6,62 @@
     public sealed class Player
     {
         /// <summary>
-        /// The version of the <see cref="Player"/>.
+        /// Gets the id of the <see cref="Player"/>.
+        /// </summary>
+        public Guid Id { get; init; }
+
+        /// <summary>
+        /// Gets the version of the <see cref="Player"/>.
         /// </summary>
         public int Version { get; init; }
 
         /// <summary>
-        /// The name of the <see cref="Player"/>.
+        /// Gets the name of the <see cref="Player"/>.
         /// </summary>
         public string Name { get; init; } = string.Empty;
 
         /// <summary>
-        /// The level of the <see cref="Player"/>.
+        /// Gets the level of the <see cref="Player"/>.
         /// </summary>
         public int Level { get; set; }
 
         /// <summary>
-        /// The class of the <see cref="Player"/>.
+        /// Gets the class of the <see cref="Player"/>.
         /// </summary>
         public string Class { get; init; } = string.Empty;
 
         /// <summary>
-        /// The class tag of the <see cref="Player"/>.
+        /// Gets the class tag of the <see cref="Player"/>.
         /// </summary>
         public string ClassTag { get; set; } = string.Empty;
 
         /// <summary>
-        /// The money of the <see cref="Player"/>.
+        /// Gets the money of the <see cref="Player"/>.
         /// </summary>
         public int Money { get; set; } 
 
         /// <summary>
-        /// The ??wie auch immer die resource gleich nochmal hier?? of the <see cref="Player"/>.
+        /// Gets the ??wie auch immer die resource gleich nochmal hier?? of the <see cref="Player"/>.
         /// </summary>
         public int AltMoney { get; set; }
 
         /// <summary>
-        /// The experience of the <see cref="Player"/>.
+        /// Gets the experience of the <see cref="Player"/>.
         /// </summary>
         public int Experience { get; set; }
 
         /// <summary>
-        /// The available attribute points of the <see cref="Player"/>.
+        /// Gets the available attribute points of the <see cref="Player"/>.
         /// </summary>
         public int AvailableAttributePoints { get; set; }
 
         /// <summary>
-        /// The available skill points of the <see cref="Player"/>.
+        /// Gets the available skill points of the <see cref="Player"/>.
         /// </summary>
         public int AvailableSkillPoints { get; set; }
 
         /// <summary>
-        /// The statistics of the <see cref="Player"/>.
+        /// Gets the statistics of the <see cref="Player"/>.
         /// </summary>
         public PlayerStatistics Statistics { get; set; } = new();
 

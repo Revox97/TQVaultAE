@@ -8,7 +8,7 @@
     <Border BorderBrush="LightGray" BorderThickness="1" Background="#CC000000">
         <StackPanel Margin="1">
             <TextBlock>
-                <Run FontWeight="DemiBold" Foreground="LightBlue" Text="{Binding DataSource.Name, ElementName=root}"/>
+                <Run FontWeight="DemiBold" Foreground="LightBlue" Text="{Binding DataSource.Path, ElementName=root}"/>
                 <LineBreak/>
                 <Run Foreground="White" Text="Item type"/>
                 <LineBreak/>

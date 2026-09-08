@@ -10,12 +10,17 @@ namespace TQVaultAE.Model.Items
         /// <summary>
         /// Gets or sets the position of the <see cref="Item"/> in its container.
         /// </summary>
-        public Point Position { get; set; }
+        public Point Position { get; set; } = new Point(0, 0);
 
         /// <summary>
         /// Gets the path within the Titan Quest database.
         /// </summary>
-        public string Path { get; set; } = string.Empty;
+        public string Path { get; init; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets the name of the <see cref="Item"/>.
+        /// </summary>
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the seed of the <see cref="Item"/>.

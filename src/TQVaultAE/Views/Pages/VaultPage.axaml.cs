@@ -5,9 +5,11 @@ namespace TQVaultAE.Views.Pages;
 
 public partial class VaultPage : UserControl
 {
+    private readonly VaultPageViewModel _viewModel = new();
+
     public VaultPage()
     {
         InitializeComponent();
-        DataContext = new VaultPageViewModel();
+        DataContext = _viewModel;
     }
 }

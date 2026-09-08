@@ -14,8 +14,8 @@
         <cvtr:ItemTypeToAccentColorConverter x:Key="ItemTypeToAccentColorConverter"/>
     </UserControl.Resources>
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <Rectangle Fill="{Binding DataSource, ElementName=root, Converter={StaticResource ItemTypeToAccentColorConverter}}" IsHitTestVisible="False"/>
-        <!--<Rectangle Fill="#4400FF00" IsHitTestVisible="False"/>-->
+        <!--<Rectangle Fill="{Binding DataSource, ElementName=root, Converter={StaticResource ItemTypeToAccentColorConverter}}" IsHitTestVisible="False"/>-->
+        <Rectangle Fill="#4400FF00" IsHitTestVisible="False"/>
         <Image Source="avares://TQVaultAE/Assets/Img/MockItem2x2.png" Stretch="Fill"/>
     </Grid>
 </UserControl>

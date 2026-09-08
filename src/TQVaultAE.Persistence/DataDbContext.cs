@@ -11,7 +11,7 @@ namespace TQVaultAE.Persistence
 
         public DbSet<VaultTab> VaultTabs => Set<VaultTab>();
 
-        public DbSet<ItemBase> Items => Set<ItemBase>();
+        public DbSet<Item> Items => Set<Item>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
