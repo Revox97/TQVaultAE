@@ -1,8 +1,8 @@
 **Main Application**
 
 ***TO DO***
-- [ ] Read out player list
-- [ ] Load payers
+- [x] Read out player list
+- [x] Load payers
 - [ ] Read out vault list
 - [ ] Load vaults
 - [ ] Save vaults
@@ -35,20 +35,20 @@
     - [ ] Add icon for selection
   - [ ] Add storage area support
 - [ ] Vault component
-    - [ ] Add UI
+    - [x] Add UI
     - [ ] Multi vault support
       - [ ] Load actual items
-      - [x] Vault selection
+      - [ ] Vault selection
     - [ ] Vault customization
       - [ ] Icon customization (Configuration)
       - [ ] Name customization (Configuration)
     - [ ] Autosort
 - [ ] Player component
   - [ ] Inventory
-    - [ ] Add UI
-    - [ ] Load actual items
+    - [x] Add UI
+    - [ ] Load actual items (ongoing)
     - [ ] Autosort
-    - [ ] Multisack support
+    - [x] Multisack support
     - [ ] Support for characters with less then four sacks
         - [ ] Hide tabs for non available sacks
   - [ ] Equipment
@@ -56,15 +56,15 @@
     - [ ] Load actual items
     - [ ] Add rings support
     - [ ] Statistics
-      - [ ] Load actual statistics
-      - [ ] Add correct background
-      - [ ] Scale font size
+      - [x] Load actual statistics (ongoing)
+      - [x] Add correct background
+      - [x] Scale font size
   - [ ] Add transfer area support
-    - [ ] Add UI
+    - [x] Add UI
     - [ ] Load actual items
     - [ ] Autosort
   - [ ] Add relic area support
-    - [ ] Add UI
+    - [x] Add UI
     - [ ] Load actual items
     - [ ] Autosort
 - [ ] Search functionality (menu bar)
@@ -111,12 +111,12 @@
   - [ ] Unarchive all
 
 ***NEW FEATURES***
-- [ ] Show correct item stats instead of incorrect stats 
+- [ ] Show correct item stats instead of incorrect stats - will be pain in the ass reverse engineering
 - [ ] Add item cost (sell) | can be calculated by using db
 
 ***FIXES***
-- [ ] UI scaling in main window
-- [ ] Spacing in player statistics
+- [x] UI scaling in main window
+- [x] Spacing in player statistics
 - [ ] Item highlight for weapons/shields
 
 

@@ -83,8 +83,8 @@ public partial class InventoryControl : UserControl, INotifyPropertyChanged, IMa
     {
         int borderThickness = 2;
 
-        double sortButtonHeight = _cellSize;
-        double sortButtonWidth = sortButtonHeight * 4;
+        double sortButtonHeight = _cellSize * 0.8;
+        double sortButtonWidth = _cellSize * 2.75;
 
         //double tabWidth = _cellSize * 1.2;
         //double tabHeight = _cellSize;
@@ -92,11 +92,13 @@ public partial class InventoryControl : UserControl, INotifyPropertyChanged, IMa
         // Calculated like in VaultControl, needs to be done somewhere else
         int itemsContainerWidth = 18 * _cellSize;
 
-        double tabWidth = itemsContainerWidth / 12;
-        double tabHeight = tabWidth * 0.8;
+        double tabColumnWidth = itemsContainerWidth / 12;
+        double tabRowHeight = tabColumnWidth * 0.8;
+        //double tabWidth = _cellSize * 0.8;
+        //double tabHeight = tabWidth;
 
         ControlContainer.RowDefinitions.Clear();
-        ControlContainer.RowDefinitions.Add(new RowDefinition(tabHeight, GridUnitType.Pixel));
+        ControlContainer.RowDefinitions.Add(new RowDefinition(tabRowHeight, GridUnitType.Pixel));
         ControlContainer.RowDefinitions.Add(new RowDefinition(borderThickness, GridUnitType.Pixel));
         ControlContainer.RowDefinitions.Add(new RowDefinition(1, GridUnitType.Star));
         ControlContainer.RowDefinitions.Add(new RowDefinition(borderThickness, GridUnitType.Pixel));
@@ -135,7 +137,7 @@ public partial class InventoryControl : UserControl, INotifyPropertyChanged, IMa
         Tabs__Container.ColumnDefinitions.Clear();
         // TODO remove bag icon if player has not 4 bags
         for (int i = 0; i < 3; i++)
-            Tabs__Container.ColumnDefinitions.Add(new ColumnDefinition(tabWidth, GridUnitType.Pixel));
+            Tabs__Container.ColumnDefinitions.Add(new ColumnDefinition(tabColumnWidth, GridUnitType.Pixel));
 
         Tabs__Container.ColumnDefinitions.Add(new ColumnDefinition(1, GridUnitType.Star));
         Tabs__Container.ColumnDefinitions.Add(new ColumnDefinition(sortButtonWidth, GridUnitType.Pixel));
