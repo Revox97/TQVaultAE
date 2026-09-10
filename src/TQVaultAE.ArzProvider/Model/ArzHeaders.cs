@@ -1,4 +1,4 @@
-﻿namespace TQVaultAE.Arz.Model
+﻿namespace TQVaultAE.TitanQuestDataProviders.Model
 {
     internal class ArzHeaders
     {

@@ -16,8 +16,15 @@ namespace TQVaultAE.TitanQuestDataProviders.Database
         /// <returns>The decoded <see cref="ArzFile"/>, that has been provided in <paramref name="path"/>.</returns>
         public async Task<ArzFile> ReadAsync(string path)
         {
-            byte[] content = await new FileReader().ReadBytesAsync(path).ConfigureAwait(false);
-            return await ArzDecoder.DecodeAsync(content, path);
+            if (!File.Exists(path))
+                throw new IOException($"File '{path}' does not exist.");
+
+            using FileStream stream = File.OpenRead(path);
+            return await ArzDecoder.DecodeAsync(stream, path).ConfigureAwait(false);
+
+
+            //byte[] content = await new FileReader().ReadBytesAsync(path).ConfigureAwait(false);
+            //return await ArzDecoder.DecodeAsync(content, path);
         }
     }
 }

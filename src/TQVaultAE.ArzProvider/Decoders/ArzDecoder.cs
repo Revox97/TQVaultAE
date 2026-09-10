@@ -1,25 +1,22 @@
 ﻿using System.Buffers.Binary;
 using System.Text;
-using TQVaultAE.Arz.Model;
 using TQVaultAE.TitanQuestDataProviders.Model;
 
 namespace TQVaultAE.TitanQuestDataProviders.Decoders
 {
+    // TODO Migrate to binary reader
     internal sealed class ArzDecoder
     {
-        internal static async Task<ArzFile> DecodeAsync(byte[] content, string path)
+        internal static async Task<ArzFile> DecodeAsync(FileStream stream, string path)
         {
-            Span<byte> bytes = content.AsSpan();
-            ArzHeaders headers = ReadHeaders(bytes);
-            string[] infoItems = ReadDbrTable(bytes, headers.InfoTableStart, headers.InfoTableSize);
-            ArzRecord[] records = ReadRecordTable(bytes, headers.RecordTableStart, headers.RecordTableSize, headers.RecordTableCount, ref infoItems);
+            using BinaryReader reader = new(stream, Encoding.UTF8);
+            ArzHeaders headers = ReadHeaders(reader);
 
-            return new ArzFile()
-            {
-                FileName = path,
-                Infos = infoItems,
-                Records = records
-            };
+            string[] infoItems = ReadDbrTable(reader, headers.InfoTableStart);
+            ArzRecord[] records = await ReadRecordTableAsync(reader, headers.RecordTableStart, headers.RecordTableCount, infoItems, path).ConfigureAwait(false);
+
+            ArzRecord root = await new ArzRecordStructureProvider().GetArzRecordStructureAsync([.. records]).ConfigureAwait(false);
+            return new ArzFile(path, root);
         }
 
         // ARZ header file format
@@ -29,23 +26,18 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
         // 0x00000c int32 numEntries in dbRecord table
         // 0x000010 int32 start of string table
         // 0x000014 int32 size in bytes of string table
-        private static ArzHeaders ReadHeaders(Span<byte> content)
+        private static ArzHeaders ReadHeaders(BinaryReader reader)
         {
-            int[] fileHeaders = new int[6];
+            reader.BaseStream.Position += sizeof(int); // Skip first int - Is this the file version, if so dont skip
 
-            for (int i = 0; i < 6; i++)
-            {
-                int index = i * 4;
-                fileHeaders[i] = BinaryPrimitives.ReadInt32LittleEndian(content[index..(index + 4)]);
-            }
-
+            // TODO Verify, that it is reading littleendian
             return new ArzHeaders()
             {
-                RecordTableStart = fileHeaders[1],
-                RecordTableSize = fileHeaders[2],
-                RecordTableCount = fileHeaders[3],
-                InfoTableStart = fileHeaders[4],
-                InfoTableSize = fileHeaders[5],
+                RecordTableStart = reader.ReadInt32(),
+                RecordTableSize = reader.ReadInt32(),
+                RecordTableCount = reader.ReadInt32(),
+                InfoTableStart = reader.ReadInt32(),
+                InfoTableSize = reader.ReadInt32(),
             };
         }
 
@@ -53,72 +45,42 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
         // Info?? Table Format:
         // first 4 bytes is the number of entries
         // then one string followed by another...
-        private static string[] ReadDbrTable(Span<byte> content, int start, int size)
+        private static string[] ReadDbrTable(BinaryReader reader, int start)
         {
-            int count = BinaryPrimitives.ReadInt32LittleEndian(content[start..(start + 4)]);
-            string[] dbrTable = new string[count];
+            reader.BaseStream.Position = start;
 
-            ReadOnlySpan<byte> dbrTableContent = content[start..(start + size)];
-            int offset = sizeof(int);
+            int itemCount = reader.ReadInt32();
+            string[] dbrTable = new string[itemCount];
 
-            for (int i = 0; i < count; i++)
-                dbrTable[i] = ReadCString(dbrTableContent, ref offset);
+            for (int i = 0; i < itemCount; i++)
+                dbrTable[i] = ReadString(reader);
 
             return dbrTable;
         }
 
-        // TODO, if required for more files -> move into separate class
-        private static string ReadCString(ReadOnlySpan<byte> data, ref int offset)
+        private static string ReadString(BinaryReader reader)
         {
-            int length = BinaryPrimitives.ReadInt32LittleEndian(data[offset..]);
-            offset += sizeof(int);
-
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            Encoding encoding1252 = Encoding.GetEncoding(1252);
-
-            ReadOnlySpan<byte> stringData = data.Slice(offset, length);
-            offset += length;
-            return encoding1252.GetString(stringData);
+            int stringLength = reader.ReadInt32();
+            byte[] content = reader.ReadBytes(stringLength);
+            return Encoding.UTF8.GetString(content);
         }
 
-        private static ArzRecord[] ReadRecordTable(Span<byte> content, int start, int size, int recordCount, ref string[] strings)
+        private static async Task<ArzRecord[]> ReadRecordTableAsync(BinaryReader reader, int start, int recordCount, string[] infoRecords, string path)
         {
-            ReadOnlySpan<byte> recordTableContent = content[start..(start + size)];
-
-            int offset = 0;
+            reader.BaseStream.Position = start;
             ArzRecord[] records = new ArzRecord[recordCount];
 
+            ArzRecordDecoder.Initialize(path, infoRecords);
+
             for (int i = 0; i < recordCount; ++i)
-                records[i] = ReadRecord(recordTableContent, ref offset, ref strings);
+                records[i] = await ReadRecordAsync(reader).ConfigureAwait(false);
 
             return records;
         }
 
-        // Record Entry Format
-        // 0x0000 int32 stringEntryID (dbr filename)
-        // 0x0004 int32 string length
-        // 0x0008 string (record type)
-        // 0x00XX int32 offset
-        // 0x00XX int32 length in bytes
-        // 0x00XX int32 timestamp? TODO Figure out what these are
-        // 0x00XX int32 timestamp? TODO Figure out what these are
-        private static ArzRecord ReadRecord(ReadOnlySpan<byte> content, ref int offset, ref string[] strings)
+        private static async Task<ArzRecord> ReadRecordAsync(BinaryReader reader)
         {
-            int infoEntityIndex = BinaryPrimitives.ReadInt32LittleEndian(content[offset..]);
-            offset += sizeof(int);
-
-            string type = ReadCString(content, ref offset);
-            offset += sizeof(int);
-
-            int dataLength = BinaryPrimitives.ReadInt32LittleEndian(content[offset..]);
-            offset += sizeof(int) * 3;
-
-            return new ArzRecord()
-            {
-                DataLength = dataLength,
-                Type = type,
-                Info = strings[infoEntityIndex]
-            };
+            return await ArzRecordDecoder.ReadRecordAsync(reader).ConfigureAwait(false);
         }
     }
 }

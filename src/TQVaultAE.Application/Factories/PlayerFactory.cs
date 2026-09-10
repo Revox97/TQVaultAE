@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using TQVaultAE.Application.Services;
 using TQVaultAE.Model.Items;
 using TQVaultAE.Model.Players;
 using TQVaultAE.TitanQuestDataProviders.Model;
@@ -7,8 +8,11 @@ namespace TQVaultAE.Application.Factories
 {
     internal sealed class PlayerFactory
     {
+        // TODO Provide via app services.
+        private readonly TitanQuestDatabaseService _databaseService = new();
+
         // TODO works, but files always seem to be structured in the same way, so parsing correct data should be possible
-        internal static Player CreateCharacterFromChrFile(ChrFile input)
+        internal Player CreateCharacterFromChrFile(ChrFile input)
         {
             Player result = new()
             {
@@ -59,7 +63,7 @@ namespace TQVaultAE.Application.Factories
         }
 
         // TODO implement
-        private static Equipment ReadEquipment(ChrBlock root)
+        private Equipment ReadEquipment(ChrBlock root)
         {
             ChrBlock? equipmentBlock = root.FindChild("Block_0-8");
             // Equipment
@@ -91,7 +95,7 @@ namespace TQVaultAE.Application.Factories
             };
         }
 
-        private static Sack ReadItemSack(int number, ChrBlock sack)
+        private Sack ReadItemSack(int number, ChrBlock sack)
         {
             int itemCount = sack.FindChild("size")?.AsInt32() ?? -1;
             List<Item> items = [];
@@ -109,7 +113,7 @@ namespace TQVaultAE.Application.Factories
             };
         }
 
-        private static Item ReadItem(ChrBlock item)
+        private Item ReadItem(ChrBlock item)
         {
             int positionX = item.FindChild("pointX")?.AsInt32() ?? -1;
             int positionY = item.FindChild("pointY")?.AsInt32() ?? -1;
@@ -118,7 +122,7 @@ namespace TQVaultAE.Application.Factories
             Item result = new()
             {
                 Position = position,
-                Path = item.FindElement("baseName")?.AsString() ?? string.Empty,
+                ResourcePath = item.FindElement("baseName")?.AsString() ?? string.Empty,
                 Seed = item.FindElement("seed")?.AsInt32() ?? -1,
                 Var1 = item.FindElement("var1")?.AsInt32() ?? -1,
                 Var2 = item.FindElement("var2")?.AsInt32() ?? -1
@@ -134,7 +138,7 @@ namespace TQVaultAE.Application.Factories
             string relicBonus = item.FindElement("relicBonus")?.AsString() ?? string.Empty;
             result.RelicOne = relicName is not null ? new RelicItem()
             {
-                Path = relicName,
+                ResourcePath = relicName,
                 Bonus = relicBonus
             } : null;
 
@@ -142,11 +146,12 @@ namespace TQVaultAE.Application.Factories
             string relicBonus2 = item.FindElement("relicBonus2")?.AsString() ?? string.Empty;
             result.RelicOne = relicName2 is not null ? new RelicItem()
             {
-                Path = relicName2,
+                ResourcePath = relicName2,
                 Bonus = relicBonus2
             } : null;
 
-            return result;
+            // TODO make async
+            return _databaseService.GetCompleteItemAsync(result).Result;
         }
     }
 }

@@ -64,12 +64,12 @@ namespace TQVaultAE.ViewModels
         }
 
         // TODO implement
-        private void VaultSelector_SelectionChanged(object? sender, Avalonia.Controls.SelectionChangedEventArgs e)
+        private void VaultSelector_SelectionChanged(object? sender, SelectionChangedEventArgs e)
         {
             return;
         }
 
-        private void PlayerSelector_SelectionChanged(object? sender, Avalonia.Controls.SelectionChangedEventArgs e)
+        private void PlayerSelector_SelectionChanged(object? sender, SelectionChangedEventArgs e)
         {
             try
             {

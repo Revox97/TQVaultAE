@@ -1,0 +1,158 @@
+<ContentPage xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             Background="Transparent"
+             x:Class="TQVaultAE.Views.Pages.ItemPropertiesPage">
+    <ContentPage.Styles>
+        <Style Selector="Label.Label__Title">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="Foreground" Value="YellowGreen"/>
+        </Style>
+        <Style Selector="Label.Label__ItemProperty">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="5 0"/>
+            <Setter Property="Foreground" Value="Blue"/>
+        </Style>
+    </ContentPage.Styles>
+    <!-- TODO Structure page in a more useful way -->
+    <Grid Margin="10" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Label Classes="Label__Title" Content="Item Name" Grid.Row="0" Grid.Column="0"/>
+        <!-- This needs to be solved via some kind of collection / data table -->
+        <StackPanel Grid.Row="2" Grid.Column="0">
+            <Label Content="Base Item Properties"/>
+            <Label Classes="Label__ItemProperty" Content="19 flat on someting"/>
+            <Label Classes="Label__ItemProperty" Content="9 % on someting"/>
+            <Label Classes="Label__ItemProperty" Content="+2% on someting"/>
+            <Label Classes="Label__ItemProperty" Content="+4% on someting"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="2">
+            <Label Content="Requirements"/>
+            <Label Classes="Label__ItemProperty">
+                <Label.Content>
+                    <TextBlock>
+                        <Run Text="Player level:"/>
+                        <Run Text="??NA??"/>
+                    </TextBlock>
+                </Label.Content>
+            </Label>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="4">
+            <Label Content="Advanced Item Properties"/>
+            <Label Classes="Label__ItemProperty">
+                <Label.Content>
+                    <TextBlock>
+                        <Run Text="Template name"/>
+                        <Run Text="??NA??"/>
+                    </TextBlock>
+                </Label.Content>
+            </Label>
+            <!-- For performance reason, such properties might should be ignored -->
+            <Label Classes="Label__ItemProperty">
+                <Label.Content>
+                    <TextBlock>
+                        <Run Text="Mesh"/>
+                        <Run Text="??NA??"/>
+                    </TextBlock>
+                </Label.Content>
+            </Label>
+            <Label Classes="Label__ItemProperty">
+                <Label.Content>
+                    <TextBlock>
+                        <Run Text="MaxTransparency"/>
+                        <Run Text="??NA??"/>
+                    </TextBlock>
+                </Label.Content>
+            </Label>
+            <Label Classes="Label__ItemProperty">
+                <Label.Content>
+                    <TextBlock>
+                        <Run Text="Level"/>
+                        <Run Text="??NA??"/>
+                    </TextBlock>
+                </Label.Content>
+            </Label>
+            <Label Classes="Label__ItemProperty">
+                <Label.Content>
+                    <TextBlock>
+                        <Run Text="Cost"/>
+                        <Run Text="??NA??"/>
+                    </TextBlock>
+                </Label.Content>
+            </Label>
+            <Label Classes="Label__ItemProperty">
+                <Label.Content>
+                    <TextBlock>
+                        <Run Text="Classification"/>
+                        <Run Text="??NA??"/>
+                    </TextBlock>
+                </Label.Content>
+            </Label>
+            <!-- ignore drop sounds, not really relevant for TQVault -->
+            <Label Classes="Label__ItemProperty">
+                <Label.Content>
+                    <TextBlock>
+                        <Run Text="Description"/>
+                        <Run Text="??NA??"/>
+                    </TextBlock>
+                </Label.Content>
+            </Label>
+            <!-- Implement something to show additional properties -->
+            <!-- Maybe in general a Dictionary should be used with a data table -->
+            <Label Classes="Label__ItemProperty">
+                <Label.Content>
+                    <TextBlock>
+                        <Run Text="Artifact Classification"/>
+                        <Run Text="??NA??"/>
+                    </TextBlock>
+                </Label.Content>
+            </Label>
+            <Label Classes="Label__ItemProperty">
+                <Label.Content>
+                    <TextBlock>
+                        <Run Text="Bitmap"/>
+                        <Run Text="??NA??"/>
+                    </TextBlock>
+                </Label.Content>
+            </Label>
+            <Label Classes="Label__ItemProperty">
+                <Label.Content>
+                    <TextBlock>
+                        <Run Text="File Description"/>
+                        <Run Text="??NA??"/>
+                    </TextBlock>
+                </Label.Content>
+            </Label>
+            <Label Classes="Label__ItemProperty">
+                <Label.Content>
+                    <TextBlock>
+                        <Run Text="Class"/>
+                        <Run Text="??NA??"/>
+                    </TextBlock>
+                </Label.Content>
+            </Label>
+            <Label Classes="Label__ItemProperty">
+                <Label.Content>
+                    <TextBlock>
+                        <Run Text="Scale"/>
+                        <Run Text="??NA??"/>
+                    </TextBlock>
+                </Label.Content>
+            </Label>
+        </StackPanel>
+    </Grid>
+</ContentPage>

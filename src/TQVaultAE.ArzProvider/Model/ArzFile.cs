@@ -1,27 +1,36 @@
-﻿using TQVaultAE.Arz.Model;
+﻿using TQVaultAE.TitanQuestDataProviders.Decoders;
 
 namespace TQVaultAE.TitanQuestDataProviders.Model
 {
     /// <summary>
     /// Represents an Arz file.
     /// </summary>
-    public class ArzFile
+    public class ArzFile(string fileName, ArzRecord recordRoot)
     {
         /// <summary>
         /// Gets the name of the <see cref="ArzFile"/>.
         /// </summary>
-        public string FileName { get; init; } = string.Empty;
+        public string FileName { get; init; } = fileName;
 
         /// <summary>
-        /// Gets a list of infos related to the records.
+        /// The root <see cref="ArzRecord"/> containing all other records.
         /// </summary>
-        public string[] Infos { get; init; }  = [];
+        public ArzRecord Root { get; init; } = recordRoot;
 
-        /// <summary>
-        /// Gets a list of <see cref="ArzRecord"/>s.
-        /// </summary>
-        public ArzRecord[] Records { get; init; } = [];
+        public ArzRecord GetRecordByPath(string path)
+        {
+            ArgumentException.ThrowIfNullOrEmpty(path);
 
-        public int RecordCount => Records.Length;
+            string[] pathElements = path.Split('\\');
+            ArzRecord currentElement = Root;
+
+            if (!Root.Name.Equals(pathElements[0], StringComparison.InvariantCultureIgnoreCase))
+                throw new KeyNotFoundException($"Could not find root element with name '{pathElements[0]}'.");
+
+            for (int i = 1; i < pathElements.Length; i++)
+                currentElement = currentElement.GetChildByName(pathElements[i]);
+
+            return ArzRecordDecoder.ReadRecordPropertiesFromRecord(currentElement).Result; // TODO make async
+        }
     }
 }
