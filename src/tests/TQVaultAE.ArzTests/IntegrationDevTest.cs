@@ -20,7 +20,7 @@ namespace TQVaultAE.ArzTests
         [Test]
         public async Task TestArcReader()
         {
-            string path = "C:\\Users\\Leo\\Documents\\TQVaultTestData\\Items.arc";
+            string path = "C:\\Users\\Leo\\Documents\\TQVaultTestData\\Text_DE.arc";
             ArcFile result = await new ArcProvider().ReadAsync(path);
 
             Assert.IsTrue(true);

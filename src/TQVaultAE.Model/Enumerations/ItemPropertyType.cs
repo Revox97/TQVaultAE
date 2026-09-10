@@ -8,8 +8,22 @@ namespace TQVaultAE.Model.Enumerations
     /// </summary>
     public enum ItemPropertyType
     {
+        [Description("characterArmorStrengthReqReduction")]
+        CharacterArmorStrengthRequirementReduction,
         [Description("characterBaseAttackSpeedTag")]
         CharacterBaseAttackSpeedTag,
+        [Description("characterDefensiveAbility")]
+        CharacterDefensiveAbility,
+        [Description("characterDexterity")]
+        CharacterDexterity,
+        [Description("characterIntelligence")]
+        CharacterIntelligence,
+        [Description("characterLife")]
+        CharacterLife,
+        [Description("characterStrength")]
+        CharacterStrength,
+        [Description("characterManaRegenModifier")]
+        CharacterManaRegenModifier,
         [Description("defensiveBlockModifier")]
         DefensiveBlockModifier,
         [Description("defensiveDisruption")]
@@ -18,8 +32,14 @@ namespace TQVaultAE.Model.Enumerations
         DefensiveLife,
         [Description("defensivePierce")]
         DefensivePierce,
+        [Description("defensivePhysical")]
+        DefensivePhysical,
         [Description("defensiveProtection")]
         DefensiveProtection,
+        [Description("defensiveSlowManaLeach")]
+        DefensiveSlowManaLeach,
+        [Description("defensiveStun")]
+        DefensiveStun,
         [Description("offensiveLifeLeechMin")]
         OffensiveLifeLeechMin,
         [Description("offensiveLifeMin")]
@@ -32,5 +52,13 @@ namespace TQVaultAE.Model.Enumerations
         OffensiveSlowLifeLeechDurationMin,
         [Description("offensiveSlowLifeLeachMin")] // yes, there seems to be a typo in the TQ db.
         OffensiveSlowLifeLeechMin,
+        [Description("offensiveSlowManaLeachDurationMin")]
+        OffensiveSLowManaLeachDurationMin,
+        [Description("offensiveSlowManaLeachMin")]
+        OffensiveSLowManaLeachMin,
+        [Description("offensiveTotalDamageModifier")]
+        OffensiveTotalDamageModifier,
+        [Description("skillCooldownReduction")]
+        SkillCooldownReduction,
     }
 }

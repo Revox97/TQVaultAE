@@ -33,6 +33,6 @@
     public class ArcFile
     {
         public string FileName { get; init; } = string.Empty;
-        public List<ArcFileRecordEntry> Records { get; set; } = [];
+        public List<ArcFileRecord> Records { get; set; } = [];
     }
 }

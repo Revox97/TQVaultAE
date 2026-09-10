@@ -1,5 +1,4 @@
-﻿using System.Buffers.Binary;
-using System.Text;
+﻿using System.Text;
 using TQVaultAE.TitanQuestDataProviders.Model;
 
 namespace TQVaultAE.TitanQuestDataProviders.Decoders
@@ -15,42 +14,46 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
         private const int Ascii_A = 0x41;
         private const int Ascii_R = 0x52;
         private const int Ascii_C = 0x43;
-        private const int PartEntrySize = 12;
+        private const int NullTeminator = 0x00;
+        // 0x03 marker indicates inactive/null file
+        private const int InactiveOrNullFileIndicator = 0x03;
         private const int FileRecordSize = 44;
 
-        internal static async Task<ArcFile> DecodeAsync(byte[] content, string path)
+        internal static async Task<ArcFile> DecodeAsync(FileStream stream, string path)
         {
-            return content.Length >= MinimumFileLength
-                ? DecodeRawContentToArc(content.AsSpan(), path)
-                : throw new InvalidDataException($"File must have a minimum length of {MinimumFileLength}.");
+            if (stream.Length < MinimumFileLength)
+                throw new InvalidDataException($"File must have a minimum length of {MinimumFileLength}.");
+
+            using BinaryReader reader = new(stream);
+            return await DecodeRawContentToArcAsync(reader, path).ConfigureAwait(false);
         }
 
-        private static ArcFile DecodeRawContentToArc(Span<byte> content, string path)
+        private static async Task<ArcFile> DecodeRawContentToArcAsync(BinaryReader reader, string path)
         {
-            ArcHeaders headers = ReadHeaders(content);
+            ArcHeaders headers = ReadHeaders(reader);
 
-            bool isTocOffsetValid = headers.PartEntryCount <= 0 || content.Length >= headers.TocOffset + 12;
+            bool isTocOffsetValid = headers.PartEntryCount <= 0 || reader.BaseStream.Length >= headers.TocOffset + 12;
             if (!isTocOffsetValid)
                 return null!;
 
             int partsSize = headers.PartEntryCount * 12;
-            Span<byte> arcPartEntriesRaw = content[headers.TocOffset..(headers.TocOffset + partsSize)];
-            ArcPartEntry[] arcPartEntries = ReadArcPartEntries(arcPartEntriesRaw, headers.PartEntryCount);
+            reader.BaseStream.Position = headers.TocOffset;
+            ArcPartEntry[] arcPartEntries = ReadArcPartEntries(reader, headers.PartEntryCount);
 
             int fileRecordsSize = FileRecordSize * headers.NumberOfFileRecords;
-            int fileRecordsStart = content.Length - fileRecordsSize;
-            Span<byte> recordsRaw = content[fileRecordsStart..];
+            long fileRecordsStart = reader.BaseStream.Length - fileRecordsSize;
+            reader.BaseStream.Position = fileRecordsStart;
 
-            ArcFileRecordEntry[] fileRecordEntries = headers.NumberOfFileRecords > 0 && fileRecordsStart < content.Length
-                    ? ReadFileRecordEntries(recordsRaw, headers.NumberOfFileRecords, arcPartEntries) : [];
+            ArcFileRecord[] fileRecordEntries = headers.NumberOfFileRecords > 0 && fileRecordsStart < reader.BaseStream.Length
+                    ? await ReadFileRecordEntries(reader, headers.NumberOfFileRecords, arcPartEntries).ConfigureAwait(false) : [];
 
             int fileNamesOffset = headers.TocOffset + partsSize;
-            int fileNamesSize = fileRecordsStart - fileNamesOffset;
+            long fileNamesSize = fileRecordsStart - fileNamesOffset;
 
-            if (fileNamesSize > 0 && fileNamesOffset >= 0 && fileNamesOffset < content.Length)
+            if (fileNamesSize > 0 && fileNamesOffset >= 0 && fileNamesOffset < reader.BaseStream.Length)
             {
-                Span<byte> fileNamesContent = content[fileNamesOffset..(fileNamesOffset + fileNamesSize)];
-                ReadFileNamesToDirectoryEntries(fileNamesContent, fileRecordEntries, headers.NumberOfFileRecords);
+                reader.BaseStream.Position = fileNamesOffset;
+                ReadFileNamesToDirectoryEntries(reader, fileRecordEntries, headers.NumberOfFileRecords);
             }
 
             return new ArcFile()
@@ -60,14 +63,18 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
             };
         }
 
-        private static ArcHeaders ReadHeaders(Span<byte> content)
+        private static ArcHeaders ReadHeaders(BinaryReader reader)
         {
-            if (content[0] != Ascii_A || content[1] != Ascii_R || content[2] != Ascii_C)
+            byte[] fileType = reader.ReadBytes(3);
+            if (fileType[0] != Ascii_A || fileType[1] != Ascii_R || fileType[2] != Ascii_C)
                 throw new InvalidDataException("File must be of type ARC.");
 
-            int entryCount = BinaryPrimitives.ReadInt32LittleEndian(content[EntryCountHeaderOffset..]);
-            int partCount = BinaryPrimitives.ReadInt32LittleEndian(content[PartCountHeaderOffset..]);
-            int tocOffset = BinaryPrimitives.ReadInt32LittleEndian(content[TocOffsetHeaderOffset..]);
+            reader.BaseStream.Position = EntryCountHeaderOffset;
+            int entryCount = reader.ReadInt32();
+            reader.BaseStream.Position = PartCountHeaderOffset;
+            int partCount = reader.ReadInt32();
+            reader.BaseStream.Position = TocOffsetHeaderOffset;
+            int tocOffset = reader.ReadInt32();
 
             return new ArcHeaders()
             {
@@ -78,82 +85,43 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
             };
         }
 
-        private static ArcPartEntry[] ReadArcPartEntries(Span<byte> content, int partEntryCount)
+        private static ArcPartEntry[] ReadArcPartEntries(BinaryReader reader, int partEntryCount)
         {
             ArcPartEntry[] partEntries = new ArcPartEntry[partEntryCount];
 
             for (int i = 0; i < partEntryCount; i++)
             {
-                int offset = i * PartEntrySize;
                 partEntries[i] = new ArcPartEntry()
                 {
-                    FileOffset = BinaryPrimitives.ReadInt32LittleEndian(content[offset..]),
-                    CompressedSize = BinaryPrimitives.ReadInt32LittleEndian(content[(offset + 4)..]),
-                    RealSize = BinaryPrimitives.ReadInt32LittleEndian(content[(offset + 8)..]),
+                    FileOffset = reader.ReadInt32(),
+                    CompressedSize = reader.ReadInt32(),
+                    RealSize = reader.ReadInt32()
                 };
             }
 
             return partEntries;
         }
 
-        private static ArcFileRecordEntry[] ReadFileRecordEntries(Span<byte> content, int fileRecordCount, ArcPartEntry[] arcPartEntries)
+        private static async Task<ArcFileRecord[]> ReadFileRecordEntries(BinaryReader reader, int fileRecordCount, ArcPartEntry[] partEntries)
         {
-            ArcFileRecordEntry[] fileRecordEntries = new ArcFileRecordEntry[fileRecordCount];
+            ArcFileRecord[] fileRecordEntries = new ArcFileRecord[fileRecordCount];
 
             for (int i = 0; i < fileRecordCount; i++)
-            {
-                int offset = i * FileRecordSize;
-                ArcDirEntrySpan dirEntry = ReadArcDirectoryEntry(content, offset);
-
-                fileRecordEntries[i] = new ArcFileRecordEntry
-                {
-                    StorageType = dirEntry.StorageType,
-                    FileOffset = dirEntry.FileOffset,
-                    CompressedSize = dirEntry.CompressedSize,
-                    RealSize = dirEntry.RealSize,
-                    Parts = dirEntry.NumberOfParts > 0 && dirEntry.FirstPart >= 0 && dirEntry.FirstPart + dirEntry.NumberOfParts <= fileRecordCount
-                        ? new ArcPartEntry[dirEntry.NumberOfParts] : []
-                };
-
-                if (fileRecordEntries[i].Parts.Length > 0)
-                {
-                    for (int k = 0; k < dirEntry.NumberOfParts; k++)
-                    {
-                        int partIndex = k + dirEntry.FirstPart;
-                        fileRecordEntries[i].Parts[k] = arcPartEntries[partIndex];
-                    }
-                }
-            }
+                fileRecordEntries[i] = await ArcRecordDecoder.ReadRecordAsync(reader, fileRecordCount, partEntries).ConfigureAwait(false);
 
             return fileRecordEntries;
         }
 
-        private static ArcDirEntrySpan ReadArcDirectoryEntry(ReadOnlySpan<byte> span, int offset) => new()
+        private static void ReadFileNamesToDirectoryEntries(BinaryReader reader, ArcFileRecord[] directoryEntries, int numberOfEntries)
         {
-            StorageType = (ArcStorageType)BinaryPrimitives.ReadInt32LittleEndian(span[offset..]),
-            FileOffset = BinaryPrimitives.ReadInt32LittleEndian(span[(offset + 4)..]),
-            CompressedSize = BinaryPrimitives.ReadInt32LittleEndian(span[(offset + 8)..]),
-            RealSize = BinaryPrimitives.ReadInt32LittleEndian(span[(offset + 12)..]),
-            NumberOfParts = BinaryPrimitives.ReadInt32LittleEndian(span[(offset + 28)..]),
-            FirstPart = BinaryPrimitives.ReadInt32LittleEndian(span[(offset + 32)..]),
-            FilenameLength = BinaryPrimitives.ReadInt32LittleEndian(span[(offset + 36)..]),
-            FilenameOffset = BinaryPrimitives.ReadInt32LittleEndian(span[(offset + 40)..])
-        };
-
-        private static void ReadFileNamesToDirectoryEntries(Span<byte> content, ArcFileRecordEntry[] directoryEntries, int numberOfEntries)
-        {
-            int currentOffset = 0;
-
             for (int i = 0; i < numberOfEntries; i++)
             {
                 bool hasActiveFileNameEntry = directoryEntries[i].IsActive;
                 if (!hasActiveFileNameEntry)
                     continue;
 
-                string? filename = ReadArcNullTerminatedString(content, currentOffset, 2048, out int bytesConsumed);
+                string? filename = ReadArcNullTerminatedString(reader);
                 directoryEntries[i].FileName = filename is not null && filename.Length > 0 ? filename : $"Null File {i}";
-
-                currentOffset += bytesConsumed;
             }
         }
 
@@ -170,59 +138,25 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
         /// The ASCII string without the terminator, "Null File {index}" format for 0x03 markers,
         /// or null if offset is out of bounds.
         /// </returns>
-        private static string? ReadArcNullTerminatedString(ReadOnlySpan<byte> span, int offset, int maxBufferSize, out int bytesConsumed)
+        private static string? ReadArcNullTerminatedString(BinaryReader reader)
         {
-            bytesConsumed = 0;
-            if (offset < 0 || offset >= span.Length)
-                return null;
+            List<byte> result = [];
 
-            int bufferSize = 0;
-
-            while (offset + bufferSize < span.Length && bufferSize < maxBufferSize)
+            while (reader.BaseStream.Position + result.Count < reader.BaseStream.Length)
             {
-                byte currentByte = span[offset + bufferSize];
-                bufferSize++;
+                byte currentByte = reader.ReadByte();
 
-                int nullTeminator = 0x00;
+                if (currentByte == NullTeminator)
+                    return result.Count > 1 ? Encoding.ASCII.GetString([.. result]) : string.Empty;
 
-                if (currentByte == nullTeminator)
-                {
-                    bytesConsumed = bufferSize;
-                    return bufferSize == 1
-                        ? string.Empty
-                        : Encoding.ASCII.GetString(span.Slice(offset, bufferSize - 1));
-                }
+                if (currentByte == InactiveOrNullFileIndicator)
+                    return result.Count > 0 ? Encoding.ASCII.GetString([.. result]) : null;
 
-                int inactiveOrNullFileIndicator = 0x03;
-
-                if (currentByte == inactiveOrNullFileIndicator)
-                {
-                    // 0x03 marker indicates inactive/null file
-                    // Match original behavior: backup, set buffer[bufferSize-1] = 0x00, break
-                    bufferSize--; // Back up to exclude 0x03
-                    bytesConsumed = bufferSize + 1; // But count it as consumed
-                    if (bufferSize == 0)
-                        return null; // No filename available
-
-                    return Encoding.ASCII.GetString(span.Slice(offset, bufferSize));
-                }
+                result.Add(currentByte);
             }
 
             // No terminator found - return what we have
-            bytesConsumed = bufferSize;
-            return bufferSize == 0 ? null : Encoding.ASCII.GetString(span.Slice(offset, bufferSize));
-        }
-
-        private readonly struct ArcDirEntrySpan
-        {
-            public ArcStorageType StorageType { get; init; }
-            public int FileOffset { get; init; }
-            public int CompressedSize { get; init; }
-            public int RealSize { get; init; }
-            public int NumberOfParts { get; init; }
-            public int FirstPart { get; init; }
-            public int FilenameLength { get; init; }
-            public int FilenameOffset { get; init; }
+            return result.Count > 0 ? Encoding.ASCII.GetString([.. result]) : null;
         }
     }
 }

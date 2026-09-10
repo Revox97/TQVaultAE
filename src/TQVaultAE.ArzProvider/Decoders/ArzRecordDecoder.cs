@@ -40,7 +40,6 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
             return new ArzRecord(type, string.Empty, s_infoRecords[infoEntityIndex], dataOffset, dataLength);
         }
 
-        // TODO Move into separate class
         private static string ReadString(BinaryReader reader)
         {
             int stringLength = reader.ReadInt32();
@@ -48,8 +47,6 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
             return Encoding.UTF8.GetString(content);
         }
 
-        // TODO Consider lazy loading, lets see how the performance is. Maybe loading the database completely at startup is the best idea.
-        // TODO absolute original TQVault mess migrate to use the same binary reader
         internal static async Task<ArzRecord> ReadRecordPropertiesFromRecord(ArzRecord record)
         {
             if (!s_initialized)

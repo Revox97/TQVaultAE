@@ -17,6 +17,8 @@ namespace TQVaultAE.Model.Enumerations
         ItemEquipment,
         LootRandomizer,
         OneShot_Dye,
+        OneShot_PotionHealth,
+        OneShot_PotionMana,
         OneShot_Scroll,
         OneShot_Scroll_Eternal,
         Quest,

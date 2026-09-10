@@ -1,5 +1,4 @@
-﻿using TQVaultAE.IO;
-using TQVaultAE.TitanQuestDataProviders.Decoders;
+﻿using TQVaultAE.TitanQuestDataProviders.Decoders;
 using TQVaultAE.TitanQuestDataProviders.Model;
 
 namespace TQVaultAE.TitanQuestDataProviders.Database
@@ -8,8 +7,8 @@ namespace TQVaultAE.TitanQuestDataProviders.Database
     {
         public async Task<ArcFile> ReadAsync(string path)
         {
-            byte[] content = await new FileReader().ReadBytesAsync(path).ConfigureAwait(false);
-            return await ArcDecoder.DecodeAsync(content, path);
+            using FileStream stream = File.OpenRead(path);
+            return await ArcDecoder.DecodeAsync(stream, path);
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿using TQVaultAE.Model.Enumerations;
+﻿using System.Diagnostics;
+using TQVaultAE.Application.Services;
+using TQVaultAE.Model.Enumerations;
 using TQVaultAE.Model.Items;
 using TQVaultAE.TitanQuestDataProviders.Database;
 using TQVaultAE.TitanQuestDataProviders.Model;
-using TQVaultAE.Model.Enumerations;
-using TQVaultAE.Application.Services;
 
 namespace TQVaultAE.Application.Factories
 {
@@ -18,12 +18,20 @@ namespace TQVaultAE.Application.Factories
 
         public async Task<Item> GetCompleteItemAsync(Item item)
         {
-            string itemDbPath = item.ResourcePath;
+            try
+            {
+                string itemDbPath = item.ResourcePath;
 
-            s_database ??= await new ArzProvider().ReadAsync(_dbPath).ConfigureAwait(false);
+                s_database ??= await new ArzProvider().ReadAsync(_dbPath).ConfigureAwait(false);
 
-            ArzRecord itemRecord = s_database.GetRecordByPath(itemDbPath);
-            return await CreateItemByClass(item, itemRecord).ConfigureAwait(false);
+                ArzRecord itemRecord = s_database.GetRecordByPath(itemDbPath);
+                return await CreateItemByClass(item, itemRecord).ConfigureAwait(false);
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine($"Getting item meta data failed: {ex.Message}");
+                return item;
+            }
         }
 
         private async Task<Item> CreateItemByClass(Item item, ArzRecord itemRecord)
@@ -35,13 +43,54 @@ namespace TQVaultAE.Application.Factories
 
             return itemClass switch
             {
-                ItemClass.ArmorProtective_Head or ItemClass.ArmorProtective_LowerBody => await CreateArmorItem(item, itemRecord).ConfigureAwait(false),
-                ItemClass.ItemArtifact => await CreateArtifactItem(item, itemRecord).ConfigureAwait(false),
+                ItemClass.ArmorProtective_Head or ItemClass.ArmorProtective_LowerBody => await CreateArmorItemAsync(item, itemRecord).ConfigureAwait(false),
+                ItemClass.ItemArtifact => await CreateArtifactItemAsync(item, itemRecord).ConfigureAwait(false),
+                ItemClass.OneShot_PotionHealth or ItemClass.OneShot_PotionMana => await CreateOneShotItemAsync(item, itemRecord).ConfigureAwait(false),
+                ItemClass.ItemCharm or ItemClass.ItemArtifactFormula => await CreateCharmItemAsync(item, itemRecord).ConfigureAwait(false),
                 _ => item
             };
         }
 
-        private async Task<Item> CreateArtifactItem(Item item, ArzRecord itemRecord)
+        private async Task<Item> CreateCharmItemAsync(Item item, ArzRecord itemRecord)
+        {
+            item.Properties = GetProperties(itemRecord);
+            item.TemplateName = itemRecord["templateName"]?.Get<string>(0) ?? string.Empty;
+            item.Scale = itemRecord["scale"]?.Get<float>(0) ?? 0.0f;
+            // TODO Get item requirements, that are not 0.0f. Seem to end with Requirement:
+            // item.Requirements = GetRequirements(itemRecord);
+
+            string nameTag = itemRecord["description"]?.Get<string>(0) ?? string.Empty;
+            item.Name = await GameLocalizationService.GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
+
+            string bitmapPath = itemRecord["bitmap"]?.Get<string>(0) ?? string.Empty;
+            // TODO Read bitmap from .tex file
+            //Bitmap bitmap = ReadBitmap(bitmapPath);
+            //item.Icon = bitmap;
+
+            return item;
+        }
+
+        private async Task<Item> CreateOneShotItemAsync(Item item, ArzRecord itemRecord)
+        {
+            item.Properties = GetProperties(itemRecord);
+            item.TemplateName = itemRecord["templateName"]?.Get<string>(0) ?? string.Empty;
+            item.Cost = itemRecord["itemCost"]?.Get<int>(0) ?? 0;
+            item.Scale = itemRecord["scale"]?.Get<float>(0) ?? 0.0f;
+            // TODO Get item requirements, that are not 0.0f. Seem to end with Requirement:
+            // item.Requirements = GetRequirements(itemRecord);
+
+            string nameTag = itemRecord["description"]?.Get<string>(0) ?? string.Empty;
+            item.Name = await GameLocalizationService.GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
+
+            string bitmapPath = itemRecord["bitmap"]?.Get<string>(0) ?? string.Empty;
+            // TODO Read bitmap from .tex file
+            //Bitmap bitmap = ReadBitmap(bitmapPath);
+            //item.Icon = bitmap;
+
+            return item;
+        }
+
+        private async Task<Item> CreateArtifactItemAsync(Item item, ArzRecord itemRecord)
         {
             ArtifactItem result = new(item)
             {
@@ -63,7 +112,7 @@ namespace TQVaultAE.Application.Factories
             return result;
         }
 
-        private static async Task<Item> CreateArmorItem(Item item, ArzRecord itemRecord)
+        private static async Task<Item> CreateArmorItemAsync(Item item, ArzRecord itemRecord)
         {
             // TODO Get names from C:\Program Files (x86)\Steam\steamapps\common\Titan Quest Anniversary Edition\Texts using the correct localization
             item.Properties = GetProperties(itemRecord);
@@ -75,12 +124,13 @@ namespace TQVaultAE.Application.Factories
             // TODO Get item requirements, that are not 0.0f. Seem to end with Requirement:
             // item.Requirements = GetRequirements(itemRecord);
 
+            string nameTag = itemRecord["itemNameTag"]?.Get<string>(0) ?? string.Empty;
+            item.Name = await GameLocalizationService.GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
+
             string bitmapPath = itemRecord["bitmap"]?.Get<string>(0) ?? string.Empty;
             // TODO Read bitmap from .tex file
             //Bitmap bitmap = ReadBitmap(bitmapPath);
             //item.Icon = bitmap;
-
-            await new GameLocalizationService().GetLocalizationAsync().ConfigureAwait(false);
 
             return item;
         }

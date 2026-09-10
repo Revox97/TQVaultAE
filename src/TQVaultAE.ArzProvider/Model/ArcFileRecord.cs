@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents information about an ARC directory entry.
     /// </summary>
-    public class ArcFileRecordEntry
+    public class ArcFileRecord
     {
         /// <summary>
         /// Gets or sets the filename.
@@ -42,5 +42,15 @@
         /// Gets whether this part is active.
         /// </summary>
         public bool IsActive => StorageType is ArcStorageType.Real || Parts is not null;
+
+        /// <summary>
+        /// Gets or sets the content type of the <see cref="ArcFileRecord"/>.
+        /// </summary>
+        public ArcRecordType ContentType { get; set; }
+
+        /// <summary>
+        /// The content of the <see cref="ArcFileRecord"/>.
+        /// </summary>
+        public object Content { get; set; } = null!;
     }
 }
