@@ -3,19 +3,22 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:cvtr="using:TQVaultAE.Converters"
+             xmlns:model="using:TQVaultAE.Model.Items"
              mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="450"
              x:Class="TQVaultAE.Views.Controls.ItemControl"
-             DataContext="{Binding RelativeSource={RelativeSource Self}}"
              Background="Transparent"
              x:Name="root"
+             x:DataType="model:Item"
              PointerEntered="UserControl_PointerEntered"
              PointerExited="UserControl_PointerExited">
     <UserControl.Resources>
         <cvtr:ItemTypeToAccentColorConverter x:Key="ItemTypeToAccentColorConverter"/>
+        <cvtr:SystemToAvaloniaBitmapConverter x:Key="SystemToAvaloniaBitmapConverter"/>
     </UserControl.Resources>
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <!--<Rectangle Fill="{Binding DataSource, ElementName=root, Converter={StaticResource ItemTypeToAccentColorConverter}}" IsHitTestVisible="False"/>-->
         <Rectangle Fill="#4400FF00" IsHitTestVisible="False"/>
-        <Image Source="avares://TQVaultAE/Assets/Img/MockItem2x2.png" Stretch="Fill"/>
+        <Image Source="{Binding Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}}" Stretch="Fill"/>
+        <!--<Image Source=" avares://TQVaultAE/Assets/Img/MockItem2x2.png" Stretch="Fill"/>-->
     </Grid>
 </UserControl>

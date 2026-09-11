@@ -2,7 +2,7 @@
 {
     public enum ArcRecordType
     {
-        Tex,
+        TexFile,
         StringCollection
     }
 }

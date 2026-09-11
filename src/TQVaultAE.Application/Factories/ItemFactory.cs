@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Drawing;
 using TQVaultAE.Application.Services;
 using TQVaultAE.Model.Enumerations;
 using TQVaultAE.Model.Items;
@@ -41,14 +42,112 @@ namespace TQVaultAE.Application.Factories
             if (itemClass is null)
                 return item;
 
-            return itemClass switch
+            Item itemfinal = itemClass switch
             {
-                ItemClass.ArmorProtective_Head or ItemClass.ArmorProtective_LowerBody => await CreateArmorItemAsync(item, itemRecord).ConfigureAwait(false),
+                ItemClass.WeaponMelee_Sword
+                    or ItemClass.WeaponHunting_RangedOneHand
+                    or ItemClass.WeaponMelee_Mace
+                    or ItemClass.WeaponHunting_Spear
+                    => await CreateWeaponItemAsync(item, itemRecord).ConfigureAwait(false),
+                ItemClass.ArmorProtective_Head
+                    or ItemClass.ArmorProtective_LowerBody
+                    or ItemClass.ArmorProtective_Forearm
+                    or ItemClass.ArmorProtective_UpperBody
+                    => await CreateArmorItemAsync(item, itemRecord).ConfigureAwait(false),
                 ItemClass.ItemArtifact => await CreateArtifactItemAsync(item, itemRecord).ConfigureAwait(false),
-                ItemClass.OneShot_PotionHealth or ItemClass.OneShot_PotionMana => await CreateOneShotItemAsync(item, itemRecord).ConfigureAwait(false),
+                ItemClass.OneShot_PotionHealth
+                    or ItemClass.OneShot_PotionMana
+                    or ItemClass.OneShot_Dye
+                    or ItemClass.OneShot_Scroll
+                    => await CreateOneShotItemAsync(item, itemRecord).ConfigureAwait(false),
                 ItemClass.ItemCharm or ItemClass.ItemArtifactFormula => await CreateCharmItemAsync(item, itemRecord).ConfigureAwait(false),
+                ItemClass.ArmorJewelry_Amulet or ItemClass.ArmorJewelry_Ring => await CreateJeweleryItemAsync(item, itemRecord).ConfigureAwait(false),
+                ItemClass.QuestItem => await CreateQuestItemAsync(item, itemRecord).ConfigureAwait(false),
+                ItemClass.ItemEquipment => await CreateItemEquipmentItemAsync(item, itemRecord).ConfigureAwait(false),
                 _ => item
             };
+
+            return itemfinal;
+        }
+
+        private async Task<Item> CreateItemEquipmentItemAsync(Item item, ArzRecord itemRecord)
+        {
+            item.Properties = GetProperties(itemRecord);
+            item.TemplateName = itemRecord["templateName"]?.Get<string>(0) ?? string.Empty;
+            item.Scale = itemRecord["scale"]?.Get<float>(0) ?? 0.0f;
+            // TODO Get item requirements, that are not 0.0f. Seem to end with Requirement:
+            // item.Requirements = GetRequirements(itemRecord);
+
+            string nameTag = itemRecord["description"]?.Get<string>(0) ?? string.Empty;
+            item.Name = await GameLocalizationService.GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
+
+            string bitmapPath = itemRecord["bitmap"]?.Get<string>(0) ?? string.Empty;
+            TexFile tex = await GameIconService.GetTexFileByTagAsync(bitmapPath);
+
+            if (tex is not null)
+                item.Icon = tex.ToBitmap();
+
+            return item;
+        }
+
+        private async Task<Item> CreateQuestItemAsync(Item item, ArzRecord itemRecord)
+        {
+            item.Properties = GetProperties(itemRecord);
+            item.TemplateName = itemRecord["templateName"]?.Get<string>(0) ?? string.Empty;
+            item.Scale = itemRecord["scale"]?.Get<float>(0) ?? 0.0f;
+            // TODO Get item requirements, that are not 0.0f. Seem to end with Requirement:
+            // item.Requirements = GetRequirements(itemRecord);
+
+            string nameTag = itemRecord["description"]?.Get<string>(0) ?? string.Empty;
+            item.Name = await GameLocalizationService.GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
+
+            string bitmapPath = itemRecord["bitmap"]?.Get<string>(0) ?? string.Empty;
+            TexFile tex = await GameIconService.GetTexFileByTagAsync(bitmapPath);
+
+            if (tex is not null)
+                item.Icon = tex.ToBitmap();
+
+            return item;
+        }
+
+        private async Task<Item> CreateWeaponItemAsync(Item item, ArzRecord itemRecord)
+        {
+            item.Properties = GetProperties(itemRecord);
+            item.TemplateName = itemRecord["templateName"]?.Get<string>(0) ?? string.Empty;
+            item.Scale = itemRecord["scale"]?.Get<float>(0) ?? 0.0f;
+            // TODO Get item requirements, that are not 0.0f. Seem to end with Requirement:
+            // item.Requirements = GetRequirements(itemRecord);
+
+            string nameTag = itemRecord["description"]?.Get<string>(0) ?? string.Empty;
+            item.Name = await GameLocalizationService.GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
+
+            string bitmapPath = itemRecord["bitmap"]?.Get<string>(0) ?? string.Empty;
+            TexFile tex = await GameIconService.GetTexFileByTagAsync(bitmapPath);
+
+            if (tex is not null)
+                item.Icon = tex.ToBitmap();
+
+            return item;
+        }
+
+        private async Task<Item> CreateJeweleryItemAsync(Item item, ArzRecord itemRecord)
+        {
+            item.Properties = GetProperties(itemRecord);
+            item.TemplateName = itemRecord["templateName"]?.Get<string>(0) ?? string.Empty;
+            item.Scale = itemRecord["scale"]?.Get<float>(0) ?? 0.0f;
+            // TODO Get item requirements, that are not 0.0f. Seem to end with Requirement:
+            // item.Requirements = GetRequirements(itemRecord);
+
+            string nameTag = itemRecord["description"]?.Get<string>(0) ?? string.Empty;
+            item.Name = await GameLocalizationService.GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
+
+            string bitmapPath = itemRecord["bitmap"]?.Get<string>(0) ?? string.Empty;
+            TexFile tex = await GameIconService.GetTexFileByTagAsync(bitmapPath);
+
+            if (tex is not null)
+                item.Icon = tex.ToBitmap();
+
+            return item;
         }
 
         private async Task<Item> CreateCharmItemAsync(Item item, ArzRecord itemRecord)
@@ -63,9 +162,10 @@ namespace TQVaultAE.Application.Factories
             item.Name = await GameLocalizationService.GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
 
             string bitmapPath = itemRecord["bitmap"]?.Get<string>(0) ?? string.Empty;
-            // TODO Read bitmap from .tex file
-            //Bitmap bitmap = ReadBitmap(bitmapPath);
-            //item.Icon = bitmap;
+            TexFile tex = await GameIconService.GetTexFileByTagAsync(bitmapPath);
+
+            if (tex is not null)
+                item.Icon = tex.ToBitmap();
 
             return item;
         }
@@ -83,9 +183,10 @@ namespace TQVaultAE.Application.Factories
             item.Name = await GameLocalizationService.GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
 
             string bitmapPath = itemRecord["bitmap"]?.Get<string>(0) ?? string.Empty;
-            // TODO Read bitmap from .tex file
-            //Bitmap bitmap = ReadBitmap(bitmapPath);
-            //item.Icon = bitmap;
+            TexFile tex = await GameIconService.GetTexFileByTagAsync(bitmapPath);
+
+            if (tex is not null)
+                item.Icon = tex.ToBitmap();
 
             return item;
         }
@@ -105,9 +206,10 @@ namespace TQVaultAE.Application.Factories
             };
 
             string bitmapPath = itemRecord["bitmap"]?.Get<string>(0) ?? string.Empty;
-            // TODO Read bitmap from .tex file
-            //Bitmap bitmap = ReadBitmap(bitmapPath);
-            //item.Icon = bitmap;
+            TexFile tex = await GameIconService.GetTexFileByTagAsync(bitmapPath);
+
+            if (tex is not null)
+                item.Icon = tex.ToBitmap();
 
             return result;
         }
@@ -128,9 +230,10 @@ namespace TQVaultAE.Application.Factories
             item.Name = await GameLocalizationService.GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
 
             string bitmapPath = itemRecord["bitmap"]?.Get<string>(0) ?? string.Empty;
-            // TODO Read bitmap from .tex file
-            //Bitmap bitmap = ReadBitmap(bitmapPath);
-            //item.Icon = bitmap;
+            TexFile tex = await GameIconService.GetTexFileByTagAsync(bitmapPath);
+
+            if (tex is not null)
+                item.Icon = tex.ToBitmap();
 
             return item;
         }

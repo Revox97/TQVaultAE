@@ -17,12 +17,14 @@ public partial class ItemControl : UserControl
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
     {
         InitializeComponent();
+        DataContext = new Item();
     }
 
     public ItemControl(Item item)
     {
         InitializeComponent();
         Item = item;
+        DataContext = item;
     }
 
     private void UserControl_PointerEntered(object? sender, Avalonia.Input.PointerEventArgs e)

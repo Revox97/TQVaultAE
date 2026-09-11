@@ -63,6 +63,7 @@ public partial class ItemsPanel : UserControl
         {
             if (item.Position.X == -1 || item.Position.Y == -1)
                 continue;
+
             ItemControl itemControl = new(item);
 
             ItemsContainer.Children.Add(itemControl);
@@ -95,17 +96,6 @@ public partial class ItemsPanel : UserControl
                 Grid.SetColumn(item, k);
             }
         }
-
-        //foreach(Item item in Items)
-        //{
-        //    ItemControl itemControl = new(item);
-
-        //    ItemsContainer.Children.Add(itemControl);
-        //    Grid.SetRow(itemControl, item.Position.Y);
-        //    Grid.SetColumn(itemControl, item.Position.X);
-        //    //Grid.SetColumnSpan(itemControl, item.Size.Width);
-        //    //Grid.SetRowSpan(itemControl, item.Size.Height);
-        //}
     }
 
     internal void UpdateUI()

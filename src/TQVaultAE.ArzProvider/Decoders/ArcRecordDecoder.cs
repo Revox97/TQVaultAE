@@ -69,8 +69,9 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
             if (contentType[0] == 0x54 && contentType[1] == 0x45 && contentType[2] == 0x58) // TEX File read raw data
             {
                 // TODO Read TEXT file
-                record.Content = ReadTexContent(recordReader);
-                record.ContentType = ArcRecordType.Tex;
+                recordReader.BaseStream.Position -= 3;
+                record.Content = ReadTexContent(stream);
+                record.ContentType = ArcRecordType.TexFile;
                 return record;
             }
 
@@ -84,9 +85,9 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
             return record;
         }
 
-        private static object ReadTexContent(BinaryReader reader)
+        private static TexFile ReadTexContent(MemoryStream stream)
         {
-            throw new NotImplementedException();
+            return TexFile.Read(stream);
         }
 
         private static Dictionary<string, string> ReadStringEntries(BinaryReader reader)

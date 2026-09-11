@@ -11,23 +11,17 @@ namespace TQVaultAE.Application.Services
         // TODO Make dynamic. Harcoded for testing purposes.
         private static readonly string s_localizationPath = Path.Combine(@"C:\Program Files (x86)\Steam\steamapps\common\Titan Quest Anniversary Edition\Text\Text_EN.arc");
 
-        public static async Task GetLocalizationAsync()
-        {
-            // TODO Read out actual content.
-            s_localizationFile ??= await new ArcProvider().ReadAsync(s_localizationPath).ConfigureAwait(false);
-        }
-
         public static async Task<string?> GetLocalizedValueByTag(string tag)
         {
             ArgumentException.ThrowIfNullOrEmpty(tag);
 
             if (s_localization.Count == 0)
-                await Initialize();
+                await InitializeAsync();
 
             return s_localization.TryGetValue(tag, out string? result) ? result : null;
         }
 
-        private static async Task Initialize()
+        private static async Task InitializeAsync()
         {
             s_localizationFile ??= await new ArcProvider().ReadAsync(s_localizationPath).ConfigureAwait(false);
 
@@ -44,9 +38,7 @@ namespace TQVaultAE.Application.Services
                         s_localization.Add(tag.Key, tag.Value);
                     }
                 }
-
             }
-
         }
     }
 }
