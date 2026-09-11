@@ -21,5 +21,7 @@ namespace TQVaultAE.Model.Items
         {
             throw new NotImplementedException();
         }
+
+        public override string ToString() => $"{Type} - {Value}";
     }
 }

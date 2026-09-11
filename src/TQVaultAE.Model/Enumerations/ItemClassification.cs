@@ -9,6 +9,7 @@ namespace TQVaultAE.Model.Enumerations
         Epic,
         Legendary,
         Magical,
+        Quest,
         Rare
     }
 }

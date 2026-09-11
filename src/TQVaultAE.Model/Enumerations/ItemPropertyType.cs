@@ -239,6 +239,21 @@ namespace TQVaultAE.Model.Enumerations
         [Description("offensivePhysicalMax")]
         OffensivePhysicalMax,
 
+        [Description("offensiveManaBurnChance")]
+        OffensiveManaBurnChance,
+
+        [Description("offensiveManaBurnDamageRatio")]
+        OffensiveManaBurnDamageRatio,
+
+        [Description("offensiveManaBurnDrainMin")]
+        OffensiveManaBurnDrainMin,
+
+        [Description("offensivePierceModifierChance")]
+        OffensivePierceModifierChance,
+
+        [Description("offensivePercentCurrentLifeMin")]
+        OffensivePercentCurrentLifeMin,
+
         [Description("offensiveSleepModifier")]
         OffensiveSleepModifier,
 

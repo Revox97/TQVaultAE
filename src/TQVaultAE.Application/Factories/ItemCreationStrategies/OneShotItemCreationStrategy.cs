@@ -19,17 +19,17 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
                 result.Scale = itemRecord["scale"]?.Get<float>(0) ?? 0.0f;
 
                 string nameTag = itemRecord["description"]?.Get<string>(0) ?? string.Empty;
-                result.Name = await GameLocalizationService.GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
+                result.Name = await new GameLocalizationService().GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
 
                 string descriptionTag = itemRecord["itemText"]?.Get<string>(0) ?? string.Empty;
-                result.Description = await GameLocalizationService.GetLocalizedValueByTag(descriptionTag).ConfigureAwait(false) ?? string.Empty;
+                result.Description = await new GameLocalizationService().GetLocalizedValueByTag(descriptionTag).ConfigureAwait(false) ?? string.Empty;
 
                 result.Requirements = GetItemRequirements(itemRecord);
                 result.Bonuses = GetBonuses(itemRecord);
 
                 string bitmapPath = itemRecord["bitmap"]?.Get<string>(0) ?? string.Empty;
                 result.Icon = await GetIconAsync(bitmapPath).ConfigureAwait(false) ?? null!; // TODO use default bitmap in case reading fails.
-                result.Size = GetItemSize(item);
+                result.Size = GetItemSize(result);
 
                 return result;
             }

@@ -16,5 +16,7 @@ namespace TQVaultAE.Model.Items
         /// Gets or sets the value attached to the <see cref="ItemRequirement"/>.
         /// </summary>
         public int Value { get; set; } = value;
+
+        public override string ToString() => $"{Type} - {Value}";
     }
 }

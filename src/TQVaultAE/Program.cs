@@ -47,6 +47,7 @@ namespace TQVaultAE
             services.AddSingleton<ISettingsService, SettingsService>();
             services.AddSingleton<ITitanQuestDatabaseService, TitanQuestDatabaseService>();
             services.AddSingleton<IGameIconService, GameIconService>();
+            services.AddSingleton<IGameLocalizationService, GameLocalizationService>();
 
             Services = services.BuildServiceProvider();
 

@@ -12,7 +12,7 @@ namespace TQVaultAE.ViewModels
 {
     public sealed class LoadingWindowViewModel : ObservableObject
     {
-        private readonly float _taskCount = 6; 
+        private readonly float _taskCount = 7; 
 
         public double Progress
         {
@@ -35,6 +35,7 @@ namespace TQVaultAE.ViewModels
 
             try
             {
+                // Run all in paralell
                 await Program.Services.GetRequiredService<ITitanQuestDatabaseService>().InitializeAsync();
                 Progress += 100 / _taskCount;
                 
@@ -51,12 +52,15 @@ namespace TQVaultAE.ViewModels
                 await gameIconService.InitializeAsync("XPack4\\Item");
                 Progress += 100 / _taskCount;
 
+                await Program.Services.GetRequiredService<IGameLocalizationService>().InitializeAsync();
+                Progress += 100 / _taskCount;
+
                 App.Current!.Dispatcher.Invoke(() => Program.Services.GetRequiredService<IEventDispatcher>().Dispatch(this, new GameDataLoadedEvent()));
             }
-            catch(Exception ex){
+            catch(Exception ex)
+            {
 
             }
-
         }
     }
 }

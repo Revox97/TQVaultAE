@@ -8,15 +8,17 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
     internal class WeaponItemCreationStrategy : ItemCreationStrategy
     {
         [SupportedOSPlatform("windows")]
-        internal override async Task<Item> CreateAsync(Item item, ArzRecord itemRecord)
+        internal override async Task<Item> CreateAsync(Item itemBase, ArzRecord itemRecord)
         {
             try
             {
-                item = GetGeneralItemProperties(item, itemRecord);
+                WeaponItem item = new(itemBase);
+
+                item = (WeaponItem)GetGeneralItemProperties(item, itemRecord);
                 item.Scale = itemRecord["scale"]?.Get<float>(0) ?? 0.0f;
 
-                string nameTag = itemRecord["description"]?.Get<string>(0) ?? string.Empty;
-                item.Name = await GameLocalizationService.GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
+                string nameTag = itemRecord["itemNameTag"]?.Get<string>(0) ?? string.Empty;
+                item.Name = await new GameLocalizationService().GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
 
                 item.Properties = GetItemAttributes(itemRecord);
 
@@ -29,7 +31,7 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
             catch(Exception ex)
             {
                 // Item Creation failed.
-                return item;
+                return itemBase;
             }
         }
     }

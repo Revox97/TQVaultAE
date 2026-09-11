@@ -1,31 +1,42 @@
-﻿using TQVaultAE.FileFormats.Arc;
+﻿using TQVaultAE.Application.Contracts;
+using TQVaultAE.FileFormats.Arc;
 using TQVaultAE.TitanQuestDataProviders.Database;
 
 namespace TQVaultAE.Application.Services
 {
-    public static class GameLocalizationService
+    public sealed class GameLocalizationService : IGameLocalizationService
     {
         private static ArcFile? s_localizationFile;
         private static readonly Dictionary<string, string> s_localization = [];
 
+        // Read only relevant data, other will be skipped
+        private static readonly List<string> s_relevantLocalizationFiles =
+        [
+            "commonequipment.txt",
+            "uniqueequipment.txt",
+            "quest.txt",
+            "xquest.txt",
+            "xcommonequipment.txt",
+            "xuniqueequipment.txt",
+            "x2commonequipment.txt",
+            "x2uniqueequipment.txt",
+            "x2quest.txt"
+        ];
+
         // TODO Make dynamic. Harcoded for testing purposes.
         private static readonly string s_localizationPath = Path.Combine(@"C:\Program Files (x86)\Steam\steamapps\common\Titan Quest Anniversary Edition\Text\Text_EN.arc");
 
-        public static async Task<string?> GetLocalizedValueByTag(string tag)
+        public async Task<string?> GetLocalizedValueByTag(string tag)
         {
             ArgumentException.ThrowIfNullOrEmpty(tag);
-
-            if (s_localization.Count == 0)
-                await InitializeAsync();
-
             return s_localization.TryGetValue(tag, out string? result) ? result : null;
         }
 
-        private static async Task InitializeAsync()
+        public async Task InitializeAsync()
         {
             s_localizationFile ??= await new ArcProvider().ReadAsync(s_localizationPath).ConfigureAwait(false);
 
-            foreach (ArcFileRecord record in s_localizationFile.Records)
+            foreach (ArcFileRecord record in s_localizationFile.Records.Where(x => s_relevantLocalizationFiles.Contains(x.FileName)))
             {
                 if (record.ContentType is ArcRecordType.StringCollection)
                 {

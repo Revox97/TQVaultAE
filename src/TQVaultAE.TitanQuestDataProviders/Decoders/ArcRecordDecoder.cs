@@ -52,8 +52,7 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
 
         private static async Task<ArcFileRecord> ReadUnCompressedArcRecordAsync(BinaryReader reader, ArcFileRecord record)
         {
-            byte[] raw = reader.ReadBytes(record.RealSize);
-            return record;
+            throw new NotImplementedException();
         }
 
         private static async Task<ArcFileRecord> ReadCompressedArcRecordAsync(BinaryReader reader, ArcFileRecord record)
@@ -99,7 +98,10 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
 
             Dictionary<string, string> entries = [];
 
-            foreach (string line in result.Split(Environment.NewLine))
+            // Some files seem to be generated with \n instead of \r\n
+            string[] lines = result.Contains(Environment.NewLine) ? result.Split(Environment.NewLine) : result.Split("\n");
+            
+            foreach (string line in lines)
             {
                 if (line.StartsWith("//"))
                     continue;
