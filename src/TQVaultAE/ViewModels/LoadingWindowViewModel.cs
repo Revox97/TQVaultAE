@@ -24,6 +24,10 @@ namespace TQVaultAE.ViewModels
             }
         }
         
+        // TODO Improve performance
+        // Skip unnecessary data
+        // Run requests in paralell
+        // Find a better data structure to provide files. Search dictionary keys unfortunately, requires lots of resources
         public async Task LoadGameResourcesAsync()
         {
             if (Design.IsDesignMode)
@@ -36,7 +40,7 @@ namespace TQVaultAE.ViewModels
                 
                 IGameIconService gameIconService = Program.Services.GetRequiredService<IGameIconService>();
 
-                await gameIconService.InitializeAsync("Items.arc");
+                await gameIconService.InitializeAsync("Items");
                 Progress += 100 / _taskCount;
                 await gameIconService.InitializeAsync("xpack\\Items");
                 Progress += 100 / _taskCount;

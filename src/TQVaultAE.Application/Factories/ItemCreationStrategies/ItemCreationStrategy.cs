@@ -18,7 +18,6 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
         {
             item.TemplateName = itemRecord["templateName"]?.Get<string>(0) ?? string.Empty;
 
-
             // TODO Seems not to be a standard value
             item.Classification = itemRecord["itemClassification"]?.Get<ItemClassification>(0) ?? default;
 

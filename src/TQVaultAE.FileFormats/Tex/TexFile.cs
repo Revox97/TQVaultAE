@@ -51,24 +51,49 @@ namespace TQVaultAE.FileFormats.Tex
 
             byte version = reader.ReadByte();
 
-            // TODO Other version might be supported
-            // There seem to be some in version 1, maybe different handling is needed
-            if (version != 2)
-                throw new InvalidDataException($"Unsupported TEX version: {version}");
-
-            TexFile tex = new()
+            return version switch
             {
-                Version = version,
+                1 => ReadTexV1(reader),
+                2 => ReadTexV2(reader),
+                _ => throw new InvalidDataException($"Invalid TEX version. Expected '1' or '2', got '{version}'.")
+            };
+        }
+
+        private static TexFile ReadTexV1(BinaryReader reader)
+        {
+            TexFile texFile = new()
+            {
+                Version = 1,
+                FramesPerSecond = reader.ReadUInt32(),
+                HasAlpha = false, // TEX v1 does not contain HasAlpha flag.
+            };
+
+            ReadFrames(reader, texFile);
+
+            Debug.WriteLine("Read tex");
+            return texFile;
+        }
+
+        private static TexFile ReadTexV2(BinaryReader reader)
+        {
+            TexFile texFile = new()
+            {
+                Version = 2,
                 FramesPerSecond = reader.ReadUInt32(),
                 HasAlpha = reader.ReadByte() != 0
             };
 
-            // There is no frame count. Read frames until EOF.
-            while (stream.Position < stream.Length)
-                tex.Frames.Add(ImageFrame.Read(reader));
+            ReadFrames(reader, texFile);
 
             Debug.WriteLine("Read tex");
-            return tex;
+            return texFile;
+        }
+
+        private static void ReadFrames(BinaryReader reader, TexFile texFile)
+        {
+            // There is no frame count. Read frames until EOF.
+            while (reader.BaseStream.Position < reader.BaseStream.Length)
+                texFile.Frames.Add(ImageFrame.Read(reader));
         }
 
         // TODO check for linux support
@@ -76,8 +101,8 @@ namespace TQVaultAE.FileFormats.Tex
         public Bitmap ToBitmap()
         {
             byte[] pixelData = Frames[0].MipMaps[0].Data;
-            int width = Frames[0].DdsSurface.Width;
-            int height = Frames[0].DdsSurface.Height;
+            int width = Frames[0].DDSSurface.Width;
+            int height = Frames[0].DDSSurface.Height;
 
             if (pixelData.Length < width * height * 4)
                 throw new ArgumentException("Not enough pixel data.");

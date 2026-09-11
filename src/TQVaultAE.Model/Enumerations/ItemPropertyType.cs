@@ -254,6 +254,9 @@ namespace TQVaultAE.Model.Enumerations
         [Description("offensiveElementalMin")]
         OffensiveElementalMin,
 
+        [Description("offensivePierceModifier")]
+        OffensivePierceModifier,
+
         [Description("offensiveElementalModifier")]
         OffensiveElementalModifier,
 

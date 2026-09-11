@@ -21,11 +21,9 @@ namespace TQVaultAE.FileFormats.Tex
 
         public char Reversed { get; set; }
 
-        public DdsSurfaceDesc2 DdsSurface { get; set; } = new();
+        public DDSSurfaceDesc2 DDSSurface { get; set; } = new();
 
         public List<MipMap> MipMaps { get; } = [];
-
-        const int KnownFrameHeaderSize = 3 + 3 + 1 + 124;
 
         public static ImageFrame Read(BinaryReader reader)
         {
@@ -43,11 +41,7 @@ namespace TQVaultAE.FileFormats.Tex
 
             string tag = Encoding.ASCII.GetString(reader.ReadBytes(3));
 
-            // TODO Handle different headers in separate ways
-            string versionOneHeader = "DSR";
-            string versionTwoHeader = "DDS";
-
-            if (tag != "DDS" && tag != "DSR")
+            if (tag != "DDS")
                 throw new InvalidDataException($"Expected DDS tag, got '{tag}'.");
             Debug.WriteLine($"After DDS header: 0x{reader.BaseStream.Position:X}");
 
@@ -58,21 +52,21 @@ namespace TQVaultAE.FileFormats.Tex
 
             long ddsHeaderStart = reader.BaseStream.Position;
             Debug.WriteLine($"Before DDS header: 0x{reader.BaseStream.Position:X}");
-            frame.DdsSurface = DdsSurfaceDesc2.Read(reader);
+            frame.DDSSurface = DDSSurfaceDesc2.Read(reader);
             Debug.WriteLine(
-                $"DDS: {frame.DdsSurface.Width}x{frame.DdsSurface.Height}, " +
-                $"mips={frame.DdsSurface.MipMapCount}");
+                $"DDS: {frame.DDSSurface.Width}x{frame.DDSSurface.Height}, " +
+                $"mips={frame.DDSSurface.MipMapCount}");
 
             Debug.WriteLine(
                 $"PixelFormat: " +
-                $"Size=0x{frame.DdsSurface.PixelFormat.Size:X}, " +
-                $"Flags=0x{frame.DdsSurface.PixelFormat.Flags:X}, " +
-                $"FourCC=0x{frame.DdsSurface.PixelFormat.FourCC:X}, " +
-                $"RGBBitCount={frame.DdsSurface.PixelFormat.RGBBitCount}, " +
-                $"RMask=0x{frame.DdsSurface.PixelFormat.RBitMask:X8}, " +
-                $"GMask=0x{frame.DdsSurface.PixelFormat.GBitMask:X8}, " +
-                $"BMask=0x{frame.DdsSurface.PixelFormat.BBitMask:X8}, " +
-                $"AMask=0x{frame.DdsSurface.PixelFormat.ABitMask:X8}");
+                $"Size=0x{frame.DDSSurface.PixelFormat.Size:X}, " +
+                $"Flags=0x{frame.DDSSurface.PixelFormat.Flags:X}, " +
+                $"FourCC=0x{frame.DDSSurface.PixelFormat.FourCC:X}, " +
+                $"RGBBitCount={frame.DDSSurface.PixelFormat.RGBBitCount}, " +
+                $"RMask=0x{frame.DDSSurface.PixelFormat.RBitMask:X8}, " +
+                $"GMask=0x{frame.DDSSurface.PixelFormat.GBitMask:X8}, " +
+                $"BMask=0x{frame.DDSSurface.PixelFormat.BBitMask:X8}, " +
+                $"AMask=0x{frame.DDSSurface.PixelFormat.ABitMask:X8}");
             Debug.WriteLine($"After DDS header: 0x{reader.BaseStream.Position:X}");
 
             long mipDataStart = reader.BaseStream.Position;
@@ -85,10 +79,10 @@ namespace TQVaultAE.FileFormats.Tex
                 Debug.WriteLine($"Warning: unexpected frame size: 0x{frame.FrameSize:X2}");
             }
 
-            int mipCount = frame.DdsSurface.GetMipMapCount();
+            int mipCount = frame.DDSSurface.GetMipMapCount();
 
-            int width = frame.DdsSurface.Width;
-            int height = frame.DdsSurface.Height;
+            int width = frame.DDSSurface.Width;
+            int height = frame.DDSSurface.Height;
 
             var mipMaps = new List<MipMap>(mipCount);
 
@@ -98,7 +92,7 @@ namespace TQVaultAE.FileFormats.Tex
                 int mipHeight = Math.Max(1, height >> i);
 
                 int size = DdsFormat.CalculateMipSize(
-                    frame.DdsSurface.PixelFormat,
+                    frame.DDSSurface.PixelFormat,
                     mipWidth,
                     mipHeight);
 

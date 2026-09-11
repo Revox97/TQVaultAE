@@ -61,11 +61,13 @@ namespace TQVaultAE.Application.Services
                 ArgumentException.ThrowIfNullOrEmpty(tag);
 
                 string[] path = tag.Split('\\');
-                string key = $"{(IsInSubFolder(path) ? path[0] : "Base")}_{path[1]}";
+                bool isInSubFolder = IsInSubFolder(path);
+                string key = $"{(isInSubFolder ? path[0] : "Base")}_{(isInSubFolder ? path[1] : path[0])}";
 
                 Dictionary<string, TexFile> iconSet = s_icons.FirstOrDefault(x => x.Key.Equals(key, StringComparison.InvariantCultureIgnoreCase)).Value;
 
-                return iconSet is null ? null! : iconSet[string.Join('/', path[2..])];
+                string dbKey = string.Join('/', isInSubFolder ? path[2..] : path[1..]);
+                return iconSet is null ? null! : iconSet.FirstOrDefault(x => x.Key.Equals(dbKey, StringComparison.InvariantCultureIgnoreCase)).Value;
             }
             catch (Exception ex)
             {

@@ -6,7 +6,7 @@
     /// This is 124 bytes and corresponds to the standard DDS header
     /// (without the "DDS " magic).
     /// </summary>
-    public sealed class DdsSurfaceDesc2
+    public sealed class DDSSurfaceDesc2
     {
         public uint Size { get; set; } = 124;
 
@@ -36,9 +36,9 @@
 
         public uint Reserved2 { get; set; }
 
-        public static DdsSurfaceDesc2 Read(BinaryReader reader)
+        public static DDSSurfaceDesc2 Read(BinaryReader reader)
         {
-            DdsSurfaceDesc2 dds = new()
+            DDSSurfaceDesc2 dds = new()
             {
                 Size = reader.ReadUInt32(),
                 Flags = reader.ReadUInt32(),
