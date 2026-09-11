@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\TQVaultAE.ArzProvider\TQVaultAE.TitanQuestDataProviders.csproj" />
+    <ProjectReference Include="..\..\TQVaultAE.TitanQuestDataProviders\TQVaultAE.TitanQuestDataProviders.csproj" />
   </ItemGroup>
 
 </Project>

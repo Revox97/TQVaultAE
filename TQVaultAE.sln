@@ -22,7 +22,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Backup", "src\TQV
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Events", "src\TQVaultAE.Events\TQVaultAE.Events.csproj", "{4931CAD1-04FC-48B5-93DC-15E4C0C7158A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.TitanQuestDataProviders", "src\TQVaultAE.ArzProvider\TQVaultAE.TitanQuestDataProviders.csproj", "{4775CD3F-7E31-4191-8447-75FB5D0D0128}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.TitanQuestDataProviders", "src\TQVaultAE.TitanQuestDataProviders\TQVaultAE.TitanQuestDataProviders.csproj", "{4775CD3F-7E31-4191-8447-75FB5D0D0128}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.IO", "src\TQVaultAE.IO\TQVaultAE.IO.csproj", "{2628AABA-BC8F-4D7D-9260-CECC44CC76DB}"
 EndProject
@@ -31,6 +31,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.ArzTests", "src\tests\TQVaultAE.ArzTests\TQVaultAE.ArzTests.csproj", "{92547FAD-6502-4971-9FE1-FD2D534015FB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Logging", "src\TQVaultAE.Logging\TQVaultAE.Logging.csproj", "{AF64E518-4A8B-47F6-BDFE-595468E69101}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.FileFormats", "src\TQVaultAE.FileFormats\TQVaultAE.FileFormats.csproj", "{C68C6E94-6364-4AA0-9A07-75E594D16A06}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -82,6 +84,10 @@ Global
 		{AF64E518-4A8B-47F6-BDFE-595468E69101}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF64E518-4A8B-47F6-BDFE-595468E69101}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF64E518-4A8B-47F6-BDFE-595468E69101}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C68C6E94-6364-4AA0-9A07-75E594D16A06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C68C6E94-6364-4AA0-9A07-75E594D16A06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C68C6E94-6364-4AA0-9A07-75E594D16A06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C68C6E94-6364-4AA0-9A07-75E594D16A06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

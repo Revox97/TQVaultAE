@@ -1,8 +1,8 @@
 ﻿using System.Drawing;
 using TQVaultAE.Application.Services;
+using TQVaultAE.FileFormats.Chr;
 using TQVaultAE.Model.Items;
 using TQVaultAE.Model.Players;
-using TQVaultAE.TitanQuestDataProviders.Model;
 
 namespace TQVaultAE.Application.Factories
 {

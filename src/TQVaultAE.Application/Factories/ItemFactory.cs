@@ -1,9 +1,10 @@
 ﻿using System.Diagnostics;
 using TQVaultAE.Application.Services;
+using TQVaultAE.FileFormats.Arz;
+using TQVaultAE.FileFormats.Tex;
 using TQVaultAE.Model.Enumerations;
 using TQVaultAE.Model.Items;
 using TQVaultAE.TitanQuestDataProviders.Database;
-using TQVaultAE.TitanQuestDataProviders.Model;
 
 namespace TQVaultAE.Application.Factories
 {
@@ -87,7 +88,7 @@ namespace TQVaultAE.Application.Factories
 
             if (tex is not null)
             {
-                item.Icon = tex.ToBitmap();
+                item.Icon = tex.GetToBitmap();
 
                 int cellWidth = tex.Frames[0].DdsSurface.Width / CellVerticyLength;
                 int cellHeight = tex.Frames[0].DdsSurface.Height / CellVerticyLength;
@@ -118,7 +119,7 @@ namespace TQVaultAE.Application.Factories
 
             if (tex is not null)
             {
-                item.Icon = tex.ToBitmap();
+                item.Icon = tex.GetToBitmap();
 
                 int cellWidth = tex.Frames[0].DdsSurface.Width / CellVerticyLength;
                 int cellHeight = tex.Frames[0].DdsSurface.Height / CellVerticyLength;
@@ -149,7 +150,7 @@ namespace TQVaultAE.Application.Factories
 
             if (tex is not null)
             {
-                item.Icon = tex.ToBitmap();
+                item.Icon = tex.GetToBitmap();
 
                 int cellWidth = tex.Frames[0].DdsSurface.Width / CellVerticyLength;
                 int cellHeight = tex.Frames[0].DdsSurface.Height / CellVerticyLength;
@@ -179,7 +180,7 @@ namespace TQVaultAE.Application.Factories
 
             if (tex is not null)
             {
-                item.Icon = tex.ToBitmap();
+                item.Icon = tex.GetToBitmap();
 
                 int cellWidth = tex.Frames[0].DdsSurface.Width / CellVerticyLength;
                 int cellHeight = tex.Frames[0].DdsSurface.Height / CellVerticyLength;
@@ -210,7 +211,7 @@ namespace TQVaultAE.Application.Factories
 
             if (tex is not null)
             {
-                item.Icon = tex.ToBitmap();
+                item.Icon = tex.GetToBitmap();
 
                 int cellWidth = tex.Frames[0].DdsSurface.Width / CellVerticyLength;
                 int cellHeight = tex.Frames[0].DdsSurface.Height / CellVerticyLength;
@@ -242,7 +243,7 @@ namespace TQVaultAE.Application.Factories
 
             if (tex is not null)
             {
-                item.Icon = tex.ToBitmap();
+                item.Icon = tex.GetToBitmap();
 
                 int cellWidth = tex.Frames[0].DdsSurface.Width / CellVerticyLength;
                 int cellHeight = tex.Frames[0].DdsSurface.Height / CellVerticyLength;
@@ -276,7 +277,7 @@ namespace TQVaultAE.Application.Factories
 
             if (tex is not null)
             {
-                result.Icon = tex.ToBitmap();
+                result.Icon = tex.GetToBitmap();
 
                 int cellWidth = tex.Frames[0].DdsSurface.Width / CellVerticyLength;
                 int cellHeight = tex.Frames[0].DdsSurface.Height / CellVerticyLength;
@@ -311,7 +312,7 @@ namespace TQVaultAE.Application.Factories
 
             if (tex is not null)
             {
-                item.Icon = tex.ToBitmap();
+                item.Icon = tex.GetToBitmap();
 
                 int cellWidth = tex.Frames[0].DdsSurface.Width / CellVerticyLength;
                 int cellHeight = tex.Frames[0].DdsSurface.Height / CellVerticyLength;

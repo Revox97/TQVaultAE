@@ -1,7 +1,7 @@
 ﻿using TQVaultAE.Application.Contracts;
 using TQVaultAE.Application.Factories;
+using TQVaultAE.FileFormats.Chr;
 using TQVaultAE.Model.Players;
-using TQVaultAE.TitanQuestDataProviders.Model;
 using TQVaultAE.TitanQuestDataProviders.SaveGame;
 
 namespace TQVaultAE.Application.Services

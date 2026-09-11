@@ -1,5 +1,5 @@
-﻿using TQVaultAE.TitanQuestDataProviders.Database;
-using TQVaultAE.TitanQuestDataProviders.Model;
+﻿using TQVaultAE.FileFormats.Arc;
+using TQVaultAE.TitanQuestDataProviders.Database;
 
 namespace TQVaultAE.Application.Services
 {

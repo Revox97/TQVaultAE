@@ -1,6 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
+using TQVaultAE.FileFormats.Arc;
+using TQVaultAE.FileFormats.Tex;
 using TQVaultAE.TitanQuestDataProviders.Database;
-using TQVaultAE.TitanQuestDataProviders.Model;
 
 namespace TQVaultAE.Application.Services
 {

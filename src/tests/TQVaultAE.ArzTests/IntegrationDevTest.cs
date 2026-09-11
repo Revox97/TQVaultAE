@@ -1,6 +1,8 @@
 ﻿using NUnit.Framework;
+using TQVaultAE.FileFormats.Arc;
+using TQVaultAE.FileFormats.Arz;
+using TQVaultAE.FileFormats.Chr;
 using TQVaultAE.TitanQuestDataProviders.Database;
-using TQVaultAE.TitanQuestDataProviders.Model;
 using TQVaultAE.TitanQuestDataProviders.SaveGame;
 
 namespace TQVaultAE.ArzTests
