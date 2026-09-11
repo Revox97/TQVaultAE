@@ -107,5 +107,7 @@ namespace TQVaultAE.Model.Items
         /// Cell size.
         /// </summary>
         public Size Size { get; set; } = new Size(1, 1);
+
+        public ItemClass Class { get; set; }
     }
 }

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="350"
              x:Name="root"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
              x:Class="TQVaultAE.Views.Controls.ItemPopup">
     <Border BorderBrush="LightGray" BorderThickness="1" Background="#CC000000">
         <StackPanel Margin="1">
@@ -12,21 +13,27 @@
                 <LineBreak/>
                 <Run Foreground="White" Text="Item type"/>
                 <LineBreak/>
+                
+                <!-- TODO make this some kind of data block, with an according binding -->
                 <Run Foreground="Blue" Text="Item prop 1"/>
                 <LineBreak/>
                 <Run Foreground="Blue" Text="Item prop 2"/>
                 <LineBreak/>
                 <Run Foreground="Blue" Text="Item prop 3"/>
+
                 <LineBreak/>
                 <LineBreak/>
                 <Run Foreground="White" Text="asdfs"/>
                 <LineBreak/>
                 <Separator Foreground="White" Background="White" Width="200"/>
                 <LineBreak/>
-                <Run Foreground="White" Text="Seed: 0x1232"/>
+                <Run Foreground="White" Text="Seed: "/>
+                <Run Foreground="White" Text="{Binding DataSource.Seed, ElementName=root}"/>
                 <LineBreak/>
                 <Separator Foreground="White" Background="White" Width="200"/>
                 <LineBreak/>
+
+                <!-- Todo make requirements a data control and bind the list -->
                 <Run Foreground="White" Text="Required Level: x"/>
             </TextBlock>
             

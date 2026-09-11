@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
+using System.Runtime.Versioning;
 using Avalonia.Data.Converters;
 
 namespace TQVaultAE.Converters
@@ -9,6 +10,7 @@ namespace TQVaultAE.Converters
     // TODO check, whether it is easier to use avalonia bitmaps from the beginning
     internal class SystemToAvaloniaBitmapConverter : IValueConverter
     {
+        [SupportedOSPlatform("windows")]
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is not Bitmap systemBitmap)
@@ -24,8 +26,6 @@ namespace TQVaultAE.Converters
                     bitmapdata.Stride);
 
                 systemBitmap.UnlockBits(bitmapdata);
-                systemBitmap.Dispose();
-
                 return avaloniaBitmap;
             }
             catch(Exception ex)

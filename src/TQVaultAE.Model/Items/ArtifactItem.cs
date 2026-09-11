@@ -14,6 +14,7 @@ namespace TQVaultAE.Model.Items
 
         public ArtifactItem(Item item)
         {
+            Class = item.Class;
             Position = item.Position;
             Prefix = item.Prefix;
             Suffix = item.Suffix;

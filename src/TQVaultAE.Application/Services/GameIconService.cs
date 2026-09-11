@@ -19,10 +19,11 @@ namespace TQVaultAE.Application.Services
                 ArgumentException.ThrowIfNullOrEmpty(tag);
                 string[] path = tag.Split('\\');
 
-                if (!s_icons.ContainsKey($"{path[0]}_{path[1]}"))
+                string key = $"{(IsInSubfolder(path) ? path[0] : "Base")}_{path[1]}";
+                if (!s_icons.ContainsKey(key))
                     await InitializeAsync(path[0..2]);
 
-                TexFile result = s_icons[$"{path[0]}_{path[1]}"][string.Join('/', path[2..])];
+                TexFile result = s_icons[key][string.Join('/', path[2..])];
                 return result;
             }
             catch(Exception ex)
@@ -34,11 +35,9 @@ namespace TQVaultAE.Application.Services
 
         private static async Task InitializeAsync(string[] fileParam)
         {
-            string filePath = string.Empty;
-
-            filePath = fileParam[0] == "Resources"
-                ? Path.Combine(s_resourcesPath, $"{fileParam[1]}.arc")
-                : Path.Combine(s_resourcesPath, fileParam[0], $"{fileParam[1]}.arc");
+            string filePath = IsInSubfolder(fileParam)
+                ? Path.Combine(s_resourcesPath, fileParam[0], $"{fileParam[1]}.arc")
+                : Path.Combine(s_resourcesPath, $"{fileParam[0]}.arc");
 
             ArcFile file = await new ArcProvider().ReadAsync(filePath).ConfigureAwait(false);
 
@@ -51,6 +50,15 @@ namespace TQVaultAE.Application.Services
             }
 
             s_icons.Add($"{fileParam[0]}_{fileParam[1]}", texFileMap);
+        }
+
+        private static bool IsInSubfolder(string[] fileParam)
+        {
+            return
+               fileParam[0].Equals("xpack", StringComparison.InvariantCultureIgnoreCase)
+            || fileParam[0].Equals("xpack2", StringComparison.InvariantCultureIgnoreCase)
+            || fileParam[0].Equals("xpack3", StringComparison.InvariantCultureIgnoreCase)
+            || fileParam[0].Equals("xpack4", StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }

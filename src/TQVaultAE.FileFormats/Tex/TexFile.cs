@@ -53,8 +53,8 @@ namespace TQVaultAE.FileFormats.Tex
 
             // TODO Other version might be supported
             // There seem to be some in version 1, maybe different handling is needed
-            //if (version != 2)
-            //    throw new InvalidDataException($"Unsupported TEX version: {version}");
+            if (version != 2)
+                throw new InvalidDataException($"Unsupported TEX version: {version}");
 
             TexFile tex = new()
             {
@@ -73,7 +73,7 @@ namespace TQVaultAE.FileFormats.Tex
 
         // TODO check for linux support
         [SupportedOSPlatform("windows")]
-        public Bitmap GetToBitmap()
+        public Bitmap ToBitmap()
         {
             byte[] pixelData = Frames[0].MipMaps[0].Data;
             int width = Frames[0].DdsSurface.Width;

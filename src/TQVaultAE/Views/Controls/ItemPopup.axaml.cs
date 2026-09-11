@@ -18,14 +18,26 @@ public partial class ItemPopup : UserControl, INotifyPropertyChanged
         }
     }
 
-    public ItemPopup(Item dataContext)
+    // Design time
+    // TODO add mockup service for design time
+    public ItemPopup()
     {
         InitializeComponent();
-        DataSource = dataContext;
-        //DataContext = dataContext;
+
+        DataSource = new()
+        {
+            Name = "Test Item",
+            Seed = 12345,
+        };
     }
 
-    public event PropertyChangedEventHandler? PropertyChanged;
+    public ItemPopup(Item item)
+    {
+        InitializeComponent();
+        DataSource = item;
+    }
+
+    public new event PropertyChangedEventHandler? PropertyChanged;
 
     protected void OnPropertyChanged([CallerMemberName] string? name = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 }
