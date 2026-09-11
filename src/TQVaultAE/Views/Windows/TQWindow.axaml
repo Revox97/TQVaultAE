@@ -10,6 +10,7 @@
         x:Class="TQVaultAE.Views.Windows.TQWindow"
         CanResize="{Binding CanResize}"
         Resized="Window_Resized"
+        WindowStartupLocation="CenterScreen"
         Icon="/Assets/Img/icon_majestic_chest.png"
         Title="TQWindow" Height="{Binding Height}" Width="{Binding Width}"
         Window.WindowDecorations="BorderOnly">

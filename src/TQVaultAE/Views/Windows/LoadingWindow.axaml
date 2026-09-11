@@ -1,0 +1,46 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="750" d:DesignHeight="500"
+        CanResize="False"
+        Width="750"
+        Height="500"
+        x:Class="TQVaultAE.Views.Windows.LoadingWindow"
+        Window.WindowDecorations="None"
+        WindowStartupLocation="CenterScreen"
+        Title="Titan Quest Vault">
+    <Window.Background>
+        <ImageBrush Source="avares://TQVaultAE/Assets/Img/NewSplashScreen.png"
+                    TileMode="None" Stretch="Fill" AlignmentX="Center" AlignmentY="Center"/>
+    </Window.Background>
+    <Window.Styles>
+        <StyleInclude Source="avares://TQVaultAE/Styles/ButtonStyles.axaml"/>
+    </Window.Styles>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="280"/> 
+            <RowDefinition Height="Auto"/> 
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <!-- TODO Localize -->
+        <TextBlock Grid.Row="1" Foreground="White" HorizontalAlignment="Center" Margin="50 0"
+                   FontSize="16" TextWrapping="Wrap" TextAlignment="Center"
+                   Text="A magical place, where you can store your artifacts of power, that you will need to save the world form the Titans."/>
+        <StackPanel Grid.Row="3">
+            <Label Content="Loading Game Resources.. Please Wait" Foreground="Gold" HorizontalAlignment="Center" Margin="0 10" FontSize="20"/>
+            <Panel Width="700" Height="50">
+                <Panel.Background>
+                    <ImageBrush Source="avares://TQVaultAE/Assets/Img/ProgressBar.png"
+                                TileMode="None" Stretch="Fill" AlignmentX="Center" AlignmentY="Center"/>
+                </Panel.Background>
+            </Panel>
+        </StackPanel>
+        <!-- TODO Localize -->
+        <Button Grid.Row="4" Classes="ButtonMain" Width="150" Click="ButtonExit_Click"
+                FontSize="20" Margin="30 10"
+                Content="Exit" HorizontalAlignment="Right"/>
+    </Grid>
+</Window>
