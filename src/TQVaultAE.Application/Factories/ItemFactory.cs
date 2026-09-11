@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Drawing;
 using TQVaultAE.Application.Services;
 using TQVaultAE.Model.Enumerations;
 using TQVaultAE.Model.Items;
@@ -13,6 +12,8 @@ namespace TQVaultAE.Application.Factories
     /// </summary>
     public class ItemFactory
     {
+        private const int CellVerticyLength = 32;
+
         // TODO Make dynamic, hardcoded for testing purposes.
         private readonly string _dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "TQVaultTestData", "database.arz");
         private static ArzFile? s_database;
@@ -85,7 +86,18 @@ namespace TQVaultAE.Application.Factories
             TexFile tex = await GameIconService.GetTexFileByTagAsync(bitmapPath);
 
             if (tex is not null)
+            {
                 item.Icon = tex.ToBitmap();
+
+                int cellWidth = tex.Frames[0].DdsSurface.Width / CellVerticyLength;
+                int cellHeight = tex.Frames[0].DdsSurface.Height / CellVerticyLength;
+                item.Size = new(cellWidth, cellHeight);
+            }
+            else
+            {
+                // TODO Add default values
+                item.Size = new(1, 1);
+            }
 
             return item;
         }
@@ -105,7 +117,18 @@ namespace TQVaultAE.Application.Factories
             TexFile tex = await GameIconService.GetTexFileByTagAsync(bitmapPath);
 
             if (tex is not null)
+            {
                 item.Icon = tex.ToBitmap();
+
+                int cellWidth = tex.Frames[0].DdsSurface.Width / CellVerticyLength;
+                int cellHeight = tex.Frames[0].DdsSurface.Height / CellVerticyLength;
+                item.Size = new(cellWidth, cellHeight);
+            }
+            else
+            {
+                // TODO Add default values
+                item.Size = new(1, 1);
+            }
 
             return item;
         }
@@ -125,8 +148,18 @@ namespace TQVaultAE.Application.Factories
             TexFile tex = await GameIconService.GetTexFileByTagAsync(bitmapPath);
 
             if (tex is not null)
+            {
                 item.Icon = tex.ToBitmap();
 
+                int cellWidth = tex.Frames[0].DdsSurface.Width / CellVerticyLength;
+                int cellHeight = tex.Frames[0].DdsSurface.Height / CellVerticyLength;
+                item.Size = new(cellWidth, cellHeight);
+            }
+            else
+            {
+                // TODO Add default values
+                item.Size = new(1, 1);
+            }
             return item;
         }
 
@@ -145,7 +178,18 @@ namespace TQVaultAE.Application.Factories
             TexFile tex = await GameIconService.GetTexFileByTagAsync(bitmapPath);
 
             if (tex is not null)
+            {
                 item.Icon = tex.ToBitmap();
+
+                int cellWidth = tex.Frames[0].DdsSurface.Width / CellVerticyLength;
+                int cellHeight = tex.Frames[0].DdsSurface.Height / CellVerticyLength;
+                item.Size = new(cellWidth, cellHeight);
+            }
+            else
+            {
+                // TODO Add default values
+                item.Size = new(1, 1);
+            }
 
             return item;
         }
@@ -165,7 +209,18 @@ namespace TQVaultAE.Application.Factories
             TexFile tex = await GameIconService.GetTexFileByTagAsync(bitmapPath);
 
             if (tex is not null)
+            {
                 item.Icon = tex.ToBitmap();
+
+                int cellWidth = tex.Frames[0].DdsSurface.Width / CellVerticyLength;
+                int cellHeight = tex.Frames[0].DdsSurface.Height / CellVerticyLength;
+                item.Size = new(cellWidth, cellHeight);
+            }
+            else
+            {
+                // TODO Add default values
+                item.Size = new(1, 1);
+            }
 
             return item;
         }
@@ -186,7 +241,18 @@ namespace TQVaultAE.Application.Factories
             TexFile tex = await GameIconService.GetTexFileByTagAsync(bitmapPath);
 
             if (tex is not null)
+            {
                 item.Icon = tex.ToBitmap();
+
+                int cellWidth = tex.Frames[0].DdsSurface.Width / CellVerticyLength;
+                int cellHeight = tex.Frames[0].DdsSurface.Height / CellVerticyLength;
+                item.Size = new(cellWidth, cellHeight);
+            }
+            else
+            {
+                // TODO Add default values
+                item.Size = new(1, 1);
+            }
 
             return item;
         }
@@ -205,11 +271,22 @@ namespace TQVaultAE.Application.Factories
                 Properties = GetProperties(itemRecord),
             };
 
-            string bitmapPath = itemRecord["bitmap"]?.Get<string>(0) ?? string.Empty;
+            string bitmapPath = itemRecord["artifactBitmap"]?.Get<string>(0) ?? string.Empty;
             TexFile tex = await GameIconService.GetTexFileByTagAsync(bitmapPath);
 
             if (tex is not null)
-                item.Icon = tex.ToBitmap();
+            {
+                result.Icon = tex.ToBitmap();
+
+                int cellWidth = tex.Frames[0].DdsSurface.Width / CellVerticyLength;
+                int cellHeight = tex.Frames[0].DdsSurface.Height / CellVerticyLength;
+                result.Size = new(cellWidth, cellHeight);
+            }
+            else
+            {
+                // TODO Add default values
+                result.Size = new(1, 1);
+            }
 
             return result;
         }
@@ -233,7 +310,18 @@ namespace TQVaultAE.Application.Factories
             TexFile tex = await GameIconService.GetTexFileByTagAsync(bitmapPath);
 
             if (tex is not null)
+            {
                 item.Icon = tex.ToBitmap();
+
+                int cellWidth = tex.Frames[0].DdsSurface.Width / CellVerticyLength;
+                int cellHeight = tex.Frames[0].DdsSurface.Height / CellVerticyLength;
+                item.Size = new(cellWidth, cellHeight);
+            }
+            else
+            {
+                // TODO Add default values
+                item.Size = new(1, 1);
+            }
 
             return item;
         }

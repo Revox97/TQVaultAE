@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 
 // TODO split in multiple files and remove magic numbers
+// TODO Have reading strategies for different version, I already feel the pain...
 
 namespace TQVaultAE.TitanQuestDataProviders.Model
 {
@@ -52,8 +53,9 @@ namespace TQVaultAE.TitanQuestDataProviders.Model
             byte version = reader.ReadByte();
 
             // TODO Other version might be supported
-            if (version != 2)
-                throw new InvalidDataException($"Unsupported TEX version: {version}");
+            // There seem to be some in version 1, maybe different handling is needed
+            //if (version != 2)
+            //    throw new InvalidDataException($"Unsupported TEX version: {version}");
 
             TexFile tex = new()
             {
@@ -136,7 +138,10 @@ namespace TQVaultAE.TitanQuestDataProviders.Model
 
             string tag = Encoding.ASCII.GetString(reader.ReadBytes(3));
 
-            if (tag != "DDS")
+            string versionOneHeader = "DSR";
+            string versionTwoHeader = "DDS";
+
+            if (tag != "DDS" && tag != "DSR")
                 throw new InvalidDataException($"Expected DDS tag, got '{tag}'.");
             Debug.WriteLine($"After DDS header: 0x{reader.BaseStream.Position:X}");
 

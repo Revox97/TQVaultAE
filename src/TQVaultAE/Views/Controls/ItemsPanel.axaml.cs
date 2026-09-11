@@ -70,8 +70,8 @@ public partial class ItemsPanel : UserControl
             Grid.SetRow(itemControl, item.Position.Y);
             Grid.SetColumn(itemControl, item.Position.X);
 
-            //Grid.SetColumnSpan(itemControl, item.Size.Width);
-            //Grid.SetRowSpan(itemControl, item.Size.Height);
+            Grid.SetColumnSpan(itemControl, item.Size.Width);
+            Grid.SetRowSpan(itemControl, item.Size.Height);
         }
     }
 

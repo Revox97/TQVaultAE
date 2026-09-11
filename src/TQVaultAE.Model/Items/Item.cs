@@ -102,5 +102,10 @@ namespace TQVaultAE.Model.Items
         // TODO Verify, if ALL items have them and move, if necessary:
         // TODO Also verify, if they are needed otherwise ignore them:
         public string TemplateName { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Cell size.
+        /// </summary>
+        public Size Size { get; set; } = new Size(1, 1);
     }
 }
