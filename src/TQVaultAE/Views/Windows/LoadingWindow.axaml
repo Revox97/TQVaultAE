@@ -2,11 +2,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:TQVaultAE.ViewModels"
+        xmlns:ctrl="using:TQVaultAE.Views.Controls"
         mc:Ignorable="d" d:DesignWidth="750" d:DesignHeight="500"
+        x:Class="TQVaultAE.Views.Windows.LoadingWindow"
+        x:DataType="vm:LoadingWindowViewModel"
         CanResize="False"
         Width="750"
         Height="500"
-        x:Class="TQVaultAE.Views.Windows.LoadingWindow"
         Window.WindowDecorations="None"
         WindowStartupLocation="CenterScreen"
         Title="Titan Quest Vault">
@@ -31,12 +34,13 @@
                    Text="A magical place, where you can store your artifacts of power, that you will need to save the world form the Titans."/>
         <StackPanel Grid.Row="3">
             <Label Content="Loading Game Resources.. Please Wait" Foreground="Gold" HorizontalAlignment="Center" Margin="0 10" FontSize="20"/>
-            <Panel Width="700" Height="50">
-                <Panel.Background>
-                    <ImageBrush Source="avares://TQVaultAE/Assets/Img/ProgressBar.png"
-                                TileMode="None" Stretch="Fill" AlignmentX="Center" AlignmentY="Center"/>
-                </Panel.Background>
-            </Panel>
+            <ctrl:ImageProgressBar
+                Width="700" Height="50"
+                Minimum="0" Maximum="100"
+                Value="{Binding Progress}"
+                BackgroundImage="avares://TQVaultAE/Assets/Img/ProgressBar.png"
+                FillImage="avares://TQVaultAE/Assets/Img/ProgressBarFill.png"
+            />
         </StackPanel>
         <!-- TODO Localize -->
         <Button Grid.Row="4" Classes="ButtonMain" Width="150" Click="ButtonExit_Click"

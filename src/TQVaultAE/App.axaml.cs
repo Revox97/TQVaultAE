@@ -8,7 +8,6 @@ using TQVaultAE.Events;
 using TQVaultAE.Events.Events;
 using TQVaultAE.Events.Observers;
 using TQVaultAE.Resources;
-using TQVaultAE.ViewModels;
 using TQVaultAE.Views.Pages;
 using TQVaultAE.Views.Windows;
 
@@ -43,6 +42,7 @@ namespace TQVaultAE
             {
                 MainPage content = new();
                 desktop.MainWindow = new TQWindow(content, "TQVaultAE 5.0.0.0", isMainWindow: true);
+                desktop.MainWindow.Show();
             }
         }
 

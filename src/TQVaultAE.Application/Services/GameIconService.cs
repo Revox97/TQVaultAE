@@ -1,58 +1,80 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Diagnostics;
+using TQVaultAE.Application.Contracts;
 using TQVaultAE.FileFormats.Arc;
 using TQVaultAE.FileFormats.Tex;
 using TQVaultAE.TitanQuestDataProviders.Database;
 
 namespace TQVaultAE.Application.Services
 {
-    public class GameIconService
+    public class GameIconService : IGameIconService
     {
-        private static readonly string s_resourcesPath = Path.Combine(@"C:\Program Files (x86)\Steam\steamapps\common\Titan Quest Anniversary Edition\Resources");
+        private readonly static string _resourcesPath = Path.Combine(@"C:\Program Files (x86)\Steam\steamapps\common\Titan Quest Anniversary Edition\Resources");
 
         private static readonly Dictionary<string, Dictionary<string, TexFile>> s_icons = [];
 
+        public async Task InitializeAsync(string path)
+        {
+            KeyValuePair<string, Dictionary<string, TexFile>> fileResult = await LoadIconsAsync(path);
+            s_icons.Add(fileResult.Key, fileResult.Value);
+        }
+
+        private static async Task<KeyValuePair<string, Dictionary<string, TexFile>>> LoadIconsAsync(string path)
+        {
+            string[] fileParam = path.Split('\\');
+
+            string filePath = IsInSubFolder(fileParam)
+                ? Path.Combine(_resourcesPath, fileParam[0], $"{fileParam[1]}.arc")
+                : Path.Combine(_resourcesPath, $"{fileParam[0]}.arc");
+
+            ArcFile? file = null;
+
+            try
+            {
+                file = await new ArcProvider().ReadAsync(filePath).ConfigureAwait(false);
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine($"Reading tex file faile. {ex}.");
+            }
+
+            Dictionary<string, TexFile> texFileMap = [];
+
+            if (file is not null)
+            {
+                foreach (ArcFileRecord record in file.Records)
+                {
+                    if (record.ContentType is ArcRecordType.TexFile)
+                            texFileMap.Add(record.FileName, (TexFile)record.Content);
+                }
+            }
+
+            bool isInSubfolder = IsInSubFolder(fileParam);
+            string key = $"{(isInSubfolder ? fileParam[0] : "Base")}_{(isInSubfolder ? fileParam[1] : fileParam[0])}";
+            return new KeyValuePair<string, Dictionary<string, TexFile>>(key, texFileMap);
+        }
+
         // TODO Consider switching to bitmap
-        public static async Task<TexFile> GetTexFileByTagAsync(string tag)
+        public async Task<TexFile> GetTexFileByTagAsync(string tag)
         {
             try
             {
                 ArgumentException.ThrowIfNullOrEmpty(tag);
+
                 string[] path = tag.Split('\\');
+                string key = $"{(IsInSubFolder(path) ? path[0] : "Base")}_{path[1]}";
 
-                string key = $"{(IsInSubfolder(path) ? path[0] : "Base")}_{path[1]}";
-                if (!s_icons.ContainsKey(key))
-                    await InitializeAsync(path[0..2]);
+                Dictionary<string, TexFile> iconSet = s_icons.FirstOrDefault(x => x.Key.Equals(key, StringComparison.InvariantCultureIgnoreCase)).Value;
 
-                TexFile result = s_icons[key][string.Join('/', path[2..])];
-                return result;
+                return iconSet is null ? null! : iconSet[string.Join('/', path[2..])];
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // Reading tex file failed.
                 return null!;
             }
         }
 
-        private static async Task InitializeAsync(string[] fileParam)
-        {
-            string filePath = IsInSubfolder(fileParam)
-                ? Path.Combine(s_resourcesPath, fileParam[0], $"{fileParam[1]}.arc")
-                : Path.Combine(s_resourcesPath, $"{fileParam[0]}.arc");
-
-            ArcFile file = await new ArcProvider().ReadAsync(filePath).ConfigureAwait(false);
-
-            Dictionary<string, TexFile> texFileMap = [];
-
-            foreach (ArcFileRecord record in file.Records)
-            {
-                if (record.ContentType is ArcRecordType.TexFile)
-                    texFileMap.Add(record.FileName, (TexFile)record.Content);
-            }
-
-            s_icons.Add($"{fileParam[0]}_{fileParam[1]}", texFileMap);
-        }
-
-        private static bool IsInSubfolder(string[] fileParam)
+        private static bool IsInSubFolder(string[] fileParam)
         {
             return
                fileParam[0].Equals("xpack", StringComparison.InvariantCultureIgnoreCase)

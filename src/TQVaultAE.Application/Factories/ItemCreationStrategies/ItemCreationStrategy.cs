@@ -92,7 +92,7 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
             {
                 ArgumentException.ThrowIfNullOrEmpty(bitmapPath);
 
-                TexFile texFile = await GameIconService.GetTexFileByTagAsync(bitmapPath).ConfigureAwait(false);
+                TexFile texFile = await new GameIconService().GetTexFileByTagAsync(bitmapPath).ConfigureAwait(false);
                 return texFile?.ToBitmap();
             }
             catch(Exception ex)
