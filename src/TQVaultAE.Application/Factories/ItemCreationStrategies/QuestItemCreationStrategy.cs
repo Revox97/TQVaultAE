@@ -15,6 +15,7 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
                 item = GetGeneralItemProperties(item, itemRecord);
                 item.Scale = itemRecord["scale"]?.Get<float>(0) ?? 0.0f;
 
+                // There seem to be multiple types of quest items, staffs have description as name
                 string nameTag = itemRecord["itemText"]?.Get<string>(0) ?? string.Empty;
                 item.Name = await new GameLocalizationService().GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
 

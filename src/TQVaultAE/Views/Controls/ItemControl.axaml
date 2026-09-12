@@ -14,11 +14,15 @@
     <UserControl.Resources>
         <cvtr:ItemTypeToAccentColorConverter x:Key="ItemTypeToAccentColorConverter"/>
         <cvtr:SystemToAvaloniaBitmapConverter x:Key="SystemToAvaloniaBitmapConverter"/>
+        <cvtr:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
     </UserControl.Resources>
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <!--<Rectangle Fill="{Binding DataSource, ElementName=root, Converter={StaticResource ItemTypeToAccentColorConverter}}" IsHitTestVisible="False"/>-->
-        <Rectangle Fill="#4400FF00" IsHitTestVisible="False"/>
+        <Grid.Background>
+            <ImageBrush Source="avares://TQVaultAE/Assets/Img/item_accent.png"
+                        AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
+        </Grid.Background>
+        <Rectangle x:Name="ItemAccent" Fill="{Binding AccentColor, Converter={StaticResource ColorToBrushConverter}}" IsHitTestVisible="False"/>
+        <!--<Rectangle Fill="#4400FF00" IsHitTestVisible="False"/>-->
         <Image Source="{Binding Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}}" Stretch="Fill"/>
-        <!--<Image Source=" avares://TQVaultAE/Assets/Img/MockItem2x2.png" Stretch="Fill"/>-->
     </Grid>
 </UserControl>

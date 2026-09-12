@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.ComponentModel.Design;
+using System.Drawing;
 using TQVaultAE.Model.Enumerations;
 
 namespace TQVaultAE.Model.Items
@@ -67,6 +68,58 @@ namespace TQVaultAE.Model.Items
         /// Gets or sets the bitmap of the <see cref="Item"/> icon.
         /// </summary>
         public Bitmap Icon { get; set; } = null!;
+
+        /// <summary>
+        /// Gets the accent color of the <see cref="Item"/>.
+        /// </summary>
+        public Color AccentColor
+        {
+            get
+            {
+                Type type = GetType();
+                Color color;
+
+                if (Class == ItemClass.OneShot_Scroll)
+                {
+                    color = TitanQuestColors.Indigo;
+                }
+                else if (Class == ItemClass.OneShot_PotionHealth)
+                {
+                    color = TitanQuestColors.Red;
+                }
+                else if (Class == ItemClass.OneShot_PotionMana)
+                {
+                    color = TitanQuestColors.Blue;
+                }
+                else if (Classification == ItemClassification.Quest)
+                {
+                    return TitanQuestColors.Purple;
+                }
+                else if (type == typeof(WeaponItem)) // Or armor item. Not implemented yet
+                {
+                    // TODO Handle colors defined by amount of affixes, silver, yellow, green. Also handle monster rares (yellow green)
+                    color = Classification switch
+                    {
+                        ItemClassification.Common => TitanQuestColors.Silver,
+                        ItemClassification.Rare => TitanQuestColors.Yellow,
+                        ItemClassification.Magical => TitanQuestColors.Green,
+                        ItemClassification.Epic => TitanQuestColors.LightCyan,
+                        ItemClassification.Legendary => TitanQuestColors.Purple,
+                        _ => TitanQuestColors.Red,
+                    };
+                }
+                else if (type == typeof(ArtifactItem) || Class == ItemClass.ItemArtifactFormula)
+                {
+                    color = TitanQuestColors.Turquoise;
+                }
+                else
+                {
+                    color = TitanQuestColors.Green;
+                }
+
+                return Color.FromArgb(0x20, color);
+            }
+        }
 
         /// <summary>
         /// Gets or sets the classification of the <see cref="Item"/>.

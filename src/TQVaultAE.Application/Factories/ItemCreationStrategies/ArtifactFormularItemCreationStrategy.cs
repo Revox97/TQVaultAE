@@ -13,13 +13,18 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
             try
             {
                 item = GetGeneralItemProperties(item, itemRecord);
+                item.Requirements = GetItemRequirements(itemRecord);
+                item.Cost = itemRecord["itemCost"]?.Get<int>(0) ?? 0;
 
                 string nameTag = itemRecord["description"]?.Get<string>(0) ?? string.Empty;
                 item.Name = await new GameLocalizationService().GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
 
-                string bitmapPath = itemRecord["bitmap"]?.Get<string>(0) ?? string.Empty;
+                string bitmapPath = itemRecord["artifactFormulaBitmapName"]?.Get<string>(0) ?? string.Empty;
                 item.Icon = await GetIconAsync(bitmapPath).ConfigureAwait(false) ?? null!; // TODO use default bitmap in case reading fails.
                 item.Size = GetItemSize(item);
+
+                // TODO Get component items (reagentiBaseName)
+                // TODO Get artifact create cost (artifactCreationCost)
 
                 return item;
             }

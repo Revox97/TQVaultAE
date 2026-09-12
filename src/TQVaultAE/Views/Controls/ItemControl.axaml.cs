@@ -29,6 +29,8 @@ public partial class ItemControl : UserControl
 
     private void UserControl_PointerEntered(object? sender, Avalonia.Input.PointerEventArgs e)
     {
+        ItemAccent.Fill = new SolidColorBrush(new Color(0x80, Item.AccentColor.R, Item.AccentColor.G, Item.AccentColor.B));
+
         _popup = new()
         {
             Tag = this,
@@ -58,6 +60,7 @@ public partial class ItemControl : UserControl
 
     private void UserControl_PointerExited(object? sender, Avalonia.Input.PointerEventArgs e)
     {
+        ItemAccent.Fill = new SolidColorBrush(new Color(Item.AccentColor.A, Item.AccentColor.R, Item.AccentColor.G, Item.AccentColor.B));
         _popup?.Close();
         _popup = null;
     }

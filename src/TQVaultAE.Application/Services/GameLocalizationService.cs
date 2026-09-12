@@ -20,7 +20,9 @@ namespace TQVaultAE.Application.Services
             "xuniqueequipment.txt",
             "x2commonequipment.txt",
             "x2uniqueequipment.txt",
-            "x2quest.txt"
+            "x2quest.txt",
+            "x3items_nonvoiced.txt",
+            "x4items_nonvoiced.txt"
         ];
 
         // TODO Make dynamic. Harcoded for testing purposes.

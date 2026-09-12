@@ -21,10 +21,6 @@ namespace TQVaultAE.TitanQuestDataProviders.Database
 
             using FileStream stream = File.OpenRead(path);
             return await ArzDecoder.DecodeAsync(stream, path).ConfigureAwait(false);
-
-
-            //byte[] content = await new FileReader().ReadBytesAsync(path).ConfigureAwait(false);
-            //return await ArzDecoder.DecodeAsync(content, path);
         }
     }
 }

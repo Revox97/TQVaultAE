@@ -19,10 +19,19 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
                 item.Name = await new GameLocalizationService().GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
 
                 item.Properties = GetItemAttributes(itemRecord);
+                item.Requirements = GetItemRequirements(itemRecord);
 
-                string bitmapPath = itemRecord["bitmap"]?.Get<string>(0) ?? string.Empty;
+                // TODO This needs some special implementation, maybe sub elems, that are bound to icon instead of writing icon directly.
+                // Non complete relic
+                string shardPath = itemRecord["shardBitmap"]?.Get<string>(0) ?? string.Empty;
+                item.Icon = await GetIconAsync(shardPath).ConfigureAwait(false) ?? null!; // TODO use default bitmap in case reading fails.
+
+                // compolete relic
+                string bitmapPath = itemRecord["relicBitmap"]?.Get<string>(0) ?? string.Empty;
                 item.Icon = await GetIconAsync(bitmapPath).ConfigureAwait(false) ?? null!; // TODO use default bitmap in case reading fails.
                 item.Size = GetItemSize(item);
+
+                // TODO Get valid item type e.g. speer, ring, shield, etc. properties
 
                 return item;
             }

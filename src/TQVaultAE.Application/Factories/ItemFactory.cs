@@ -52,6 +52,7 @@ namespace TQVaultAE.Application.Factories
                     or ItemClass.WeaponHunting_RangedOneHand
                     or ItemClass.WeaponMelee_Mace
                     or ItemClass.WeaponHunting_Spear
+                    or ItemClass.WeaponArmor_Shield
                     => new WeaponItemCreationStrategy(),
                 ItemClass.ArmorProtective_Head
                     or ItemClass.ArmorProtective_LowerBody
@@ -63,6 +64,7 @@ namespace TQVaultAE.Application.Factories
                     or ItemClass.OneShot_PotionMana
                     or ItemClass.OneShot_Dye
                     or ItemClass.OneShot_Scroll
+                    or ItemClass.OneShot_Scroll_Eternal
                     => new OneShotItemCreationStrategy(),
                 ItemClass.ItemCharm => new CharmItemCreationStrategy(),
                 ItemClass.ItemArtifactFormula => new ArtifactFormularItemCreationStrategy(),

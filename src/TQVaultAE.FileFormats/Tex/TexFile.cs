@@ -69,8 +69,6 @@ namespace TQVaultAE.FileFormats.Tex
             };
 
             ReadFrames(reader, texFile);
-
-            Debug.WriteLine("Read tex");
             return texFile;
         }
 
@@ -84,8 +82,6 @@ namespace TQVaultAE.FileFormats.Tex
             };
 
             ReadFrames(reader, texFile);
-
-            Debug.WriteLine("Read tex");
             return texFile;
         }
 
@@ -108,7 +104,6 @@ namespace TQVaultAE.FileFormats.Tex
                 throw new ArgumentException("Not enough pixel data.");
 
             Bitmap bitmap = new(width, height, PixelFormat.Format32bppArgb);
-
             BitmapData data = bitmap.LockBits(new Rectangle(0, 0, width, height), ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
 
             try
