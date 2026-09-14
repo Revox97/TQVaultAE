@@ -45,7 +45,6 @@ namespace TQVaultAE.Application.Factories
             if (itemClass is null)
                 return item;
 
-
             ItemCreationStrategy itemCreationStrategy = itemClass switch
             {
                 ItemClass.WeaponMelee_Sword
@@ -66,7 +65,7 @@ namespace TQVaultAE.Application.Factories
                     or ItemClass.OneShot_Scroll
                     or ItemClass.OneShot_Scroll_Eternal
                     => new OneShotItemCreationStrategy(),
-                ItemClass.ItemCharm => new CharmItemCreationStrategy(),
+                ItemClass.ItemCharm or ItemClass.ItemRelic => new TalismanItemCreationStrategy(),
                 ItemClass.ItemArtifactFormula => new ArtifactFormularItemCreationStrategy(),
                 ItemClass.ArmorJewelry_Amulet or ItemClass.ArmorJewelry_Ring => new ArmorJewelryItemCreationStrategy(),
                 ItemClass.QuestItem => new QuestItemCreationStrategy(),

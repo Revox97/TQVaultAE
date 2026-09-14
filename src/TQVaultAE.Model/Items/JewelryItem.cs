@@ -13,5 +13,8 @@
             Var1 = item.Var1;
             Var2 = item.Var2;
         }
+
+        // TODO implement
+        public override bool ShowIconAccent => base.ShowIconAccent;
     }
 }

@@ -14,6 +14,7 @@ namespace TQVaultAE.Model.Enumerations
         ItemArtifact,
         ItemArtifactFormula,
         ItemCharm,
+        ItemRelic,
         ItemEquipment,
         LootRandomizer,
         OneShot_Dye,

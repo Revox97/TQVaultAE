@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using TQVaultAE.Application.Services;
 using TQVaultAE.FileFormats.Chr;
+using TQVaultAE.Model.Enumerations;
 using TQVaultAE.Model.Items;
 using TQVaultAE.Model.Players;
 
@@ -68,7 +69,7 @@ namespace TQVaultAE.Application.Factories
             ChrBlock? equipmentBlock = root.FindChild("Block_0-8");
             // Equipment
             // head
-            ReadItem(equipmentBlock!.FindChild("Block_1-0")!);
+            ReadBaseItem(equipmentBlock!.FindChild("Block_1-0")!);
 
             return new();
         }
@@ -103,7 +104,20 @@ namespace TQVaultAE.Application.Factories
             for (int i = 2; i < itemCount; i++)
             {
                 ChrBlock itemBlock = sack.Children[i];
-                items.Add(ReadItem(itemBlock));
+                Item item = ReadBaseItem(itemBlock);
+
+                if (item.ResourcePath.Contains("Pangu", StringComparison.InvariantCultureIgnoreCase))
+                    Console.WriteLine();
+
+                if (item.Position.X == -1 && item.Position.Y == -1)
+                {
+                    // Additional stacks are stored in sequence for one shot items
+                    items[items.Count - 1].StackCount++;
+                    continue;
+                }
+
+                item = ReadCompleteItem(item);
+                items.Add(item);
             }
 
             return new Sack()
@@ -113,13 +127,13 @@ namespace TQVaultAE.Application.Factories
             };
         }
 
-        private Item ReadItem(ChrBlock item)
+        private static Item ReadBaseItem(ChrBlock item)
         {
             int positionX = item.FindChild("pointX")?.AsInt32() ?? -1;
             int positionY = item.FindChild("pointY")?.AsInt32() ?? -1;
             Point position = new(positionX, positionY);
 
-            Item result = new()
+            return new Item()
             {
                 Position = position,
                 ResourcePath = item.FindElement("baseName")?.AsString() ?? string.Empty,
@@ -127,31 +141,8 @@ namespace TQVaultAE.Application.Factories
                 Var1 = item.FindElement("var1")?.AsInt32() ?? -1,
                 Var2 = item.FindElement("var2")?.AsInt32() ?? -1
             };
-
-            string? prefixName = item.FindElement("prefixName")?.AsString() ?? null;
-            result.Prefix = prefixName is not null ? new Affix() { Path = prefixName } : null;
-
-            string? suffixName = item.FindElement("suffixName")?.AsString() ?? null;
-            result.Suffix = suffixName is not null ? new Affix() { Path = suffixName } : null;
-
-            string relicName = item.FindElement("relicName")?.AsString() ?? string.Empty;
-            string relicBonus = item.FindElement("relicBonus")?.AsString() ?? string.Empty;
-            result.RelicOne = relicName is not null ? new RelicItem()
-            {
-                ResourcePath = relicName,
-                Bonus = relicBonus
-            } : null;
-
-            string relicName2 = item.FindElement("relicName2")?.AsString() ?? string.Empty;
-            string relicBonus2 = item.FindElement("relicBonus2")?.AsString() ?? string.Empty;
-            result.RelicOne = relicName2 is not null ? new RelicItem()
-            {
-                ResourcePath = relicName2,
-                Bonus = relicBonus2
-            } : null;
-
-            // TODO make async
-            return _databaseService.GetCompleteItemAsync(result).Result;
         }
+
+        private Item ReadCompleteItem(Item item) => _databaseService.GetCompleteItemAsync(item).Result;
     }
 }

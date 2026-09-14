@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.Design;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 using TQVaultAE.Model.Enumerations;
 
 namespace TQVaultAE.Model.Items
@@ -7,7 +9,7 @@ namespace TQVaultAE.Model.Items
     /// <summary>
     /// Represents a Titan Quest item.
     /// </summary>
-    public class Item
+    public class Item : INotifyPropertyChanged
     {
         /// <summary>
         /// Gets or sets the position of the <see cref="Item"/> in its container.
@@ -47,12 +49,12 @@ namespace TQVaultAE.Model.Items
         /// <summary>
         /// Gets or sets the first relic of the <see cref="Item"/>.
         /// </summary>
-        public RelicItem? RelicOne { get; set; }
+        public TalismanItem? RelicOne { get; set; }
 
         /// <summary>
         /// Gets or sets the second relic of the <see cref="Item"/>. 
         /// </summary>
-        public RelicItem? RelicTwo { get; set; }
+        public TalismanItem? RelicTwo { get; set; }
 
         // TODO Currently no clue what these are used for.
         // Seems to be the stack size of relics on an item.
@@ -62,17 +64,18 @@ namespace TQVaultAE.Model.Items
         /// <summary>
         /// Gets or sets the requirements to equip the <see cref="Item"/>.
         /// </summary>
-        public List<ItemRequirement> Requirements { get; set; } = [];
+        public ObservableCollection<ItemRequirement> Requirements { get; set; } = [];
 
         /// <summary>
         /// Gets or sets the bitmap of the <see cref="Item"/> icon.
         /// </summary>
-        public Bitmap Icon { get; set; } = null!;
+        public virtual Bitmap Icon { get; set; } = null!;
 
         /// <summary>
         /// Gets the accent color of the <see cref="Item"/>.
         /// </summary>
-        public Color AccentColor
+        // Let each type handle its color, then make it abstract.
+        public virtual Color AccentColor
         {
             get
             {
@@ -82,14 +85,6 @@ namespace TQVaultAE.Model.Items
                 if (Class == ItemClass.OneShot_Scroll)
                 {
                     color = TitanQuestColors.Indigo;
-                }
-                else if (Class == ItemClass.OneShot_PotionHealth)
-                {
-                    color = TitanQuestColors.Red;
-                }
-                else if (Class == ItemClass.OneShot_PotionMana)
-                {
-                    color = TitanQuestColors.Blue;
                 }
                 else if (Classification == ItemClassification.Quest)
                 {
@@ -117,7 +112,7 @@ namespace TQVaultAE.Model.Items
                     color = TitanQuestColors.Green;
                 }
 
-                return Color.FromArgb(0x20, color);
+                return Color.FromArgb(0x10, color);
             }
         }
 
@@ -145,7 +140,7 @@ namespace TQVaultAE.Model.Items
         /// <summary>
         /// Gets or sets the properties of the <see cref="Item"/>.
         /// </summary>
-        public List<ItemProperty> Properties { get; set; } = [];
+        public ObservableCollection<ItemProperty> Properties { get; set; } = [];
 
         /// <summary>
         /// Gets or sets the scale of the <see cref="Item"/>.
@@ -162,5 +157,24 @@ namespace TQVaultAE.Model.Items
         public Size Size { get; set; } = new Size(1, 1);
 
         public ItemClass Class { get; set; }
+
+        public int StackCount
+        {
+            get;
+            set
+            {
+                field = value;
+                OnPropertyChanged();
+            }
+        } = 1;
+
+        public virtual bool ShowStackCount => CanStack;
+
+        public bool CanStack { get; set; } = false;
+
+        public virtual bool ShowIconAccent => true;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string? name = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }

@@ -278,6 +278,24 @@ namespace TQVaultAE.Model.Enumerations
         [Description("offensiveLifeModifier")]
         OffensiveLifeModifier,
 
+        [Description("offensiveDisruptionGlobal")]
+        OffensiveDisruptionGlobal,
+
+        [Description("offensivePhysicalGlobal")]
+        OffensivePhysicalGlobal,
+
+        [Description("offensiveConfusionGlobal")]
+        OffensiveConfusionGlobal,
+
+        [Description("offensiveConfusionMin")]
+        OffensiveConfusionMin,
+
+        [Description("offensiveConvertGlobal")]
+        OffensiveConvertGlobal,
+
+        [Description("offensiveConvertMin")]
+        OffensiveConvertMin,
+
         [Description("offensivePhysicalModifier")]
         OffensivePhysicalModifier,
 
@@ -391,6 +409,24 @@ namespace TQVaultAE.Model.Enumerations
 
         [Description("retaliationElementalMin")]
         RetaliationElementalMin,
+
+        [Description("retaliationFireGlobal")]
+        RetaliationFireGlobal,
+
+        [Description("retaliationFireMax")]
+        RetaliationFireMax,
+
+        [Description("retaliationGlobalChance")]
+        RetaliationGlobalChance,
+
+        [Description("retaliationStunGlobal")]
+        RetaliationStunGlobal,
+
+        [Description("retaliationStunMax")]
+        RetaliationStunMax,
+
+        [Description("retaliationStunMin")]
+        RetaliationStunMin,
 
         [Description("skillManaCostReduction")]
         SkillManaCostReduction,

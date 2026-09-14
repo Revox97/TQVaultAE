@@ -1,4 +1,5 @@
-﻿using System.Runtime.Versioning;
+﻿using System.Collections.ObjectModel;
+using System.Runtime.Versioning;
 using TQVaultAE.Application.Services;
 using TQVaultAE.FileFormats.Arz;
 using TQVaultAE.Model.Enumerations;
@@ -9,34 +10,34 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
     internal class OneShotItemCreationStrategy : ItemCreationStrategy
     {
         [SupportedOSPlatform("windows")]
-        internal override async Task<Item> CreateAsync(Item item, ArzRecord itemRecord)
+        internal override async Task<Item> CreateAsync(Item itemBase, ArzRecord itemRecord)
         {
             try
             {
-                OneShotItem result = new(item);
-                result = (OneShotItem)GetGeneralItemProperties(result, itemRecord);
-                result.Cost = itemRecord["itemCost"]?.Get<int>(0) ?? 0;
-                result.Scale = itemRecord["scale"]?.Get<float>(0) ?? 0.0f;
+                OneShotItem item = new(itemBase);
+                item = (OneShotItem)GetGeneralItemProperties(item, itemRecord);
+                item.Cost = itemRecord["itemCost"]?.Get<int>(0) ?? 0;
+                item.Scale = itemRecord["scale"]?.Get<float>(0) ?? 0.0f;
 
                 string nameTag = itemRecord["description"]?.Get<string>(0) ?? string.Empty;
-                result.Name = await new GameLocalizationService().GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
+                item.Name = await new GameLocalizationService().GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
 
                 string descriptionTag = itemRecord["itemText"]?.Get<string>(0) ?? string.Empty;
-                result.Description = await new GameLocalizationService().GetLocalizedValueByTag(descriptionTag).ConfigureAwait(false) ?? string.Empty;
+                item.Description = await new GameLocalizationService().GetLocalizedValueByTag(descriptionTag).ConfigureAwait(false) ?? string.Empty;
 
-                result.Requirements = GetItemRequirements(itemRecord);
-                result.Bonuses = GetBonuses(itemRecord);
+                item.Properties = new ObservableCollection<ItemProperty>(GetItemAttributes(itemRecord));
+                item.Bonuses = GetBonuses(itemRecord);
 
                 string bitmapPath = itemRecord["bitmap"]?.Get<string>(0) ?? string.Empty;
-                result.Icon = await GetIconAsync(bitmapPath).ConfigureAwait(false) ?? null!; // TODO use default bitmap in case reading fails.
-                result.Size = GetItemSize(result);
+                item.Icon = await GetIconAsync(bitmapPath).ConfigureAwait(false) ?? null!; // TODO use default bitmap in case reading fails.
+                item.Size = GetItemSize(item);
 
-                return result;
+                return item;
             }
             catch(Exception ex)
             {
                 // Item Creation failed.
-                return item;
+                return itemBase;
             }
         }
 

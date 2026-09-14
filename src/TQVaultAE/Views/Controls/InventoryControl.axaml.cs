@@ -86,16 +86,10 @@ public partial class InventoryControl : UserControl, INotifyPropertyChanged, IMa
         double sortButtonHeight = _cellSize * 0.8;
         double sortButtonWidth = _cellSize * 2.75;
 
-        //double tabWidth = _cellSize * 1.2;
-        //double tabHeight = _cellSize;
-
-        // Calculated like in VaultControl, needs to be done somewhere else
         int itemsContainerWidth = 18 * _cellSize;
 
         double tabColumnWidth = itemsContainerWidth / 12;
         double tabRowHeight = tabColumnWidth * 0.8;
-        //double tabWidth = _cellSize * 0.8;
-        //double tabHeight = tabWidth;
 
         ControlContainer.RowDefinitions.Clear();
         ControlContainer.RowDefinitions.Add(new RowDefinition(tabRowHeight, GridUnitType.Pixel));
@@ -123,11 +117,6 @@ public partial class InventoryControl : UserControl, INotifyPropertyChanged, IMa
         ItemsPanelMain.UpdateUI();
         ItemsPanelSide.UpdateUI();
 
-        //MissingSacksCover.IsVisible = DataSource.SackCount > 1;
-
-        //if (_selectedSideBagIndex < DataSource.SackCount)
-        //    _selectedSideBagIndex = DataSource.SackCount;
-
         Button__Sort_Main.Width = sortButtonWidth;
         Button__Sort_Main.Height = sortButtonHeight;
 
@@ -135,6 +124,7 @@ public partial class InventoryControl : UserControl, INotifyPropertyChanged, IMa
         Button__Sort_Side.Height = sortButtonHeight;
 
         Tabs__Container.ColumnDefinitions.Clear();
+
         // TODO remove bag icon if player has not 4 bags
         for (int i = 0; i < 3; i++)
             Tabs__Container.ColumnDefinitions.Add(new ColumnDefinition(tabColumnWidth, GridUnitType.Pixel));

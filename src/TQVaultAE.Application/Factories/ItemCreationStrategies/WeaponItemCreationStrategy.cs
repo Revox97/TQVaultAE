@@ -1,4 +1,5 @@
-﻿using System.Runtime.Versioning;
+﻿using System.Collections.ObjectModel;
+using System.Runtime.Versioning;
 using TQVaultAE.Application.Services;
 using TQVaultAE.FileFormats.Arz;
 using TQVaultAE.Model.Items;
@@ -20,7 +21,7 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
                 string nameTag = itemRecord["itemNameTag"]?.Get<string>(0) ?? string.Empty;
                 item.Name = await new GameLocalizationService().GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
 
-                item.Properties = GetItemAttributes(itemRecord);
+                item.Properties = new ObservableCollection<ItemProperty>(GetItemAttributes(itemRecord));
 
                 string bitmapPath = itemRecord["bitmap"]?.Get<string>(0) ?? string.Empty;
                 item.Icon = await GetIconAsync(bitmapPath).ConfigureAwait(false) ?? null!; // TODO use default bitmap in case reading fails.

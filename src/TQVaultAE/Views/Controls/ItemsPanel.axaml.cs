@@ -84,7 +84,7 @@ public partial class ItemsPanel : UserControl
                 Border item = new()
                 {
                     BorderBrush = new SolidColorBrush(Color.FromRgb(0x8e, 0x8c, 0x81)), // #8e8c81
-                    BorderThickness = new Avalonia.Thickness(0, 0, 1, 1),
+                    BorderThickness = new Thickness(0, 0, 1, 1),
                     Background = new SolidColorBrush(Colors.Transparent),
                     HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch,
                     VerticalAlignment = Avalonia.Layout.VerticalAlignment.Stretch
