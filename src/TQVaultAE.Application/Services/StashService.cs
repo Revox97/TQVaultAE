@@ -9,11 +9,12 @@ namespace TQVaultAE.Application.Services
 {
     public class StashService
     {
-        private readonly string _storagePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"TQVaultTestData\Main");
+        private readonly string _mainPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"TQVaultTestData\Main");
+        private readonly string _sysPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"TQVaultTestData\Sys");
 
         internal async Task<ItemStash> CreateStorageAreaFromPlayerNameAsync(string name)
         {
-            string path = Path.Combine(_storagePath, '_' + name, "winsys.dxb");
+            string path = Path.Combine(_mainPath, '_' + name, "winsys.dxb");
 
             ChrProvider chrProvider = new();
             ChrFile stashFile = await chrProvider.ReadAsync(path).ConfigureAwait(false);
@@ -38,14 +39,58 @@ namespace TQVaultAE.Application.Services
             return storageAreaStash;
         }
 
-        internal async Task<List<Item>> CreateTransferAreaFromPlayerNameAsync(string name)
+        internal async Task<ItemStash> CreateTransferAreaAsync()
         {
-            string path = Path.Combine(_storagePath, '_' + name, "winsys.dxg");
+            string path = Path.Combine(_sysPath, "winsys.dxb");
 
             ChrProvider chrProvider = new();
             ChrFile stashFile = await chrProvider.ReadAsync(path).ConfigureAwait(false);
 
-            return [];
+            ItemStash transferAreaStash = new()
+            {
+                Width = stashFile.Root.FindElement("sackWidth")?.AsInt32() ?? 0,
+                Height = stashFile.Root.FindElement("sackHeight")?.AsInt32() ?? 0,
+                ItemCount = stashFile.Root.FindElement("numItems")?.AsInt32() ?? 0,
+            };
+
+            int itemStartIndex = 6;
+            int itemElementCount = 4;
+
+            for (int i = 0; i < transferAreaStash.ItemCount; i++)
+            {
+                int itemStart = (i * itemElementCount) + itemStartIndex;
+                Item item = ReadBaseItem(stashFile, itemStart);
+                transferAreaStash.Items.Add(ReadCompleteItem(item));
+            }
+
+            return transferAreaStash;
+        }
+
+        internal async Task<ItemStash> CreateRelicVaultAsync()
+        {
+            string path = Path.Combine(_sysPath, "miscsys.dxb");
+
+            ChrProvider chrProvider = new();
+            ChrFile stashFile = await chrProvider.ReadAsync(path).ConfigureAwait(false);
+
+            ItemStash transferAreaStash = new()
+            {
+                Width = stashFile.Root.FindElement("sackWidth")?.AsInt32() ?? 0,
+                Height = stashFile.Root.FindElement("sackHeight")?.AsInt32() ?? 0,
+                ItemCount = stashFile.Root.FindElement("numItems")?.AsInt32() ?? 0,
+            };
+
+            int itemStartIndex = 6;
+            int itemElementCount = 4;
+
+            for (int i = 0; i < transferAreaStash.ItemCount; i++)
+            {
+                int itemStart = (i * itemElementCount) + itemStartIndex;
+                Item item = ReadBaseItem(stashFile, itemStart);
+                transferAreaStash.Items.Add(ReadCompleteItem(item));
+            }
+
+            return transferAreaStash;
         }
 
         // TODO Make the following methods more universal in item factory. Lots of redundancy here.

@@ -2,6 +2,7 @@
 using TQVaultAE.Application.Factories;
 using TQVaultAE.FileFormats.Chr;
 using TQVaultAE.Model.Players;
+using TQVaultAE.Model.Stashes;
 using TQVaultAE.TitanQuestDataProviders.SaveGame;
 
 namespace TQVaultAE.Application.Services
@@ -25,9 +26,13 @@ namespace TQVaultAE.Application.Services
             ChrFile playerFile = await chrProvider.ReadAsync(path).ConfigureAwait(false);
 
             Player player = new PlayerFactory().CreateCharacterFromChrFile(playerFile);
-            player.StorageAreaStash = await new StashService().CreateStorageAreaFromPlayerNameAsync(name).ConfigureAwait(false);
+            Task<ItemStash> storageTask = new StashService().CreateStorageAreaFromPlayerNameAsync(name);
+            Task<ItemStash> transferTask = new StashService().CreateTransferAreaAsync();
+            Task<ItemStash> relicsTask = new StashService().CreateRelicVaultAsync();
 
-
+            player.StorageAreaStash = await storageTask;
+            player.TransferAreaStash = await transferTask;
+            player.RelicVault = await relicsTask;
             return player;
         }
     }

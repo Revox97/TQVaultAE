@@ -51,7 +51,10 @@
             </TabItem>
             <TabItem Header="Transfer Area">
                 <Border>
-                    <local:ItemsPanel x:Name="ItemsPanel__TransferArea" Rows="15" Columns="16"
+                    <local:ItemsPanel x:Name="ItemsPanel__TransferArea"
+                                      Rows="15"
+                                      Columns="16"
+                                      Items="{Binding ViewModel.Player.TransferAreaStash.Items, ElementName=Root}"
                                       BorderBrush="Yellow" BorderThickness="1"
                                       Margin="10"
                                       HorizontalAlignment="Center"

@@ -86,5 +86,7 @@ namespace TQVaultAE.Model.Players
         public ItemStash StorageAreaStash { get; set; } = new();
 
         public ItemStash TransferAreaStash { get; set; } = new();
+
+        public ItemStash RelicVault { get; set; } = new();
     }
 }

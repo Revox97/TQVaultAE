@@ -6,32 +6,42 @@
         {
             byte[] result;
 
+            if (reader.BaseStream.Position  > 10600)
+                Console.WriteLine();
+
             // Titan Quest stores certain data type after fixed strings.
             switch (label)
             {
-                case "uniqueId": // TODO Remove temporary placeholder
-                    result = ReadGuid(reader);
-                    type = typeof(Guid);
-                    break;
-
-                case "myPlayerName": // TODO  Remove temporary placeholder
-                    result = ReadExtendedString(reader);
-                    type = typeof(string);
-                    break;
-
-                case "prefixName":  // TODO Remove temporary placeholder
+                case "fName":
+                case "baseName":
+                case "prefixName":
+                case "suffixName":
+                case "relicName":
+                case "relicName2":
+                case "relicBonus":
+                case "relicBonus2":
                     result = ReadString(reader);
                     type = typeof(string);
                     break;
 
-                case "storedType":  //  TODO Remove  temporary placeholder
+                case "stashVersion":
+                case "sackWidth":
+                case "sackHeight":
+                case "numItems":
+                case "stackCount":
+                case "seed":
+                case "var1":
+                case "var2":
                     result = ReadInteger(reader);
                     type = typeof(int);
                     break;
-                case "isItemSkill": // TODO  Remove temporary placeholder
+
+                case "yOffset":
+                case "xOffset":
                     result = ReadInteger(reader);
-                    type = typeof(bool);
+                    type = typeof(float);
                     break;
+
                 default:
                     result = ReadInteger(reader);
                     type = typeof(int);
