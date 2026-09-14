@@ -63,15 +63,45 @@ namespace TQVaultAE.Application.Factories
             return result;
         }
 
-        // TODO implement
-        private Equipment ReadEquipment(ChrBlock root)
+        private static Equipment ReadEquipment(ChrBlock root)
         {
-            ChrBlock? equipmentBlock = root.FindChild("Block_0-8");
-            // Equipment
-            // head
-            ReadBaseItem(equipmentBlock!.FindChild("Block_1-0")!);
+            ChrBlock? equipmentBlock = root.FindChild("Block_0-8")
+                ?? throw new KeyNotFoundException("Could not find player equipment block.");
 
-            return new();
+            Equipment equipment = new()
+            {
+                Head = ReadEquipmentItem<ArmorItem>(equipmentBlock, 2),
+                Amulet = ReadEquipmentItem<JewelryItem>(equipmentBlock, 4),
+                Body = ReadEquipmentItem<ArmorItem>(equipmentBlock, 6),
+                Legs = ReadEquipmentItem<ArmorItem>(equipmentBlock, 8),
+                Arms = ReadEquipmentItem<ArmorItem>(equipmentBlock, 10),
+                RingOne = ReadEquipmentItem<JewelryItem>(equipmentBlock, 12),
+                RingTwo = ReadEquipmentItem<JewelryItem>(equipmentBlock, 14),
+                Artifact = ReadEquipmentItem<ArtifactItem>(equipmentBlock, 18),
+            };
+
+            ChrBlock weaponSetOne = equipmentBlock.Children[16]!;
+            equipment.PrimaryWeaponSetOne = ReadEquipmentItem<WeaponItem>(weaponSetOne, 1);
+            equipment.SecundaryWeaponSetOne = ReadEquipmentItem<WeaponItem>(weaponSetOne, 3);
+
+            ChrBlock weaponSetTwo = equipmentBlock.Children[17]!;
+            equipment.PrimaryWeaponSetTwo = ReadEquipmentItem<WeaponItem>(weaponSetTwo, 1);
+            equipment.SecundaryWeaponSetTwo = ReadEquipmentItem<WeaponItem>(weaponSetTwo, 3);
+
+            return equipment;
+        }
+
+        private static T? ReadEquipmentItem<T>(ChrBlock equipmentBlock, int itemIndex) where T : Item
+        {
+            bool isItemAttached = equipmentBlock!.Children[itemIndex + 1]?.AsBool() ?? false;
+
+            if (isItemAttached)
+            {
+                Item item = ReadBaseItem(equipmentBlock!.Children[itemIndex]);
+                return ReadCompleteItem(item) as T;
+            }
+
+            return null;
         }
 
         private static PlayerStatistics ReadStatistics(ChrBlock root)
@@ -96,7 +126,7 @@ namespace TQVaultAE.Application.Factories
             };
         }
 
-        private Sack ReadItemSack(int number, ChrBlock sack)
+        private static Sack ReadItemSack(int number, ChrBlock sack)
         {
             int itemCount = sack.FindChild("size")?.AsInt32() ?? -1;
             List<Item> items = [];

@@ -52,6 +52,9 @@ namespace TQVaultAE.Model.Enumerations
         [Description("characterEnergyAbsorptionPercent")]
         CharacterEnergyAbsorptionPercent,
 
+        [Description("characterGlobalReqReduction")]
+        CharacterGlobalRequirementsReduction,
+
         [Description("characterIncreasedExperience")]
         CharacterIncreasedExperience,
 
@@ -369,6 +372,9 @@ namespace TQVaultAE.Model.Enumerations
         [Description("offensivePetrifyChance")]
         OffensivePetrifyChance,
 
+        [Description("offensivePetrifyGlobal")]
+        OffensivePetrifyGlobal,
+
         [Description("offensivePetrifyMax")]
         OffensivePetrifyMax,
 
@@ -455,6 +461,9 @@ namespace TQVaultAE.Model.Enumerations
 
         [Description("offensiveSlowLifeLeachModifier")]
         OffensiveSlowLifeLeachModifier,
+
+        [Description("offensiveSlowLightningGlobal")]
+        OffensiveSlowLightningGlobal,
 
         [Description("offensiveSlowLightningDurationMin")]
         OffensiveSlowLightningDurationMin,

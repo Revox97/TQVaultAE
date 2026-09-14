@@ -1,15 +1,38 @@
 using System;
+using Avalonia;
 using Avalonia.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using TQVaultAE.Events;
 using TQVaultAE.Events.Events;
 using TQVaultAE.Events.Observers;
+using TQVaultAE.Model.Players;
+using TQVaultAE.ViewModels;
 
 namespace TQVaultAE.Views.Controls;
 
 public partial class EquipmentControl : UserControl, IMainWindowChangedObserver
 {
+    public EquipmentControlViewModel ViewModel { get; } = new();
+
     private int _cellSize;
+
+    public static readonly StyledProperty<Equipment?> EquipmentProperty =
+        AvaloniaProperty.Register<EquipmentControl, Equipment?>(nameof(Player));
+
+    public Equipment? Equipment
+    {
+        get => GetValue(EquipmentProperty);
+        set => SetValue(EquipmentProperty, value);
+    }
+
+    static EquipmentControl()
+    {
+        EquipmentProperty.Changed.AddClassHandler<EquipmentControl>((control, args) =>
+        {
+            if (control is EquipmentControl eControl && args.NewValue is Equipment newValue)
+                eControl.ViewModel.Equipment = newValue;
+        });
+    }
 
     public EquipmentControl()
     {
@@ -27,9 +50,6 @@ public partial class EquipmentControl : UserControl, IMainWindowChangedObserver
 
     private void UpdateUI()
     {
-        double newHeight = 15 * _cellSize;
-        double newWidth = 10 * _cellSize;
-
         Equipment__Container.RowDefinitions.Clear();
         Equipment__Container.ColumnDefinitions.Clear();
 

@@ -24,15 +24,15 @@ namespace TQVaultAE.Application.Services
 
             ChrProvider chrProvider = new();
             ChrFile playerFile = await chrProvider.ReadAsync(path).ConfigureAwait(false);
-
             Player player = new PlayerFactory().CreateCharacterFromChrFile(playerFile);
+
             Task<ItemStash> storageTask = new StashService().CreateStorageAreaFromPlayerNameAsync(name);
             Task<ItemStash> transferTask = new StashService().CreateTransferAreaAsync();
             Task<ItemStash> relicsTask = new StashService().CreateRelicVaultAsync();
-
             player.StorageAreaStash = await storageTask;
             player.TransferAreaStash = await transferTask;
             player.RelicVault = await relicsTask;
+
             return player;
         }
     }
