@@ -63,7 +63,10 @@
             </TabItem>
             <TabItem Header="Relic Vault">
                 <Border>
-                    <local:ItemsPanel x:Name="ItemsPanel__RelicVault" Rows="15" Columns="16"
+                    <local:ItemsPanel x:Name="ItemsPanel__RelicVault"
+                                      Rows="15"
+                                      Columns="16"
+                                      Items="{Binding ViewModel.Player.RelicVault.Items, ElementName=Root}"
                                       BorderBrush="Yellow" BorderThickness="1"
                                       Margin="10"
                                       HorizontalAlignment="Center"
