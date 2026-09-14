@@ -59,7 +59,7 @@ namespace TQVaultAE.Application.Factories
             if (sack4 is not null)
                 result.Sacks.Add(ReadItemSack(4, sack4));
 
-            // TODO Where is the storage area, etc. stored?
+            // TODO Read player stash
             return result;
         }
 
@@ -101,13 +101,11 @@ namespace TQVaultAE.Application.Factories
             int itemCount = sack.FindChild("size")?.AsInt32() ?? -1;
             List<Item> items = [];
 
-            for (int i = 2; i < itemCount; i++)
+            for (int i = 0; i < itemCount; i++)
             {
-                ChrBlock itemBlock = sack.Children[i];
+                int itemPosition = i + 2;
+                ChrBlock itemBlock = sack.Children[itemPosition];
                 Item item = ReadBaseItem(itemBlock);
-
-                if (item.ResourcePath.Contains("Pangu", StringComparison.InvariantCultureIgnoreCase))
-                    Console.WriteLine();
 
                 if (item.Position.X == -1 && item.Position.Y == -1)
                 {
