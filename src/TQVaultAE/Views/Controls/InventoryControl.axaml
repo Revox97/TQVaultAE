@@ -49,7 +49,9 @@
             </Button.Background>
         </Button>
 
-        <local:ItemsPanel x:Name="ItemsPanelMain" Grid.Row="2" Grid.Column="1" Items="{Binding ViewModel.SackMain.Items, ElementName=Root}"/>
+        <local:ItemsPanel x:Name="ItemsPanelMain" Grid.Row="2" Grid.Column="1"
+                          Columns="12" Rows="5"
+                          Items="{Binding ViewModel.SackMain.Items, ElementName=Root}"/>
 
         <Grid x:Name="Tabs__Container"
                     Grid.Row="0" Grid.Column="5"
@@ -83,6 +85,6 @@
         </Grid>
 
         <Panel x:Name="MissingSacksCover" Background="Red" Grid.Row="2" Grid.Column="5" IsVisible="False"/>
-        <local:ItemsPanel x:Name="ItemsPanelSide" Grid.Row="2" Grid.Column="5" Items="{Binding ViewModel.SelectedSideSack.Items, ElementName=Root}"/>
+        <local:ItemsPanel x:Name="ItemsPanelSide" Grid.Row="2" Grid.Column="5" Columns="8" Rows="5" Items="{Binding ViewModel.SelectedSideSack.Items, ElementName=Root}"/>
     </Grid>
 </UserControl>

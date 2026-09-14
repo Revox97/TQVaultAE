@@ -41,11 +41,12 @@
             </TabItem>
             <TabItem Header="Storage Area">
                 <Border>
-                    <local:ItemsPanel x:Name="ItemsPanel__StorageArea" Rows="15" Columns="16"
-                                      BorderBrush="Yellow" BorderThickness="1"
-                                      Margin="10"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"/>
+                    <local:ItemsPanel x:Name="ItemsPanel__StorageArea"
+                                      Rows="15"
+                                      Columns="16"
+                                      Items="{Binding ViewModel.Player.StorageAreaStash.Items, ElementName=Root}"
+                                      BorderBrush="Yellow" BorderThickness="1" Margin="10"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
             </TabItem>
             <TabItem Header="Transfer Area">

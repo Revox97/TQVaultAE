@@ -21,5 +21,9 @@ namespace TQVaultAE.Model.Players
         /// Gets the amount of items in the <see cref="Sack"/>.
         /// </summary>
         public int ItemCount => Items.Count;
+
+        public int Rows { get; set; }
+
+        public int Columns { get; set; }
     }
 }

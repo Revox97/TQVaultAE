@@ -24,7 +24,11 @@ namespace TQVaultAE.Application.Services
             ChrProvider chrProvider = new();
             ChrFile playerFile = await chrProvider.ReadAsync(path).ConfigureAwait(false);
 
-            return new PlayerFactory().CreateCharacterFromChrFile(playerFile);
+            Player player = new PlayerFactory().CreateCharacterFromChrFile(playerFile);
+            player.StorageAreaStash = await new StashService().CreateStorageAreaFromPlayerNameAsync(name).ConfigureAwait(false);
+
+
+            return player;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using TQVaultAE.FileFormats.Chr;
+using TQVaultAE.TitanQuestDataProviders.Decoders.ChrValueProviders;
 
 namespace TQVaultAE.TitanQuestDataProviders.Decoders
 {
@@ -43,17 +44,38 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
 
         internal static async Task<ChrFile> DecodeAsync(FileStream stream, string path)
         {
+            // TODO verify it is returning the correct type.
+            string fileType = path[^3..].ToUpperInvariant();
+
             using BinaryReader reader = new(stream, Encoding.UTF8);
-            ChrBlock root = ParseCharacterFile(stream, reader);
+            ChrBlock root = ParseCharacterFile(stream, reader, fileType);
 
             return new ChrFile(path, root);
         }
-        public static ChrBlock ParseCharacterFile(FileStream stream, BinaryReader reader)
+
+        // Find better name for CHR files, that represents all of them. CHR is not a good naming here.
+        private static ChrLikeValueProvider? s_valueProvider;
+
+        public static ChrBlock ParseCharacterFile(FileStream stream, BinaryReader reader, string fileType)
         {
+            if (fileType != "CHR" && fileType != "DXB" && fileType != "DXG")
+                throw new ArgumentException("File type is not supported. Use CHR, DXB, or DXG.");
+
+            s_valueProvider = fileType switch
+            {
+                "CHR" => new ChrValueProvider(),
+                "DXB" => new DxbValueProvider(),
+                "DXG" or _ => new DxgValueProvider(),
+            };
+
             ChrBlock root = new("Root");
 
             int blockCount = 0;
-            while (stream.Position < stream.Length)
+
+            if (fileType == "DXB")
+                reader.BaseStream.Position += 4; // Skip CRC header
+
+            while (stream.Position < stream.Length - 4)  // DXB Workaround
                 ParseNextToken(reader, root, ref blockCount);
 
             return root;
@@ -95,6 +117,10 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
 
                             while (true)
                             {
+                                // Workaround for DXB files, as the last block has no trailing bytes.
+                                if (reader.BaseStream.Length - reader.BaseStream.Position < 4)
+                                    break;
+
                                 trailingBytes.Add(reader.ReadByte());
 
                                 if (trailingBytes.Count >= 4
@@ -117,7 +143,7 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
                 }
                 else
                 {
-                    byte[] dataValue = ReadPrimitiveValue(reader, label, out Type type);
+                    byte[] dataValue = s_valueProvider!.ReadPrimitiveValue(reader, label, out Type type);
                     currentBlock.Children.Add(new ChrBlock(label, dataValue, type));
                 }
             }
@@ -125,204 +151,6 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
             {
 
             }
-        }
-
-        private static byte[] ReadPrimitiveValue(BinaryReader reader, string label, out Type type)
-        {
-            byte[] result;
-
-            if (label == "prefixName" || label == "suffixName")
-                Console.WriteLine();
-
-            // Titan Quest stores certain data type after fixed strings.
-            switch (label)
-            {
-                case "uniqueId":
-                case "teleportUID":
-                case "markerUID":
-                case "respawnUID":
-                case "strategicMovementRespawnPoint[i]":
-                    result = ReadGuid(reader);
-                    type = typeof(Guid);
-                    break;
-
-                case "myPlayerName":
-                case "(*greatestMonsterKilledName)[i]":
-                case "defaultText":
-                    result = ReadExtendedString(reader);
-                    type = typeof(string);
-                    break;
-
-                case "prefixName":
-                case "suffixName":
-                case "relicName":
-                case "relicName2":
-                case "relicBonus":
-                case "relicBonus2":
-                case "baseName":
-                case "charName":
-                case "playerCharacterClass":
-                case "playerClassTag":
-                case "streamData":
-                case "playerTexture":
-                case "skillName":
-                case "itemName":
-                case "description":
-                case "buffSkillName":
-                case "scrollName":
-                case "bitmapUpName":
-                case "bitmapDownName":
-                    result = ReadString(reader);
-                    type = typeof(string);
-                    break;
-
-                case "headerVersion":
-                case "playerLevel":
-                case "playerVersion":
-                case "altMoney":
-                case "money":
-                case "numTutorialPagesV2":
-                case "currentPageV2":
-                case "teleportUIDsSize":
-                case "markerUIDsSize":
-                case "respawnUIDsSize":
-                case "versionRespawnPoint":
-                case "compassState":
-                case "itemsFoundOverLifetimeUniqueTotal":
-                case "itemsFoundOverLifetimeRandomizedTotal":
-                case "temp":
-                case "tartarusDefeatedCount[i]":
-                case "max":
-                case "skillLevel":
-                case "skillSubLevel":
-                case "skillTransition":
-                case "masteriesAllowed":
-                case "skillReclamationPointsUsed":
-                case "version":
-                case "size":
-                case "equipmentSelection": 
-                case "skillWindowSelection":
-                case "primarySkill1":
-                case "primarySkill2":
-                case "primarySkill3":
-                case "primarySkill4":
-                case "primarySkill5":
-                case "secondarySkill1":
-                case "secondarySkill2":
-                case "secondarySkill3":
-                case "secondarySkill4":
-                case "secondarySkill5":
-                case "currentStats.charLevel":
-                case "currentStats.experiencePoints":
-                case "modifierPoints":
-                case "skillPoints":
-                case "playTimeInSeconds":
-                case "numberOfDeaths":
-                case "numberOfKills":
-                case "experienceFromKills":
-                case "healthPotionsUsed":
-                case "manaPotionsUsed":
-                case "maxLevel":
-                case "numHitsReceived":
-                case "numHitsInflicted":
-                case "greatestDamageInflicted":
-                case "(*greatestMonsterKilledLevel)[i]":
-                case "(*greatestMonsterKilledLifeAndMana)[i]":
-                case "criticalHitsInflicted":
-                case "criticalHitsReceived":
-                case "numberOfSacks":
-                case "currentlyFocusedSackNumber":
-                case "currentlySelectedSackNumber":
-                case "var1":
-                case "var2":
-                case "seed":
-                case "pointX":
-                case "pointY":
-                case "equipmentCtrlIOStreamVersion":
-                case "storedType":
-                    result = ReadInteger(reader);
-                    type = typeof(int);
-                    break;
-                case "isInMainQuest":
-                case "disableAutoPopV2":
-                case "versionCheckTeleportInfo":
-                case "versionCheckMovementInfo":
-                case "versionCheckRespawnInfo":
-                case "skillWindowShowHelp":
-                case "alternateConfig":
-                case "alternateConfigEnabled":
-                case "hasBeenInGame":
-                case "boostedCharacterForX4":
-                case "skillEnabled":
-                case "skillActive":
-                case "hasSkillServices":
-                case "skillSettingValid":
-                case "skillActive1":
-                case "skillActive2":
-                case "skillActive3":
-                case "skillActive4":
-                case "skillActive5":
-                case "controllerStreamed":
-                case "itemPositionsSavedAsGridCoords":
-                case "tempBool":
-                case "useAlternate":
-                case "itemAttached":
-                case "alternate":
-                case "isItemSkill":
-                    result = ReadInteger(reader);
-                    type = typeof(bool);
-                    break;
-                default:
-                    result = ReadInteger(reader);
-                    type = typeof(int);
-                    break;
-            }
-
-            return result;
-        }
-
-        private static byte[] ReadInteger(BinaryReader reader)
-        {
-            return reader.ReadBytes(4);
-        }
-
-        private static byte[] ReadString(BinaryReader reader)
-        {
-            int stringLength = reader.ReadInt32();
-            return reader.ReadBytes(stringLength);
-        }
-
-        private static byte[] ReadExtendedString(BinaryReader reader)
-        {
-            int stringLength = reader.ReadInt32() * 2; // 2 bytes per char
-            List<byte> result = [];
-
-            for (int i = 0; i < stringLength / 2; i++)
-            {
-                result.Add(reader.ReadByte());
-                reader.BaseStream.Position += 1;
-            }
-
-            return [.. result];
-        }
-
-        private static byte[] ReadGuid(BinaryReader reader)
-        {
-            List<byte> entry = [];
-
-            while (true)
-            {
-                entry.Add(reader.ReadByte());
-
-                if (entry.Count > 4 && entry[entry.Count - 1] == 0x00 && entry[entry.Count - 2] == 0x00 && entry[entry.Count - 3] == 0x00 && entry[entry.Count - 4] != 0x00)
-                {
-                    entry = entry[..(entry.Count - 4)];
-                    reader.BaseStream.Position = reader.BaseStream.Position - 4;
-                    break;
-                }
-            }
-
-            return [.. entry];
         }
     }
 }

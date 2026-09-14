@@ -29,7 +29,7 @@ namespace TQVaultAE.Application.Factories
                 Money = input.Root.FindElement("money")?.AsInt32() ?? -1,
                 AltMoney = input.Root.FindElement("altMoney")?.AsInt32() ?? -1, // TODO: Is this the other currency from AE?
                 Statistics = ReadStatistics(input.Root),
-                Equipment = ReadEquipment(input.Root)
+                Equipment = ReadEquipment(input.Root),
             };
 
             // Inventory

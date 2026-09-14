@@ -43,6 +43,7 @@ namespace TQVaultAE.Application.Factories
                     or ItemClass.WeaponHunting_Spear
                     or ItemClass.WeaponHunting_Bow
                     or ItemClass.WeaponArmor_Shield
+                    or ItemClass.WeaponMagical_Staff
                     => new WeaponItemCreationStrategy(),
                 ItemClass.ArmorProtective_Head
                     or ItemClass.ArmorProtective_LowerBody

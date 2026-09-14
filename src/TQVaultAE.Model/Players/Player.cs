@@ -1,4 +1,7 @@
-﻿namespace TQVaultAE.Model.Players
+﻿using TQVaultAE.Model.Items;
+using TQVaultAE.Model.Stashes;
+
+namespace TQVaultAE.Model.Players
 {
     /// <summary>
     /// Represents a <see cref="Player"/>.
@@ -79,5 +82,9 @@
         /// Gets or sets the <see cref="Equipment"/> of the <see cref="Player"/>.
         /// </summary>
         public Equipment Equipment { get; set; } = new();
+
+        public ItemStash StorageAreaStash { get; set; } = new();
+
+        public ItemStash TransferAreaStash { get; set; } = new();
     }
 }
