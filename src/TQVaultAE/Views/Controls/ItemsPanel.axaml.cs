@@ -61,6 +61,7 @@ public partial class ItemsPanel : UserControl
 
         foreach (Item item in items)
         {
+            // TODO Should not be necessary anymore
             if (item.Position.X == -1 || item.Position.Y == -1)
                 continue;
 

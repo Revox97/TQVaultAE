@@ -350,6 +350,12 @@ namespace TQVaultAE.Model.Enumerations
         [Description("offensivePierceRatioMin")]
         OffensivePierceRationMin,
 
+        [Description("offensiveSlowPoisonDurationModifier")]
+        OffensiveSlowPoisonDurationModifier,
+
+        [Description("offensiveSlowPoisonMax")]
+        OffensiveSlowPoisonMax,
+
         [Description("offensiveFearMin")]
         OffensiveFearMin,
 

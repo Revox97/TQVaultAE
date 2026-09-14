@@ -61,64 +61,69 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
 
         private static void ParseNextToken(BinaryReader reader, ChrBlock currentBlock, ref int blockCount, int level = 0)
         {
-            if (reader.BaseStream.Position >= reader.BaseStream.Length)
-                return;
-
-            int labelLength = reader.ReadInt32();
-
-            if (labelLength <= 0 || labelLength > 512) // Fallback in case of corrupted or invalid data
-                return;
-
-            byte[] labelBytes = reader.ReadBytes(labelLength);
-            string label = Encoding.UTF8.GetString(labelBytes);
-
-            if (label == Label_BeginBlock)
+            try
             {
-                // Seems to be always the same
-                int blockId = reader.ReadInt32();
-                //var subBlock = new ChrBlock($"Block_{blockId}");
-                var subBlock = new ChrBlock($"Block_{level}-{blockCount++}");
+                if (reader.BaseStream.Position >= reader.BaseStream.Length)
+                    return;
 
-                currentBlock.Children.Add(subBlock);
+                int labelLength = reader.ReadInt32();
 
-                int subBlockCount = 0;
-                while (true)
+                if (labelLength <= 0 || labelLength > 512) // Fallback in case of corrupted or invalid data
+                    return;
+
+                byte[] labelBytes = reader.ReadBytes(labelLength);
+                string label = Encoding.UTF8.GetString(labelBytes);
+
+                if (label == Label_BeginBlock)
                 {
-                    long currentPos = reader.BaseStream.Position;
-                    int nextLength = reader.ReadInt32();
-                    byte[] nextLabelBytes = reader.ReadBytes(nextLength);
-                    string nextLabel = Encoding.UTF8.GetString(nextLabelBytes);
+                    reader.BaseStream.Position += 4;
+                    ChrBlock subBlock = new($"Block_{level}-{blockCount++}");
 
-                    if (nextLabel == Label_EndBlock)
+                    currentBlock.Children.Add(subBlock);
+
+                    int subBlockCount = 0;
+                    while (true)
                     {
-                        List<byte> trailingBytes = [];
+                        long currentPos = reader.BaseStream.Position;
+                        int nextLength = reader.ReadInt32();
+                        byte[] nextLabelBytes = reader.ReadBytes(nextLength);
+                        string nextLabel = Encoding.UTF8.GetString(nextLabelBytes);
 
-                        while (true)
+                        if (nextLabel == Label_EndBlock)
                         {
-                            trailingBytes.Add(reader.ReadByte());
+                            List<byte> trailingBytes = [];
 
-                            if (trailingBytes.Count >= 4
-                                && trailingBytes[trailingBytes.Count - 1] == 0x00
-                                && trailingBytes[trailingBytes.Count - 2] == 0x00
-                                && trailingBytes[trailingBytes.Count - 3] == 0x00
-                                && trailingBytes[trailingBytes.Count - 4] != 0x00)
+                            while (true)
                             {
-                                reader.BaseStream.Position = reader.BaseStream.Position - 4;
-                                break;
+                                trailingBytes.Add(reader.ReadByte());
+
+                                if (trailingBytes.Count >= 4
+                                    && trailingBytes[trailingBytes.Count - 1] == 0x00
+                                    && trailingBytes[trailingBytes.Count - 2] == 0x00
+                                    && trailingBytes[trailingBytes.Count - 3] == 0x00
+                                    && trailingBytes[trailingBytes.Count - 4] != 0x00)
+                                {
+                                    reader.BaseStream.Position = reader.BaseStream.Position - 4;
+                                    break;
+                                }
                             }
+
+                            break;
                         }
 
-                        break;
+                        reader.BaseStream.Position = currentPos;
+                        ParseNextToken(reader, subBlock, ref subBlockCount, level + 1);
                     }
-
-                    reader.BaseStream.Position = currentPos;
-                    ParseNextToken(reader, subBlock, ref subBlockCount, level + 1);
+                }
+                else
+                {
+                    byte[] dataValue = ReadPrimitiveValue(reader, label, out Type type);
+                    currentBlock.Children.Add(new ChrBlock(label, dataValue, type));
                 }
             }
-            else
+            catch(Exception ex)
             {
-                byte[] dataValue = ReadPrimitiveValue(reader, label, out Type type);
-                currentBlock.Children.Add(new ChrBlock(label, dataValue, type));
+
             }
         }
 
@@ -140,6 +145,7 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
 
                 case "myPlayerName":
                 case "(*greatestMonsterKilledName)[i]":
+                case "defaultText":
                     result = ReadExtendedString(reader);
                     type = typeof(string);
                     break;
@@ -159,6 +165,10 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
                 case "skillName":
                 case "itemName":
                 case "description":
+                case "buffSkillName":
+                case "scrollName":
+                case "bitmapUpName":
+                case "bitmapDownName":
                     result = ReadString(reader);
                     type = typeof(string);
                     break;

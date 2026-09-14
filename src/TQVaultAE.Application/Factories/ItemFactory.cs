@@ -50,6 +50,7 @@ namespace TQVaultAE.Application.Factories
                 ItemClass.WeaponMelee_Sword
                     or ItemClass.WeaponHunting_RangedOneHand
                     or ItemClass.WeaponMelee_Mace
+                    or ItemClass.WeaponMelee_Axe
                     or ItemClass.WeaponHunting_Spear
                     or ItemClass.WeaponArmor_Shield
                     => new WeaponItemCreationStrategy(),
