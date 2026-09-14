@@ -6,6 +6,7 @@
              xmlns:cvtr="using:TQVaultAE.Converters"
              mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="350"
              x:Name="root"
+             MaxWidth="300"
              x:Class="TQVaultAE.Views.Controls.ItemPopup"
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <UserControl.Resources>
@@ -13,33 +14,22 @@
         <cvtr:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
     </UserControl.Resources>
     <Border BorderBrush="LightGray" BorderThickness="1" Background="#CC000000">
-        <StackPanel Margin="1">
-            <TextBlock>
-                <Run FontWeight="DemiBold"
-                     Foreground="{Binding DataSource.Color, ElementName=root, Converter={StaticResource ColorToBrushConverter}}"
-                     Text="{Binding DataSource.Name, ElementName=root}"/>
-                <LineBreak/>
-                <Run Foreground="White" Text="{Binding DataSource.Description, ElementName=root}"/>
-                <LineBreak/>
-            </TextBlock>
+        <StackPanel x:Name="ItemPopup__Container" Margin="1">
+            <TextBlock Text="{Binding DataSource.Name, ElementName=root}" FontWeight="DemiBold"
+                   Foreground="{Binding DataSource.Color, ElementName=root, Converter={StaticResource ColorToBrushConverter}}"/>
+            <TextBlock Text="{Binding DataSource.Description, ElementName=root}" Foreground="White" TextWrapping="Wrap"/>
 
-            <local:ListView ItemsSource="{Binding DataSource.Properties, ElementName=root}"/>
+            <TextBlock Text="Base Item Properties:" Foreground="Orange"/>
+            <Separator Foreground="White" Background="White" Width="200"/>
                 
             <TextBlock>
-                <LineBreak/>
-                <LineBreak/>
-                <Run Foreground="White" Text="asdfs"/>
-                <LineBreak/>
-                <Separator Foreground="White" Background="White" Width="200"/>
-                <LineBreak/>
                 <Run Foreground="White" Text="Seed: "/>
                 <Run Foreground="White" Text="{Binding DataSource.Seed, ElementName=root}"/>
-                <LineBreak/>
-                <Separator Foreground="White" Background="White" Width="200"/>
-                <LineBreak/>
             </TextBlock>
+            <!-- DLC -->
 
-            <local:ListView ItemsSource="{Binding DataSource.Requirements, ElementName=root}"/>
+            <Separator Foreground="White" Background="White" Width="200"/>
+            <!-- Requirements -->
         </StackPanel>
     </Border>
 </UserControl>

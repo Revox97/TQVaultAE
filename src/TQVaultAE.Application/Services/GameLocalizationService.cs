@@ -33,7 +33,17 @@ namespace TQVaultAE.Application.Services
         public async Task<string?> GetLocalizedValueByTag(string tag)
         {
             ArgumentException.ThrowIfNullOrEmpty(tag);
-            return s_localization.TryGetValue(tag, out string? result) ? result : null;
+            string? value = s_localization.TryGetValue(tag, out string? result) ? result : null;
+
+            if (value is null)
+                return null;
+
+            value = value.Replace("{^n}", "\n");
+            value = value.Replace("{^N}", "\n");
+            value = value.Replace("{^y}", string.Empty);
+            value = value.Replace("{^l}", string.Empty);
+
+            return value;
         }
 
         public async Task InitializeAsync()
