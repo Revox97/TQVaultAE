@@ -1,4 +1,5 @@
-﻿using TQVaultAE.Model.Enumerations;
+﻿using System.Drawing;
+using TQVaultAE.Model.Enumerations;
 
 namespace TQVaultAE.Model.Items
 {
@@ -23,5 +24,7 @@ namespace TQVaultAE.Model.Items
             Var1 = item.Var1;
             Var2 = item.Var2;
         }
+
+        public override Color Color => TitanQuestColors.Aqua;
     }
 }

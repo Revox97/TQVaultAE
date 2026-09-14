@@ -22,6 +22,39 @@ namespace TQVaultAE.Model.Items
 
         public override bool ShowIconAccent => false;
 
-        public override Color AccentColor => Color.FromArgb(0x10, TitanQuestColors.Silver);
+        public override Color Color
+        {
+            get
+            {
+                // TODO Verify colors
+                return Class switch
+                {
+                    ItemClass.OneShot_PotionHealth => TitanQuestColors.Red,
+                    ItemClass.OneShot_PotionMana => TitanQuestColors.Blue,
+                    ItemClass.OneShot_Scroll => TitanQuestColors.Khaki,
+                    ItemClass.OneShot_Scroll_Eternal => TitanQuestColors.Red,
+                    ItemClass.OneShot_Dye => TitanQuestColors.DarkGray,
+                    _ => TitanQuestColors.Red,
+                };
+            }
+        }
+
+        public override Color AccentColor
+        {
+            get
+            {
+                // TODO Verify colors
+                return Class switch
+                {
+                    ItemClass.OneShot_PotionHealth
+                        or ItemClass.OneShot_PotionMana
+                        or ItemClass.OneShot_Scroll_Eternal
+                        or ItemClass.OneShot_Dye
+                        => Color.FromArgb(0x10, TitanQuestColors.Silver),
+                    ItemClass.OneShot_Scroll => Color.FromArgb(0x10, TitanQuestColors.Khaki),
+                    _ => TitanQuestColors.Red,
+                };
+            }
+        }
     }
 }

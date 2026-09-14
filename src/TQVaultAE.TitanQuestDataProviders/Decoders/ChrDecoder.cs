@@ -131,6 +131,9 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
         {
             byte[] result;
 
+            if (label == "prefixName" || label == "suffixName")
+                Console.WriteLine();
+
             // Titan Quest stores certain data type after fixed strings.
             switch (label)
             {

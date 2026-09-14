@@ -23,7 +23,8 @@ namespace TQVaultAE.Application.Services
             "x2quest.txt",
             "x3items_nonvoiced.txt",
             "x4items_nonvoiced.txt",
-            "x4basegame_nonvoiced.txt"
+            "x4basegame_nonvoiced.txt",
+            "ui.txt",
         ];
 
         // TODO Make dynamic. Harcoded for testing purposes.

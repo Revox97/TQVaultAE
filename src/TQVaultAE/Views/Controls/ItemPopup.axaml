@@ -10,12 +10,13 @@
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <UserControl.Resources>
         <cvtr:ItemTypeToAccentColorConverter x:Key="ItemTypeToAccentColorConverter"/>
+        <cvtr:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
     </UserControl.Resources>
     <Border BorderBrush="LightGray" BorderThickness="1" Background="#CC000000">
         <StackPanel Margin="1">
             <TextBlock>
                 <Run FontWeight="DemiBold"
-                     Foreground="White"
+                     Foreground="{Binding DataSource.Color, ElementName=root, Converter={StaticResource ColorToBrushConverter}}"
                      Text="{Binding DataSource.Name, ElementName=root}"/>
                 <LineBreak/>
                 <Run Foreground="White" Text="{Binding DataSource.Description, ElementName=root}"/>

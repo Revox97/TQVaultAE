@@ -137,6 +137,9 @@ namespace TQVaultAE.Model.Enumerations
         [Description("defensiveFire")]
         DefensiveFire,
 
+        [Description("defensiveFreeze")]
+        DefensiveFreeze,
+
         [Description("defensiveGlobalChance")]
         DefensiveGlobalChance,
 
@@ -182,6 +185,9 @@ namespace TQVaultAE.Model.Enumerations
         [Description("defensiveStun")]
         DefensiveStun,
 
+        [Description("defensiveTotalSpeedResistance")]
+        DefensiveTotalSpeedResistance,
+
         [Description("defensiveTrap")]
         DefensiveTrap,
 
@@ -189,8 +195,23 @@ namespace TQVaultAE.Model.Enumerations
 
         #region OFFENSIVE
 
+        [Description("offensiveBonusPhysicalMin")]
+        OffensiveBonusPhysicalMin,
+
+        [Description("offensiveBonusPhysicalMax")]
+        OffensiveBonusPhysicalMax,
+
         [Description("offensiveColdMin")]
         OffensiveColdMin,
+
+        [Description("offensiveConfusionChance")]
+        OffensiveConfusionChance,
+
+        [Description("offensiveConfusionMax")]
+        OffensiveConfusionMax,
+
+        [Description("offensiveFireMin")]
+        OffensiveFireMin,
 
         [Description("offensiveDisruptionChance")]
         OffensiveDisruptionChance,
@@ -251,6 +272,9 @@ namespace TQVaultAE.Model.Enumerations
 
         [Description("offensiveFearMin")]
         OffensiveFearMin,
+
+        [Description("offensiveFireMax")]
+        OffensiveFireMax,
 
         [Description("offensiveFireModifier")]
         OffensiveFireModifier,
@@ -390,6 +414,15 @@ namespace TQVaultAE.Model.Enumerations
         [Description("offensiveTotalDamageReductionPercentMin")]
         OffensiveTotalDamageReductionPercentMin,
 
+        [Description("offensiveTotalResistanceReductionAbsoluteChance")]
+        OffensiveTotalResistanceReductionAbsoluteChance,
+
+        [Description("offensiveTotalResistanceReductionAbsoluteDurationMin")]
+        OffensiveTotalResistanceReductionAbsoluteDurationMin,
+
+        [Description("offensiveTotalResistanceReductionAbsoluteMin")]
+        OffensiveTotalResistanceReductionAbsoluteMin,
+
         #endregion OFFENSIVE
 
         #region RETALIATION
@@ -418,6 +451,9 @@ namespace TQVaultAE.Model.Enumerations
         [Description("retaliationPierceMin")]
         RetaliationPierceMin,
 
+        [Description("retaliationPierceMax")]
+        RetaliationPierceMax,
+
         [Description("retaliationPhysicalMax")]
         RetaliationPhysicalMax,
 
@@ -429,6 +465,15 @@ namespace TQVaultAE.Model.Enumerations
 
         [Description("retaliationSlowLifeDurationMin")]
         RetaliationSlowLifeDurationMin,
+
+        [Description("retaliationSlowLifeLeachChance")]
+        RetaliationSlowLifeLeachChance,
+
+        [Description("retaliationSlowLifeLeachDurationMin")]
+        RetaliationSlowLifeLeachDurationMin,
+
+        [Description("retaliationSlowLifeLeachMin")]
+        RetaliationSLowLifeLeachMin,
 
         [Description("retaliationSlowLifeMin")]
         RetaliationSlowLifeMin,
@@ -445,8 +490,17 @@ namespace TQVaultAE.Model.Enumerations
         [Description("retaliationSlowPoisonDurationMin")]
         RetaliationSlowPoisonDurationMin,
 
+        [Description("retaliationSlowPoisonGlobal")]
+        RetaliationSlowPoisonGlobal,
+
         [Description("retaliationSlowPoisonMin")]
         RetaliationSlowPoisonMin,
+
+        [Description("retaliationSlowPoisonXOR")]
+        RetaliationSlowPoisonXOR,
+
+        [Description("retaliationStunChance")]
+        RetaliationStunChance,
 
         [Description("retaliationStunGlobal")]
         RetaliationStunGlobal,
@@ -456,6 +510,9 @@ namespace TQVaultAE.Model.Enumerations
 
         [Description("retaliationStunMin")]
         RetaliationStunMin,
+
+        [Description("retaliationStunXOR")]
+        RetaliationStunXOR,
 
         #endregion RETALIATION
 

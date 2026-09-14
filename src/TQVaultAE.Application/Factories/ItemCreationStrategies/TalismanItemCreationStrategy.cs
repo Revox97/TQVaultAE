@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Runtime.Versioning;
-using TQVaultAE.Application.Services;
 using TQVaultAE.FileFormats.Arz;
+using TQVaultAE.Model.Enumerations;
 using TQVaultAE.Model.Items;
 
 namespace TQVaultAE.Application.Factories.ItemCreationStrategies
@@ -13,30 +13,20 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
         {
             try
             {
-                itemBase = GetGeneralItemProperties(itemBase, itemRecord);
-                TalismanItem item = new(itemBase);
+                TalismanItem item = new(itemBase)
+                {
+                    TemplateName = itemRecord["templateName"]?.Get<string>(0) ?? string.Empty,
+                    Classification = itemRecord["itemClassification"]?.Get<ItemClassification>(0) ?? default,
+                    Scale = itemRecord["scale"]?.Get<float>(0) ?? 0.0f,
+                    Name = await GetLocalizedValueAsync(itemRecord, "description"),
+                    Description = await GetLocalizedValueAsync(itemRecord, "itemText"),
+                    Properties = new ObservableCollection<ItemProperty>(GetItemAttributes(itemRecord)),
+                    Requirements = new ObservableCollection<ItemRequirement>(GetItemRequirements(itemRecord)),
+                    IconIncomplete = await GetIconAsync(itemRecord, "shardBitmap") ?? null!,
+                    IconComplete = await GetIconAsync(itemRecord, "relicBitmap") ?? null!,
+                };
 
-                itemBase.Scale = itemRecord["scale"]?.Get<float>(0) ?? 0.0f;
-
-                string nameTag = itemRecord["description"]?.Get<string>(0) ?? string.Empty;
-                item.Name = await new GameLocalizationService().GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
-
-                string descriptionTag = itemRecord["itemText"]?.Get<string>(0) ?? string.Empty;
-                item.Description = await new GameLocalizationService().GetLocalizedValueByTag(descriptionTag).ConfigureAwait(false) ?? string.Empty;
-
-                item.Properties = new ObservableCollection<ItemProperty>(GetItemAttributes(itemRecord));
-                item.Requirements = new ObservableCollection<ItemRequirement>(GetItemRequirements(itemRecord));
-
-                // Non complete relic
-                string shardPath = itemRecord["shardBitmap"]?.Get<string>(0) ?? string.Empty;
-                item.IconIncomplete = await GetIconAsync(shardPath).ConfigureAwait(false) ?? null!; // TODO use default bitmap in case reading fails.
-
-                // compolete relic
-                string bitmapPath = itemRecord["relicBitmap"]?.Get<string>(0) ?? string.Empty;
-                item.IconComplete = await GetIconAsync(bitmapPath).ConfigureAwait(false) ?? null!; // TODO use default bitmap in case reading fails.
-
-                item.Size = GetItemSize(item);
-
+                item.Size = GetItemSize(item.Icon);
                 return item;
             }
             catch(Exception ex)

@@ -14,14 +14,30 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
 
         internal abstract Task<Item> CreateAsync(Item item, ArzRecord itemRecord);
 
-        protected static Item GetGeneralItemProperties(Item item, ArzRecord itemRecord)
+        protected virtual async Task<Affix?> GetCompleteAffixAsync(Affix? affixBase)
         {
-            item.TemplateName = itemRecord["templateName"]?.Get<string>(0) ?? string.Empty;
+            if (affixBase is null)
+                return affixBase;
 
-            // TODO Seems not to be a standard value
-            item.Classification = itemRecord["itemClassification"]?.Get<ItemClassification>(0) ?? default;
+            ArzRecord affixRecord = await new TitanQuestDatabaseService().GetRecordByPathAsync(affixBase.Path);
 
-            return item;
+            Affix affix = new()
+            {
+                Path = affixBase.Path,
+                Name = await GetLocalizedValueAsync(affixRecord, "lootRandomizerName"),
+                Properties = GetItemAttributes(affixRecord), // TODO The tag property needs to be filtered.
+                Requirements = GetItemRequirements(affixRecord),
+                MarketAdjustmentPercent = affixRecord["marketAdjustmentPercent"]?.GetSingle(0) ?? 0.0f
+            };
+
+            //affix.Format = await GetLocalizedValueAsync(affixRecord, "characterBaseAttackSpeedTag"); // TODO These will for sure be different every time.
+            return affix;
+        }
+
+        protected virtual async Task<string> GetLocalizedValueAsync(ArzRecord itemRecord, string itemNamePropertyName)
+        {
+            string nameTag = itemRecord[itemNamePropertyName]?.Get<string>(0) ?? string.Empty;
+            return await new GameLocalizationService().GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
         }
 
         protected virtual List<ItemRequirement> GetItemRequirements(ArzRecord itemRecord)
@@ -85,11 +101,12 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
         }
 
         [SupportedOSPlatform("windows")]
-        protected virtual async Task<Bitmap?> GetIconAsync(string bitmapPath)
+        protected virtual async Task<Bitmap?> GetIconAsync(ArzRecord itemRecord, string bitmapPathPropertyName)
         {
             try
             {
-                ArgumentException.ThrowIfNullOrEmpty(bitmapPath);
+                ArgumentException.ThrowIfNullOrEmpty(bitmapPathPropertyName);
+                string bitmapPath = itemRecord[bitmapPathPropertyName]?.Get<string>(0) ?? string.Empty;
 
                 TexFile texFile = await new GameIconService().GetTexFileByTagAsync(bitmapPath).ConfigureAwait(false);
                 return texFile?.ToBitmap();
@@ -102,12 +119,12 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
         }
 
         [SupportedOSPlatform("windows")]
-        protected static Size GetItemSize(Item item)
+        protected static Size GetItemSize(Bitmap icon)
         {
-            if (item.Icon is not null)
+            if (icon is not null)
             {
-                int cellWidth = item.Icon.Width / CellVerticyLength;
-                int cellHeight = item.Icon.Height / CellVerticyLength;
+                int cellWidth = icon.Width / CellVerticyLength;
+                int cellHeight = icon.Height / CellVerticyLength;
                 return new(cellWidth, cellHeight);
             }
 

@@ -14,24 +14,20 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
         {
             try
             {
-                OneShotItem item = new(itemBase);
-                item = (OneShotItem)GetGeneralItemProperties(item, itemRecord);
-                item.Cost = itemRecord["itemCost"]?.Get<int>(0) ?? 0;
-                item.Scale = itemRecord["scale"]?.Get<float>(0) ?? 0.0f;
+                OneShotItem item = new(itemBase)
+                {
+                    TemplateName = itemRecord["templateName"]?.Get<string>(0) ?? string.Empty,
+                    Classification = itemRecord["itemClassification"]?.Get<ItemClassification>(0) ?? default,
+                    Cost = itemRecord["itemCost"]?.Get<int>(0) ?? 0,
+                    Scale = itemRecord["scale"]?.Get<float>(0) ?? 0.0f,
+                    Name = await GetLocalizedValueAsync(itemRecord, "description"),
+                    Description = await GetLocalizedValueAsync(itemRecord, "itemText"),
+                    Properties = new ObservableCollection<ItemProperty>(GetItemAttributes(itemRecord)),
+                    Bonuses = GetBonuses(itemRecord),
+                    Icon = await GetIconAsync(itemRecord, "bitmap") ?? null!,
+                };
 
-                string nameTag = itemRecord["description"]?.Get<string>(0) ?? string.Empty;
-                item.Name = await new GameLocalizationService().GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
-
-                string descriptionTag = itemRecord["itemText"]?.Get<string>(0) ?? string.Empty;
-                item.Description = await new GameLocalizationService().GetLocalizedValueByTag(descriptionTag).ConfigureAwait(false) ?? string.Empty;
-
-                item.Properties = new ObservableCollection<ItemProperty>(GetItemAttributes(itemRecord));
-                item.Bonuses = GetBonuses(itemRecord);
-
-                string bitmapPath = itemRecord["bitmap"]?.Get<string>(0) ?? string.Empty;
-                item.Icon = await GetIconAsync(bitmapPath).ConfigureAwait(false) ?? null!; // TODO use default bitmap in case reading fails.
-                item.Size = GetItemSize(item);
-
+                item.Size = GetItemSize(item.Icon);
                 return item;
             }
             catch(Exception ex)

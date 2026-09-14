@@ -9,6 +9,7 @@ namespace TQVaultAE.Model.Items
     /// <summary>
     /// Represents a Titan Quest item.
     /// </summary>
+    // TODO Make this abstract. Currently collides with ItemCreationStrategies
     public class Item : INotifyPropertyChanged
     {
         /// <summary>
@@ -24,7 +25,7 @@ namespace TQVaultAE.Model.Items
         /// <summary>
         /// Gets or sets the name of the <see cref="Item"/>.
         /// </summary>
-        public string Name { get; set; } = string.Empty;
+        public virtual string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the description of the <see cref="Item"/>.
@@ -74,47 +75,10 @@ namespace TQVaultAE.Model.Items
         /// <summary>
         /// Gets the accent color of the <see cref="Item"/>.
         /// </summary>
+        public virtual Color AccentColor => Color.FromArgb(0x10, Color);
+
         // Let each type handle its color, then make it abstract.
-        public virtual Color AccentColor
-        {
-            get
-            {
-                Type type = GetType();
-                Color color;
-
-                if (Class == ItemClass.OneShot_Scroll)
-                {
-                    color = TitanQuestColors.Indigo;
-                }
-                else if (Classification == ItemClassification.Quest)
-                {
-                    return TitanQuestColors.Purple;
-                }
-                else if (type == typeof(WeaponItem)) // Or armor item. Not implemented yet
-                {
-                    // TODO Handle colors defined by amount of affixes, silver, yellow, green. Also handle monster rares (yellow green)
-                    color = Classification switch
-                    {
-                        ItemClassification.Common => TitanQuestColors.Silver,
-                        ItemClassification.Rare => TitanQuestColors.Yellow,
-                        ItemClassification.Magical => TitanQuestColors.Green,
-                        ItemClassification.Epic => TitanQuestColors.LightCyan,
-                        ItemClassification.Legendary => TitanQuestColors.Purple,
-                        _ => TitanQuestColors.Red,
-                    };
-                }
-                else if (type == typeof(ArtifactItem) || Class == ItemClass.ItemArtifactFormula)
-                {
-                    color = TitanQuestColors.Turquoise;
-                }
-                else
-                {
-                    color = TitanQuestColors.Green;
-                }
-
-                return Color.FromArgb(0x10, color);
-            }
-        }
+        public virtual Color Color { get; }
 
         /// <summary>
         /// Gets or sets the classification of the <see cref="Item"/>.

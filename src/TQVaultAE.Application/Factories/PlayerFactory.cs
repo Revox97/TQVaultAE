@@ -105,6 +105,7 @@ namespace TQVaultAE.Application.Factories
             {
                 int itemPosition = i + 2;
                 ChrBlock itemBlock = sack.Children[itemPosition];
+
                 Item item = ReadBaseItem(itemBlock);
 
                 if (item.Position.X == -1 && item.Position.Y == -1)
@@ -136,11 +137,28 @@ namespace TQVaultAE.Application.Factories
                 Position = position,
                 ResourcePath = item.FindElement("baseName")?.AsString() ?? string.Empty,
                 Seed = item.FindElement("seed")?.AsInt32() ?? -1,
+                Prefix = ReadAffix(item, "prefixName"),
+                Suffix = ReadAffix(item, "suffixName"),
                 Var1 = item.FindElement("var1")?.AsInt32() ?? -1,
                 Var2 = item.FindElement("var2")?.AsInt32() ?? -1
             };
         }
 
-        private Item ReadCompleteItem(Item item) => _databaseService.GetCompleteItemAsync(item).Result;
+        private static Affix? ReadAffix(ChrBlock item, string key)
+        {
+            ChrBlock? affixBlock = item.FindElement(key);
+
+            if (affixBlock is null || affixBlock.RawData.Length == 0)
+                return null;
+
+            string result = System.Text.Encoding.UTF8.GetString(affixBlock.RawData);
+
+            return new Affix()
+            {
+                Path = result
+            };
+        }
+
+        private static Item ReadCompleteItem(Item item) => ItemFactory.GetCompleteItemAsync(item).Result;
     }
 }

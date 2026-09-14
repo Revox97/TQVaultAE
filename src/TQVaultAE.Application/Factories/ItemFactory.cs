@@ -1,11 +1,9 @@
 ﻿using System.Diagnostics;
-using System.Runtime.Versioning;
 using TQVaultAE.Application.Factories.ItemCreationStrategies;
 using TQVaultAE.Application.Services;
 using TQVaultAE.FileFormats.Arz;
 using TQVaultAE.Model.Enumerations;
 using TQVaultAE.Model.Items;
-using TQVaultAE.TitanQuestDataProviders.Database;
 
 namespace TQVaultAE.Application.Factories
 {
@@ -14,20 +12,11 @@ namespace TQVaultAE.Application.Factories
     /// </summary>
     public class ItemFactory
     {
-
-        // TODO Make dynamic, hardcoded for testing purposes.
-        private readonly string _dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "TQVaultTestData", "database.arz");
-        private static ArzFile? s_database;
-
-        public async Task<Item> GetCompleteItemAsync(Item item)
+        public static async Task<Item> GetCompleteItemAsync(Item item)
         {
             try
             {
-                string itemDbPath = item.ResourcePath;
-
-                s_database ??= await new ArzProvider().ReadAsync(_dbPath).ConfigureAwait(false);
-
-                ArzRecord itemRecord = s_database.GetRecordByPath(itemDbPath);
+                ArzRecord itemRecord = await new TitanQuestDatabaseService().GetRecordByPathAsync(item.ResourcePath);
                 return await CreateItemByClassAsync(item, itemRecord).ConfigureAwait(false);
             }
             catch(Exception ex)
@@ -52,6 +41,7 @@ namespace TQVaultAE.Application.Factories
                     or ItemClass.WeaponMelee_Mace
                     or ItemClass.WeaponMelee_Axe
                     or ItemClass.WeaponHunting_Spear
+                    or ItemClass.WeaponHunting_Bow
                     or ItemClass.WeaponArmor_Shield
                     => new WeaponItemCreationStrategy(),
                 ItemClass.ArmorProtective_Head
@@ -68,7 +58,7 @@ namespace TQVaultAE.Application.Factories
                     => new OneShotItemCreationStrategy(),
                 ItemClass.ItemCharm or ItemClass.ItemRelic => new TalismanItemCreationStrategy(),
                 ItemClass.ItemArtifactFormula => new ArtifactFormularItemCreationStrategy(),
-                ItemClass.ArmorJewelry_Amulet or ItemClass.ArmorJewelry_Ring => new ArmorJewelryItemCreationStrategy(),
+                ItemClass.ArmorJewelry_Amulet or ItemClass.ArmorJewelry_Ring => new JewelryItemCreationStrategy(),
                 ItemClass.QuestItem => new QuestItemCreationStrategy(),
                 ItemClass.ItemEquipment => new ItemEquipmentItemCreationStrategy(),
                 _ => new DefaultItemCreationStrategy()

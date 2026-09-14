@@ -19,22 +19,15 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
                     Level = itemRecord["itemLevel"]?.Get<int>(0) ?? 0,
                     Cost = itemRecord["cost"]?.Get<int>(0) ?? 0,
                     Scale = itemRecord["scale"]?.Get<float>(0) ?? 0.0f,
+                    TemplateName = itemRecord["templateName"]?.Get<string>(0) ?? string.Empty,
+                    Classification = itemRecord["itemClassification"]?.Get<ItemClassification>(0) ?? default,
                     ArtifactClassification = itemRecord["artifactClassification"]?.Get<ArtifactClassification>(0) ?? default,
-                    Properties = new ObservableCollection<ItemProperty>(GetItemAttributes(itemRecord))
+                    Properties = new ObservableCollection<ItemProperty>(GetItemAttributes(itemRecord)),
+                    Name = await GetLocalizedValueAsync(itemRecord, "description"),
+                    Icon = await GetIconAsync(itemRecord, "artifactBitmap") ?? null!,
                 };
 
-                item = GetGeneralItemProperties(item, itemRecord) as ArtifactItem ?? throw new InvalidCastException("Item is not of type ArtifactItem.");
-
-                string nameTag = itemRecord["description"]?.Get<string>(0) ?? string.Empty;
-                item.Name = await new GameLocalizationService().GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
-
-                //string descriptionTag = itemRecord["description"]?.Get<string>(0) ?? string.Empty;
-                //item.Name = await new GameLocalizationService().GetLocalizedValueByTag(descriptionTag).ConfigureAwait(false) ?? string.Empty;
-
-                string bitmapPath = itemRecord["artifactBitmap"]?.Get<string>(0) ?? string.Empty;
-                item.Icon = await GetIconAsync(bitmapPath).ConfigureAwait(false) ?? null!; // TODO use default bitmap in case reading fails.
-                item.Size = GetItemSize(item);
-
+                item.Size = GetItemSize(item.Icon);
                 return item;
             }
             catch(Exception ex)

@@ -53,5 +53,7 @@ namespace TQVaultAE.Model.Items
         }
 
         public override bool ShowStackCount => StackCount != ShardCompletionCount;
+
+        public override Color Color => TitanQuestColors.Orange;
     }
 }

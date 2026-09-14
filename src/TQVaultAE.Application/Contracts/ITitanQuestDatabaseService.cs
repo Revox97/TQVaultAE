@@ -1,11 +1,10 @@
-﻿using TQVaultAE.Model.Items;
+﻿using TQVaultAE.FileFormats.Arz;
 
 namespace TQVaultAE.Application.Contracts
 {
     public interface ITitanQuestDatabaseService
     {
         Task InitializeAsync();
-
-        Task<Item> GetCompleteItemAsync(Item item);
+        Task<ArzRecord> GetRecordByPathAsync(string path);
     }
 }

@@ -6,24 +6,24 @@ using TQVaultAE.Model.Items;
 
 namespace TQVaultAE.Application.Factories.ItemCreationStrategies
 {
-    internal class ArmorItemCreationStrategy : ItemCreationStrategy
+    internal class JewelryItemCreationStrategy : ItemCreationStrategy
     {
+        // TODO what represents x2tagUArmor107
         [SupportedOSPlatform("windows")]
-        internal override async Task<Item> CreateAsync(Item baseItem, ArzRecord itemRecord)
+        internal override async Task<Item> CreateAsync(Item itemBase, ArzRecord itemRecord)
         {
             try
             {
-                ArmorItem item = new(baseItem)
+                JewelryItem item = new(itemBase)
                 {
-                    Level = itemRecord["itemLevel"]?.Get<int>(0) ?? 0,
-                    Cost = itemRecord["cost"]?.Get<int>(0) ?? 0,
                     Scale = itemRecord["scale"]?.Get<float>(0) ?? 0.0f,
                     TemplateName = itemRecord["templateName"]?.Get<string>(0) ?? string.Empty,
                     Classification = itemRecord["itemClassification"]?.Get<ItemClassification>(0) ?? default,
+                    Cost = itemRecord["cost"]?.Get<int>(0) ?? 0,
                     BaseName = await GetLocalizedValueAsync(itemRecord, "itemNameTag"),
                     Properties = new ObservableCollection<ItemProperty>(GetItemAttributes(itemRecord)),
                     Requirements = new ObservableCollection<ItemRequirement>(GetItemRequirements(itemRecord)),
-                    Icon = await GetIconAsync(itemRecord, "bitmap") ?? null!, // TODO create fallback icon, there is also baseTexture?!
+                    Icon = await GetIconAsync(itemRecord, "bitmap") ?? null!,
                     HidePrefixName = itemRecord["hidePrefixName"]?.Get<bool>(0) ?? false,
                     HideSuffixName = itemRecord["hideSuffixName"]?.Get<bool>(0) ?? false,
                 };
@@ -37,7 +37,7 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
             catch(Exception ex)
             {
                 // Item Creation failed.
-                return baseItem;
+                return itemBase;
             }
         }
     }

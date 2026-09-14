@@ -2,6 +2,7 @@
 using System.Runtime.Versioning;
 using TQVaultAE.Application.Services;
 using TQVaultAE.FileFormats.Arz;
+using TQVaultAE.Model.Enumerations;
 using TQVaultAE.Model.Items;
 
 namespace TQVaultAE.Application.Factories.ItemCreationStrategies
@@ -13,22 +14,24 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
         {
             try
             {
-                itemBase = GetGeneralItemProperties(itemBase, itemRecord);
-                itemBase.Scale = itemRecord["scale"]?.Get<float>(0) ?? 0.0f;
+                QuestItem item = new(itemBase)
+                {
+                    TemplateName = itemRecord["templateName"]?.Get<string>(0) ?? string.Empty,
+                    Classification = itemRecord["itemClassification"]?.Get<ItemClassification>(0) ?? default,
+                    Scale = itemRecord["scale"]?.Get<float>(0) ?? 0.0f,
+                    Icon = await GetIconAsync(itemRecord, "bitmap") ?? null!,
+                    Requirements = new ObservableCollection<ItemRequirement>(GetItemRequirements(itemRecord)),
+                };
 
                 // There seem to be multiple types of quest items, staffs have description as name
-                string nameTag = itemRecord["itemText"]?.Get<string>(0) ?? string.Empty;
-                itemBase.Name = await new GameLocalizationService().GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
+                string nameTag = itemRecord["description"]?.Get<string>(0) ?? string.Empty;
+                item.Name = await new GameLocalizationService().GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
 
-                string descriptionTag = $"{nameTag[..^2]}Desc{nameTag[^2..]}";
-                itemBase.Description = await new GameLocalizationService().GetLocalizedValueByTag(descriptionTag).ConfigureAwait(false) ?? string.Empty;
-                itemBase.Requirements = new ObservableCollection<ItemRequirement>(GetItemRequirements(itemRecord));
+                string descriptionTag = itemRecord["itemText"]?.Get<string>(0) ?? string.Empty;
+                item.Description = await new GameLocalizationService().GetLocalizedValueByTag(descriptionTag).ConfigureAwait(false) ?? string.Empty;
 
-                string bitmapPath = itemRecord["bitmap"]?.Get<string>(0) ?? string.Empty;
-                itemBase.Icon = await GetIconAsync(bitmapPath).ConfigureAwait(false) ?? null!; // TODO use default bitmap in case reading fails.
-                itemBase.Size = GetItemSize(itemBase);
-
-                return itemBase;
+                item.Size = GetItemSize(item.Icon);
+                return item;
             }
             catch(Exception ex)
             {

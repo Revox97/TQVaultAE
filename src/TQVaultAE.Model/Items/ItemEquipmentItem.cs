@@ -1,12 +1,12 @@
-﻿using TQVaultAE.Model.Enumerations;
+﻿using System.Drawing;
+using TQVaultAE.Model.Enumerations;
 
 namespace TQVaultAE.Model.Items
 {
-    public class JewelryItem : EquipableItem
+    // TODO Find more meaningful name
+    public class ItemEquipmentItem : Item
     {
-        public JewelryItemType JewelryType { get; set; }
-
-        public JewelryItem(Item item)
+        public ItemEquipmentItem(Item item)
         {
             Class = item.Class;
             Position = item.Position;
@@ -16,7 +16,8 @@ namespace TQVaultAE.Model.Items
             Seed = item.Seed;
             Var1 = item.Var1;
             Var2 = item.Var2;
-            JewelryType = Class is ItemClass.ArmorJewelry_Amulet ? JewelryItemType.Amulet : JewelryItemType.Ring;
         }
+
+        public override Color Color => TitanQuestColors.Blue;
     }
 }
