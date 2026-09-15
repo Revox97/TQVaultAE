@@ -26,6 +26,7 @@ namespace TQVaultAE.Model.Vaults
         [Length(10, 100, ErrorMessage = "Tab name must be between 10 and 100 characters long.")]
         public string Name { get; set; } = string.Empty;
 
+        // TODO Make it bitmaps and use game icons.
         [JsonPropertyName("iconId")]
         public Guid IconId { get; set; }
 
@@ -52,24 +53,6 @@ namespace TQVaultAE.Model.Vaults
         /// <returns><see langword="true"/>, if the <paramref name="item"/> has been added successfully. Otherwise <see langword="false"/>.</returns>
         public bool AddItem(Item item)
         {
-            //for (int i = item.Position.X; i <= item.Position.X + item.Size.Width; i++)
-            //{
-            //    for (int k = item.Position.Y; k <= item.Position.Y + item.Size.Height; k++)
-            //    {
-            //        if (SlotAllocation[k, i])
-            //        {
-            //            // TODO: Cannot add item, must be handled somehow
-            //            return false;
-            //        }
-            //    }
-            //}
-
-            //for (int i = item.Position.X; i <= item.Position.X + item.Size.Width; i++)
-            //{
-            //    for (int k = item.Position.Y; k <= item.Position.Y + item.Size.Height; k++)
-            //        SlotAllocation[k, i] = true;
-            //}
-
             Items.Add(item);
             return true;
         }
@@ -78,12 +61,6 @@ namespace TQVaultAE.Model.Vaults
         {
             if (!Items.Contains(item))
                 return false;
-
-            //for (int i = item.Position.X; i <= item.Position.X + item.Size.Width; i++)
-            //{
-            //    for (int k = item.Position.Y; k <= item.Position.Y + item.Size.Height; k++)
-            //        SlotAllocation[k, i] = false;
-            //}
 
             Items.Remove(item);
             return true;

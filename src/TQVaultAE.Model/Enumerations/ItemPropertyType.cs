@@ -137,6 +137,9 @@ namespace TQVaultAE.Model.Enumerations
         [Description("defensiveBleeding")]
         DefensiveBleeding,
 
+        [Description("defensiveBleedingDurationModifier")]
+        DefensiveBleedingDurationModifier,
+
         [Description("defensiveBlock")]
         DefensiveBlock,
 
@@ -212,6 +215,9 @@ namespace TQVaultAE.Model.Enumerations
         [Description("defensiveStun")]
         DefensiveStun,
 
+        [Description("defensiveTotalSpeedChance")]
+        DefensiveTotalSpeedChance,
+
         [Description("defensiveTotalSpeedResistance")]
         DefensiveTotalSpeedResistance,
 
@@ -222,14 +228,38 @@ namespace TQVaultAE.Model.Enumerations
 
         #region OFFENSIVE
 
+        [Description("offensiveBaseColdChance")]
+        OffensiveBaseColdChance,
+
+        [Description("offensiveBaseColdGlobal")]
+        OffensiveBaseColdGlobal,
+
         [Description("offensiveBaseColdMax")]
         OffensiveBaseColdMax,
 
         [Description("offensiveBaseColdMin")]
         OffensiveBaseColdMin,
 
+        [Description("offensiveBaseColdXOR")]
+        OffensiveBaseColdXOR,
+
+        [Description("offensiveBaseFireChance")]
+        OffensiveBaseFireChance,
+
+        [Description("offensiveBaseFireGlobal")]
+        OffensiveBaseFireGlobal,
+
         [Description("offensiveBaseFireMin")]
         OffensiveBaseFireMin,
+
+        [Description("offensiveBaseFireXOR")]
+        OffensiveBaseFireXOR,
+
+        [Description("offensiveBaseLightningChance")]
+        OffensiveBaseLightningChance,
+
+        [Description("offensiveBaseLightningGlobal")]
+        OffensiveBaseLightningGlobal,
 
         [Description("offensiveBaseLightningMax")]
         OffensiveBaseLightningMax,
@@ -237,11 +267,20 @@ namespace TQVaultAE.Model.Enumerations
         [Description("offensiveBaseLightningMin")]
         OffensiveBaseLightningMin,
 
+        [Description("offensiveBaseLightningXOR")]
+        OffensiveBaseLightningXOR,
+
         [Description("offensiveBonusPhysicalMin")]
         OffensiveBonusPhysicalMin,
 
         [Description("offensiveBonusPhysicalMax")]
         OffensiveBonusPhysicalMax,
+
+        [Description("offensiveColdChance")]
+        OffensiveColdChance,
+
+        [Description("offensiveColdGlobal")]
+        OffensiveColdGlobal,
 
         [Description("offensiveColdMax")]
         OffensiveColdMax,
@@ -249,56 +288,20 @@ namespace TQVaultAE.Model.Enumerations
         [Description("offensiveColdMin")]
         OffensiveColdMin,
 
-        [Description("offensiveConfusionChance")]
-        OffensiveConfusionChance,
-
-        [Description("offensiveConfusionMax")]
-        OffensiveConfusionMax,
-
-        [Description("offensiveFireMin")]
-        OffensiveFireMin,
-
-        [Description("offensiveDisruptionChance")]
-        OffensiveDisruptionChance,
-
-        [Description("offensiveSlowBleedingChance")]
-        OffensiveSlowBleedingChance,
-
-        [Description("offensiveSlowBleedingDurationMin")]
-        OffensiveSlowBleedingDurationMin,
-
-        [Description("offensiveSlowBleedingMin")]
-        OffensiveSlowBleedingMin,
-
-        [Description("offensiveSlowBleedingMax")]
-        OffensiveSlowBleedingMax,
-
-        [Description("offensiveFearGlobal")]
-        OffensiveFearGlobal,
-
-        [Description("offensiveFearMax")]
-        OffensiveFearMax,
-
-        [Description("offensiveFreezeChance")]
-        OffensiveFreezeChance,
-
-        [Description("offensiveFreezeMax")]
-        OffensiveFreezeMax,
-
-        [Description("offensiveFreezeMin")]
-        OffensiveFreezeMin,
-
-        [Description("offensiveLifeMofifierChance")]
-        OffensiveLifeModifierChance,
-
-        [Description("offensiveSlowBleedingModifier")]
-        OffensiveSlowBleedingModifier,
-
         [Description("offensiveColdMofifier")]
         OffensiveColdModifier,
 
+        [Description("offensiveColdXOR")]
+        OffensiveColdXOR,
+
+        [Description("offensiveConfusionChance")]
+        OffensiveConfusionChance,
+
         [Description("offensiveConfusionGlobal")]
         OffensiveConfusionGlobal,
+
+        [Description("offensiveConfusionMax")]
+        OffensiveConfusionMax,
 
         [Description("offensiveConfusionMin")]
         OffensiveConfusionMin,
@@ -309,11 +312,17 @@ namespace TQVaultAE.Model.Enumerations
         [Description("offensiveConvertMin")]
         OffensiveConvertMin,
 
+        [Description("offensiveDisruptionChance")]
+        OffensiveDisruptionChance,
+
         [Description("offensiveDisruptionGlobal")]
         OffensiveDisruptionGlobal,
 
         [Description("offensiveDisruptionMin")]
         OffensiveDisruptionMin,
+
+        [Description("offensiveElementalMax")]
+        OffensiveElementalMax,
 
         [Description("offensiveElementalMin")]
         OffensiveElementalMin,
@@ -321,17 +330,47 @@ namespace TQVaultAE.Model.Enumerations
         [Description("offensiveElementalModifier")]
         OffensiveElementalModifier,
 
+        [Description("offensiveElementalModifierChance")]
+        OffensiveElementalModifierChance,
+
+        [Description("offensiveFearGlobal")]
+        OffensiveFearGlobal,
+
         [Description("offensiveFearChance")]
         OffensiveFearChance,
+
+        [Description("offensiveFearMax")]
+        OffensiveFearMax,
 
         [Description("offensiveFearMin")]
         OffensiveFearMin,
 
+        [Description("offensiveFireChance")]
+        OffensiveFireChance,
+
+        [Description("offensiveFireGlobal")]
+        OffensiveFireGlobal,
+
         [Description("offensiveFireMax")]
         OffensiveFireMax,
 
+        [Description("offensiveFireMin")]
+        OffensiveFireMin,
+
         [Description("offensiveFireModifier")]
         OffensiveFireModifier,
+
+        [Description("offensiveFireXOR")]
+        OffensiveFireXOR,
+
+        [Description("offensiveFreezeChance")]
+        OffensiveFreezeChance,
+
+        [Description("offensiveFreezeMax")]
+        OffensiveFreezeMax,
+
+        [Description("offensiveFreezeMin")]
+        OffensiveFreezeMin,
 
         [Description("offensiveGlobalChance")]
         OffensiveGlobalChance,
@@ -345,6 +384,16 @@ namespace TQVaultAE.Model.Enumerations
         [Description("offensiveLifeModifier")]
         OffensiveLifeModifier,
 
+        [Description("offensiveLifeMofifierChance")]
+        OffensiveLifeModifierChance,
+
+        [Description("offensiveLightningChance")]
+        OffensiveLightningChance,
+
+
+        [Description("offensiveLightningGlobal")]
+        OffensiveLightningGlobal,
+
         [Description("offensiveLightningMax")]
         OffensiveLightningMax,
 
@@ -354,17 +403,26 @@ namespace TQVaultAE.Model.Enumerations
         [Description("offensiveLightningModifier")]
         OffensiveLightningModifier,
 
+        [Description("offensiveLightningXOR")]
+        OffensiveLightningXOR,
+
         [Description("offensiveManaBurnChance")]
         OffensiveManaBurnChance,
 
         [Description("offensiveManaBurnDamageRatio")]
         OffensiveManaBurnDamageRatio,
 
+        [Description("offensiveManaBurnDrainMax")]
+        OffensiveManaBurnDrainMax,
+
         [Description("offensiveManaBurnDrainMin")]
         OffensiveManaBurnDrainMin,
 
         [Description("offensivePercentCurrentLifeChance")]
         OffensivePercentCurrentLifeChance,
+
+        [Description("offensivePercentCurrentLifeMax")]
+        OffensivePercentCurrentLifeMax,
 
         [Description("offensivePercentCurrentLifeMin")]
         OffensivePercentCurrentLifeMin,
@@ -380,6 +438,12 @@ namespace TQVaultAE.Model.Enumerations
 
         [Description("offensivePetrifyMin")]
         OffensivePetrifyMin,
+
+        [Description("offensivePierceChance")]
+        OffensivePierceChance,
+
+        [Description("offensivePierceGlobal")]
+        OffensivePierceGlobal,
 
         [Description("offensivePierceMax")]
         OffensivePierceMax,
@@ -420,8 +484,84 @@ namespace TQVaultAE.Model.Enumerations
         [Description("offensiveSleepModifier")]
         OffensiveSleepModifier,
 
+        [Description("offensiveStunChance")]
+        OffensiveStunChance,
+
+        [Description("offensiveStunMax")]
+        OffensiveStunMax,
+
+        [Description("offensiveStunMin")]
+        OffensiveStunMin,
+
+        [Description("offensiveStunModifier")]
+        OffensiveStunModifier,
+
+        [Description("offensiveTotalDamageModifier")]
+        OffensiveTotalDamageModifier,
+
+        [Description("offensiveTotalDamageModifierChance")]
+        OffensiveTotalDamageModifierChance,
+
+        [Description("offensiveTotalDamageReductionPercentChance")]
+        OffensiveTotalDamageReductionPercentChance,
+
+        [Description("offensiveTotalDamageReductionPercentDurationMin")]
+        OffensiveTotalDamageReductionPercentDurationMin,
+
+        [Description("offensiveTotalDamageReductionPercentGlobal")]
+        OffensiveTotalDamageReductionPercentGlobal,
+
+        [Description("offensiveTotalDamageReductionPercentMin")]
+        OffensiveTotalDamageReductionPercentMin,
+
+        [Description("offensiveTotalResistanceReductionAbsoluteChance")]
+        OffensiveTotalResistanceReductionAbsoluteChance,
+
+        [Description("offensiveTotalResistanceReductionAbsoluteDurationMin")]
+        OffensiveTotalResistanceReductionAbsoluteDurationMin,
+
+        [Description("offensiveTotalResistanceReductionAbsoluteMin")]
+        OffensiveTotalResistanceReductionAbsoluteMin,
+
+        #endregion OFFENSIVE
+
+        #region OFFENSIVE_SLOW
+
+        [Description("offensiveSlowBleedingChance")]
+        OffensiveSlowBleedingChance,
+
+        [Description("offensiveSlowBleedingDurationMax")]
+        OffensiveSlowBleedingDurationMax,
+
+        [Description("offensiveSlowBleedingDurationModifier")]
+        OffensiveSlowBleedingDurationModifier,
+
+        [Description("offensiveSlowBleedingGlobal")]
+        OffensiveSlowBleedingGlobal,
+
+        [Description("offensiveSlowBleedingDurationMin")]
+        OffensiveSlowBleedingDurationMin,
+
+        [Description("offensiveSlowBleedingMax")]
+        OffensiveSlowBleedingMax,
+
+        [Description("offensiveSlowBleedingMin")]
+        OffensiveSlowBleedingMin,
+
+        [Description("offensiveSlowBleedingModifier")]
+        OffensiveSlowBleedingModifier,
+
+        [Description("offensiveSlowBleedingModifierChance")]
+        OffensiveSlowBleedingModifierChance,
+
         [Description("offensiveSlowColdDurationMin")]
         OffensiveSlowColdDurationMin,
+
+        [Description("offensiveSlowColdDurationModifier")]
+        OffensiveSlowColdDurationModifier,
+
+        [Description("offensiveSlowColdMax")]
+        OffensiveSlowColdMax,
 
         [Description("offensiveSlowColdMin")]
         OffensiveSlowColdMin,
@@ -438,8 +578,17 @@ namespace TQVaultAE.Model.Enumerations
         [Description("offensiveSlowDefensiveReductionMax")]
         OffensiveSlowDefensiveReductionMax,
 
+        [Description("offensiveSlowDefensiveReductionModifier")]
+        OffensiveSlowDefensiveReductionModifier,
+
+        [Description("offensiveSlowDefensiveReductionModifierChance")]
+        OffensiveSlowDefensiveReductionModifierChance,
+
         [Description("offensiveSlowFireDurationMin")]
         OffensiveSlowFireDurationMin,
+
+        [Description("offensiveSlowFireDurationModifier")]
+        OffensiveSlowFireDurationModifier,
 
         [Description("offensiveSlowFireMax")]
         OffensiveSlowFireMax,
@@ -450,8 +599,14 @@ namespace TQVaultAE.Model.Enumerations
         [Description("offensiveSlowFireModifier")]
         OffensiveSlowFireModifier,
 
+        [Description("offensiveSlowLifeLeachDurationMax")] 
+        OffensiveSlowLifeLeechDurationMax,
+
         [Description("offensiveSlowLifeLeachDurationMin")] 
         OffensiveSlowLifeLeechDurationMin,
+
+        [Description("offensiveSlowLifeLeachDurationModifier")] 
+        OffensiveSlowLifeLeechDurationModifier,
 
         [Description("offensiveSlowLifeLeachMax")]
         OffensiveSlowLifeLeechMax,
@@ -462,11 +617,14 @@ namespace TQVaultAE.Model.Enumerations
         [Description("offensiveSlowLifeLeachModifier")]
         OffensiveSlowLifeLeachModifier,
 
-        [Description("offensiveSlowLightningGlobal")]
-        OffensiveSlowLightningGlobal,
-
         [Description("offensiveSlowLightningDurationMin")]
         OffensiveSlowLightningDurationMin,
+
+        [Description("offensiveSlowLightningDurationModifier")]
+        OffensiveSlowLightningDurationModifier,
+
+        [Description("offensiveSlowLightningGlobal")]
+        OffensiveSlowLightningGlobal,
 
         [Description("offensiveSlowLightningMax")]
         OffensiveSlowLightningMax,
@@ -507,63 +665,36 @@ namespace TQVaultAE.Model.Enumerations
         [Description("offensiveSlowPoisonMin")]
         OffensiveSlowPoisonMin,
 
+        [Description("offensiveSlowPoisonModifier")]
+        OffensiveSlowPoisonModifier,
+
         [Description("offensiveSlowRunSpeedDurationMin")]
         OffensiveSlowRunSpeedDurationMin,
 
         [Description("offensiveSlowRunSpeedGlobal")]
         OffensiveSlowRunSpeedGlobal,
 
+        [Description("offensiveSlowRunSpeedMax")]
+        OffensiveSlowRunSpeedMax,
+
         [Description("offensiveSlowRunSpeedMin")]
         OffensiveSlowRunSpeedMin,
-
-        [Description("offensiveSlowPoisonModifier")]
-        OffensiveSlowPoisonModifier,
-
-        [Description("offensiveSlowTotalSpeedGlobal")]
-        OffensiveSlowTotalSpeedGlobal,
 
         [Description("offensiveSlowTotalSpeedDurationMin")]
         OffensiveSlowTotalSpeedDurationMin,
 
+        [Description("offensiveSlowTotalSpeedGlobal")]
+        OffensiveSlowTotalSpeedGlobal,
+
         [Description("offensiveSlowTotalSpeedMin")]
         OffensiveSlowTotalSpeedMin,
 
-        [Description("offensiveStunChance")]
-        OffensiveStunChance,
-
-        [Description("offensiveStunMin")]
-        OffensiveStunMin,
-
-        [Description("offensiveTotalDamageModifier")]
-        OffensiveTotalDamageModifier,
-
-        [Description("offensiveTotalDamageModifierChance")]
-        OffensiveTotalDamageModifierChance,
-
-        [Description("offensiveTotalDamageReductionPercentChance")]
-        OffensiveTotalDamageReductionPercentChance,
-
-        [Description("offensiveTotalDamageReductionPercentDurationMin")]
-        OffensiveTotalDamageReductionPercentDurationMin,
-
-        [Description("offensiveTotalDamageReductionPercentGlobal")]
-        OffensiveTotalDamageReductionPercentGlobal,
-
-        [Description("offensiveTotalDamageReductionPercentMin")]
-        OffensiveTotalDamageReductionPercentMin,
-
-        [Description("offensiveTotalResistanceReductionAbsoluteChance")]
-        OffensiveTotalResistanceReductionAbsoluteChance,
-
-        [Description("offensiveTotalResistanceReductionAbsoluteDurationMin")]
-        OffensiveTotalResistanceReductionAbsoluteDurationMin,
-
-        [Description("offensiveTotalResistanceReductionAbsoluteMin")]
-        OffensiveTotalResistanceReductionAbsoluteMin,
-
-        #endregion OFFENSIVE
+        #endregion OFFENSIVE_SLOW
 
         #region RETALIATION
+
+        [Description("retaliationColdChance")]
+        RetaliationColdChance,
 
         [Description("retaliationColdGlobal")]
         RetaliationColdGlobal,
@@ -577,8 +708,14 @@ namespace TQVaultAE.Model.Enumerations
         [Description("retaliationElementalChance")]
         RetaliationElementalChance,
 
+        [Description("retaliationElementalMax")]
+        RetaliationElementalMax,
+
         [Description("retaliationElementalMin")]
         RetaliationElementalMin,
+
+        [Description("retaliationFireChance")]
+        RetaliationFireChance,
 
         [Description("retaliationFireGlobal")]
         RetaliationFireGlobal,
@@ -592,8 +729,20 @@ namespace TQVaultAE.Model.Enumerations
         [Description("retaliationGlobalChance")]
         RetaliationGlobalChance,
 
+        [Description("retaliationLightningChance")]
+        RetaliationLightningChance,
+
+        [Description("retaliationLightningMax")]
+        RetaliationLightningMax,
+
+        [Description("retaliationLightningMin")]
+        RetaliationLightningMin,
+
         [Description("retaliationPierceChance")]
         RetaliationPierceChance,
+
+        [Description("retaliationPierceGlobal")]
+        RetaliationPierceGlobal,
 
         [Description("retaliationPierceMin")]
         RetaliationPierceMin,
@@ -601,11 +750,33 @@ namespace TQVaultAE.Model.Enumerations
         [Description("retaliationPierceMax")]
         RetaliationPierceMax,
 
+        [Description("retaliationPierceModifier")]
+        RetaliationPierceModifier,
+
         [Description("retaliationPhysicalMax")]
         RetaliationPhysicalMax,
 
         [Description("retaliationPhysicalMin")]
         RetaliationPhysicalMin,
+
+        [Description("retaliationStunChance")]
+        RetaliationStunChance,
+
+        [Description("retaliationStunGlobal")]
+        RetaliationStunGlobal,
+
+        [Description("retaliationStunMax")]
+        RetaliationStunMax,
+
+        [Description("retaliationStunMin")]
+        RetaliationStunMin,
+
+        [Description("retaliationStunXOR")]
+        RetaliationStunXOR,
+
+        #endregion RETALIATION
+
+        #region RETALIATION_SLOW
 
         [Description("retaliationSlowAttackSpeedDurationMin")]
         RetaliationSlowAttackSpeedDurationMin,
@@ -613,14 +784,29 @@ namespace TQVaultAE.Model.Enumerations
         [Description("retaliationSlowAttackSpeedGlobal")]
         RetaliationSlowAttackSpeedGlobal,
 
+        [Description("retaliationSlowAttackSpeedMax")]
+        RetaliationSlowAttackSpeedMax,
+
         [Description("retaliationSlowAttackSpeedMin")]
         RetaliationSlowAttackSpeedMin,
 
         [Description("retaliationSlowBleedingChance")]
         RetaliationSlowBleedingChance,
 
+        [Description("retaliationSlowBleedingGlobal")]
+        RetaliationSlowBleedingGlobal,
+
         [Description("retaliationSlowBleedingDurationMin")]
         RetaliationSlowBleedingDurationMin,
+
+        [Description("retaliationSlowFireDurationMin")]
+        RetaliationSlowFireDurationMin,
+
+        [Description("retaliationSlowFireMax")]
+        RetaliationSlowFireMax,
+
+        [Description("retaliationSlowFireMin")]
+        RetaliationSlowFireMin,
 
         [Description("retaliationSlowBleedingMin")]
         RetaliationSlowBleedingMin,
@@ -637,11 +823,17 @@ namespace TQVaultAE.Model.Enumerations
         [Description("retaliationSlowLifeLeachDurationMin")]
         RetaliationSlowLifeLeachDurationMin,
 
+        [Description("retaliationSlowLifeLeachGlobal")]
+        RetaliationSlowLifeLeachGlobal,
+
         [Description("retaliationSlowLifeLeachMax")]
         RetaliationSlowLifeLeachMax,
 
         [Description("retaliationSlowLifeLeachMin")]
         RetaliationSLowLifeLeachMin,
+
+        [Description("retaliationSlowLifeLeachXOR")]
+        RetaliationSlowLifeLeachXOR,
 
         [Description("retaliationSlowLifeMin")]
         RetaliationSlowLifeMin,
@@ -655,11 +847,38 @@ namespace TQVaultAE.Model.Enumerations
         [Description("retaliationSlowLightningMin")]
         RetaliationSlowLightningMin,
 
+        [Description("retaliationSlowManaLeachChance")]
+        RetaliationSlowManaLeachChance,
+
+        [Description("retaliationSlowManaLeachDurationMin")]
+        RetaliationSlowManaLeachDurationMin,
+
+        [Description("retaliationSlowManaLeachGlobal")]
+        RetaliationSlowManaLeachGlobal,
+
+        [Description("retaliationSlowManaLeachMax")]
+        RetaliationSlowManaLeachMax,
+
+        [Description("retaliationSlowManaLeachMin")]
+        RetaliationSlowManaLeachMin,
+
+        [Description("retaliationSlowManaLeachXOR")]
+        RetaliationSlowManaLeachXOR,
+
         [Description("retaliationSlowOffensiveAbilityDurationMin")]
         RetaliationSlowOffensiveAbilityDurationMin,
 
         [Description("retaliationSlowOffensiveAbilityMin")]
         RetaliationSlowOffensiveAbilityMin,
+
+        [Description("retaliationSlowOffensiveReductionChance")]
+        RetaliationSlowOffensiveReductionChance,
+
+        [Description("retaliationSlowOffensiveReductionDurationMin")]
+        RetaliationSlowOffensiveReductionDurationMin,
+
+        [Description("retaliationSlowOffensiveReductionMin")]
+        RetaliationSlowOffensiveReductionMin,
 
         [Description("retaliationSlowPoisonChance")]
         RetaliationSlowPoisonChance,
@@ -691,22 +910,7 @@ namespace TQVaultAE.Model.Enumerations
         [Description("retaliationSlowRunSpeedMin")]
         RetaliationSlowRunSpeedMin,
 
-        [Description("retaliationStunChance")]
-        RetaliationStunChance,
-
-        [Description("retaliationStunGlobal")]
-        RetaliationStunGlobal,
-
-        [Description("retaliationStunMax")]
-        RetaliationStunMax,
-
-        [Description("retaliationStunMin")]
-        RetaliationStunMin,
-
-        [Description("retaliationStunXOR")]
-        RetaliationStunXOR,
-
-        #endregion RETALIATION
+        #endregion RETALIATION_SLOW
 
         #region SKILL
 
@@ -715,6 +919,9 @@ namespace TQVaultAE.Model.Enumerations
 
         [Description("skillManaCostReduction")]
         SkillManaCostReduction,
+
+        [Description("skillManaCostReductionChance")]
+        SkillManaCostReductionChance,
 
         [Description("skillName")]
         SkillName,
