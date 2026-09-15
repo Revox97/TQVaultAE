@@ -42,6 +42,7 @@
                 <!-- Primary Weapon Set One -->
                 <Grid Background="{Binding ViewModel.Equipment.PrimaryWeaponSetOne.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
                       Grid.Row="1"
+                      ClipToBounds="True"
                       Tag="{Binding ViewModel.Equipment.PrimaryWeaponSetOne, ElementName=root}"
                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
                     <Grid.RowDefinitions>
@@ -49,23 +50,32 @@
                         <RowDefinition Height="4*"/>
                         <RowDefinition Height="0.5*"/>
                     </Grid.RowDefinitions>
-                    <Image Grid.Row="1"
-                           Source="{Binding ViewModel.Equipment.PrimaryWeaponSetOne.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
-                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Border Grid.Row="1" Padding="3">
+                        <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
+                            <Image Source="{Binding ViewModel.Equipment.PrimaryWeaponSetOne.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                                   Stretch="None"/>
+                        </Viewbox>
+                    </Border>
                 </Grid>
 
                 <!-- Artifact -->
                 <Grid Background="{Binding ViewModel.Equipment.Artifact.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
-                      Grid.Row="3" IsHitTestVisible="True"
+                      Grid.Row="3"
+                      ClipToBounds="True"
                       Tag="{Binding ViewModel.Equipment.Artifact, ElementName=root}"
                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
-                    <Image Source="{Binding ViewModel.Equipment.Artifact.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
-                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Border Padding="3">
+                        <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
+                            <Image Source="{Binding ViewModel.Equipment.Artifact.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                                   Stretch="None"/>
+                        </Viewbox>
+                    </Border>
                 </Grid>
 
                 <!-- Primary Weapon Set Two -->
                 <Grid Background="{Binding ViewModel.Equipment.PrimaryWeaponSetTwo.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
                       Grid.Row="5"
+                      ClipToBounds="True"
                       Tag="{Binding ViewModel.Equipment.PrimaryWeaponSetTwo, ElementName=root}"
                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
                     <Grid.RowDefinitions>
@@ -73,9 +83,12 @@
                         <RowDefinition Height="4*"/>
                         <RowDefinition Height="0.5*"/>
                     </Grid.RowDefinitions>
-                    <Image Grid.Row="1"
-                        Source="{Binding ViewModel.Equipment.PrimaryWeaponSetTwo.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
-                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Border Grid.Row="1" Padding="3">
+                        <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
+                            <Image Source="{Binding ViewModel.Equipment.PrimaryWeaponSetTwo.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                                   Stretch="None"/>
+                        </Viewbox>
+                    </Border>
                 </Grid>
             </Grid>
 
@@ -98,64 +111,87 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <!-- Head -->
-                <!-- TODO Add hover effects and popup like in item control -->
-                 <Grid Background="{Binding ViewModel.Equipment.Head.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
-                       Grid.Row="1" Grid.ColumnSpan="2"
-                       Tag="{Binding ViewModel.Equipment.Head, ElementName=root}"
-                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
-                    <Image
-                           Source="{Binding ViewModel.Equipment.Head.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
-                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Grid Background="{Binding ViewModel.Equipment.Head.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
+                      Grid.Row="1" Grid.ColumnSpan="2"
+                      ClipToBounds="True"
+                      Tag="{Binding ViewModel.Equipment.Head, ElementName=root}"
+                      PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
+                    <Border Padding="3">
+                        <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
+                            <Image Source="{Binding ViewModel.Equipment.Head.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                                   Stretch="None"/>
+                        </Viewbox>
+                    </Border>
                 </Grid>
 
                 <!-- Amulet -->
-                 <Grid Background="{Binding ViewModel.Equipment.Amulet.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
-                       Grid.Row="3" Grid.ColumnSpan="2"
-                       Tag="{Binding ViewModel.Equipment.Amulet, ElementName=root}"
-                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
-                    <Image 
-                           Source="{Binding ViewModel.Equipment.Amulet.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
-                           Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Grid Background="{Binding ViewModel.Equipment.Amulet.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
+                      Grid.Row="3" Grid.ColumnSpan="2"
+                      ClipToBounds="True"
+                      Tag="{Binding ViewModel.Equipment.Amulet, ElementName=root}"
+                      PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
+                    <Border Padding="3">
+                        <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
+                            <Image Source="{Binding ViewModel.Equipment.Amulet.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                                   Stretch="None"/>
+                        </Viewbox>
+                    </Border>
                 </Grid>
 
                 <!-- Body -->
-                 <Grid Background="{Binding ViewModel.Equipment.Body.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
-                       Grid.Row="5" Grid.ColumnSpan="2"
-                       Tag="{Binding ViewModel.Equipment.Body, ElementName=root}"
-                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
-                    <Image 
-                           Source="{Binding ViewModel.Equipment.Body.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
-                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Grid Background="{Binding ViewModel.Equipment.Body.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
+                      Grid.Row="5" Grid.ColumnSpan="2"
+                      ClipToBounds="True"
+                      Tag="{Binding ViewModel.Equipment.Body, ElementName=root}"
+                      PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
+                    <Border Padding="3">
+                        <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
+                            <Image Source="{Binding ViewModel.Equipment.Body.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                                   Stretch="None"/>
+                        </Viewbox>
+                    </Border>
                 </Grid>
 
                 <!-- Legs -->
                 <Grid Background="{Binding ViewModel.Equipment.Legs.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
                       Grid.Row="7" Grid.ColumnSpan="2"
+                      ClipToBounds="True"
                       Tag="{Binding ViewModel.Equipment.Legs, ElementName=root}"
                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
-                    <Image 
-                           Source="{Binding ViewModel.Equipment.Legs.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
-                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Border Padding="3 0 3 3">
+                        <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
+                            <Image Source="{Binding ViewModel.Equipment.Legs.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                                   Stretch="None"/>
+                        </Viewbox>
+                    </Border>
                 </Grid>
 
                 <!-- Ring 1 -->
-                 <Grid Background="{Binding ViewModel.Equipment.RingOne.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
-                       Grid.Row="9" Grid.Column="0"
-                       Tag="{Binding ViewModel.Equipment.RingOne, ElementName=root}"
-                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
-                    <Image 
-                           Source="{Binding ViewModel.Equipment.RingOne.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
-                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Grid Background="{Binding ViewModel.Equipment.RingOne.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
+                      Grid.Row="9" Grid.Column="0"
+                      ClipToBounds="True"
+                      Tag="{Binding ViewModel.Equipment.RingOne, ElementName=root}"
+                      PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
+                    <Border>
+                        <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
+                            <Image Source="{Binding ViewModel.Equipment.RingOne.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                                   Stretch="None"/>
+                        </Viewbox>
+                    </Border>
                 </Grid>
 
                 <!-- Ring 2 -->
-                <Grid Background="{Binding ViewModel.Equipment.RingTwo.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}" 
+                <Grid Background="{Binding ViewModel.Equipment.RingTwo.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
                       Grid.Row="9" Grid.Column="1"
+                      ClipToBounds="True"
                       Tag="{Binding ViewModel.Equipment.RingTwo, ElementName=root}"
                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
-                    <Image 
-                           Source="{Binding ViewModel.Equipment.RingTwo.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
-                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Border>
+                        <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
+                            <Image Source="{Binding ViewModel.Equipment.RingTwo.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                                   Stretch="None"/>
+                        </Viewbox>
+                    </Border>
                 </Grid>
             </Grid>
 
@@ -173,6 +209,7 @@
                 <!-- Secundary Weapon Set One -->
                 <Grid Background="{Binding ViewModel.Equipment.SecundaryWeaponSetOne.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
                       Grid.Row="1"
+                      ClipToBounds="True"
                       Tag="{Binding ViewModel.Equipment.SecundaryWeaponSetOne, ElementName=root}"
                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
                     <Grid.RowDefinitions>
@@ -180,23 +217,32 @@
                         <RowDefinition Height="4*"/>
                         <RowDefinition Height="0.5*"/>
                     </Grid.RowDefinitions>
-                    <Image Grid.Row="1"
-                        Source="{Binding ViewModel.Equipment.SecundaryWeaponSetOne.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
-                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Border Grid.Row="1" Padding="3">
+                        <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
+                            <Image Source="{Binding ViewModel.Equipment.SecundaryWeaponSetOne.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                                   Stretch="None"/>
+                        </Viewbox>
+                    </Border>
                 </Grid>
 
                 <!-- Arms -->
                 <Grid Background="{Binding ViewModel.Equipment.Arms.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
                       Grid.Row="3"
+                      ClipToBounds="True"
                       Tag="{Binding ViewModel.Equipment.Arms, ElementName=root}"
                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
-                    <Image Source="{Binding ViewModel.Equipment.Arms.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
-                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Border Padding="3">
+                        <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
+                            <Image Source="{Binding ViewModel.Equipment.Arms.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                                   Stretch="None"/>
+                        </Viewbox>
+                    </Border>
                 </Grid>
 
                 <!-- Secundary Weapon Set Two -->
                 <Grid Background="{Binding ViewModel.Equipment.SecundaryWeaponSetTwo.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
                       Grid.Row="5"
+                      ClipToBounds="True"
                       Tag="{Binding ViewModel.Equipment.SecundaryWeaponSetTwo, ElementName=root}"
                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
                     <Grid.RowDefinitions>
@@ -204,12 +250,14 @@
                         <RowDefinition Height="4*"/>
                         <RowDefinition Height="0.5*"/>
                     </Grid.RowDefinitions>
-                    <Image Grid.Row="1"
-                        Source="{Binding ViewModel.Equipment.SecundaryWeaponSetTwo.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
-                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Border Grid.Row="1" Padding="3">
+                        <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
+                            <Image Source="{Binding ViewModel.Equipment.SecundaryWeaponSetTwo.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                                   Stretch="None"/>
+                        </Viewbox>
+                    </Border>
                 </Grid>
             </Grid>
-
         </Grid>
 
         <Image Source="avares://TQVaultAE/Assets/Img/EquipmentOverlay.png" Stretch="Fill" IsHitTestVisible="False"
