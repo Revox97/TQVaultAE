@@ -39,7 +39,7 @@ public partial class TQWindow : Window
         _isMainWindow = isMainWindow;
 
         if (_isMainWindow)
-            MinWidth = 1100;
+            MinWidth = 1300;
 
         ContentContainer.Children.Add(content);
         BorderTopCenter.PointerPressed += BorderTopCenterMouseDown;

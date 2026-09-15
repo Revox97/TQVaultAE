@@ -1,10 +1,13 @@
 using System;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
+using Avalonia.Media;
 using Microsoft.Extensions.DependencyInjection;
 using TQVaultAE.Events;
 using TQVaultAE.Events.Events;
 using TQVaultAE.Events.Observers;
+using TQVaultAE.Model.Items;
 using TQVaultAE.Model.Players;
 using TQVaultAE.ViewModels;
 
@@ -12,6 +15,8 @@ namespace TQVaultAE.Views.Controls;
 
 public partial class EquipmentControl : UserControl, IMainWindowChangedObserver
 {
+    private Popup? _popup;
+
     public EquipmentControlViewModel ViewModel { get; } = new();
 
     private int _cellSize;
@@ -30,8 +35,16 @@ public partial class EquipmentControl : UserControl, IMainWindowChangedObserver
         EquipmentProperty.Changed.AddClassHandler<EquipmentControl>((control, args) =>
         {
             if (control is EquipmentControl eControl && args.NewValue is Equipment newValue)
+            {
                 eControl.ViewModel.Equipment = newValue;
+                eControl.DrawItems();
+            }
         });
+    }
+
+    private void DrawItems()
+    {
+        // TODO Implement
     }
 
     public EquipmentControl()
@@ -50,44 +63,56 @@ public partial class EquipmentControl : UserControl, IMainWindowChangedObserver
 
     private void UpdateUI()
     {
-        Equipment__Container.RowDefinitions.Clear();
-        Equipment__Container.ColumnDefinitions.Clear();
-
-        // 15
-        Equipment__Container.RowDefinitions.Add(new RowDefinition(_cellSize * 1.5, GridUnitType.Pixel)); //  13.5
-        Equipment__Container.RowDefinitions.Add(new RowDefinition(_cellSize * 2, GridUnitType.Pixel)); //  11.5
-        Equipment__Container.RowDefinitions.Add(new RowDefinition(_cellSize * .5, GridUnitType.Pixel)); //  11
-        Equipment__Container.RowDefinitions.Add(new RowDefinition(_cellSize, GridUnitType.Pixel)); //  10
-        Equipment__Container.RowDefinitions.Add(new RowDefinition(_cellSize * .5, GridUnitType.Pixel)); //  9.5
-
-        Equipment__Container.RowDefinitions.Add(new RowDefinition(_cellSize, GridUnitType.Pixel)); //  8.5
-        Equipment__Container.RowDefinitions.Add(new RowDefinition(_cellSize * 2, GridUnitType.Pixel)); //  6.5
-
-        Equipment__Container.RowDefinitions.Add(new RowDefinition(_cellSize * .5, GridUnitType.Pixel)); //  6
-        Equipment__Container.RowDefinitions.Add(new RowDefinition(_cellSize * 2, GridUnitType.Pixel)); //  4
-        Equipment__Container.RowDefinitions.Add(new RowDefinition(_cellSize * .5, GridUnitType.Pixel)); //  3.5
-        Equipment__Container.RowDefinitions.Add(new RowDefinition(_cellSize, GridUnitType.Pixel)); //  2.5
-        Equipment__Container.RowDefinitions.Add(new RowDefinition(_cellSize , GridUnitType.Pixel)); // 1.5
-
-        Equipment__Container.RowDefinitions.Add(new RowDefinition(_cellSize * 1.5, GridUnitType.Pixel)); //  0
-
-        // 10
-        Equipment__Container.ColumnDefinitions.Add(new ColumnDefinition(_cellSize * 1.5, GridUnitType.Pixel)); //  8.5
-        Equipment__Container.ColumnDefinitions.Add(new ColumnDefinition(_cellSize * 2, GridUnitType.Pixel)); //  6.5
-
-        Equipment__Container.ColumnDefinitions.Add(new ColumnDefinition(_cellSize * .5, GridUnitType.Pixel)); //  6
-
-        Equipment__Container.ColumnDefinitions.Add(new ColumnDefinition(_cellSize * 2, GridUnitType.Pixel)); //  4
-
-        Equipment__Container.ColumnDefinitions.Add(new ColumnDefinition(_cellSize * .5, GridUnitType.Pixel)); //  3.5
-
-        Equipment__Container.ColumnDefinitions.Add(new ColumnDefinition(_cellSize * 2, GridUnitType.Pixel)); //  1.5
-        Equipment__Container.ColumnDefinitions.Add(new ColumnDefinition(_cellSize * 1.5, GridUnitType.Pixel)); //  8.5
+        double totalWidth = (_cellSize * 6) + (_cellSize * 1.4) + (_cellSize * 0.8) + _cellSize;
+        Width = totalWidth;
     }
 
     public void Dispose()
     {
         Program.Services.GetRequiredService<IEventDispatcher>().RemoveObserver(this);
         GC.SuppressFinalize(this);
+    }
+
+    private void Grid_PointerEntered(object? sender, Avalonia.Input.PointerEventArgs e)
+    {
+        if (sender is not Grid itemGrid || itemGrid.Tag is not Item item)
+            return;
+
+        itemGrid.Background = new SolidColorBrush(new Color(0x80, item.AccentColor.R, item.AccentColor.G, item.AccentColor.B));
+
+        _popup = new()
+        {
+            Tag = item,
+            Child = new ItemPopup(item),
+            Placement = PlacementMode.RightEdgeAlignedTop,
+            PlacementTarget = itemGrid,
+        };
+
+        _popup.Opened += Popup_Opened;
+        _popup.Open();
+    }
+
+    // Required workaround, as Avalonia has no native tranparency support for popups.
+    private void Popup_Opened(object? sender, System.EventArgs e)
+    {
+        if (sender is not Popup popup)
+            return;
+
+        TopLevel? topLevelElem = TopLevel.GetTopLevel(popup.Child);
+
+        if (topLevelElem is null)
+            return;
+
+        topLevelElem.Background = Brushes.Transparent;
+    }
+
+    private void Grid_PointerExited(object? sender, Avalonia.Input.PointerEventArgs e)
+    {
+        if (sender is not Grid itemGrid || itemGrid.Tag is not Item item)
+            return;
+
+        itemGrid.Background = new SolidColorBrush(new Color(item.AccentColor.A, item.AccentColor.R, item.AccentColor.G, item.AccentColor.B));
+        _popup?.Close();
+        _popup = null;
     }
 }

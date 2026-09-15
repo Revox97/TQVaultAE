@@ -3,196 +3,217 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="using:TQVaultAE.Views.Controls"
+             xmlns:cvtr="using:TQVaultAE.Converters"
              xmlns:vm="using:TQVaultAE.ViewModels"
              mc:Ignorable="d"
              x:DataType="vm:EquipmentControlViewModel"
              x:Name="root"
-             x:Class="TQVaultAE.Views.Controls.EquipmentControl">
-    <Grid x:Name="Equipment__Container" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <Grid.Background>
-            <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_background.png"
-                        AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-        </Grid.Background>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="15"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="10"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="50"/>
-            <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="50"/>
-            <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="50"/>
-            <ColumnDefinition Width="10"/>
-        </Grid.ColumnDefinitions>
+             x:Class="TQVaultAE.Views.Controls.EquipmentControl"
+             d:DesignHeight="850" d:DesignWidth="600">
+    <UserControl.Resources>
+        <cvtr:SystemToAvaloniaBitmapConverter x:Key="SystemToAvaloniaBitmapConverter"/>
+        <cvtr:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
+    </UserControl.Resources>
+    <Grid x:Name="EquipmentControl__Container" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Image Source="avares://TQVaultAE/Assets/Img/EquipmentBackground.png" Stretch="Fill"
+               HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
-        <!-- WEAPON 1 -->
-        <Border Grid.Row="1" Grid.RowSpan="4" Grid.Column="1">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_weapon1_background.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
-        <!-- TODO item is init and therefore binding is not possible, find a solution -->
-        <!--<local:ItemControl Grid.Row="2" Grid.RowSpan="2" Grid.Column="1" Item="{Binding ViewModel.Equipment.PrimaryWeaponSetOne, ElementName=root}" />-->
-        <Border Grid.Row="1" Grid.RowSpan="4" Grid.Column="1">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_weapon1_overlay.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
+        <Grid x:Name="Equipment__Container" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.8*" />
+                <ColumnDefinition Width="2*"   />
+                <ColumnDefinition Width=".7*"  />
+                <ColumnDefinition Width="2*"   />
+                <ColumnDefinition Width=".7*"  />
+                <ColumnDefinition Width="2*"   />
+                <ColumnDefinition Width="*"    />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height=".6*"/>
+                    <RowDefinition Height="4.7*"/>
+                    <RowDefinition Height=".9*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height=".7*"/>
+                    <RowDefinition Height="4.7*"/>
+                    <RowDefinition Height=".5*"/>
+                </Grid.RowDefinitions>
 
-        <!-- HEAD ARMOR -->
-        <Border Grid.Row="1" Grid.Column="3">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_head_background.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
-        <Border Grid.Row="1" Grid.Column="3">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_head_overlay.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
+                <!-- Primary Weapon Set One -->
+                <Grid Background="{Binding ViewModel.Equipment.PrimaryWeaponSetOne.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
+                      Grid.Row="1"
+                      Tag="{Binding ViewModel.Equipment.PrimaryWeaponSetOne, ElementName=root}"
+                      PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="0.5*"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="1"
+                           Source="{Binding ViewModel.Equipment.PrimaryWeaponSetOne.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
 
-        <!-- SHIELD 1 -->
-        <Border Grid.Row="1" Grid.RowSpan="4" Grid.Column="5">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_shield1_background.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
-        <Border Grid.Row="1" Grid.RowSpan="4" Grid.Column="5">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_shield1_overlay.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
+                <!-- Artifact -->
+                <Grid Background="{Binding ViewModel.Equipment.Artifact.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
+                      Grid.Row="3" IsHitTestVisible="True"
+                      Tag="{Binding ViewModel.Equipment.Artifact, ElementName=root}"
+                      PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
+                    <Image Source="{Binding ViewModel.Equipment.Artifact.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
 
-        <!-- NECKLACE -->
-        <Border Grid.Row="3" Grid.Column="3">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_necklace_background.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
-        <Border Grid.Row="3" Grid.Column="3">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_necklace_overlay.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
+                <!-- Primary Weapon Set Two -->
+                <Grid Background="{Binding ViewModel.Equipment.PrimaryWeaponSetTwo.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
+                      Grid.Row="5"
+                      Tag="{Binding ViewModel.Equipment.PrimaryWeaponSetTwo, ElementName=root}"
+                      PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="0.5*"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="1"
+                        Source="{Binding ViewModel.Equipment.PrimaryWeaponSetTwo.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </Grid>
 
-        <!-- BODY ARMOR -->
-        <Border Grid.Row="5" Grid.RowSpan="2" Grid.Column="3">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_torso_background.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
-        <Border Grid.Row="5" Grid.RowSpan="2" Grid.Column="3">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_torso_overlay.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
+            <Grid Grid.Column="3" Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height=".5*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height=".8*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height=".7*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height=".7*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height=".7*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="1.25*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Head -->
+                <!-- TODO Add hover effects and popup like in item control -->
+                 <Grid Background="{Binding ViewModel.Equipment.Head.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
+                       Grid.Row="1" Grid.ColumnSpan="2"
+                       Tag="{Binding ViewModel.Equipment.Head, ElementName=root}"
+                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
+                    <Image
+                           Source="{Binding ViewModel.Equipment.Head.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
 
-        <!-- RELIC -->
-        <Border Grid.Row="6" Grid.Column="1">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_artifact_background.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
-        <Border Grid.Row="6" Grid.Column="1">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_artifact_overlay.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
+                <!-- Amulet -->
+                 <Grid Background="{Binding ViewModel.Equipment.Amulet.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
+                       Grid.Row="3" Grid.ColumnSpan="2"
+                       Tag="{Binding ViewModel.Equipment.Amulet, ElementName=root}"
+                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
+                    <Image 
+                           Source="{Binding ViewModel.Equipment.Amulet.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                           Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
 
-        <!-- ARM ARMOR -->
-        <Border Grid.Row="6" Grid.Column="5">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_arms_background.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
-        <Border Grid.Row="6" Grid.Column="5">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_arms_overlay.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
+                <!-- Body -->
+                 <Grid Background="{Binding ViewModel.Equipment.Body.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
+                       Grid.Row="5" Grid.ColumnSpan="2"
+                       Tag="{Binding ViewModel.Equipment.Body, ElementName=root}"
+                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
+                    <Image 
+                           Source="{Binding ViewModel.Equipment.Body.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+
+                <!-- Legs -->
+                <Grid Background="{Binding ViewModel.Equipment.Legs.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
+                      Grid.Row="7" Grid.ColumnSpan="2"
+                      Tag="{Binding ViewModel.Equipment.Legs, ElementName=root}"
+                      PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
+                    <Image 
+                           Source="{Binding ViewModel.Equipment.Legs.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+
+                <!-- Ring 1 -->
+                 <Grid Background="{Binding ViewModel.Equipment.RingOne.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
+                       Grid.Row="9" Grid.Column="0"
+                       Tag="{Binding ViewModel.Equipment.RingOne, ElementName=root}"
+                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
+                    <Image 
+                           Source="{Binding ViewModel.Equipment.RingOne.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+
+                <!-- Ring 2 -->
+                <Grid Background="{Binding ViewModel.Equipment.RingTwo.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}" 
+                      Grid.Row="9" Grid.Column="1"
+                      Tag="{Binding ViewModel.Equipment.RingTwo, ElementName=root}"
+                      PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
+                    <Image 
+                           Source="{Binding ViewModel.Equipment.RingTwo.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="5" Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height=".6*"/>
+                    <RowDefinition Height="4.7*"/>
+                    <RowDefinition Height=".9*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height=".7*"/>
+                    <RowDefinition Height="4.7*"/>
+                    <RowDefinition Height=".5*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Secundary Weapon Set One -->
+                <Grid Background="{Binding ViewModel.Equipment.SecundaryWeaponSetOne.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
+                      Grid.Row="1"
+                      Tag="{Binding ViewModel.Equipment.SecundaryWeaponSetOne, ElementName=root}"
+                      PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="0.5*"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="1"
+                        Source="{Binding ViewModel.Equipment.SecundaryWeaponSetOne.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+
+                <!-- Arms -->
+                <Grid Background="{Binding ViewModel.Equipment.Arms.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
+                      Grid.Row="3"
+                      Tag="{Binding ViewModel.Equipment.Arms, ElementName=root}"
+                      PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
+                    <Image Source="{Binding ViewModel.Equipment.Arms.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+
+                <!-- Secundary Weapon Set Two -->
+                <Grid Background="{Binding ViewModel.Equipment.SecundaryWeaponSetTwo.AccentColor, Converter={StaticResource ColorToBrushConverter}, ElementName=root}"
+                      Grid.Row="5"
+                      Tag="{Binding ViewModel.Equipment.SecundaryWeaponSetTwo, ElementName=root}"
+                      PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="0.5*"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="1"
+                        Source="{Binding ViewModel.Equipment.SecundaryWeaponSetTwo.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                           Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </Grid>
+
+        </Grid>
+
+        <Image Source="avares://TQVaultAE/Assets/Img/EquipmentOverlay.png" Stretch="Fill" IsHitTestVisible="False"
+               HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         
-        <!-- WEAPON 2 -->
-        <Border Grid.Row="8" Grid.RowSpan="4" Grid.Column="1">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_weapon2_background.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
-        <Border Grid.Row="8" Grid.RowSpan="4" Grid.Column="1">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_weapon2_overlay.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
-
-        <!-- FOOT ARMOR -->
-        <Border Grid.Row="8" Grid.Column="3">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_legs_background.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
-        <Border Grid.Row="8" Grid.Column="3">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_legs_overlay.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
-
-        <!-- SHIELD 2 -->
-        <Border Grid.Row="8" Grid.RowSpan="4" Grid.Column="5">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_shield2_background.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
-        <Border Grid.Row="8" Grid.RowSpan="4" Grid.Column="5">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_shield2_overlay.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
-
-        <!-- Rings -->
-        <!-- TODO: Split into two separate ui elements -->
-        <Border Grid.Row="10" Grid.Column="3">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_rings_background.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
-        <Border Grid.Row="10" Grid.Column="3">
-            <Border.Background>
-                <ImageBrush Source="avares://TQVaultAE/Assets/Img/equipment_rings_overlay.png"
-                            AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
-            </Border.Background>
-        </Border>
     </Grid>
 </UserControl>
