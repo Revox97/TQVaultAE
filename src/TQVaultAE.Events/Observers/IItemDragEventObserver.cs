@@ -1,0 +1,14 @@
+﻿using TQVaultAE.Events.Events;
+
+namespace TQVaultAE.Events.Observers
+{
+    public interface IItemDragEventObserver : IEventObserver
+    {
+        /// <summary>
+        /// Notifies the <see cref="IGameDataObserver"/> about changes to the game data.
+        /// </summary>
+        /// <param name="sender">The sender of the <see cref="GameDataLoadedEvent"/>.</param>
+        /// <param name="event">The <see cref="GameDataLoadedEvent"/>.</param>
+        void Notify(object sender, ItemDragEvent @event);
+    }
+}

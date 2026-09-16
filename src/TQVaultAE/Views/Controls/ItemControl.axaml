@@ -11,7 +11,8 @@
              x:Name="root"
              x:DataType="model:Item"
              PointerEntered="UserControl_PointerEntered"
-             PointerExited="UserControl_PointerExited">
+             PointerExited="UserControl_PointerExited"
+             PointerReleased="UserControl_PointerReleased">
     <UserControl.Resources>
         <cvtr:ItemTypeToAccentColorConverter x:Key="ItemTypeToAccentColorConverter"/>
         <cvtr:SystemToAvaloniaBitmapConverter x:Key="SystemToAvaloniaBitmapConverter"/>

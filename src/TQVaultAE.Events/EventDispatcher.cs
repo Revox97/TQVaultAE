@@ -24,6 +24,7 @@ namespace TQVaultAE.Events
             _handlers.Add(typeof(SettingsEvent), new SettingsEventHandler());
             _handlers.Add(typeof(MainWindowChangedEvent), new MainWindowChangedEventHandler());
             _handlers.Add(typeof(GameDataLoadedEvent), new GameDataEventHandler());
+            _handlers.Add(typeof(ItemDragEvent), new ItemDragEventHandler());
         }
 
         void IEventDispatcher.AddObserver(IEventObserver observer)

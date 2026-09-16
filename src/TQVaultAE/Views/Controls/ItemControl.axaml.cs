@@ -1,7 +1,12 @@
 using System;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls.Primitives;
 using Avalonia.Media;
+using Microsoft.Extensions.DependencyInjection;
+using TQVaultAE.Events;
+using TQVaultAE.Events.Events;
 using TQVaultAE.Model.Items;
 
 namespace TQVaultAE.Views.Controls;
@@ -10,6 +15,7 @@ public partial class ItemControl : UserControl
 {
     // TODO Move into view model
     private Popup? _popup;
+
     public Item Item { get; init; }
 
     // Needed for XAML Designer
@@ -46,7 +52,7 @@ public partial class ItemControl : UserControl
     }
 
     // Required workaround, as Avalonia has no native tranparency support for popups.
-    private void Popup_Opened(object? sender, System.EventArgs e)
+    private void Popup_Opened(object? sender, EventArgs e)
     {
         if (sender is not Popup popup)
             return;
@@ -84,5 +90,26 @@ public partial class ItemControl : UserControl
     public void PropertiesCommand()
     {
         throw new NotImplementedException();
+    }
+
+    private void UserControl_PointerReleased(object? sender, Avalonia.Input.PointerReleasedEventArgs e)
+    {
+        if (Avalonia.Application.Current!.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop)
+            return;
+
+        if (sender is not ItemControl control)
+            return;
+
+        Point? point = this.TranslatePoint(new Point(control.Bounds.Left, control.Bounds.Right), desktop.MainWindow!);
+
+        if (point is null)
+            return;
+
+        Program.Services.GetRequiredService<IEventDispatcher>().Dispatch(this, new ItemDragEvent(ItemDragEventType.Start)
+        {
+            Item = Item,
+            Position = (Point)point,
+            Size = new Size(control.Bounds.Width, control.Bounds.Height)
+        });
     }
 }
