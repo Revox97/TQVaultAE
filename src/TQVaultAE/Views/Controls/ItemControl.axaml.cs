@@ -1,3 +1,4 @@
+using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Media;
@@ -63,5 +64,25 @@ public partial class ItemControl : UserControl
         ItemAccent.Fill = new SolidColorBrush(new Color(Item.AccentColor.A, Item.AccentColor.R, Item.AccentColor.G, Item.AccentColor.B));
         _popup?.Close();
         _popup = null;
+    }
+
+    public void DeleteCommand()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void CopyCommand()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void DuplicateCommand()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void PropertiesCommand()
+    {
+        throw new NotImplementedException();
     }
 }
