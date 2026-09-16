@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="using:TQVaultAE.Views.Controls"
              mc:Ignorable="d" d:DesignWidth="490" d:DesignHeight="550"
+             x:Name="root"
              x:Class="TQVaultAE.Views.Controls.VaultControl">
     <Grid x:Name="ControlContainer">
         <Grid.RowDefinitions>
@@ -37,6 +38,6 @@
                             AlignmentX="Left" AlignmentY="Top" Stretch="Fill" TileMode="None"/>
             </Button.Background>
         </Button>
-        <local:ItemsPanel x:Name="ItemsPanel" Grid.Row="2" Grid.Column="2" Rows="20" Columns="18"/>
+        <local:ItemsPanel x:Name="ItemsPanel" Grid.Row="2" Grid.Column="2" Rows="20" Columns="18" Items="{Binding SelectedTab.Items, ElementName=root}"/>
     </Grid>
 </UserControl>

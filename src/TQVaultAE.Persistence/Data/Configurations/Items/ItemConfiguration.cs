@@ -6,72 +6,106 @@ using TQVaultAE.Model.Items;
 
 namespace TQVaultAE.Persistence.Data.Configurations.Items
 {
+    // TODO Check only relevant data is mapped. Everything, that can be pulled from game db, should be pulled from there.
     public class ItemConfiguration : IEntityTypeConfiguration<Item>
     {
         public void Configure(EntityTypeBuilder<Item> builder)
         {
             builder.ToTable("items");
 
-            //builder.Property(x => x.Id)
-            //       .HasColumnName("id");
-            //builder.HasKey(x => x.Id);
-
-            builder.Property(x => x.Name)
-                   .IsRequired()
-                   .HasMaxLength(256)
-                   .HasColumnName("name");
-
-            //builder.Property(x => x.Classification)
-            //       .IsRequired()
-            //       .HasColumnName("classification");
-
-            //builder.Property(x => x.Class)
-            //       .IsRequired()
-            //       .HasColumnName("class");
-
             builder.Property(x => x.Position)
-                   .IsRequired()
                    .HasConversion(
-                       pos => JsonSerializer.Serialize(pos),
-                       value => JsonSerializer.Deserialize<Point>(value)
+                        pos => JsonSerializer.Serialize(pos),
+                        value => JsonSerializer.Deserialize<Point>(value)
                    )
                    .HasColumnName("position")
                    .HasColumnType("TEXT");
 
-            //builder.Property(x => x.Size)
-            //       .IsRequired()
-            //       .HasConversion(
-            //           size => JsonSerializer.Serialize(size),
-            //           value => JsonSerializer.Deserialize<Size>(value)
-            //       )
-            //       .HasColumnName("size")
-            //       .HasColumnType("TEXT");
+            builder.Property(x => x.ResourcePath)
+                   .IsRequired()
+                   .HasColumnName("resource_path");
 
-            //builder.Property(x => x.IconDbPath)
-            //       .IsRequired()
-            //       .HasConversion(
-            //           uri => uri.ToString(),
-            //           value => new Uri(value)
-            //       )
-            //       .HasColumnName("icon_db_path")
-            //       .HasColumnType("TEXT");
+            builder.Property(x => x.Seed)
+                   .IsRequired()
+                   .HasColumnName("seed");
 
-            // TODO might be an issue with lists in SQLLite, maybe a separate table / json parsing is required
-            //builder.Property(x => x.BaseItemProperties)
-            //       .IsRequired();
+            builder.HasOne(x => x.Prefix)
+                   .WithMany()
+                   .HasForeignKey(x => x.PrefixId)
+                   .OnDelete(DeleteBehavior.NoAction);
 
-            // TODO might be an issue with lists in SQLLite, maybe a separate table / json parsing is required
-            //builder.Property(x => x.AdditionalItemProperties)
-            //       .IsRequired();
+            builder.Property(x => x.Prefix)
+                   .HasColumnName("prefix");
 
-            //builder.Property(x => x.ItemLevel)
-            //       .IsRequired()
-            //       .HasColumnName("level")
-            //       .HasDefaultValue(null);
+            builder.HasOne(x => x.Suffix)
+                   .WithMany()
+                   .HasForeignKey(x => x.SuffixId)
+                   .OnDelete(DeleteBehavior.NoAction);
 
-            //builder.Property(x => x.DatabasePath)
-            //       .IsRequired()
-            //       .HasColumnName("tq_db_path");
+            builder.Property(x => x.Suffix)
+                   .HasColumnName("suffix");
+
+            builder.HasOne(x => x.TalismanOne)
+                   .WithMany()
+                   .HasForeignKey(x => x.TalismanOneId)
+                   .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Property(x => x.TalismanOne)
+                   .HasColumnName("talisman_one");
+
+            builder.HasOne(x => x.TalismanTwo)
+                   .WithMany()
+                   .HasForeignKey(x => x.TalismanTwoId)
+                   .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Property(x => x.TalismanTwo)
+                   .HasColumnName("talisman_two");
+
+            builder.Property(x => x.Var1)
+                   .HasColumnName("var1");
+
+            builder.Property(x => x.Var2)
+                   .HasColumnName("var2");
+
+            builder.Property(x => x.Classification)
+                   .IsRequired()
+                   .HasColumnName("classification");
+
+            builder.Property(x => x.Cost)
+                   .HasColumnName("cost");
+
+            builder.Property(x => x.Level)
+                   .HasColumnName("level");
+
+            builder.Property(x => x.MaxTransparency)
+                   .HasColumnName("max_transparency");
+
+            builder.Property(x => x.Scale)
+                   .HasColumnName("scale");
+
+            builder.Property(x => x.TemplateName)
+                   .HasColumnName("template_name");
+
+            builder.Property(x => x.Size)
+                   .IsRequired()
+                   .HasConversion(
+                        size => $"{size.Height},{size.Width}",
+                        value => new Size(int.Parse(value.Split(',')[0]), int.Parse(value.Split(',')[1]))
+                   )
+                   .HasColumnName("size")
+                   .HasColumnType("TEXT");
+
+            builder.Property(x => x.Class)
+                   .IsRequired()
+                   .HasColumnName("class");
+
+            builder.Property(x => x.StackCount)
+                   .IsRequired()
+                   .HasColumnName("stack_count");
+
+            builder.Property(x => x.CanStack)
+                   .IsRequired()
+                   .HasColumnName("can_stack");
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using TQVaultAE.Model.Enumerations;
@@ -10,8 +11,12 @@ namespace TQVaultAE.Model.Items
     /// Represents a Titan Quest item.
     /// </summary>
     // TODO Make this abstract. Currently collides with ItemCreationStrategies
+    // TODO Clean up
     public class Item : INotifyPropertyChanged
     {
+        // TODO figure out how to handle item ids the best way.
+        public Guid Id { get; set; } = Guid.Empty;
+
         /// <summary>
         /// Gets or sets the position of the <see cref="Item"/> in its container.
         /// </summary>
@@ -25,11 +30,13 @@ namespace TQVaultAE.Model.Items
         /// <summary>
         /// Gets or sets the name of the <see cref="Item"/>.
         /// </summary>
+        [NotMapped]
         public virtual string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the description of the <see cref="Item"/>.
         /// </summary>
+        [NotMapped]
         public string Description { get; set; } = string.Empty;
 
         /// <summary>
@@ -37,47 +44,64 @@ namespace TQVaultAE.Model.Items
         /// </summary>
         public int Seed { get; set; }
 
+        // TODO Make this a guid? How should the id be defined?
+        public string PrefixId { get; set; } = string.Empty;
+
         /// <summary>
         /// Gets or sets the prefix of the <see cref="Item"/>.
         /// </summary>
         public Affix? Prefix { get; set; } = null;
+
+        // TODO Make this a guid? How should the id be defined?
+        public string SuffixId { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the suffix of the <see cref="Item"/>.
         /// </summary>
         public Affix? Suffix { get; set; } = null;
 
+        // TODO Make this a guid? How should the id be defined?
+        public string TalismanOneId { get; set; } = string.Empty;
+
         /// <summary>
         /// Gets or sets the first relic of the <see cref="Item"/>.
         /// </summary>
-        public TalismanItem? RelicOne { get; set; }
+        public TalismanItem? TalismanOne { get; set; }
+
+        // TODO Make this a guid? How should the id be defined?
+        public string TalismanTwoId { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the second relic of the <see cref="Item"/>. 
         /// </summary>
-        public TalismanItem? RelicTwo { get; set; }
+        public TalismanItem? TalismanTwo { get; set; }
 
         // TODO Currently no clue what these are used for.
         // Seems to be the stack size of relics on an item.
         public int Var1 { get; set; }
+
         public int Var2 { get; set; }
 
         /// <summary>
         /// Gets or sets the requirements to equip the <see cref="Item"/>.
         /// </summary>
+        [NotMapped]
         public ObservableCollection<ItemRequirement> Requirements { get; set; } = [];
 
         /// <summary>
         /// Gets or sets the bitmap of the <see cref="Item"/> icon.
         /// </summary>
+        [NotMapped]
         public virtual Bitmap Icon { get; set; } = null!;
 
         /// <summary>
         /// Gets the accent color of the <see cref="Item"/>.
         /// </summary>
+        [NotMapped]
         public virtual Color AccentColor => Color.FromArgb(0x10, Color);
 
         // Let each type handle its color, then make it abstract.
+        [NotMapped]
         public virtual Color Color { get; }
 
         /// <summary>
@@ -104,6 +128,7 @@ namespace TQVaultAE.Model.Items
         /// <summary>
         /// Gets or sets the properties of the <see cref="Item"/>.
         /// </summary>
+        [NotMapped]
         public ObservableCollection<ItemProperty> Properties { get; set; } = [];
 
         /// <summary>
@@ -136,6 +161,7 @@ namespace TQVaultAE.Model.Items
 
         public bool CanStack { get; set; } = false;
 
+        [NotMapped]
         public virtual bool ShowIconAccent => true;
 
         public event PropertyChangedEventHandler? PropertyChanged;

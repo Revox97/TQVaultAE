@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -12,7 +14,9 @@ namespace TQVaultAE.ViewModels
 {
     public sealed class LoadingWindowViewModel : ObservableObject
     {
-        private readonly float _taskCount = 7; 
+        private static readonly SemaphoreSlim s_taskCompletionSemaphore = new(1, 1);
+
+        private readonly float _taskCount = 8; 
 
         public double Progress
         {
@@ -35,32 +39,42 @@ namespace TQVaultAE.ViewModels
 
             try
             {
-                // Run all in paralell
-                await Program.Services.GetRequiredService<ITitanQuestDatabaseService>().InitializeAsync();
-                Progress += 100 / _taskCount;
-                
                 IGameIconService gameIconService = Program.Services.GetRequiredService<IGameIconService>();
 
-                await gameIconService.InitializeAsync("Items");
-                Progress += 100 / _taskCount;
-                await gameIconService.InitializeAsync("xpack\\Items");
-                Progress += 100 / _taskCount;
-                await gameIconService.InitializeAsync("XPack2\\Items");
-                Progress += 100 / _taskCount;
-                await gameIconService.InitializeAsync("XPack3\\Items");
-                Progress += 100 / _taskCount;
-                await gameIconService.InitializeAsync("XPack4\\Item");
-                Progress += 100 / _taskCount;
+                List<Task> initalizationTasks = [];
 
-                await Program.Services.GetRequiredService<IGameLocalizationService>().InitializeAsync();
-                Progress += 100 / _taskCount;
+                initalizationTasks.Add(HandleTaskAsync(Program.Services.GetRequiredService<ITitanQuestDatabaseService>().InitializeAsync()));
+                initalizationTasks.Add(HandleTaskAsync(gameIconService.InitializeAsync("Items")));
+                initalizationTasks.Add(HandleTaskAsync(gameIconService.InitializeAsync("Menu")));
+                initalizationTasks.Add(HandleTaskAsync(gameIconService.InitializeAsync("xpack\\Items")));
+                initalizationTasks.Add(HandleTaskAsync(gameIconService.InitializeAsync("XPack2\\Items")));
+                initalizationTasks.Add(HandleTaskAsync(gameIconService.InitializeAsync("XPack3\\Items")));
+                initalizationTasks.Add(HandleTaskAsync(gameIconService.InitializeAsync("XPack4\\Item")));
+                initalizationTasks.Add(HandleTaskAsync(Program.Services.GetRequiredService<IGameLocalizationService>().InitializeAsync()));
 
+                Task.WaitAll(initalizationTasks);
                 App.Current!.Dispatcher.Invoke(() => Program.Services.GetRequiredService<IEventDispatcher>().Dispatch(this, new GameDataLoadedEvent()));
             }
             catch(Exception ex)
             {
 
             }
+        }
+
+        public async Task HandleTaskAsync(Task task)
+        {
+            await task;
+
+            try
+            {
+                s_taskCompletionSemaphore.Wait();
+                Progress += 100 / _taskCount;
+            }
+            finally
+            {
+                s_taskCompletionSemaphore.Release();
+            }
+
         }
     }
 }

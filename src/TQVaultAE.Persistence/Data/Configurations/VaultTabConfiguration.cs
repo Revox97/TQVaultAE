@@ -19,22 +19,21 @@ namespace TQVaultAE.Persistence.Data.Configurations
                    .HasMaxLength(200)
                    .HasColumnName("name");
 
-            builder.Property(x => x.Icon)
-                   .HasColumnName("icon");
+            //builder.HasOne(x => x.IconSet)
+            //       .WithMany()
+            //       .HasForeignKey(x => x.IconSetId)
+            //       .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne(x => x.Icon)
-                   .WithMany()
-                   .HasForeignKey(x => x.IconId)
-                   .IsRequired()
-                   .OnDelete(DeleteBehavior.Restrict);
+            //builder.Property(x => x.IconSet)
+            //       .HasColumnName("icon_set");
 
             builder.Property(x => x.Items)
                    .HasColumnName("items");
-            
-            //builder.HasMany(x => x.Items)
-            //       .WithOne()
-            //       .HasForeignKey(x => x.Id)
-            //       .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(x => x.Items)
+                   .WithOne()
+                   .HasForeignKey(x => x.Id)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

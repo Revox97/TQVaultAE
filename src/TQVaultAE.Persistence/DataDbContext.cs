@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TQVaultAE.Model.Enumerations;
 using TQVaultAE.Model.Items;
+using TQVaultAE.Model.UI;
 using TQVaultAE.Model.Vaults;
 
 namespace TQVaultAE.Persistence
@@ -12,6 +13,10 @@ namespace TQVaultAE.Persistence
         public DbSet<VaultTab> VaultTabs => Set<VaultTab>();
 
         public DbSet<Item> Items => Set<Item>();
+
+        public DbSet<Affix> Affixes => Set<Affix>();
+
+        public DbSet<IconSet> IconSets => Set<IconSet>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,7 +35,30 @@ namespace TQVaultAE.Persistence
             {
                 Id = Guid.Empty,
                 Name = "Main Vault", // TODO localize
-                Type = VaultType.Items
+                Type = VaultType.Items,
+                Tabs = [
+                    new VaultTab()
+                    {
+                        Id = Guid.NewGuid(),
+                        //IconSet = new IconSet(Guid.NewGuid(), "", "", ""),
+                        Items =
+                        [
+
+                        ],
+                        Name = "Default Tab 1",
+                    },
+                    new VaultTab(),
+                    new VaultTab(),
+                    new VaultTab(),
+                    new VaultTab(),
+                    new VaultTab(),
+                    new VaultTab(),
+                    new VaultTab(),
+                    new VaultTab(),
+                    new VaultTab(),
+                    new VaultTab(),
+                    new VaultTab(),
+                ]
             })));
 
             Task.WaitAll(tasks);
