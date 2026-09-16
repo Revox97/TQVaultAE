@@ -1,10 +1,10 @@
 using System;
+using System.ComponentModel;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.Media;
 using Microsoft.Extensions.DependencyInjection;
 using TQVaultAE.Events;
 using TQVaultAE.Events.Events;
@@ -78,11 +78,14 @@ public partial class MainPage : UserControl, IItemDragEventObserver
     {
         if (@event.Type is ItemDragEventType.End)
         {
+            // TODO Have a bindable property to handle the visibility
             ItemDragVisualLayer.IsVisible = false;
             ItemDragVisualLayer.Children.Clear();
             _isDraggingActive = false;
             return;
         }
+
+        Point position = @event.Position - @event.MouseOffset;
 
         if (@event.Type is ItemDragEventType.Start)
         {
@@ -99,15 +102,23 @@ public partial class MainPage : UserControl, IItemDragEventObserver
             };
 
             ItemDragVisualLayer.Children.Add(itemDragPopup);
+            Canvas.SetLeft(itemDragPopup, position.X);
+            Canvas.SetTop(itemDragPopup, position.Y);
+
             ItemDragVisualLayer.IsVisible = true;
             _isDraggingActive = true;
         }
 
-        ItemDragPopup popup = (ItemDragPopup)ItemDragVisualLayer.Children[0];
-        Point position = @event.Position;
+        if (_isDraggingActive && @event.Type is ItemDragEventType.CursorUpdate)
+        {
+            ItemDragPopup popup = (ItemDragPopup)ItemDragVisualLayer.Children[0];
 
-        Canvas.SetLeft(popup, position.X);
-        Canvas.SetTop(popup, position.Y);
+            double x = Math.Clamp(position.X, 0, ItemDragVisualLayer.Bounds.Width - popup.Bounds.Width);
+            double y = Math.Clamp(position.Y, 0, ItemDragVisualLayer.Bounds.Height - popup.Bounds.Height);
+
+            Canvas.SetLeft(popup, x);
+            Canvas.SetTop(popup, y);
+        }
     }
 
     public void Dispose()
@@ -124,10 +135,11 @@ public partial class MainPage : UserControl, IItemDragEventObserver
         });
     }
 
-    private void UserControl_PointerReleased(object? sender, PointerReleasedEventArgs e)
+    private void ContentControl_PropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
     {
-        // Temporary so dradding can end, without restarting the app
-        if (_isDraggingActive && e.InitialPressMouseButton is MouseButton.Right)
-            Program.Services.GetRequiredService<IEventDispatcher>().Dispatch(this, new ItemDragEvent(ItemDragEventType.End));
+        if (e.Property.Name != "Content")
+            return;
+
+        ItemDragVisualLayer.IsVisible = _isDraggingActive && e.NewValue is VaultPage;
     }
 }

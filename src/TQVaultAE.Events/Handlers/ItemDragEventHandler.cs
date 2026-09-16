@@ -1,4 +1,5 @@
-﻿using TQVaultAE.Events.Events;
+﻿using Avalonia;
+using TQVaultAE.Events.Events;
 using TQVaultAE.Events.Observers;
 
 namespace TQVaultAE.Events.Handlers
@@ -6,6 +7,7 @@ namespace TQVaultAE.Events.Handlers
     public class ItemDragEventHandler : IEventHandler
     {
         private bool _isDraggingActive = false;
+        private Point _mouseOffset;
 
         private readonly List<IItemDragEventObserver> _observers = [];
 
@@ -22,13 +24,20 @@ namespace TQVaultAE.Events.Handlers
             if (args is not ItemDragEvent @event)
                 return;
 
-            if (@event.Type == ItemDragEventType.Start && _isDraggingActive)
-                return;
+            if (@event.Type is ItemDragEventType.Start && !_isDraggingActive)
+            {
+                _mouseOffset = ((ItemDragEvent)args).MouseOffset;
+                _isDraggingActive = true;
+            }
 
-            if (@event.Type is ItemDragEventType.End or ItemDragEventType.CursorUpdate && !_isDraggingActive)
-                return;
+            if (@event.Type is ItemDragEventType.End && _isDraggingActive)
+            {
+                _mouseOffset = default;
+                _isDraggingActive = false;
+            }
 
-            _isDraggingActive = @event.Type is ItemDragEventType.Start or ItemDragEventType.CursorUpdate;
+            if (@event.Type is ItemDragEventType.CursorUpdate && _isDraggingActive)
+                @event.MouseOffset = _mouseOffset;
 
             foreach(IItemDragEventObserver observer in _observers)
             {

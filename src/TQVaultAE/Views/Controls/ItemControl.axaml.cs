@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using TQVaultAE.Events;
 using TQVaultAE.Events.Events;
 using TQVaultAE.Model.Items;
+using TQVaultAE.Views.Pages;
+using TQVaultAE.Views.Windows;
 
 namespace TQVaultAE.Views.Controls;
 
@@ -94,22 +96,29 @@ public partial class ItemControl : UserControl
 
     private void UserControl_PointerReleased(object? sender, Avalonia.Input.PointerReleasedEventArgs e)
     {
-        if (Avalonia.Application.Current!.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop)
+        if (Avalonia.Application.Current!.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop || sender is not ItemControl control)
             return;
 
-        if (sender is not ItemControl control)
+        Window? mainWindow = desktop.MainWindow;
+        if (mainWindow is null)
             return;
 
-        Point? point = this.TranslatePoint(new Point(control.Bounds.Left, control.Bounds.Right), desktop.MainWindow!);
+        // TODO clean up (and find better solution) - this is ugly as fuck
+        Canvas visualLayer = ((MainPage)((TQWindow)mainWindow).ContentContainer.Children[0]).ItemDragVisualLayer;
 
-        if (point is null)
+        Point? controlPosition = this.TranslatePoint(new Point(0,0), visualLayer);
+
+        if (controlPosition is null)
             return;
+
+        Point mouseOffset = e.GetPosition(control);
 
         Program.Services.GetRequiredService<IEventDispatcher>().Dispatch(this, new ItemDragEvent(ItemDragEventType.Start)
         {
             Item = Item,
-            Position = (Point)point,
-            Size = new Size(control.Bounds.Width, control.Bounds.Height)
+            Position = controlPosition.Value,
+            Size = new Size(control.Bounds.Width, control.Bounds.Height),
+            MouseOffset = mouseOffset,
         });
     }
 }

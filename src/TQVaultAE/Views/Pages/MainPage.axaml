@@ -3,11 +3,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:TQVaultAE.ViewModels"
-             xmlns:ctrl="using:TQVaultAE.Views.Controls"
              x:DataType="vm:MainPageViewModel"
              mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="500"
              PointerMoved="UserControl_PointerMoved"
-             PointerReleased="UserControl_PointerReleased"
+             x:Name="Root"
              x:Class="TQVaultAE.Views.Pages.MainPage">
     <UserControl.Styles>
         <StyleInclude Source="avares://TQVaultAE/Styles/ButtonStyles.axaml"/>
@@ -38,13 +37,17 @@
             </StackPanel>
         </DockPanel>
         <Border Grid.Row="1" x:Name="ContentContainer">
-            <ContentControl Content="{Binding CurrentPage}"/>
+            <ContentControl Content="{Binding CurrentPage}" PropertyChanged="ContentControl_PropertyChanged"/>
         </Border>
 
         <!-- Drag visual layer -->
-        <Canvas Grid.Row="0" Grid.RowSpan="3" x:Name="ItemDragVisualLayer"
-                Background="Transparent"
-                IsVisible="True" IsHitTestVisible="False">
-        </Canvas>
+        <Border ClipToBounds="True" Grid.Row="1" Grid.RowSpan="2">
+            <Canvas x:Name="ItemDragVisualLayer"
+                    Background="Transparent"
+                    ClipToBounds="True"
+                    IsVisible="False"
+                    IsHitTestVisible="False">
+            </Canvas>
+        </Border>
     </Grid>
 </UserControl>
