@@ -1,7 +1,9 @@
 using System;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls.Primitives;
+using Avalonia.Input;
 using Avalonia.Media;
 using Microsoft.Extensions.DependencyInjection;
 using TQVaultAE.Events;
@@ -73,7 +75,7 @@ public partial class EquipmentControl : UserControl, IMainWindowChangedObserver
         GC.SuppressFinalize(this);
     }
 
-    private void Grid_PointerEntered(object? sender, Avalonia.Input.PointerEventArgs e)
+    private void Grid_PointerEntered(object? sender, PointerEventArgs e)
     {
         if (sender is not Grid itemGrid || itemGrid.Tag is not Item item)
             return;
@@ -93,7 +95,7 @@ public partial class EquipmentControl : UserControl, IMainWindowChangedObserver
     }
 
     // Required workaround, as Avalonia has no native tranparency support for popups.
-    private void Popup_Opened(object? sender, System.EventArgs e)
+    private void Popup_Opened(object? sender, EventArgs e)
     {
         if (sender is not Popup popup)
             return;
@@ -106,7 +108,7 @@ public partial class EquipmentControl : UserControl, IMainWindowChangedObserver
         topLevelElem.Background = Brushes.Transparent;
     }
 
-    private void Grid_PointerExited(object? sender, Avalonia.Input.PointerEventArgs e)
+    private void Grid_PointerExited(object? sender, PointerEventArgs e)
     {
         if (sender is not Grid itemGrid || itemGrid.Tag is not Item item)
             return;
@@ -114,5 +116,29 @@ public partial class EquipmentControl : UserControl, IMainWindowChangedObserver
         itemGrid.Background = new SolidColorBrush(new Color(item.AccentColor.A, item.AccentColor.R, item.AccentColor.G, item.AccentColor.B));
         _popup?.Close();
         _popup = null;
+    }
+
+    private void Grid_PointerReleased(object? sender, PointerReleasedEventArgs e)
+    {
+        if (e.InitialPressMouseButton != MouseButton.Left)
+            return;
+
+        if (sender is not Grid control || control.Tag is not Item item)
+            return;
+
+        if (Avalonia.Application.Current!.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop)
+            return;
+
+        Point? point = this.TranslatePoint(new Point(control.Bounds.Left, control.Bounds.Right), desktop.MainWindow!);
+
+        if (point is null)
+            return;
+
+        Program.Services.GetRequiredService<IEventDispatcher>().Dispatch(this, new ItemDragEvent(ItemDragEventType.Start)
+        {
+            Item = item,
+            Position = (Point)point,
+            Size = new Size(control.Bounds.Width, control.Bounds.Height)
+        });
     }
 }
