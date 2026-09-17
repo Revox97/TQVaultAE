@@ -22,14 +22,6 @@ namespace TQVaultAE.Persistence.Data.Configurations
                    .IsRequired()
                    .HasMaxLength(200)
                    .HasColumnName("name");
-
-            builder.Property(x => x.Tabs)
-                   .HasColumnName("tabs");
-
-            builder.HasMany(x => x.Tabs)
-                   .WithOne(x => x.Vault)
-                   .HasForeignKey(x => x.VaultId)
-                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

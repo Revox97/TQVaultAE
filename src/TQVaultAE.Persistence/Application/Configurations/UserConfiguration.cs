@@ -20,14 +20,14 @@ namespace TQVaultAE.Persistence.Application.Configurations
                    .IsRequired()
                    .HasColumnName("name");
 
-            builder.Property(x => x.Settings)
-                   .HasColumnName("settings_id");
-
             builder.HasOne(x => x.Settings)
                    .WithMany()
                    .HasForeignKey(x => x.SettingsId)
-                   .OnDelete(DeleteBehavior.Cascade)
-                   .IsRequired();
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Property(x => x.SettingsId)
+                   .IsRequired()
+                   .HasColumnName("settings_id");
         }
     }
 }

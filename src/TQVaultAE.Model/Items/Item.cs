@@ -61,7 +61,7 @@ namespace TQVaultAE.Model.Items
         public Affix? Suffix { get; set; } = null;
 
         // TODO Make this a guid? How should the id be defined?
-        public string TalismanOneId { get; set; } = string.Empty;
+        public Guid TalismanOneId { get; set; }
 
         /// <summary>
         /// Gets or sets the first relic of the <see cref="Item"/>.
@@ -69,7 +69,7 @@ namespace TQVaultAE.Model.Items
         public TalismanItem? TalismanOne { get; set; }
 
         // TODO Make this a guid? How should the id be defined?
-        public string TalismanTwoId { get; set; } = string.Empty;
+        public Guid TalismanTwoId { get; set; }
 
         /// <summary>
         /// Gets or sets the second relic of the <see cref="Item"/>. 

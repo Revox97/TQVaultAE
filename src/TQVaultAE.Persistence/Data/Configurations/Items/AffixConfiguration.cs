@@ -11,6 +11,8 @@ namespace TQVaultAE.Persistence.Data.Configurations.Items
         {
             builder.ToTable("affix");
 
+            builder.HasKey(x => x.Path);
+
             builder.Property(x => x.Path)
                    .IsRequired()
                    .HasColumnName("path");

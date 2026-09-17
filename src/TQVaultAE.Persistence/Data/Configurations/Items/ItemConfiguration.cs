@@ -15,8 +15,8 @@ namespace TQVaultAE.Persistence.Data.Configurations.Items
 
             builder.Property(x => x.Position)
                    .HasConversion(
-                        pos => JsonSerializer.Serialize(pos),
-                        value => JsonSerializer.Deserialize<Point>(value)
+                        pos => $"{pos.X},{pos.Y}",
+                        value => new Point(int.Parse(value.Split(',')[0]), int.Parse(value.Split(',')[1]))
                    )
                    .HasColumnName("position")
                    .HasColumnType("TEXT");
@@ -34,7 +34,7 @@ namespace TQVaultAE.Persistence.Data.Configurations.Items
                    .HasForeignKey(x => x.PrefixId)
                    .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Property(x => x.Prefix)
+            builder.Property(x => x.PrefixId)
                    .HasColumnName("prefix");
 
             builder.HasOne(x => x.Suffix)
@@ -42,7 +42,7 @@ namespace TQVaultAE.Persistence.Data.Configurations.Items
                    .HasForeignKey(x => x.SuffixId)
                    .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Property(x => x.Suffix)
+            builder.Property(x => x.SuffixId)
                    .HasColumnName("suffix");
 
             builder.HasOne(x => x.TalismanOne)
@@ -50,7 +50,7 @@ namespace TQVaultAE.Persistence.Data.Configurations.Items
                    .HasForeignKey(x => x.TalismanOneId)
                    .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Property(x => x.TalismanOne)
+            builder.Property(x => x.TalismanOneId)
                    .HasColumnName("talisman_one");
 
             builder.HasOne(x => x.TalismanTwo)
@@ -58,7 +58,7 @@ namespace TQVaultAE.Persistence.Data.Configurations.Items
                    .HasForeignKey(x => x.TalismanTwoId)
                    .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Property(x => x.TalismanTwo)
+            builder.Property(x => x.TalismanTwoId)
                    .HasColumnName("talisman_two");
 
             builder.Property(x => x.Var1)

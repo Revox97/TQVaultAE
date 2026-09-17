@@ -28,23 +28,14 @@ namespace TQVaultAE.Model.Vaults
 
         // TODO Make it bitmaps and use game icons.
         [JsonPropertyName("iconId")]
-        public Guid IconId { get; set; }
+        public string IconId { get; set; } = "defaultIconSet";
 
+        // TODO rename to IconSet and adjust type definition
         [JsonIgnore]
-        public IconSet Icon { get; set; } = new IconSet(
-            "defaultIconSet",
-            new Icon("defaultIcon_up", new Uri("avares://TQVaultAE/Assets/Img/button_inventorybag_up.png")),
-            new Icon("defaultIcon_down", new Uri("avares://TQVaultAE/Assets/Img/button_inventorybag_down.png")),
-            new Icon("defaultIcon_hover", new Uri("avares://TQVaultAE/Assets/Img/button_inventorybag_over.png")));
-
-        /// <summary>
-        /// Gets or sets which item slots are currently allocated.
-        /// </summary>
-        [JsonIgnore]
-        public bool[,] SlotAllocation { get; set; } = new bool[Rows,Columns];
+        public IconSet Icon { get; set; } = null!;
 
         [JsonPropertyName("items")]
-        public List<Item> Items { get; set; } = [];
+        public ICollection<Item> Items { get; set; } = [];
 
         /// <summary>
         /// Adds an <see cref="ItemBase"/> to the <see cref="VaultTab"/>.

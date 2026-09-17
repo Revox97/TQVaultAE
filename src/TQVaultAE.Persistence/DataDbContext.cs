@@ -3,6 +3,7 @@ using TQVaultAE.Model.Enumerations;
 using TQVaultAE.Model.Items;
 using TQVaultAE.Model.UI;
 using TQVaultAE.Model.Vaults;
+using TQVaultAE.Persistence.Data.Entities;
 
 namespace TQVaultAE.Persistence
 {
@@ -13,6 +14,8 @@ namespace TQVaultAE.Persistence
         public DbSet<VaultTab> VaultTabs => Set<VaultTab>();
 
         public DbSet<Item> Items => Set<Item>();
+
+        public DbSet<ItemToVaultTab> ItemsToVaultTab => Set<ItemToVaultTab>();
 
         public DbSet<Affix> Affixes => Set<Affix>();
 
@@ -29,39 +32,42 @@ namespace TQVaultAE.Persistence
 
         public async Task CreateDatabaseAsync()
         {
-            List<Task> tasks = [];
-
-            tasks.Add(Task.Run(() => Vaults.AddAsync(new Vault()
+            try
             {
-                Id = Guid.Empty,
-                Name = "Main Vault", // TODO localize
-                Type = VaultType.Items,
-                Tabs = [
-                    new VaultTab()
+                string defaultIconSetId = "defaultIconSet";
+
+                await IconSets.AddAsync(new IconSet(
+                    defaultIconSetId,
+                    new Icon("defaultIcon_up", new Uri("avares://TQVaultAE/Assets/Img/button_inventorybag_up.png")),
+                    new Icon("defaultIcon_down", new Uri("avares://TQVaultAE/Assets/Img/button_inventorybag_down.png")),
+                    new Icon("defaultIcon_hover", new Uri("avares://TQVaultAE/Assets/Img/button_inventorybag_over.png"))
+                ));
+
+                Guid vaultId = Guid.NewGuid();
+                await Vaults.AddAsync(new Vault()
+                {
+                    Id = vaultId,
+                    Name = "Main Vault", // TODO localize
+                    Type = VaultType.Items,
+                    Tabs = [ ]
+                });
+
+                for (int i = 1; i < 13; i++)
+                {
+                    await VaultTabs.AddAsync(new VaultTab()
                     {
-                        Id = Guid.NewGuid(),
-                        //IconSet = new IconSet(Guid.NewGuid(), "", "", ""),
-                        Items =
-                        [
+                        VaultId = vaultId,
+                        IconId =  defaultIconSetId,
+                        Items = [],
+                        Name = $"Default Tab {i}",
+                    });
+                }
+            }
+            catch(Exception ex)
+            {
 
-                        ],
-                        Name = "Default Tab 1",
-                    },
-                    new VaultTab(),
-                    new VaultTab(),
-                    new VaultTab(),
-                    new VaultTab(),
-                    new VaultTab(),
-                    new VaultTab(),
-                    new VaultTab(),
-                    new VaultTab(),
-                    new VaultTab(),
-                    new VaultTab(),
-                    new VaultTab(),
-                ]
-            })));
+            }
 
-            Task.WaitAll(tasks);
             await SaveChangesAsync();
         }
     }

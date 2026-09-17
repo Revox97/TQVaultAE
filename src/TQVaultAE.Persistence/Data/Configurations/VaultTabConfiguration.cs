@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TQVaultAE.Model.Vaults;
+using TQVaultAE.Persistence.Data.Entities;
 
 namespace TQVaultAE.Persistence.Data.Configurations
 {
@@ -19,21 +20,54 @@ namespace TQVaultAE.Persistence.Data.Configurations
                    .HasMaxLength(200)
                    .HasColumnName("name");
 
-            //builder.HasOne(x => x.IconSet)
-            //       .WithMany()
-            //       .HasForeignKey(x => x.IconSetId)
-            //       .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(x => x.Vault)
+                   .WithMany()
+                   .HasForeignKey(x => x.VaultId)
+                   .OnDelete(DeleteBehavior.NoAction);
 
-            //builder.Property(x => x.IconSet)
-            //       .HasColumnName("icon_set");
+            builder.Property(x => x.VaultId)
+                   .IsRequired()
+                   .HasColumnName("vault_id");
 
-            builder.Property(x => x.Items)
-                   .HasColumnName("items");
+            builder.HasOne(x => x.Icon)
+                   .WithMany()
+                   .HasForeignKey(x => x.IconId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Property(x => x.IconId)
+                   .IsRequired()
+                   .HasColumnName("icon_id");
 
             builder.HasMany(x => x.Items)
-                   .WithOne()
-                   .HasForeignKey(x => x.Id)
-                   .OnDelete(DeleteBehavior.Cascade);
+                   .WithMany()
+                   .UsingEntity<ItemToVaultTab>(
+                        j => j.HasOne(x => x.Item)
+                              .WithMany()
+                              .HasForeignKey(x => x.ItemId),
+
+                        j => j.HasOne(x => x.VaultTab)
+                              .WithMany()
+                              .HasForeignKey(x => x.VaultTabId),
+
+                        j =>
+                        {
+                            j.ToTable("vault_tab_item");
+
+                            j.HasKey(x => new
+                            {
+                                x.VaultTabId,
+                                x.ItemId
+                            });
+
+                            j.Property(x => x.VaultTabId)
+                             .IsRequired()
+                             .HasColumnName("vault_tab_id");
+
+                            j.Property(x => x.ItemId)
+                             .IsRequired()
+                             .HasColumnName("item_id");
+                        }
+                   );
         }
     }
 }

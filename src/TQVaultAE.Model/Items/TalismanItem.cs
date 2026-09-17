@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Drawing;
 using TQVaultAE.Model.Enumerations;
 
 namespace TQVaultAE.Model.Items
@@ -22,6 +23,12 @@ namespace TQVaultAE.Model.Items
         /// </summary>
         public string Bonus { get; set; } = string.Empty;
 
+        // EF constructor
+        public TalismanItem()
+        {
+
+        }
+
         public TalismanItem(Item item)
         {
             Class = item.Class;
@@ -37,10 +44,13 @@ namespace TQVaultAE.Model.Items
             TalismanType = item.Class == ItemClass.ItemCharm ? TalismanType.Charm : TalismanType.Relic;
         }
 
+        [NotMapped]
         public Bitmap IconIncomplete { get; set; } = null!;
         
+        [NotMapped]
         public Bitmap IconComplete { get; set; } = null!;
 
+        [NotMapped]
         public override Bitmap Icon
         {
             get

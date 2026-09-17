@@ -31,7 +31,7 @@ namespace TQVaultAE
         private static async Task InitializeServices()
         {
             ServiceCollection services = new();
-            //InitializeDbContextFactories(ref services);
+            InitializeDbContextFactories(ref services);
 
             // Register viewModels, services, etc. here
             services.AddTransient<VaultPageViewModel>();
@@ -53,19 +53,36 @@ namespace TQVaultAE
 
             // Migrate database
             using IServiceScope scope = Services.CreateScope();
-            DataDbContext dataDb = scope.ServiceProvider.GetRequiredService<DataDbContext>();
-            await dataDb.Database.MigrateAsync();
 
-            ApplicationDbContext appDb = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            await appDb.Database.MigrateAsync();
+            try
+            {
+                DataDbContext dataDb = scope.ServiceProvider.GetRequiredService<DataDbContext>();
+                await dataDb.Database.MigrateAsync().ConfigureAwait(false);
 
-            // Create initial data
-            // TODO implement better check for initial startup
-            if (!await dataDb.Vaults.AnyAsync())
-                await dataDb.CreateDatabaseAsync();
+                // Create initial data
+                // TODO implement better check for initial startup
+                if (!await dataDb.Vaults.AnyAsync().ConfigureAwait(false))
+                    await dataDb.CreateDatabaseAsync().ConfigureAwait(false);
+            }
+            catch(Exception ex)
+            {
+                // TODO Add logging
+                throw;
+            }
 
-            if (!await appDb.Icons.AnyAsync())
-                await appDb.CreateDatabaseAsync();
+            try
+            {
+                ApplicationDbContext appDb = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                await appDb.Database.MigrateAsync().ConfigureAwait(false);
+
+                if (!await appDb.Icons.AnyAsync().ConfigureAwait(false))
+                    await appDb.CreateDatabaseAsync().ConfigureAwait(false);
+            }
+            catch(Exception ex)
+            {
+                // TODO Add logging
+                throw;
+            }
         }
 
         private static void InitializeDbContextFactories(ref ServiceCollection services)
@@ -74,11 +91,11 @@ namespace TQVaultAE
             string appDirectory = Path.Combine(appData, "TQVaultAE");
             Directory.CreateDirectory(appDirectory);
 
-            string databasePath = Path.Combine(appDirectory, "data.db");
-            services.AddDbContextFactory<DataDbContext>(options => options.UseSqlite($"Data Source={databasePath}"));
+            string dataDatabasePath = Path.Combine(appDirectory, "data.db");
+            string applicationDatabasePath = Path.Combine(appDirectory, "application.db");
 
-            databasePath = Path.Combine(appDirectory, "application.db");
-            services.AddDbContextFactory<DataDbContext>(options => options.UseSqlite($"Data Source={databasePath}"));
+            services.AddDbContextFactory<DataDbContext>(options => options.UseSqlite($"Data Source={dataDatabasePath}"));
+            services.AddDbContextFactory<ApplicationDbContext>(options => options.UseSqlite($"Data Source={applicationDatabasePath}"));
         }
 
         // Avalonia configuration, don't remove; also used by visual designer.

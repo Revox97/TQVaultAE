@@ -15,29 +15,29 @@ namespace TQVaultAE.Persistence.Application.Configurations
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.IconDown)
-                   .HasColumnName("icon_down");
-
             builder.HasOne(x => x.IconDown)
                    .WithMany()
                    .HasForeignKey(x => x.IconDownId)
                    .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Property(x => x.IconUp)
-                   .HasColumnName("icon_up");
+            builder.Property(x => x.IconDownId)
+                   .HasColumnName("icon_down");
 
             builder.HasOne(x => x.IconUp)
                    .WithMany()
                    .HasForeignKey(x => x.IconUpId)
                    .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Property(x => x.IconHover)
-                   .HasColumnName("icon_hover");
+            builder.Property(x => x.IconUpId)
+                   .HasColumnName("icon_up");
 
             builder.HasOne(x => x.IconHover)
                    .WithMany()
                    .HasForeignKey(x => x.IconHoverId)
                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Property(x => x.IconHoverId)
+                   .HasColumnName("icon_hover");
         }
     }
 }
