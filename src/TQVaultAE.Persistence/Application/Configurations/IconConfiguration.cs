@@ -15,13 +15,8 @@ namespace TQVaultAE.Persistence.Application.Configurations
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Uri)
-                   .HasConversion(
-                       uri => uri.ToString(),
-                       value => new Uri(value)
-                   )
-                   .HasColumnName("uri")
-                   .HasColumnType("TEXT");
+            builder.Property(x => x.ResourcePath)
+                   .HasColumnName("resource_path");
         }
     }
 }

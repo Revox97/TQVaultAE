@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TQVaultAE.Persistence;
 
@@ -10,9 +11,11 @@ using TQVaultAE.Persistence;
 namespace TQVaultAE.Persistence.Migrations.Data
 {
     [DbContext(typeof(DataDbContext))]
-    partial class DataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260917132109_AddIconIds")]
+    partial class AddIconIds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.12");
@@ -145,7 +148,7 @@ namespace TQVaultAE.Persistence.Migrations.Data
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ResourcePath")
+                    b.Property<string>("Uri")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

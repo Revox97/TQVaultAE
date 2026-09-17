@@ -15,17 +15,32 @@ namespace TQVaultAE.Persistence.Data.Configurations
                    .IsRequired()
                    .HasColumnName("id");
 
-            //builder.Property(x => x.IconDownResourcePath)
-            //       .IsRequired()
-            //       .HasColumnName("icon_down_resource_path");
+            builder.HasOne(x => x.IconDown)
+                   .WithMany()
+                   .HasForeignKey(x => x.IconDownId)
+                   .OnDelete(DeleteBehavior.Cascade);
 
-            //builder.Property(x => x.IconUpResourcePath)
-            //       .IsRequired()
-            //       .HasColumnName("icon_up_resource_path");
+            builder.Property(x => x.IconDownId)
+                   .IsRequired()
+                   .HasColumnName("icon_down_id");
 
-            //builder.Property(x => x.IconHoverResourcePath)
-            //       .IsRequired()
-            //       .HasColumnName("icon_hover_resource_path");
+            builder.HasOne(x => x.IconUp)
+                   .WithMany()
+                   .HasForeignKey(x => x.IconUpId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Property(x => x.IconUpId)
+                   .IsRequired()
+                   .HasColumnName("icon_up_id");
+
+            builder.HasOne(x => x.IconHover)
+                   .WithMany()
+                   .HasForeignKey(x => x.IconHoverId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Property(x => x.IconHoverId)
+                   .IsRequired()
+                   .HasColumnName("icon_hover_id");
         }
     }
 }

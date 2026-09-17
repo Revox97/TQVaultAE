@@ -29,12 +29,12 @@ namespace TQVaultAE.Persistence.Data.Configurations
                    .IsRequired()
                    .HasColumnName("vault_id");
 
-            builder.HasOne(x => x.Icon)
+            builder.HasOne(x => x.IconSet)
                    .WithMany()
-                   .HasForeignKey(x => x.IconId)
+                   .HasForeignKey(x => x.IconSetId)
                    .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Property(x => x.IconId)
+            builder.Property(x => x.IconSetId)
                    .IsRequired()
                    .HasColumnName("icon_id");
 

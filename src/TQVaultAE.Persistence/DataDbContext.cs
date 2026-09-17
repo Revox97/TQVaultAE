@@ -27,6 +27,22 @@ namespace TQVaultAE.Persistence
                 typeof(DataDbContext).Assembly,
                 type => type.Namespace?.StartsWith("TQVaultAE.Persistence.Data") == true);
 
+            modelBuilder.Entity<VaultTab>()
+                        .Navigation(x => x.IconSet)
+                        .AutoInclude();
+
+            modelBuilder.Entity<IconSet>()
+                        .Navigation(x => x.IconDown)
+                        .AutoInclude();
+
+            modelBuilder.Entity<IconSet>()
+                        .Navigation(x => x.IconUp)
+                        .AutoInclude();
+
+            modelBuilder.Entity<IconSet>()
+                        .Navigation(x => x.IconHover)
+                        .AutoInclude();
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -38,29 +54,35 @@ namespace TQVaultAE.Persistence
 
                 await IconSets.AddAsync(new IconSet(
                     defaultIconSetId,
-                    new Icon("defaultIcon_up", new Uri("avares://TQVaultAE/Assets/Img/button_inventorybag_up.png")),
-                    new Icon("defaultIcon_down", new Uri("avares://TQVaultAE/Assets/Img/button_inventorybag_down.png")),
-                    new Icon("defaultIcon_hover", new Uri("avares://TQVaultAE/Assets/Img/button_inventorybag_over.png"))
+                    new Icon("defaultIcon_up", @"InGameUI\inventorybagbuttonchosen01.tex"),
+                    new Icon("defaultIcon_down", @"InGameUI\inventorybagbuttonunchosen01.tex"),
+                    new Icon("defaultIcon_hover", @"InGameUI\inventorybagbuttonchosen01.tex")
                 ));
 
-                Guid vaultId = Guid.NewGuid();
+                Guid defaultVaultId = Guid.NewGuid();
                 await Vaults.AddAsync(new Vault()
                 {
-                    Id = vaultId,
+                    Id = defaultVaultId,
                     Name = "Main Vault", // TODO localize
                     Type = VaultType.Items,
-                    Tabs = [ ]
+                    Tabs = []
                 });
+
+                await SaveChangesAsync();
 
                 for (int i = 1; i < 13; i++)
                 {
-                    await VaultTabs.AddAsync(new VaultTab()
+                    VaultTab tab = new()
                     {
-                        VaultId = vaultId,
-                        IconId =  defaultIconSetId,
+                        VaultId = defaultVaultId,
+                        Vault = Vaults.First(),
+                        IconSetId = defaultIconSetId,
+                        IconSet = IconSets.First(),
                         Items = [],
                         Name = $"Default Tab {i}",
-                    });
+                    };
+
+                    await VaultTabs.AddAsync(tab);
                 }
             }
             catch(Exception ex)
