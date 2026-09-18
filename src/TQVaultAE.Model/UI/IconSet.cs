@@ -54,11 +54,11 @@
         {
             Id = id;
             IconDown = iconDown;
-            IconDownId = iconDown.Uri.ToString();
+            IconDownId = iconDown.ResourcePath.ToString();
             IconUp = iconUp;
-            IconUpId = iconUp.Uri.ToString();
+            IconUpId = iconUp.ResourcePath.ToString();
             IconHover = iconHover;
-            IconHoverId = iconHover.Uri.ToString();
+            IconHoverId = iconHover.ResourcePath.ToString();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace TQVaultAE.ViewModels
     {
         private static readonly SemaphoreSlim s_taskCompletionSemaphore = new(1, 1);
 
-        private readonly float _taskCount = 8; 
+        private readonly float _taskCount = 9; 
 
         public double Progress
         {
@@ -46,6 +46,7 @@ namespace TQVaultAE.ViewModels
                 initalizationTasks.Add(HandleTaskAsync(Program.Services.GetRequiredService<ITitanQuestDatabaseService>().InitializeAsync()));
                 initalizationTasks.Add(HandleTaskAsync(gameIconService.InitializeAsync("Items")));
                 initalizationTasks.Add(HandleTaskAsync(gameIconService.InitializeAsync("Menu")));
+                initalizationTasks.Add(HandleTaskAsync(gameIconService.InitializeAsync("InGameUI")));
                 initalizationTasks.Add(HandleTaskAsync(gameIconService.InitializeAsync("xpack\\Items")));
                 initalizationTasks.Add(HandleTaskAsync(gameIconService.InitializeAsync("XPack2\\Items")));
                 initalizationTasks.Add(HandleTaskAsync(gameIconService.InitializeAsync("XPack3\\Items")));

@@ -14,7 +14,7 @@ namespace TQVaultAE.Model.Vaults
         private const int Rows = 20;
 
         [JsonPropertyName("id")]
-        public Guid Id { get; init; }
+        public Guid Id { get; init; } = Guid.NewGuid();
 
         [JsonPropertyName("vault")]
         public Guid VaultId { get; init; }
@@ -28,14 +28,14 @@ namespace TQVaultAE.Model.Vaults
 
         // TODO Make it bitmaps and use game icons.
         [JsonPropertyName("iconId")]
-        public string IconId { get; set; } = "defaultIconSet";
+        public string IconSetId { get; set; } = "defaultIconSet";
 
         // TODO rename to IconSet and adjust type definition
         [JsonIgnore]
-        public IconSet Icon { get; set; } = null!;
+        public IconSet IconSet { get; set; } = null!;
 
         [JsonPropertyName("items")]
-        public ICollection<Item> Items { get; set; } = [];
+        public List<Item> Items { get; set; } = [];
 
         /// <summary>
         /// Adds an <see cref="ItemBase"/> to the <see cref="VaultTab"/>.

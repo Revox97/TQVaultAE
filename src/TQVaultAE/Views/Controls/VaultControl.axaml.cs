@@ -11,6 +11,8 @@ using TQVaultAE.Events;
 using TQVaultAE.Events.Events;
 using TQVaultAE.Events.Observers;
 using TQVaultAE.Model.Vaults;
+using TQVaultAE.Persistence.Migrations.Data;
+using TQVaultAE.ViewModels;
 
 namespace TQVaultAE.Views.Controls;
 
@@ -22,8 +24,30 @@ public partial class VaultControl : UserControl, IMainWindowChangedObserver
 
     private int _cellSize = 0;
 
-    public Vault DataSource { get; set; }
+    public VaultControlViewModel ViewModel { get; set; } = new();
+
+    public static readonly StyledProperty<Vault?> VaultProperty =
+        AvaloniaProperty.Register<CharacterControl, Vault?>(nameof(Vault));
+
+    public Vault? Vault
+    {
+        get => GetValue(VaultProperty);
+        set => SetValue(VaultProperty, value);
+    }
+
     public VaultTab SelectedTab { get; set; }
+
+    static VaultControl()
+    {
+        VaultProperty.Changed.AddClassHandler<VaultControl>((control, args) =>
+        {
+            if (control is VaultControl vaultControl && args.NewValue is Vault vault)
+            {
+                vaultControl.ViewModel.Vault = vault;
+                vaultControl.UpdateVault();
+            }
+        });
+    }
 
     public VaultControl()
     {
@@ -32,17 +56,28 @@ public partial class VaultControl : UserControl, IMainWindowChangedObserver
         if(!Design.IsDesignMode)
             Program.Services.GetRequiredService<IEventDispatcher>().AddObserver(this);
 
-        DataSource = new Vault();
-        DataContext = DataSource;
-
         InitializeUI();
     }
 
     private void InitializeUI()
     {
+        ItemsPanel.InitializeGrid();
+    }
+
+    public void Notify(object sender, MainWindowChangedEvent @event)
+    {
+        _cellSize = @event.CellSize;
+        UpdateUI();
+    }
+
+    private void UpdateVault()
+    {
         int i = 0;
 
-        foreach(VaultTab tab in DataSource.Tabs)
+        if (ViewModel.Vault is null)
+            return;
+
+        foreach(VaultTab tab in ViewModel.Vault.Tabs)
         {
             ToggleButton item = new()
             {
@@ -52,6 +87,7 @@ public partial class VaultControl : UserControl, IMainWindowChangedObserver
                 Content = i + 1,
                 HorizontalContentAlignment = Avalonia.Layout.HorizontalAlignment.Center,
                 VerticalContentAlignment = Avalonia.Layout.VerticalAlignment.Center,
+                Tag = tab
             };
 
             item.Classes.Add("ToggleButtonVaultTab");
@@ -61,19 +97,17 @@ public partial class VaultControl : UserControl, IMainWindowChangedObserver
 
             item.IsCheckedChanged += (s, e) =>
             {
-                if (s is ToggleButton sender)
+                if (s is ToggleButton sender && sender.IsChecked == true)
                 {
-                    if (sender.IsChecked == true)
+                    foreach (ToggleButton button in Tabs__Container.Children.Cast<ToggleButton>())
                     {
-                        foreach (ToggleButton button in Tabs__Container.Children.Cast<ToggleButton>())
-                        {
-                            if (button != sender)
-                                button.IsChecked = false;
-                        }
-
-                        // TODO load new tab content aka set binding in model
-                        //ItemsPanel.Items = (sender.DataContext).Items
+                        if (button != sender)
+                            button.IsChecked = false;
                     }
+
+                    // TODO Move into view model
+                    SelectedTab = (VaultTab)sender.Tag!;
+                    ItemsPanel.Items = SelectedTab.Items;
                 }
             };
 
@@ -85,15 +119,8 @@ public partial class VaultControl : UserControl, IMainWindowChangedObserver
             i++;
         }
 
-        SelectedTab = DataSource.Tabs[0];
-        ((ToggleButton)(Tabs__Container.Children[0])).Background = new ImageBrush(new Bitmap(AssetLoader.Open(SelectedTab.Icon.IconUp.Uri)));
-        ItemsPanel.InitializeUI();
-    }
-
-    public void Notify(object sender, MainWindowChangedEvent @event)
-    {
-        _cellSize = @event.CellSize;
-        UpdateUI();
+        //SelectedTab = Vault.Tabs[0];
+        //((ToggleButton)(Tabs__Container.Children[0])).Background = new ImageBrush(new Bitmap(AssetLoader.Open(SelectedTab.IconSet.IconUp.Uri)));
     }
 
     private void UpdateUI()
@@ -136,8 +163,6 @@ public partial class VaultControl : UserControl, IMainWindowChangedObserver
         Tabs__Container.ColumnDefinitions.Clear();
         for (int i = 0; i < Tabs; i++)
             Tabs__Container.ColumnDefinitions.Add(new ColumnDefinition(tabWidth, GridUnitType.Pixel));
-
-        // TODO get tabs from view model and update them
     }
 
     public void Dispose()

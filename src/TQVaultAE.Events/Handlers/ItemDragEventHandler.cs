@@ -7,7 +7,8 @@ namespace TQVaultAE.Events.Handlers
     public class ItemDragEventHandler : IEventHandler
     {
         private bool _isDraggingActive = false;
-        private Point _mouseOffset;
+        private Size? _itemSize;
+        private Point? _mouseOffset;
 
         private readonly List<IItemDragEventObserver> _observers = [];
 
@@ -26,18 +27,35 @@ namespace TQVaultAE.Events.Handlers
 
             if (@event.Type is ItemDragEventType.Start && !_isDraggingActive)
             {
-                _mouseOffset = ((ItemDragEvent)args).MouseOffset;
+                if (_isDraggingActive)
+                    return;
+
+                _itemSize = @event.Size;
+                _mouseOffset = @event.MouseOffset;
                 _isDraggingActive = true;
             }
 
             if (@event.Type is ItemDragEventType.End && _isDraggingActive)
             {
-                _mouseOffset = default;
+                if (!_isDraggingActive)
+                    return;
+
                 _isDraggingActive = false;
+                _mouseOffset = null;
+                _itemSize = null;
             }
 
-            if (@event.Type is ItemDragEventType.CursorUpdate && _isDraggingActive)
-                @event.MouseOffset = _mouseOffset;
+            if (@event.Type is ItemDragEventType.CursorUpdate)
+            {
+                if (!_isDraggingActive)
+                    return;
+
+                if (_itemSize is Size size)
+                    @event.Size = size;
+
+                if (_mouseOffset is Point mouseOffset)
+                    @event.MouseOffset = mouseOffset;
+            }
 
             foreach(IItemDragEventObserver observer in _observers)
             {

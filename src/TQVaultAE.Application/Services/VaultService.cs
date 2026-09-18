@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TQVaultAE.Application.Contracts;
+using TQVaultAE.Application.Factories;
+using TQVaultAE.FileFormats.Tex;
 using TQVaultAE.Model.Enumerations;
 using TQVaultAE.Model.Vaults;
 using TQVaultAE.Persistence;
@@ -16,12 +18,50 @@ namespace TQVaultAE.Application.Services
             try
             {
                 await using DataDbContext db = await _dbContextFactory.CreateDbContextAsync();
-                return [.. db.Vaults.AsNoTracking()];
+                return [.. db.Vaults ];
             }
             catch(Exception ex)
             {
                 throw new Exception("Fetching vaults failed.", ex);
             }
+        }
+
+        public async Task<Vault> GetCompleteVaultAsync(Vault vault)
+        {
+            try
+            {
+                await using DataDbContext db = await _dbContextFactory.CreateDbContextAsync();
+
+                List<VaultTab> tabs = [.. db.VaultTabs.Where(x => x.VaultId == vault.Id)];
+
+                for(int i = 0; i < tabs.Count; i++)
+                    vault.Tabs[i] = await GetCompleteVaultTabAsync(tabs[i]);
+            }
+            catch(Exception ex)
+            {
+                // Todo add logging
+            }
+
+            return vault;
+        }
+
+        private static async Task<VaultTab> GetCompleteVaultTabAsync(VaultTab tab)
+        {
+            // TODO Move into separate library
+            TexFile iconDownFile = await new GameIconService().GetTexFileByTagAsync(tab.IconSet.IconDown.ResourcePath.ToString());
+            tab.IconSet.IconDown.Bitmap = iconDownFile.ToBitmap();
+
+            TexFile iconUpFile = await new GameIconService().GetTexFileByTagAsync(tab.IconSet.IconUp.ResourcePath.ToString());
+            tab.IconSet.IconUp.Bitmap = iconUpFile.ToBitmap();
+
+            TexFile iconHoverFile = await new GameIconService().GetTexFileByTagAsync(tab.IconSet.IconHover.ResourcePath.ToString());
+            tab.IconSet.IconHover.Bitmap = iconHoverFile.ToBitmap();
+
+            // GetItems
+            for (int i = 0; i < tab.Items.Count; i++)
+                tab.Items[i] = await ItemFactory.GetCompleteItemAsync(tab.Items[i]);
+
+            return tab;
         }
 
         public async Task<Vault> CreateVaultAsync(string name, VaultType type)

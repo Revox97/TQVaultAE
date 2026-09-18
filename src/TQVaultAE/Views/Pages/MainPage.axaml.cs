@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -17,6 +16,8 @@ namespace TQVaultAE.Views.Pages;
 public partial class MainPage : UserControl, IItemDragEventObserver
 {
     // TEMP
+    private ItemDragPopup? _itemDragPopup;
+    private Point? _mouseOffset;
     private bool _isDraggingActive = false;
 
     private readonly MainPageViewModel _viewModel;
@@ -81,18 +82,20 @@ public partial class MainPage : UserControl, IItemDragEventObserver
             // TODO Have a bindable property to handle the visibility
             ItemDragVisualLayer.IsVisible = false;
             ItemDragVisualLayer.Children.Clear();
+            _itemDragPopup = null;
             _isDraggingActive = false;
             return;
         }
-
-        Point position = @event.Position - @event.MouseOffset;
 
         if (@event.Type is ItemDragEventType.Start)
         {
             if (@event.Item is null)
                 return;
 
-            ItemDragPopup itemDragPopup = new(@event.Item)
+            _mouseOffset = @event.MouseOffset;
+            Point position = @event.Position - @event.MouseOffset;
+
+            _itemDragPopup = new(@event.Item)
             {
                 HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch,
                 VerticalAlignment = Avalonia.Layout.VerticalAlignment.Stretch,
@@ -101,23 +104,12 @@ public partial class MainPage : UserControl, IItemDragEventObserver
                 Height = @event.Size.Height,
             };
 
-            ItemDragVisualLayer.Children.Add(itemDragPopup);
-            Canvas.SetLeft(itemDragPopup, position.X);
-            Canvas.SetTop(itemDragPopup, position.Y);
+            ItemDragVisualLayer.Children.Add(_itemDragPopup);
+            Canvas.SetLeft(_itemDragPopup, position.X);
+            Canvas.SetTop(_itemDragPopup, position.Y);
 
             ItemDragVisualLayer.IsVisible = true;
             _isDraggingActive = true;
-        }
-
-        if (_isDraggingActive && @event.Type is ItemDragEventType.CursorUpdate)
-        {
-            ItemDragPopup popup = (ItemDragPopup)ItemDragVisualLayer.Children[0];
-
-            double x = Math.Clamp(position.X, 0, ItemDragVisualLayer.Bounds.Width - popup.Bounds.Width);
-            double y = Math.Clamp(position.Y, 0, ItemDragVisualLayer.Bounds.Height - popup.Bounds.Height);
-
-            Canvas.SetLeft(popup, x);
-            Canvas.SetTop(popup, y);
         }
     }
 
@@ -129,9 +121,20 @@ public partial class MainPage : UserControl, IItemDragEventObserver
 
     private void UserControl_PointerMoved(object? sender, PointerEventArgs e)
     {
+        if (!_isDraggingActive || _itemDragPopup is null || _mouseOffset is null)
+            return;
+
+        Point pointerPosition = (Point)(e.GetPosition(ItemDragVisualLayer) - _mouseOffset);
+        double x = Math.Clamp(pointerPosition.X, 0, ItemDragVisualLayer.Bounds.Width - _itemDragPopup.Bounds.Width);
+        double y = Math.Clamp(pointerPosition.Y, 0, ItemDragVisualLayer.Bounds.Height - _itemDragPopup.Bounds.Height);
+
+        Canvas.SetLeft(_itemDragPopup, x);
+        Canvas.SetTop(_itemDragPopup, y);
+
+        // Maybe it makes sense to calulate the actual popup calculation in here and provide it as well
         Program.Services.GetRequiredService<IEventDispatcher>().Dispatch(this, new ItemDragEvent(ItemDragEventType.CursorUpdate)
         {
-            Position = e.GetPosition(ItemDragVisualLayer),
+            Position = new Point(x, y)
         });
     }
 

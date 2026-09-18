@@ -47,9 +47,9 @@ public partial class CharacterControl : UserControl, IMainWindowChangedObserver
 
     private void InitializeUI()
     {
-        ItemsPanel__StorageArea.InitializeUI();
-        ItemsPanel__TransferArea.InitializeUI();
-        ItemsPanel__RelicVault.InitializeUI();
+        ItemsPanel__StorageArea.InitializeGrid();
+        ItemsPanel__TransferArea.InitializeGrid();
+        ItemsPanel__RelicVault.InitializeGrid();
     }
 
     public void Notify(object sender, MainWindowChangedEvent @event)
@@ -69,8 +69,6 @@ public partial class CharacterControl : UserControl, IMainWindowChangedObserver
         ItemsPanel__StorageArea.UpdateUI();
         ItemsPanel__TransferArea.UpdateUI();
         ItemsPanel__RelicVault.UpdateUI();
-
-        // TODO Add sort button to UI
     }
 
     public void Dispose()

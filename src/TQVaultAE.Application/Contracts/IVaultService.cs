@@ -15,6 +15,8 @@ namespace TQVaultAE.Application.Contracts
         /// <returns>A list of all vaults of a <see cref="User"/>.</returns>
         Task<List<Vault>> GetVaultsAsync();
 
+        Task<Vault> GetCompleteVaultAsync(Vault vault);
+
         /// <summary>
         /// Creates a new <see cref="Vault"/>.
         /// </summary>

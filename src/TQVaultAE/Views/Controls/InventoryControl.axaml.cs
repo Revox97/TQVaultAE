@@ -67,10 +67,10 @@ public partial class InventoryControl : UserControl, INotifyPropertyChanged, IMa
     {
         ItemsPanelMain.Columns = 12;
         ItemsPanelMain.Rows = 5;
-        ItemsPanelMain.InitializeUI();
+        ItemsPanelMain.InitializeGrid();
         ItemsPanelSide.Columns = 8;
         ItemsPanelSide.Rows = 5;
-        ItemsPanelSide.InitializeUI();
+        ItemsPanelSide.InitializeGrid();
     }
 
     public void Notify(object sender, MainWindowChangedEvent @event)
