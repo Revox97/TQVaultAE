@@ -17,8 +17,10 @@ namespace TQVaultAE.Views.Controls;
 
 public partial class ItemsPanel : UserControl, IItemDragEventObserver, IMainWindowChangedObserver
 {
+    private Item? _tempRemovedItem;
     private bool _isitemDragActive = false;
     private int _cellSize;
+    private Point? _mouseOffset;
 
     public static readonly StyledProperty<List<Item>> ItemsProperty =
         AvaloniaProperty.Register<ItemsPanel, List<Item>>(nameof(Items));
@@ -100,7 +102,6 @@ public partial class ItemsPanel : UserControl, IItemDragEventObserver, IMainWind
                     Background = new SolidColorBrush(Colors.Transparent)
                 };
 
-                item.PointerPressed += Item_PointerPressed;
                 ItemsContainer.Children.Add(item);
 
                 Grid.SetRow(item, i);
@@ -127,18 +128,10 @@ public partial class ItemsPanel : UserControl, IItemDragEventObserver, IMainWind
                     cellItem.Background = new SolidColorBrush(Colors.Transparent);
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
 
         }
-    }
-
-    private void Item_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
-    {
-        if (!_isitemDragActive)
-            return;
-
-        Program.Services.GetRequiredService<IEventDispatcher>().Dispatch(this, new ItemDragEvent(ItemDragEventType.End));
     }
 
     internal void UpdateUI()
@@ -160,14 +153,35 @@ public partial class ItemsPanel : UserControl, IItemDragEventObserver, IMainWind
         if (@event.Type is ItemDragEventType.Start)
         {
             _isitemDragActive = true;
+            _mouseOffset = @event.MouseOffset;
+
+            _tempRemovedItem = Items.FirstOrDefault(x => x == @event.Item);
+            if (_tempRemovedItem is not null)
+            {
+                Items.Remove(_tempRemovedItem);
+                DrawItems(Items);
+            }
             return;
         }
 
-        if (@event.Type is ItemDragEventType.End)
+        if (@event.Type is ItemDragEventType.Cancel)
         {
             _isitemDragActive = false;
+            if(_tempRemovedItem is not null)
+            {
+                Items.Add(_tempRemovedItem);
+                DrawItems(Items);
+            }
             UpdateGrid();
-            // Handle item add, replace, or skip, if not in control
+            return;
+        }
+
+
+        if (@event.Type is ItemDragEventType.Complete)
+        {
+            _isitemDragActive = false;
+            _tempRemovedItem = null;
+            UpdateGrid();
             return;
         }
 
@@ -198,7 +212,7 @@ public partial class ItemsPanel : UserControl, IItemDragEventObserver, IMainWind
 
                     if (cellColumn < 0)
                         cellColumn = 0;
-                    
+
                     if (cellRow + cellHeight > Rows)
                         cellRow = Rows - cellHeight;
 
@@ -211,11 +225,51 @@ public partial class ItemsPanel : UserControl, IItemDragEventObserver, IMainWind
 
                 UpdateGrid();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
         }
+    }
+
+    private void UserControl_PointerReleased(object? sender, Avalonia.Input.PointerReleasedEventArgs e)
+    {
+        if (!_isitemDragActive || _mouseOffset is null || e.InitialPressMouseButton != Avalonia.Input.MouseButton.Left)
+            return;
+
+        if (Avalonia.Application.Current!.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop
+            || desktop.MainWindow is not TQWindow window
+            || window.ContentContainer.Children[0] is not MainPage mainPage
+           ) return;
+
+        ItemDragPopup itemDragPopup = (ItemDragPopup)mainPage.ItemDragVisualLayer.Children[0];
+
+        if (mainPage.ItemDragVisualLayer.TranslatePoint(itemDragPopup.Bounds.TopLeft, this) is not Point popupPosition)
+            return;
+
+        int cellColumn = (int)Math.Round(popupPosition.X / _cellSize, MidpointRounding.AwayFromZero);
+        int cellRow = (int)Math.Round(popupPosition.Y / _cellSize, MidpointRounding.AwayFromZero);
+        int cellWidth = (int)itemDragPopup.Width / _cellSize;
+        int cellHeight = (int)itemDragPopup.Height / _cellSize;
+
+        if (cellRow < 0)
+            cellRow = 0;
+
+        if (cellColumn < 0)
+            cellColumn = 0;
+
+        if (cellRow + cellHeight > Rows)
+            cellRow = Rows - cellHeight;
+
+        if (cellColumn + cellWidth > Columns)
+            cellColumn = Columns - cellWidth;
+
+        Item item = itemDragPopup.Item;
+        item.Position = new System.Drawing.Point(cellColumn, cellRow);
+        Items.Add(item);
+
+        DrawItems(Items);
+        Program.Services.GetRequiredService<IEventDispatcher>().Dispatch(this, new ItemDragEvent(ItemDragEventType.Complete));
     }
 
     public void Dispose()

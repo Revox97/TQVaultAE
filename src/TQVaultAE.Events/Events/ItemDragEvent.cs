@@ -15,7 +15,8 @@ namespace TQVaultAE.Events.Events
     public enum ItemDragEventType
     {
         Start,
-        End,
+        Cancel,
+        Complete,
         CursorUpdate,
     }
 }

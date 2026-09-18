@@ -35,7 +35,7 @@ namespace TQVaultAE.Events.Handlers
                 _isDraggingActive = true;
             }
 
-            if (@event.Type is ItemDragEventType.End && _isDraggingActive)
+            if (@event.Type is ItemDragEventType.Cancel or ItemDragEventType.Complete && _isDraggingActive)
             {
                 if (!_isDraggingActive)
                     return;

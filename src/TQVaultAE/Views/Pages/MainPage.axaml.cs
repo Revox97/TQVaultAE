@@ -77,7 +77,7 @@ public partial class MainPage : UserControl, IItemDragEventObserver
 
     public void Notify(object sender, ItemDragEvent @event)
     {
-        if (@event.Type is ItemDragEventType.End)
+        if (@event.Type is ItemDragEventType.Cancel or ItemDragEventType.Complete)
         {
             // TODO Have a bindable property to handle the visibility
             ItemDragVisualLayer.IsVisible = false;
@@ -113,12 +113,6 @@ public partial class MainPage : UserControl, IItemDragEventObserver
         }
     }
 
-    public void Dispose()
-    {
-        Program.Services.GetRequiredService<IEventDispatcher>().RemoveObserver(this);
-        GC.SuppressFinalize(this);
-    }
-
     private void UserControl_PointerMoved(object? sender, PointerEventArgs e)
     {
         if (!_isDraggingActive || _itemDragPopup is null || _mouseOffset is null)
@@ -131,7 +125,6 @@ public partial class MainPage : UserControl, IItemDragEventObserver
         Canvas.SetLeft(_itemDragPopup, x);
         Canvas.SetTop(_itemDragPopup, y);
 
-        // Maybe it makes sense to calulate the actual popup calculation in here and provide it as well
         Program.Services.GetRequiredService<IEventDispatcher>().Dispatch(this, new ItemDragEvent(ItemDragEventType.CursorUpdate)
         {
             Position = new Point(x, y)
@@ -144,5 +137,17 @@ public partial class MainPage : UserControl, IItemDragEventObserver
             return;
 
         ItemDragVisualLayer.IsVisible = _isDraggingActive && e.NewValue is VaultPage;
+    }
+
+    private void Root_PointerReleased(object? sender, PointerReleasedEventArgs e)
+    {
+        if (_isDraggingActive && e.InitialPressMouseButton == MouseButton.Right)
+            Program.Services.GetRequiredService<IEventDispatcher>().Dispatch(this, new ItemDragEvent(ItemDragEventType.Cancel));
+    }
+
+    public void Dispose()
+    {
+        Program.Services.GetRequiredService<IEventDispatcher>().RemoveObserver(this);
+        GC.SuppressFinalize(this);
     }
 }

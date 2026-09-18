@@ -6,6 +6,7 @@
              x:DataType="vm:MainPageViewModel"
              mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="500"
              PointerMoved="UserControl_PointerMoved"
+             PointerReleased="Root_PointerReleased"
              x:Name="Root"
              x:Class="TQVaultAE.Views.Pages.MainPage">
     <UserControl.Styles>

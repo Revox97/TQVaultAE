@@ -3,15 +3,11 @@ using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
-using Avalonia.Media;
-using Avalonia.Media.Imaging;
-using Avalonia.Platform;
 using Microsoft.Extensions.DependencyInjection;
 using TQVaultAE.Events;
 using TQVaultAE.Events.Events;
 using TQVaultAE.Events.Observers;
 using TQVaultAE.Model.Vaults;
-using TQVaultAE.Persistence.Migrations.Data;
 using TQVaultAE.ViewModels;
 
 namespace TQVaultAE.Views.Controls;
@@ -119,8 +115,8 @@ public partial class VaultControl : UserControl, IMainWindowChangedObserver
             i++;
         }
 
-        //SelectedTab = Vault.Tabs[0];
-        //((ToggleButton)(Tabs__Container.Children[0])).Background = new ImageBrush(new Bitmap(AssetLoader.Open(SelectedTab.IconSet.IconUp.Uri)));
+        SelectedTab = ViewModel.Vault.Tabs[0];
+        ItemsPanel.Items = SelectedTab.Items;
     }
 
     private void UpdateUI()

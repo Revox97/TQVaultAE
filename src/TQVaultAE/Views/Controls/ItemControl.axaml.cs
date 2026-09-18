@@ -49,7 +49,6 @@ public partial class ItemControl : UserControl
         };
 
         _popup.Opened += Popup_Opened;
-
         _popup.Open();
     }
 
@@ -59,12 +58,8 @@ public partial class ItemControl : UserControl
         if (sender is not Popup popup)
             return;
 
-        TopLevel? topLevelElem = TopLevel.GetTopLevel(popup.Child);
-
-        if (topLevelElem is null)
-            return;
-
-        topLevelElem.Background = Brushes.Transparent;
+        if (TopLevel.GetTopLevel(popup.Child) is TopLevel topLevelElem)
+            topLevelElem.Background = Brushes.Transparent;
     }
 
     private void UserControl_PointerExited(object? sender, Avalonia.Input.PointerEventArgs e)
@@ -120,5 +115,7 @@ public partial class ItemControl : UserControl
             Size = new Size(control.Bounds.Width, control.Bounds.Height),
             MouseOffset = mouseOffset,
         });
+
+        e.Handled = true;
     }
 }
