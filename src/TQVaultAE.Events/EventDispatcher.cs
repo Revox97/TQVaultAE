@@ -48,7 +48,7 @@ namespace TQVaultAE.Events
             {
                 handler.Invoke(sender, @event);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception($"Invoking event {@event.GetType().Name} failed.", ex);
             }

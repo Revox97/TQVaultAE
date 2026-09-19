@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Drawing;
+using Avalonia.Media.Imaging;
 
 namespace TQVaultAE.Model.UI
 {

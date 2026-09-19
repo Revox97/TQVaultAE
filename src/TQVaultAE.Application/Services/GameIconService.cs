@@ -32,7 +32,7 @@ namespace TQVaultAE.Application.Services
             {
                 file = await new ArcProvider().ReadAsync(filePath).ConfigureAwait(false);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine($"Reading tex file faile. {ex}.");
             }
@@ -44,7 +44,7 @@ namespace TQVaultAE.Application.Services
                 foreach (ArcFileRecord record in file.Records)
                 {
                     if (record.ContentType is ArcRecordType.TexFile)
-                            texFileMap.Add(record.FileName, (TexFile)record.Content);
+                        texFileMap.Add(record.FileName, (TexFile)record.Content);
                 }
             }
 

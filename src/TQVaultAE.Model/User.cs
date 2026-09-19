@@ -1,5 +1,4 @@
 ﻿using System.Text.Json.Serialization;
-using TQVaultAE.Model.Settings;
 
 namespace TQVaultAE.Model
 {
@@ -13,7 +12,7 @@ namespace TQVaultAE.Model
         public string Name { get; set; } = string.Empty;
 
         [JsonIgnore]
-        public Guid SettingsId { get; set; } 
+        public Guid SettingsId { get; set; }
 
         [JsonPropertyName("settings")]
         public Settings.Settings Settings { get; set; } = new();

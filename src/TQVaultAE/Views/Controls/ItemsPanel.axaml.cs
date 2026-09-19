@@ -79,11 +79,11 @@ public partial class ItemsPanel : UserControl, IItemDragEventObserver, IMainWind
             ItemControl itemControl = new(item);
 
             ItemsContainer.Children.Add(itemControl);
-            Grid.SetRow(itemControl, item.Position.Y);
-            Grid.SetColumn(itemControl, item.Position.X);
+            Grid.SetRow(itemControl, (int)item.Position.Y);
+            Grid.SetColumn(itemControl, (int)item.Position.X);
 
-            Grid.SetColumnSpan(itemControl, item.Size.Width);
-            Grid.SetRowSpan(itemControl, item.Size.Height);
+            Grid.SetColumnSpan(itemControl, (int)item.Size.Width);
+            Grid.SetRowSpan(itemControl, (int)item.Size.Height);
         }
     }
 
@@ -167,7 +167,7 @@ public partial class ItemsPanel : UserControl, IItemDragEventObserver, IMainWind
         if (@event.Type is ItemDragEventType.Cancel)
         {
             _isitemDragActive = false;
-            if(_tempRemovedItem is not null)
+            if (_tempRemovedItem is not null)
             {
                 Items.Add(_tempRemovedItem);
                 DrawItems(Items);
@@ -265,7 +265,7 @@ public partial class ItemsPanel : UserControl, IItemDragEventObserver, IMainWind
             cellColumn = Columns - cellWidth;
 
         Item item = itemDragPopup.Item;
-        item.Position = new System.Drawing.Point(cellColumn, cellRow);
+        item.Position = new Point(cellColumn, cellRow);
         Items.Add(item);
 
         DrawItems(Items);

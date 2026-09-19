@@ -2,7 +2,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="using:TQVaultAE.Views.Controls"
              xmlns:cvtr="using:TQVaultAE.Converters"
              xmlns:vm="using:TQVaultAE.ViewModels"
              mc:Ignorable="d"
@@ -11,7 +10,6 @@
              x:Class="TQVaultAE.Views.Controls.EquipmentControl"
              d:DesignHeight="850" d:DesignWidth="600">
     <UserControl.Resources>
-        <cvtr:SystemToAvaloniaBitmapConverter x:Key="SystemToAvaloniaBitmapConverter"/>
         <cvtr:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
     </UserControl.Resources>
     <Grid x:Name="EquipmentControl__Container" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -52,7 +50,7 @@
                     </Grid.RowDefinitions>
                     <Border Grid.Row="1" Padding="3">
                         <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
-                            <Image Source="{Binding ViewModel.Equipment.PrimaryWeaponSetOne.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                            <Image Source="{Binding ViewModel.Equipment.PrimaryWeaponSetOne.Icon, ElementName=root}"
                                    Stretch="None"/>
                         </Viewbox>
                     </Border>
@@ -66,7 +64,7 @@
                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited" PointerReleased="Grid_PointerReleased">
                     <Border Padding="3">
                         <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
-                            <Image Source="{Binding ViewModel.Equipment.Artifact.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                            <Image Source="{Binding ViewModel.Equipment.Artifact.Icon, ElementName=root}"
                                    Stretch="None"/>
                         </Viewbox>
                     </Border>
@@ -85,7 +83,7 @@
                     </Grid.RowDefinitions>
                     <Border Grid.Row="1" Padding="3">
                         <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
-                            <Image Source="{Binding ViewModel.Equipment.PrimaryWeaponSetTwo.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                            <Image Source="{Binding ViewModel.Equipment.PrimaryWeaponSetTwo.Icon, ElementName=root}"
                                    Stretch="None"/>
                         </Viewbox>
                     </Border>
@@ -118,7 +116,7 @@
                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited" PointerReleased="Grid_PointerReleased">
                     <Border Padding="3">
                         <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
-                            <Image Source="{Binding ViewModel.Equipment.Head.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                            <Image Source="{Binding ViewModel.Equipment.Head.Icon, ElementName=root}"
                                    Stretch="None"/>
                         </Viewbox>
                     </Border>
@@ -132,7 +130,7 @@
                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited" PointerReleased="Grid_PointerReleased">
                     <Border Padding="3">
                         <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
-                            <Image Source="{Binding ViewModel.Equipment.Amulet.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                            <Image Source="{Binding ViewModel.Equipment.Amulet.Icon, ElementName=root}"
                                    Stretch="None"/>
                         </Viewbox>
                     </Border>
@@ -146,7 +144,7 @@
                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited" PointerReleased="Grid_PointerReleased">
                     <Border Padding="3">
                         <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
-                            <Image Source="{Binding ViewModel.Equipment.Body.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                            <Image Source="{Binding ViewModel.Equipment.Body.Icon, ElementName=root}"
                                    Stretch="None"/>
                         </Viewbox>
                     </Border>
@@ -160,7 +158,7 @@
                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited" PointerReleased="Grid_PointerReleased">
                     <Border Padding="3 0 3 3">
                         <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
-                            <Image Source="{Binding ViewModel.Equipment.Legs.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                            <Image Source="{Binding ViewModel.Equipment.Legs.Icon, ElementName=root}"
                                    Stretch="None"/>
                         </Viewbox>
                     </Border>
@@ -174,7 +172,7 @@
                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited" PointerReleased="Grid_PointerReleased">
                     <Border>
                         <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
-                            <Image Source="{Binding ViewModel.Equipment.RingOne.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                            <Image Source="{Binding ViewModel.Equipment.RingOne.Icon, ElementName=root}"
                                    Stretch="None"/>
                         </Viewbox>
                     </Border>
@@ -188,7 +186,7 @@
                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited" PointerReleased="Grid_PointerReleased">
                     <Border>
                         <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
-                            <Image Source="{Binding ViewModel.Equipment.RingTwo.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                            <Image Source="{Binding ViewModel.Equipment.RingTwo.Icon, ElementName=root}"
                                    Stretch="None"/>
                         </Viewbox>
                     </Border>
@@ -219,7 +217,7 @@
                     </Grid.RowDefinitions>
                     <Border Grid.Row="1" Padding="3">
                         <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
-                            <Image Source="{Binding ViewModel.Equipment.SecundaryWeaponSetOne.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                            <Image Source="{Binding ViewModel.Equipment.SecundaryWeaponSetOne.Icon, ElementName=root}"
                                    Stretch="None"/>
                         </Viewbox>
                     </Border>
@@ -233,7 +231,7 @@
                       PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited" PointerReleased="Grid_PointerReleased">
                     <Border Padding="3">
                         <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
-                            <Image Source="{Binding ViewModel.Equipment.Arms.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                            <Image Source="{Binding ViewModel.Equipment.Arms.Icon, ElementName=root}"
                                    Stretch="None"/>
                         </Viewbox>
                     </Border>
@@ -252,7 +250,7 @@
                     </Grid.RowDefinitions>
                     <Border Grid.Row="1" Padding="3">
                         <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" StretchDirection="DownOnly">
-                            <Image Source="{Binding ViewModel.Equipment.SecundaryWeaponSetTwo.Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}, ElementName=root}"
+                            <Image Source="{Binding ViewModel.Equipment.SecundaryWeaponSetTwo.Icon, ElementName=root}"
                                    Stretch="None"/>
                         </Viewbox>
                     </Border>

@@ -1,12 +1,12 @@
 using System;
 using Avalonia.Controls;
-using Avalonia.Layout;
-using Avalonia.Interactivity;
-using TQVaultAE.ViewModels;
-using Avalonia.Media;
 using Avalonia.Input;
-using TQVaultAE.Services;
+using Avalonia.Interactivity;
+using Avalonia.Layout;
+using Avalonia.Media;
 using Microsoft.Extensions.DependencyInjection;
+using TQVaultAE.Services;
+using TQVaultAE.ViewModels;
 
 namespace TQVaultAE.Views.Windows;
 

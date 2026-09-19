@@ -147,7 +147,7 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
                     currentBlock.Children.Add(new ChrBlock(label, dataValue, type));
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }

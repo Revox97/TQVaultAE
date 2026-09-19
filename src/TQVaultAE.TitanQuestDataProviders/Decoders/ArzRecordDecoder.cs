@@ -14,7 +14,7 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
         private static bool s_initialized = false;
 
         private static readonly LazyConcurrentDictionary<string, MemoryMappedFile> s_mmfCache = new();
-	    private static readonly LazyConcurrentDictionary<string, long> s_fileSizeCache = new();
+        private static readonly LazyConcurrentDictionary<string, long> s_fileSizeCache = new();
 
         public static void Initialize(string arzPath, string[] infoRecords)
         {

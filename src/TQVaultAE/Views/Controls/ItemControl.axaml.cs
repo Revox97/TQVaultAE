@@ -101,7 +101,7 @@ public partial class ItemControl : UserControl
         // TODO clean up (and find better solution) - this is ugly as fuck
         Canvas visualLayer = ((MainPage)((TQWindow)mainWindow).ContentContainer.Children[0]).ItemDragVisualLayer;
 
-        Point? controlPosition = this.TranslatePoint(new Point(0,0), visualLayer);
+        Point? controlPosition = this.TranslatePoint(new Point(0, 0), visualLayer);
 
         if (controlPosition is null)
             return;

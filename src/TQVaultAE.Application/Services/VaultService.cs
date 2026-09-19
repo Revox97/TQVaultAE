@@ -18,9 +18,9 @@ namespace TQVaultAE.Application.Services
             try
             {
                 await using DataDbContext db = await _dbContextFactory.CreateDbContextAsync();
-                return [.. db.Vaults ];
+                return [.. db.Vaults];
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception("Fetching vaults failed.", ex);
             }
@@ -34,10 +34,10 @@ namespace TQVaultAE.Application.Services
 
                 List<VaultTab> tabs = [.. db.VaultTabs.Where(x => x.VaultId == vault.Id)];
 
-                for(int i = 0; i < tabs.Count; i++)
+                for (int i = 0; i < tabs.Count; i++)
                     vault.Tabs[i] = await GetCompleteVaultTabAsync(tabs[i]);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // Todo add logging
             }
@@ -81,7 +81,7 @@ namespace TQVaultAE.Application.Services
 
                 return result.Entity;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception("Creating new vault failed.", ex);
             }
@@ -99,7 +99,7 @@ namespace TQVaultAE.Application.Services
                 db.Vaults.Update(vault);
                 await db.SaveChangesAsync().ConfigureAwait(false);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception($"Updating vault with id '{vault.Id}' failed.", ex);
             }
@@ -113,7 +113,7 @@ namespace TQVaultAE.Application.Services
                 db.Vaults.Remove(vault);
                 await db.SaveChangesAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception($"Deleting vault with id '{vault.Id}' failed", ex);
             }

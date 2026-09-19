@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -44,7 +43,7 @@ namespace TQVaultAE.ViewModels
                 field = value;
                 OnPropertyChanged(nameof(PlayerSelector));
             }
-        } 
+        }
 
         // Design time constructor
         public VaultPageViewModel()
@@ -82,7 +81,7 @@ namespace TQVaultAE.ViewModels
 
                 Vault = vault is null ? null : vaultService.GetCompleteVaultAsync(vault).Result;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // TODO Log updating vault failed
             }
@@ -95,7 +94,7 @@ namespace TQVaultAE.ViewModels
                 Player player = Program.Services.GetRequiredService<IPlayerService>().GetPlayerByNameAsync(((ItemContainer)e.AddedItems[0]!).Name).Result;
                 Player = player;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // TODO log updating player failed
             }

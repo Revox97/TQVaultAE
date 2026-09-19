@@ -57,13 +57,13 @@ namespace TQVaultAE.Events.Handlers
                     @event.MouseOffset = mouseOffset;
             }
 
-            foreach(IItemDragEventObserver observer in _observers)
+            foreach (IItemDragEventObserver observer in _observers)
             {
                 try
                 {
                     observer.Notify(sender, @event);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     // TODO Handle exception
                 }

@@ -19,7 +19,7 @@ namespace TQVaultAE.Views.Windows
 
             if (!Design.IsDesignMode)
                 Program.Services.GetRequiredService<IEventDispatcher>().AddObserver(this);
-            
+
             DataContext = _viewModel;
             Task.Run(() => _viewModel.LoadGameResourcesAsync());
         }

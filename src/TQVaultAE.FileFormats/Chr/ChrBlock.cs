@@ -23,7 +23,7 @@
         }
 
         public int AsInt32() => RawData.Length >= 4 ? BitConverter.ToInt32(RawData, 0) : 0;
-        
+
         public string AsString() => System.Text.Encoding.UTF8.GetString(RawData);
 
         public float AsFloat() => RawData.Length >= 4 ? BitConverter.ToSingle(RawData, 0) : 0f;
@@ -32,7 +32,7 @@
 
         public Guid AsGuid() => RawData.Length == 16 ? new Guid(RawData) : Guid.Empty;
 
-        public ChrBlock? FindChild(string label) => 
+        public ChrBlock? FindChild(string label) =>
             Children.FirstOrDefault(c => c.Label.Equals(label, StringComparison.OrdinalIgnoreCase));
 
         public ChrBlock? FindElement(string label)
@@ -42,7 +42,7 @@
             if (result is not null)
                 return result;
 
-            foreach(ChrBlock child in Children)
+            foreach (ChrBlock child in Children)
             {
                 result = child.FindElement(label);
 
@@ -72,7 +72,7 @@
             if (Type == typeof(Guid))
                 return $"{output} - '{AsGuid()}'";
 
-            if (Type is  null)
+            if (Type is null)
                 return $"[{output}]";
 
             return $"[{output}] - {Type}";

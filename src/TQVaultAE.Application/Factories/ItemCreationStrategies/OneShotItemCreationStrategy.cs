@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Runtime.Versioning;
-using TQVaultAE.Application.Services;
 using TQVaultAE.FileFormats.Arz;
 using TQVaultAE.Model.Enumerations;
 using TQVaultAE.Model.Items;
@@ -30,7 +29,7 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
                 item.Size = GetItemSize(item.Icon);
                 return item;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // Item Creation failed.
                 return itemBase;
@@ -43,14 +42,14 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
 
             List<OneShotBonus> bonuses = [];
 
-            foreach(ArzRecordProperty property in validProperties)
+            foreach (ArzRecordProperty property in validProperties)
             {
                 OneShotBonusType type;
                 try
                 {
                     type = property.Name.GetEnumValue<OneShotBonusType>();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     continue;
                 }

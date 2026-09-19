@@ -10,7 +10,7 @@ namespace TQVaultAE.Model.Players
         /// <summary>
         /// Gets the number of the <see cref="Sack"/>.
         /// </summary>
-        public int Number {  get; init; }
+        public int Number { get; init; }
 
         /// <summary>
         /// Gets or sets a list of <see cref="Item"/>s within the <see cref="Sack"/>.

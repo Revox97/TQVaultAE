@@ -1,9 +1,7 @@
-﻿using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
+﻿using System.Runtime.InteropServices;
 using System.Text;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 
 // TODO split in multiple files and remove magic numbers
 // TODO Have reading strategies for different version, I already feel the pain...
@@ -92,8 +90,6 @@ namespace TQVaultAE.FileFormats.Tex
                 texFile.Frames.Add(ImageFrame.Read(reader));
         }
 
-        // TODO check for linux support
-        [SupportedOSPlatform("windows")]
         public Bitmap ToBitmap()
         {
             byte[] pixelData = Frames[0].MipMaps[0].Data;
@@ -103,8 +99,10 @@ namespace TQVaultAE.FileFormats.Tex
             if (pixelData.Length < width * height * 4)
                 throw new ArgumentException("Not enough pixel data.");
 
-            Bitmap bitmap = new(width, height, PixelFormat.Format32bppArgb);
-            BitmapData data = bitmap.LockBits(new Rectangle(0, 0, width, height), ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
+            System.Drawing.Bitmap bitmap = new(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            System.Drawing.Imaging.BitmapData data = bitmap.LockBits(
+                new System.Drawing.Rectangle(0, 0, width, height),
+                System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
             try
             {
@@ -115,7 +113,33 @@ namespace TQVaultAE.FileFormats.Tex
                 bitmap.UnlockBits(data);
             }
 
-            return bitmap;
+            return ConvertSystemToAvaloniaBitmap(bitmap);
+        }
+
+        // TODO Create Avalonia Bitmap directly, instead of having this conversion
+        private Bitmap ConvertSystemToAvaloniaBitmap(System.Drawing.Bitmap bitmap)
+        {
+            try
+            {
+                System.Drawing.Imaging.BitmapData bitmapdata = bitmap.LockBits(
+                    new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height),
+                    System.Drawing.Imaging.ImageLockMode.ReadWrite, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+                Bitmap avaloniaBitmap = new(PixelFormat.Bgra8888, AlphaFormat.Premul,
+                    bitmapdata.Scan0,
+                    new Avalonia.PixelSize(bitmapdata.Width, bitmapdata.Height),
+                    new Avalonia.Vector(96, 96),
+                    bitmapdata.Stride);
+
+                bitmap.UnlockBits(bitmapdata);
+                return avaloniaBitmap;
+            }
+            catch (Exception ex)
+            {
+                // Conversion failed
+                // TODO add logging
+                return null!;
+            }
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Runtime.Versioning;
-using TQVaultAE.Application.Services;
 using TQVaultAE.FileFormats.Arz;
 using TQVaultAE.Model.Enumerations;
 using TQVaultAE.Model.Items;
@@ -31,7 +30,7 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
                 // TODO Get component items (reagentiBaseName)
                 // TODO Get artifact create cost (artifactCreationCost)
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // Item Creation failed.
                 return itemBase;

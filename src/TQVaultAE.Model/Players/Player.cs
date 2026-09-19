@@ -1,5 +1,4 @@
-﻿using TQVaultAE.Model.Items;
-using TQVaultAE.Model.Stashes;
+﻿using TQVaultAE.Model.Stashes;
 
 namespace TQVaultAE.Model.Players
 {
@@ -41,7 +40,7 @@ namespace TQVaultAE.Model.Players
         /// <summary>
         /// Gets the money of the <see cref="Player"/>.
         /// </summary>
-        public int Money { get; set; } 
+        public int Money { get; set; }
 
         /// <summary>
         /// Gets the ??wie auch immer die resource gleich nochmal hier?? of the <see cref="Player"/>.

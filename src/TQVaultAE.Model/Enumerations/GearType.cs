@@ -1,6 +1,4 @@
-﻿using TQVaultAE.Model.Attributes;
-
-namespace TQVaultAE.Model.Enumerations
+﻿namespace TQVaultAE.Model.Enumerations
 {
     // TODO Figure out, whether there is a reason for these  ridiculous enum values and the resulting int overflow at << 32
     [Flags]

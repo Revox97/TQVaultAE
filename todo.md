@@ -3,8 +3,8 @@
 ***TO DO***
 - [x] Read out player list
 - [x] Load payers
-- [ ] Read out vault list
-- [ ] Load vaults
+- [x] Read out vault list
+- [x] Load vaults
 - [ ] Save vaults
 - [ ] Save player data
 - [ ] Save transfer area
@@ -17,55 +17,55 @@
     - [ ] Add correct bindings
     - [ ] Handle position if offscreen
 - [ ] Items
-  - [ ] Rarity support
-    - [ ] Apply background color
+  - [x] Rarity support
+    - [x] Apply background color
     - [ ] Show red bg color if requirements are not met
-    - [ ] Item rarity overlay
-      - [ ] Define colors
+    - [x] Item rarity overlay
+      - [x] Define colors
       - [ ] Redo this to allow correct scaling (if possible using gradients)
-      - [ ] Hide rarity overlay for requirements not met, potions, relics, etc.
-  - [ ] Hover color support
+      - [x] Hide rarity overlay for requirements not met, potions, relics, etc.
+  - [x] Hover color support
 - [ ] Add save functionality
   - [x] Add UI
-- [ ] Add multi character support
-  - [ ] Load actual items
+- [x] Add multi character support
+  - [x] Load actual items
   - [x] Add character selection
-    - [ ] Load actual characters
-    - [ ] Implement switching
-    - [ ] Add icon for selection
-  - [ ] Add storage area support
+    - [x] Load actual characters
+    - [x] Implement switching
+    - [x] Add icon for selection
+  - [x] Add storage area support
 - [ ] Vault component
     - [x] Add UI
-    - [ ] Multi vault support
+    - [x] Multi vault support
       - [ ] Load actual items
-      - [ ] Vault selection
+      - [x] Vault selection
     - [ ] Vault customization
       - [ ] Icon customization (Configuration)
       - [ ] Name customization (Configuration)
     - [ ] Autosort
-- [ ] Player component
-  - [ ] Inventory
+- [x] Player component
+  - [x] Inventory
     - [x] Add UI
-    - [ ] Load actual items (ongoing)
+    - [x] Load actual items 
     - [ ] Autosort
     - [x] Multisack support
     - [ ] Support for characters with less then four sacks
         - [ ] Hide tabs for non available sacks
   - [ ] Equipment
-    - [ ] Add UI
-    - [ ] Load actual items
-    - [ ] Add rings support
+    - [x] Add UI
+    - [x] Load actual items
+    - [x] Add rings support
     - [ ] Statistics
       - [x] Load actual statistics (ongoing)
       - [x] Add correct background
       - [x] Scale font size
   - [ ] Add transfer area support
     - [x] Add UI
-    - [ ] Load actual items
+    - [x] Load actual items
     - [ ] Autosort
   - [ ] Add relic area support
     - [x] Add UI
-    - [ ] Load actual items
+    - [x] Load actual items
     - [ ] Autosort
 - [ ] Search functionality (menu bar)
   - [ ] Add UI

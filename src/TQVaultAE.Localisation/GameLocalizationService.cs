@@ -1,8 +1,7 @@
-﻿using TQVaultAE.Application.Contracts;
-using TQVaultAE.FileFormats.Arc;
+﻿using TQVaultAE.FileFormats.Arc;
 using TQVaultAE.TitanQuestDataProviders.Database;
 
-namespace TQVaultAE.Application.Services
+namespace TQVaultAE.Localisation
 {
     public sealed class GameLocalizationService : IGameLocalizationService
     {
@@ -16,6 +15,7 @@ namespace TQVaultAE.Application.Services
             "uniqueequipment.txt",
             "quest.txt",
             "xquest.txt",
+            "ui.txt",
             "xcommonequipment.txt",
             "xuniqueequipment.txt",
             "x2commonequipment.txt",
@@ -24,7 +24,6 @@ namespace TQVaultAE.Application.Services
             "x3items_nonvoiced.txt",
             "x4items_nonvoiced.txt",
             "x4basegame_nonvoiced.txt",
-            "ui.txt",
         ];
 
         // TODO Make dynamic. Harcoded for testing purposes.

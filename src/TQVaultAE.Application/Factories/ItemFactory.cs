@@ -19,7 +19,7 @@ namespace TQVaultAE.Application.Factories
                 ArzRecord itemRecord = await new TitanQuestDatabaseService().GetRecordByPathAsync(item.ResourcePath);
                 return await CreateItemByClassAsync(item, itemRecord).ConfigureAwait(false);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine($"Getting item meta data failed: {ex.Message}");
                 return item;

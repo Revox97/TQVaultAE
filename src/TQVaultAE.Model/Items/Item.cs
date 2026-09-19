@@ -1,8 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Drawing;
 using System.Runtime.CompilerServices;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using TQVaultAE.Model.Enumerations;
 
 namespace TQVaultAE.Model.Items
@@ -14,6 +17,10 @@ namespace TQVaultAE.Model.Items
     // TODO Clean up
     public class Item : INotifyPropertyChanged
     {
+        protected const string ClassSelectorRunItemName = "Run__ItemName";
+        protected const string ClassSelectorRunItemDefault = "Run__ItemDefault";
+        protected const string ClassSelectorRunItemSeparator = "ItemSeparator";
+
         // TODO figure out how to handle item ids the best way.
         public Guid Id { get; set; } = Guid.Empty;
 
@@ -98,7 +105,7 @@ namespace TQVaultAE.Model.Items
         /// Gets the accent color of the <see cref="Item"/>.
         /// </summary>
         [NotMapped]
-        public virtual Color AccentColor => Color.FromArgb(0x10, Color);
+        public virtual Color AccentColor => new(0x10, Color.R, Color.G, Color.B);
 
         // Let each type handle its color, then make it abstract.
         [NotMapped]
@@ -166,5 +173,35 @@ namespace TQVaultAE.Model.Items
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string? name = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+
+        // TODO Make abstract once possible
+        public virtual TextBlock GetItemDescription()
+        {
+            return new TextBlock();
+        }
+
+        protected List<string> GetItemDescriptionProperties()
+        {
+            List<string> properties = [];
+
+            foreach (ItemProperty property in Properties)
+            {
+                // TODO Implement
+            }
+
+            return properties;
+        }
+
+        protected List<string> GetItemDescriptionRequirements()
+        {
+            List<string> requirements = [];
+
+            foreach (ItemRequirement requirement in Requirements)
+            {
+                // TODO Implement
+            }
+
+            return requirements;
+        }
     }
 }

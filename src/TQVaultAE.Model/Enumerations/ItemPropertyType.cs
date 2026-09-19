@@ -599,13 +599,13 @@ namespace TQVaultAE.Model.Enumerations
         [Description("offensiveSlowFireModifier")]
         OffensiveSlowFireModifier,
 
-        [Description("offensiveSlowLifeLeachDurationMax")] 
+        [Description("offensiveSlowLifeLeachDurationMax")]
         OffensiveSlowLifeLeechDurationMax,
 
-        [Description("offensiveSlowLifeLeachDurationMin")] 
+        [Description("offensiveSlowLifeLeachDurationMin")]
         OffensiveSlowLifeLeechDurationMin,
 
-        [Description("offensiveSlowLifeLeachDurationModifier")] 
+        [Description("offensiveSlowLifeLeachDurationModifier")]
         OffensiveSlowLifeLeechDurationModifier,
 
         [Description("offensiveSlowLifeLeachMax")]

@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+﻿using Avalonia.Media;
 using TQVaultAE.Model.Enumerations;
 
 namespace TQVaultAE.Model.Items
@@ -30,7 +30,7 @@ namespace TQVaultAE.Model.Items
             }
         }
 
-        public override Color AccentColor => Color.FromArgb(0x10, Color);
+        public override Color AccentColor => new(0x10, Color.R, Color.G, Color.B);
 
         public override Color Color
         {

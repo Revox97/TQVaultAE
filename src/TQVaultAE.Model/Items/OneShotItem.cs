@@ -1,4 +1,7 @@
-﻿using System.Drawing;
+﻿using Avalonia.Controls;
+using Avalonia.Controls.Documents;
+using Avalonia.Controls.Shapes;
+using Avalonia.Media;
 using TQVaultAE.Model.Enumerations;
 
 namespace TQVaultAE.Model.Items
@@ -50,11 +53,58 @@ namespace TQVaultAE.Model.Items
                         or ItemClass.OneShot_PotionMana
                         or ItemClass.OneShot_Scroll_Eternal
                         or ItemClass.OneShot_Dye
-                        => Color.FromArgb(0x10, TitanQuestColors.Silver),
-                    ItemClass.OneShot_Scroll => Color.FromArgb(0x10, TitanQuestColors.Khaki),
+                        => new Color(0x10, TitanQuestColors.Silver.R, TitanQuestColors.Silver.G, TitanQuestColors.Silver.B),
+                    ItemClass.OneShot_Scroll => new Color(0x10, TitanQuestColors.Khaki.R, TitanQuestColors.Khaki.G, TitanQuestColors.Khaki.B),
                     _ => TitanQuestColors.Red,
                 };
             }
+        }
+
+        public override TextBlock GetItemDescription()
+        {
+            TextBlock result = new()
+            {
+                Inlines = [],
+                TextWrapping = TextWrapping.Wrap
+            };
+
+            result.Inlines.Add(new Run()
+            {
+                Text = Name,
+                Foreground = new SolidColorBrush(Color),
+                Classes = { ClassSelectorRunItemName }
+            });
+
+            result.Inlines.Add(new LineBreak());
+
+            result.Inlines.Add(new Run()
+            {
+                Text = Description,
+                Classes = { ClassSelectorRunItemDefault }
+            });
+
+            result.Inlines.Add(new LineBreak());
+            result.Inlines.Add(new LineBreak());
+            result.Inlines.Add(new InlineUIContainer { Child = new Rectangle { Classes = { ClassSelectorRunItemSeparator } } });
+            result.Inlines.Add(new LineBreak());
+
+            result.Inlines.Add(new Run()
+            {
+                Text = $"Seed: {Seed}", // TODO Localize
+                Foreground = new SolidColorBrush(TitanQuestColors.DarkGray),
+                Classes = { ClassSelectorRunItemDefault }
+            });
+
+            // TODO Get DLC
+
+            // Separator stretch workaround
+            result.LayoutUpdated += (_, _) =>
+            {
+                foreach (InlineUIContainer separator in result.Inlines.Where(x => x is InlineUIContainer).Cast<InlineUIContainer>())
+                    separator.Child.Width = result.Bounds.Width;
+            };
+
+            return result;
         }
     }
 }

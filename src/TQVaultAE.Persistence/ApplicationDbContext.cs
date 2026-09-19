@@ -122,7 +122,7 @@ namespace TQVaultAE.Persistence
                     IconHoverId = hoverId
                 });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }

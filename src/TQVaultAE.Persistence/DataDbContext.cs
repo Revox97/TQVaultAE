@@ -85,7 +85,7 @@ namespace TQVaultAE.Persistence
                     await VaultTabs.AddAsync(tab);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }

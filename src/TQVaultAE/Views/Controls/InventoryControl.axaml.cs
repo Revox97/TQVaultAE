@@ -143,7 +143,7 @@ public partial class InventoryControl : UserControl, INotifyPropertyChanged, IMa
     {
         if (sender is ToggleButton toggleButton)
         {
-            if (toggleButton.IsChecked  == true)
+            if (toggleButton.IsChecked == true)
             {
                 foreach (ToggleButton button in Tabs__Container.Children.Where(x => x.GetType() == typeof(ToggleButton)))
                 {

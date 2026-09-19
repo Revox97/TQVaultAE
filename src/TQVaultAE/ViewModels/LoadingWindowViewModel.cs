@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Controls;
@@ -9,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using TQVaultAE.Application.Contracts;
 using TQVaultAE.Events;
 using TQVaultAE.Events.Events;
+using TQVaultAE.Localisation;
 
 namespace TQVaultAE.ViewModels
 {
@@ -16,7 +16,7 @@ namespace TQVaultAE.ViewModels
     {
         private static readonly SemaphoreSlim s_taskCompletionSemaphore = new(1, 1);
 
-        private readonly float _taskCount = 9; 
+        private readonly float _taskCount = 9;
 
         public double Progress
         {
@@ -27,7 +27,7 @@ namespace TQVaultAE.ViewModels
                 OnPropertyChanged(nameof(Progress));
             }
         }
-        
+
         // TODO Improve performance
         // Skip unnecessary data
         // Run requests in paralell
@@ -56,7 +56,7 @@ namespace TQVaultAE.ViewModels
                 Task.WaitAll(initalizationTasks);
                 App.Current!.Dispatcher.Invoke(() => Program.Services.GetRequiredService<IEventDispatcher>().Dispatch(this, new GameDataLoadedEvent()));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }

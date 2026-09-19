@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="12.1.2" />
-    <PackageReference Include="System.Drawing.Common" Version="10.0.11" />
+    <ProjectReference Include="..\TQVaultAE.TitanQuestDataProviders\TQVaultAE.TitanQuestDataProviders.csproj" />
   </ItemGroup>
 
 </Project>

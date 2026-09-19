@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using TQVaultAE.Application.Contracts;
 using TQVaultAE.Application.Services;
 using TQVaultAE.Events;
+using TQVaultAE.Localisation;
 using TQVaultAE.Persistence;
 using TQVaultAE.Services;
 using TQVaultAE.ViewModels;
@@ -64,7 +65,7 @@ namespace TQVaultAE
                 if (!await dataDb.Vaults.AnyAsync().ConfigureAwait(false))
                     await dataDb.CreateDatabaseAsync().ConfigureAwait(false);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // TODO Add logging
                 throw;
@@ -78,7 +79,7 @@ namespace TQVaultAE
                 if (!await appDb.Icons.AnyAsync().ConfigureAwait(false))
                     await appDb.CreateDatabaseAsync().ConfigureAwait(false);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // TODO Add logging
                 throw;

@@ -1,4 +1,8 @@
-﻿using TQVaultAE.Model.Enumerations;
+﻿using Avalonia.Controls;
+using Avalonia.Controls.Documents;
+using Avalonia.Controls.Shapes;
+using Avalonia.Media;
+using TQVaultAE.Model.Enumerations;
 
 namespace TQVaultAE.Model.Items
 {
@@ -17,6 +21,94 @@ namespace TQVaultAE.Model.Items
             Var1 = item.Var1;
             Var2 = item.Var2;
             JewelryType = Class is ItemClass.ArmorJewelry_Amulet ? JewelryItemType.Amulet : JewelryItemType.Ring;
+        }
+
+        public override TextBlock GetItemDescription()
+        {
+            TextBlock result = new()
+            {
+                Inlines = [],
+                TextWrapping = TextWrapping.Wrap,
+            };
+
+            result.Inlines.Add(new Run()
+            {
+                Text = Name,
+                Foreground = new SolidColorBrush(Color),
+                Classes = { ClassSelectorRunItemName }
+            });
+
+            result.Inlines.Add(new LineBreak());
+            result.Inlines.Add(new LineBreak());
+
+            List<string> properties = GetItemDescriptionProperties();
+
+            foreach (string property in properties)
+            {
+                result.Inlines.Add(new Run()
+                {
+                    Text = property,
+                    Foreground = new SolidColorBrush(TitanQuestColors.Blue),
+                    Classes = { ClassSelectorRunItemDefault }
+                });
+                result.Inlines.Add(new LineBreak());
+            }
+
+            result.Inlines.Add(new LineBreak());
+            result.Inlines.Add(new LineBreak());
+            // TODO Get Prefix properties
+
+            result.Inlines.Add(new LineBreak());
+            result.Inlines.Add(new LineBreak());
+            // TODO Get Suffix properties
+
+            result.Inlines.Add(new LineBreak());
+            result.Inlines.Add(new LineBreak());
+            // TODO Get RelicOne properties
+
+            result.Inlines.Add(new LineBreak());
+            result.Inlines.Add(new LineBreak());
+            // TODO Get RelicTwo properties
+
+            result.Inlines.Add(new LineBreak());
+            result.Inlines.Add(new LineBreak());
+
+            List<string> requirements = GetItemDescriptionRequirements();
+
+            foreach (string requirement in requirements)
+            {
+                result.Inlines.Add(new Run()
+                {
+                    Text = requirement,
+                    Foreground = new SolidColorBrush(TitanQuestColors.DarkGray),
+                    Classes = { ClassSelectorRunItemDefault }
+                });
+                result.Inlines.Add(new LineBreak());
+            }
+
+            result.Inlines.Add(new LineBreak());
+            result.Inlines.Add(new InlineUIContainer { Child = new Rectangle { Classes = { ClassSelectorRunItemSeparator } } });
+            result.Inlines.Add(new LineBreak());
+
+            result.Inlines.Add(new Run()
+            {
+                Text = $"Seed: {Seed}", // TODO Localize
+                Foreground = new SolidColorBrush(TitanQuestColors.DarkGray),
+                Classes = { ClassSelectorRunItemDefault }
+            });
+
+            result.Inlines.Add(new LineBreak());
+
+            // Separator stretch workaround
+            result.LayoutUpdated += (_, _) =>
+            {
+                foreach (InlineUIContainer separator in result.Inlines.Where(x => x is InlineUIContainer).Cast<InlineUIContainer>())
+                    separator.Child.Width = result.Bounds.Width;
+            };
+
+            // TODO Get DLC
+
+            return result;
         }
     }
 }

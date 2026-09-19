@@ -1,5 +1,4 @@
 ﻿using TQVaultAE.FileFormats.Arz;
-using TQVaultAE.IO;
 using TQVaultAE.TitanQuestDataProviders.Decoders;
 
 namespace TQVaultAE.TitanQuestDataProviders.Database

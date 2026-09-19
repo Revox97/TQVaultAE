@@ -1,4 +1,4 @@
-﻿namespace TQVaultAE.Application.Contracts
+﻿namespace TQVaultAE.Localisation
 {
     public interface IGameLocalizationService
     {

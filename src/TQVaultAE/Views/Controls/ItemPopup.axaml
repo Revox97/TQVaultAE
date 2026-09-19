@@ -2,7 +2,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="using:TQVaultAE.Views.Controls"
              xmlns:cvtr="using:TQVaultAE.Converters"
              mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="350"
              x:Name="root"
@@ -13,23 +12,24 @@
         <cvtr:ItemTypeToAccentColorConverter x:Key="ItemTypeToAccentColorConverter"/>
         <cvtr:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
     </UserControl.Resources>
+    <UserControl.Styles>
+        <Style Selector="Run.Run__ItemName">
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style Selector="Run.Run__ItemDefault">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style Selector="Rectangle.ItemSeparator">
+            <Setter Property="Fill" Value="#999999"/>
+            <Setter Property="Height" Value="1"/>
+        </Style>
+    </UserControl.Styles>
     <Border BorderBrush="LightGray" BorderThickness="1" Background="#CC000000">
-        <StackPanel x:Name="ItemPopup__Container" Margin="1">
-            <TextBlock Text="{Binding DataSource.Name, ElementName=root}" FontWeight="DemiBold"
-                   Foreground="{Binding DataSource.Color, ElementName=root, Converter={StaticResource ColorToBrushConverter}}"/>
-            <TextBlock Text="{Binding DataSource.Description, ElementName=root}" Foreground="White" TextWrapping="Wrap"/>
-
-            <TextBlock Text="Base Item Properties:" Foreground="Orange"/>
-            <Separator Foreground="White" Background="White" Width="200"/>
-                
-            <TextBlock>
-                <Run Foreground="White" Text="Seed: "/>
-                <Run Foreground="White" Text="{Binding DataSource.Seed, ElementName=root}"/>
-            </TextBlock>
-            <!-- DLC -->
-
-            <Separator Foreground="White" Background="White" Width="200"/>
-            <!-- Requirements -->
-        </StackPanel>
+        <ContentControl x:Name="ItemPopup__Content"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Top"
+                        Margin="5"/>
     </Border>
 </UserControl>

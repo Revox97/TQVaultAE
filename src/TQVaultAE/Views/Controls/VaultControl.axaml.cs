@@ -49,7 +49,7 @@ public partial class VaultControl : UserControl, IMainWindowChangedObserver
     {
         InitializeComponent();
 
-        if(!Design.IsDesignMode)
+        if (!Design.IsDesignMode)
             Program.Services.GetRequiredService<IEventDispatcher>().AddObserver(this);
 
         InitializeUI();
@@ -73,7 +73,7 @@ public partial class VaultControl : UserControl, IMainWindowChangedObserver
         if (ViewModel.Vault is null)
             return;
 
-        foreach(VaultTab tab in ViewModel.Vault.Tabs)
+        foreach (VaultTab tab in ViewModel.Vault.Tabs)
         {
             ToggleButton item = new()
             {

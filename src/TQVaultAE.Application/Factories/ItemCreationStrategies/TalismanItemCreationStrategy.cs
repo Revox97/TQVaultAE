@@ -29,7 +29,7 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
                 item.Size = GetItemSize(item.Icon);
                 return item;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // Item Creation failed.
                 return itemBase;

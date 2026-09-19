@@ -1,8 +1,10 @@
-﻿using System.Drawing;
-using System.Runtime.Versioning;
+﻿using System.Runtime.Versioning;
+using Avalonia;
+using Avalonia.Media.Imaging;
 using TQVaultAE.Application.Services;
 using TQVaultAE.FileFormats.Arz;
 using TQVaultAE.FileFormats.Tex;
+using TQVaultAE.Localisation;
 using TQVaultAE.Model.Enumerations;
 using TQVaultAE.Model.Items;
 
@@ -45,14 +47,14 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
             List<ArzRecordProperty> validProperties = [.. itemRecord.Properties.Where(x => x.IsValueRelevant && x.Name.EndsWith("Requirement"))];
 
             List<ItemRequirement> itemRequirements = [];
-            foreach(ArzRecordProperty property in validProperties)
+            foreach (ArzRecordProperty property in validProperties)
             {
                 ItemRequirementType type;
                 try
                 {
                     type = property.Name.GetEnumValue<ItemRequirementType>();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     continue;
                 }
@@ -76,14 +78,14 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
             ))];
 
             List<ItemProperty> itemProperties = [];
-            foreach(ArzRecordProperty property in validProperties)
+            foreach (ArzRecordProperty property in validProperties)
             {
                 ItemPropertyType type;
                 try
                 {
                     type = property.Name.GetEnumValue<ItemPropertyType>();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     continue;
                 }
@@ -111,7 +113,7 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
                 TexFile texFile = await new GameIconService().GetTexFileByTagAsync(bitmapPath).ConfigureAwait(false);
                 return texFile?.ToBitmap();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // Loading .tex failed.
                 return null;
@@ -123,8 +125,8 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
         {
             if (icon is not null)
             {
-                int cellWidth = icon.Width / CellVerticyLength;
-                int cellHeight = icon.Height / CellVerticyLength;
+                int cellWidth = (int)(icon.Size.Width / CellVerticyLength);
+                int cellHeight = (int)(icon.Size.Height / CellVerticyLength);
                 return new(cellWidth, cellHeight);
             }
 

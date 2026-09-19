@@ -6,9 +6,6 @@
         {
             byte[] result;
 
-            if (reader.BaseStream.Position  > 10600)
-                Console.WriteLine();
-
             // Titan Quest stores certain data type after fixed strings.
             switch (label)
             {

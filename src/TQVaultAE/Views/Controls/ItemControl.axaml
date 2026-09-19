@@ -1,7 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:internal="using:Microsoft.Extensions.Internal"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:cvtr="using:TQVaultAE.Converters"
              xmlns:model="using:TQVaultAE.Model.Items"
@@ -15,7 +14,6 @@
              PointerReleased="UserControl_PointerReleased">
     <UserControl.Resources>
         <cvtr:ItemTypeToAccentColorConverter x:Key="ItemTypeToAccentColorConverter"/>
-        <cvtr:SystemToAvaloniaBitmapConverter x:Key="SystemToAvaloniaBitmapConverter"/>
         <cvtr:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
     </UserControl.Resources>
     <UserControl.ContextMenu>
@@ -36,7 +34,7 @@
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Rectangle x:Name="ItemAccent" Fill="{Binding AccentColor, Converter={StaticResource ColorToBrushConverter}}" IsHitTestVisible="False"/>
         <Image Source="avares://TQVaultAE/Assets/Img/item_accent.png" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="Fill" IsVisible="{Binding ShowIconAccent}" Opacity="0.5"/>
-        <Image Source="{Binding Icon, Converter={StaticResource SystemToAvaloniaBitmapConverter}}" Stretch="Fill"/>
+        <Image Source="{Binding Icon}" Stretch="Fill"/>
         <Label HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalContentAlignment="Bottom" Padding="1" Margin="0"
                Content="{Binding StackCount}" IsVisible="{Binding ShowStackCount}" Foreground="White" FontSize="8"/>
     </Grid>

@@ -1,6 +1,6 @@
-﻿using TQVaultAE.Model.Vaults;
-using TQVaultAE.Model;
+﻿using TQVaultAE.Model;
 using TQVaultAE.Model.Enumerations;
+using TQVaultAE.Model.Vaults;
 
 namespace TQVaultAE.Application.Contracts
 {

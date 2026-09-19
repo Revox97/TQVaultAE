@@ -1,7 +1,6 @@
-﻿using System.Drawing;
+﻿using Avalonia;
 using TQVaultAE.Application.Services;
 using TQVaultAE.FileFormats.Chr;
-using TQVaultAE.Model.Enumerations;
 using TQVaultAE.Model.Items;
 using TQVaultAE.Model.Players;
 

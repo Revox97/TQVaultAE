@@ -100,7 +100,7 @@ namespace TQVaultAE.TitanQuestDataProviders.Decoders
 
             // Some files seem to be generated with \n instead of \r\n
             string[] lines = result.Contains(Environment.NewLine) ? result.Split(Environment.NewLine) : result.Split("\n");
-            
+
             foreach (string line in lines)
             {
                 if (line.StartsWith("//"))
