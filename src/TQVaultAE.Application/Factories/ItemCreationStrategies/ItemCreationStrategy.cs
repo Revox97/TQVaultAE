@@ -42,6 +42,26 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
             return await new GameLocalizationService().GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
         }
 
+
+        protected virtual async Task<GameDlc> GetGameDlcAsync(ArzRecord itemRecord, string itemNamePropertyName)
+        {
+            string nameTag = itemRecord[itemNamePropertyName]?.Get<string>(0) ?? string.Empty;
+
+            if (nameTag.StartsWith("x4"))
+                return GameDlc.EternalEmbers;
+
+            if (nameTag.StartsWith("x3"))
+                return GameDlc.Atlantis;
+
+            if (nameTag.StartsWith("x2"))
+                return GameDlc.Ragnarok;
+
+            if (nameTag.StartsWith('x'))
+                return GameDlc.ImmortalThrone;
+
+            return GameDlc.TitanQuest;
+        }
+
         protected virtual List<ItemRequirement> GetItemRequirements(ArzRecord itemRecord)
         {
             List<ArzRecordProperty> validProperties = [.. itemRecord.Properties.Where(x => x.IsValueRelevant && x.Name.EndsWith("Requirement"))];

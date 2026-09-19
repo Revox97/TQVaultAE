@@ -20,6 +20,7 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
                     Name = await GetLocalizedValueAsync(itemRecord, "description"),
                     Description = await GetLocalizedValueAsync(itemRecord, "itemText"),
                     Icon = await GetIconAsync(itemRecord, "bitmap") ?? null!,
+                    GameDlc = await GetGameDlcAsync(itemRecord, "description"),
                 };
 
                 item.Size = GetItemSize(item.Icon);

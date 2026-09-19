@@ -89,6 +89,9 @@ namespace TQVaultAE.Model.Items
 
         public int Var2 { get; set; }
 
+        [NotMapped]
+        public GameDlc GameDlc { get; set; }
+
         /// <summary>
         /// Gets or sets the requirements to equip the <see cref="Item"/>.
         /// </summary>

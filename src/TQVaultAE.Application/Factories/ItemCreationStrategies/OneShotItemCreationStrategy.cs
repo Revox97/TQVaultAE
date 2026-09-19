@@ -24,6 +24,7 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
                     Properties = new ObservableCollection<ItemProperty>(GetItemAttributes(itemRecord)),
                     Bonuses = GetBonuses(itemRecord),
                     Icon = await GetIconAsync(itemRecord, "bitmap") ?? null!,
+                    GameDlc = await GetGameDlcAsync(itemRecord, "description"),
                 };
 
                 item.Size = GetItemSize(item.Icon);

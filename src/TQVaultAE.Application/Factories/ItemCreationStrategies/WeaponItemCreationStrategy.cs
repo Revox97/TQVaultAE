@@ -24,6 +24,7 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
                     Icon = await GetIconAsync(itemRecord, "bitmap") ?? null!,
                     HidePrefixName = itemRecord["hidePrefixName"]?.Get<bool>(0) ?? false,
                     HideSuffixName = itemRecord["hideSuffixName"]?.Get<bool>(0) ?? false,
+                    GameDlc = await GetGameDlcAsync(itemRecord, "itemNameTag")
                 };
 
                 item.Prefix = await GetCompleteAffixAsync(item.Prefix);

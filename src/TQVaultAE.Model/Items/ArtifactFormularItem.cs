@@ -82,7 +82,17 @@ namespace TQVaultAE.Model.Items
                 Classes = { ClassSelectorRunItemDefault }
             });
 
-            // TODO Get DLC
+            if (GameDlc is not GameDlc.TitanQuest)
+            {
+                result.Inlines.Add(new LineBreak());
+
+                result.Inlines.Add(new Run()
+                {
+                    Text = $"{GameDlc.GetEnumStringValue()} Item", // TODO Localize
+                    Foreground = new SolidColorBrush(TitanQuestColors.Green),
+                    Classes = { ClassSelectorRunItemDefault }
+                });
+            }
 
             // Separator stretch workaround
             result.LayoutUpdated += (_, _) =>

@@ -22,6 +22,7 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
                     Cost = itemRecord["itemCost"]?.Get<int>(0) ?? 0,
                     Name = await GetLocalizedValueAsync(itemRecord, "description"),
                     Icon = await GetIconAsync(itemRecord, "artifactFormulaBitmapName") ?? null!,
+                    GameDlc = await GetGameDlcAsync(itemRecord, "description"),
                 };
 
                 item.Size = GetItemSize(item.Icon);

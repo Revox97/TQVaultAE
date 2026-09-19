@@ -24,6 +24,7 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
                     Requirements = new ObservableCollection<ItemRequirement>(GetItemRequirements(itemRecord)),
                     IconIncomplete = await GetIconAsync(itemRecord, "shardBitmap") ?? null!,
                     IconComplete = await GetIconAsync(itemRecord, "relicBitmap") ?? null!,
+                    GameDlc = await GetGameDlcAsync(itemRecord, "description")
                 };
 
                 item.Size = GetItemSize(item.Icon);

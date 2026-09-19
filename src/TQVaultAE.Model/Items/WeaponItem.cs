@@ -39,6 +39,7 @@ namespace TQVaultAE.Model.Items
             };
         }
 
+        // TODO Move this into own factory?
         public override TextBlock GetItemDescription()
         {
             TextBlock result = new()
@@ -118,7 +119,17 @@ namespace TQVaultAE.Model.Items
                 Classes = { ClassSelectorRunItemDefault }
             });
 
-            result.Inlines.Add(new LineBreak());
+            if (GameDlc is not GameDlc.TitanQuest)
+            {
+                result.Inlines.Add(new LineBreak());
+
+                result.Inlines.Add(new Run()
+                {
+                    Text = $"{GameDlc.GetEnumStringValue()} Item", // TODO Localize
+                    Foreground = new SolidColorBrush(TitanQuestColors.Green),
+                    Classes = { ClassSelectorRunItemDefault }
+                });
+            }
 
             // TODO Get DLC
 

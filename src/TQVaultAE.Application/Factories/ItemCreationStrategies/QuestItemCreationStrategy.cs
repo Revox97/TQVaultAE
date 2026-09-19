@@ -21,14 +21,10 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
                     Scale = itemRecord["scale"]?.Get<float>(0) ?? 0.0f,
                     Icon = await GetIconAsync(itemRecord, "bitmap") ?? null!,
                     Requirements = new ObservableCollection<ItemRequirement>(GetItemRequirements(itemRecord)),
+                    Name = await GetLocalizedValueAsync(itemRecord, "description"),
+                    Description = await GetLocalizedValueAsync(itemRecord, "itemText"),
+                    GameDlc = await GetGameDlcAsync(itemRecord, "description"),
                 };
-
-                // There seem to be multiple types of quest items, staffs have description as name
-                string nameTag = itemRecord["description"]?.Get<string>(0) ?? string.Empty;
-                item.Name = await new GameLocalizationService().GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
-
-                string descriptionTag = itemRecord["itemText"]?.Get<string>(0) ?? string.Empty;
-                item.Description = await new GameLocalizationService().GetLocalizedValueByTag(descriptionTag).ConfigureAwait(false) ?? string.Empty;
 
                 item.Size = GetItemSize(item.Icon);
                 return item;
