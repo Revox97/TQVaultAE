@@ -113,7 +113,6 @@ namespace TQVaultAE.Model.Items
                 result.Inlines.Add(new LineBreak());
             }
 
-            // TODO Get Suffix properties
             if (Suffix is not null)
             {
                 result.Inlines.Add(new Run()

@@ -42,23 +42,76 @@ namespace TQVaultAE.Model.Items
             result.Inlines.Add(new LineBreak());
             result.Inlines.AddRange(GetItemDescriptionProperties());
             result.Inlines.Add(new LineBreak());
-            result.Inlines.Add(new LineBreak());
-            // TODO Get Prefix properties
 
-            result.Inlines.Add(new LineBreak());
-            result.Inlines.Add(new LineBreak());
-            // TODO Get Suffix properties
+            if (Prefix is not null)
+            {
+                result.Inlines.Add(new Run()
+                {
+                    Text = $"Prefix: {Prefix.Name}", // TODO Localize
+                    Foreground = new SolidColorBrush(TitanQuestColors.Orange),
+                    Classes = { ClassSelectorRunItemDefault }
+                });
+                result.Inlines.Add(new LineBreak());
 
-            result.Inlines.Add(new LineBreak());
-            result.Inlines.Add(new LineBreak());
-            // TODO Get RelicOne properties
+                List<string> prefixProperties = Prefix.GetAffixDescriptionProperties();
 
-            result.Inlines.Add(new LineBreak());
-            result.Inlines.Add(new LineBreak());
-            // TODO Get RelicTwo properties
+                foreach (string prefixProperty in prefixProperties)
+                {
+                    result.Inlines.Add(new Run()
+                    {
+                        Text = prefixProperty,
+                        Foreground = new SolidColorBrush(TitanQuestColors.Blue),
+                        Classes = { ClassSelectorRunItemDefault }
+                    });
+                    result.Inlines.Add(new LineBreak());
+                }
 
-            result.Inlines.Add(new LineBreak());
-            result.Inlines.Add(new LineBreak());
+                // TODO add skill augments
+                result.Inlines.Add(new LineBreak());
+            }
+
+            if (Suffix is not null)
+            {
+                result.Inlines.Add(new Run()
+                {
+                    Text = $"Suffix: {Suffix.Name}", // TODO Localize
+                    Foreground = new SolidColorBrush(TitanQuestColors.Orange),
+                    Classes = { ClassSelectorRunItemDefault }
+                });
+                result.Inlines.Add(new LineBreak());
+
+                List<string> suffixProperties = Suffix.GetAffixDescriptionProperties();
+
+                foreach (string suffixProperty in suffixProperties)
+                {
+                    result.Inlines.Add(new Run()
+                    {
+                        Text = suffixProperty,
+                        Foreground = new SolidColorBrush(TitanQuestColors.Blue),
+                        Classes = { ClassSelectorRunItemDefault }
+                    });
+                    result.Inlines.Add(new LineBreak());
+                }
+
+                // TODO add skill augments
+                result.Inlines.Add(new LineBreak());
+            }
+
+            if (TalismanOne is not null)
+            {
+                TextBlock talismanTb = TalismanOne.GetItemDescription();
+                result.Inlines.AddRange(talismanTb.Inlines!);
+                result.Inlines.Add(new LineBreak());
+                result.Inlines.Add(new LineBreak());
+            }
+
+            if (TalismanTwo is not null)
+            {
+                TextBlock talismanTb = TalismanTwo.GetItemDescription();
+                result.Inlines.AddRange(talismanTb.Inlines!);
+                result.Inlines.Add(new LineBreak());
+                result.Inlines.Add(new LineBreak());
+            }
 
             List<string> requirements = GetItemDescriptionRequirements();
 

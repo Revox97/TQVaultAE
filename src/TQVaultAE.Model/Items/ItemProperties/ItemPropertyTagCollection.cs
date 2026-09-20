@@ -6,18 +6,34 @@
         {
             { "characterAttackSpeed", "CharacterAttackSpeedModifier" },
             { "characterDefensiveAbility", "CharacterDefensiveAbility" },
-            { "characterMana", "CharacterMana" },
-            { "characterStrength", "CharacterStrengthModifier" },
+            { "characterDexterity", "CharacterDexterity" },
+            { "characterEnergyAbsorptionPercent", "CharacterEnergyAbsorptionPercent" },
+            { "characterGlobalReqReduction", "CharcterItemGlobalReduction" }, // Typo in game file, do not "fix"
+            { "characterIntelligence", "CharacterIntelligence" },
+            { "characterItemGlobalReduction", "CharacterItemGlobalReduction" },
+            { "characterLife", "CharacterLife" },
+            { "characterLifeRegen", "CharacterLifeRegen" },
             { "characterOffensiveAbility", "CharacterOffensiveAbility" },
+            { "characterMana", "CharacterMana" },
+            { "characterRunSpeed", "CharacterRunSpeedModifier" },
+            { "characterTotalSpeed", "CharacterTotalSpeedModifier" },
+            { "characterStrength", "CharacterStrength" },
 
             { "defensiveBleeding", "DefenseBleeding" },
+            { "defensiveCold", "DefenseCold" },
             { "defensiveDisruption", "DefenseDisruption" },
             { "defensiveElementalResistance", "DefenseElementalResistance" },
+            { "defensiveFire", "DefenseFire" },
             { "defensiveLife", "DefenseLife" },
+            { "defensiveLightning", "DefenseLightning" },
+            { "defensivePierce", "DefensePierce" },
+            { "defensivePoison", "DefensePoison" },
             { "defensiveProtection", "DefenseAbsorptionProtection" },
+            { "defensiveReflect", "DefenseReflect" },
             { "defensiveStun", "DefenseStun" },
 
-            { "skillCooldownReduction", "SkillCooldownReduction" },
+            { "defensiveSlowLifeLeach", "DefenseLifeLeach" },
+            { "defensiveSlowManaLeach", "DefenseManaLeach" },
 
             { "offensiveLife", "DamageLife" },
             { "offensivePetrify", "DamagePetrify" },
@@ -26,11 +42,24 @@
             { "offensivePierceRatio", "DamageBasePierceRatio" },
             { "offensiveTotalDamage", "<<TOTAL>>" },
             { "offensiveGlobalChance", "ChanceOfTag" },
+            { "offensivePercentCurrentLife", "DamagePercentCurrentLife" },
+            { "offensivePercentCurrentLifeChance", "ChanceOfTag" },
+            { "offensivePierce", "DamagePierce" },
 
             { "offensiveSlowLightning", "DamageDurationLightning" },
             { "offensiveSlowLightningDurationMin", "DamageSingleFormatTime" },
-            { "offensiveSlowLifeLeach", "DamageDurationModifierLifeLeach" },
+            { "offensiveSlowLifeLeach", "DamageDurationLifeLeach" },
+            { "offensiveSlowLifeLeachDurationMin", "DamageSingleFormatTime" },
+            { "offensiveSlowLifeLeachModifier", "DamageDurationModifierLifeLeach" },
+            { "offensiveSlowLightningModifier", "DamageDurationModifierLightning" },
+            { "offensiveSlowManaLeach", "DamageDurationManaLeach" },
+            { "offensiveSlowManaLeachDurationMin", "DamageSingleFormatTime" },
+            { "offensiveSlowOffensiveAbility", "DamageDurationOffensiveAbility" },
+            { "offensiveSlowOffensiveAbilityDurationMin", "DamageSingleFormatTime" },
+            { "offensiveSlowPoison", "DamageDurationPoison" },
+            { "offensiveSlowPoisonDurationMin", "DamageSingleFormatTime" },
 
+            { "skillCooldownReduction", "SkillCooldownReduction" },
         };
 
         public string this[string name]

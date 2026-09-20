@@ -63,7 +63,25 @@ namespace TQVaultAE.Model.Items.ItemProperties
             Regex rgx = PropertyValuePlaceHolderRegex();
             string result = "";
 
-            if (HasMin && HasMax)
+            if (HasChance && HasMin)
+            {
+                tag = new ItemPropertyTagCollection()[$"{Name}Chance"];
+                string? chanceFormat = new GameLocalizationService().GetLocalizedValueByTagAsync(tag).Result;
+
+                if (string.IsNullOrEmpty(chanceFormat))
+                    result = Name;
+
+                string chance = rgx.Replace(chanceFormat, match =>
+                {
+                    int decimals = int.Parse(match.Groups["decimals"].Value);
+                    string plusIndicator = match.Groups["plusIndicator"].Value;
+                    return $"{plusIndicator}{Chance.ToString($"F{decimals}")}";
+                });
+
+                result = $"{chance}{Min}{localizedName}";
+            }
+
+            else if (HasMin && HasMax)
             {
                 string rangeFormat = new GameLocalizationService().GetLocalizedValueByTagAsync("DamageRangeFormat").Result!;
 
@@ -118,6 +136,11 @@ namespace TQVaultAE.Model.Items.ItemProperties
                             })
                         : $"{Modifier}{localizedName}";
                 }
+            }
+
+            else
+            {
+
             }
 
             return $"{(IsGlobal ? "\t" : "")}{result}";

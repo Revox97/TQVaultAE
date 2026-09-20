@@ -49,9 +49,81 @@ namespace TQVaultAE.Model.Items.ItemProperties
             Regex rgx = PropertyValuePlaceHolderRegex();
             string result = "";
 
-            if (HasDurationMin && HasMin)
+            if (HasDurationMin && HasMin && HasMax && HasModifier)
             {
-                result = (Min * DurationMin) + localizedName;
+                // Not sure what Modifier is doing here to be honest
+                int max = (int)(DurationMin * Max);
+                int min = (int)(DurationMin * Min);
+
+                string rangeFormat = new GameLocalizationService().GetLocalizedValueByTagAsync("DamageRangeFormat").Result!;
+
+                MatchCollection matches = rgx.Matches(rangeFormat);
+
+                int decimalsMin = int.Parse(matches[0].Groups["decimals"].Value);
+                int indexMin = int.Parse(matches[0].Groups["index"].Value);
+                string range = rangeFormat.Replace(matches[0].Value, min.ToString($"F{decimalsMin}"));
+
+                int decimalsMax = int.Parse(matches[1].Groups["decimals"].Value);
+                int indexMax = int.Parse(matches[1].Groups["index"].Value);
+                range = range.Replace(matches[1].Value, max.ToString($"F{decimalsMax}"));
+
+                tag = new ItemPropertyTagCollection()[$"{Name}DurationMin"];
+                string? durationFormat = new GameLocalizationService().GetLocalizedValueByTagAsync(tag).Result;
+
+                if (durationFormat is null)
+                {
+
+                }
+                string duration = rgx.Replace(durationFormat, match =>
+                    {
+                        int decimals = int.Parse(match.Groups["decimals"].Value);
+                        string plusIndicator = match.Groups["plusIndicator"].Value;
+                        return $"{plusIndicator}{DurationMin.ToString($"F{decimals}")}";
+                    });
+
+                result = $"{range}{localizedName}{duration}";
+            }
+
+            else if (HasDurationMin && HasMin && HasMax)
+            {
+                // Not sure what Modifier is doing here to be honest
+                int max = (int)(DurationMin * Max);
+                int min = (int)(DurationMin * Min);
+
+                string rangeFormat = new GameLocalizationService().GetLocalizedValueByTagAsync("DamageRangeFormat").Result!;
+
+                MatchCollection matches = rgx.Matches(rangeFormat);
+
+                int decimalsMin = int.Parse(matches[0].Groups["decimals"].Value);
+                int indexMin = int.Parse(matches[0].Groups["index"].Value);
+                string range = rangeFormat.Replace(matches[0].Value, min.ToString($"F{decimalsMin}"));
+
+                int decimalsMax = int.Parse(matches[1].Groups["decimals"].Value);
+                int indexMax = int.Parse(matches[1].Groups["index"].Value);
+                range = range.Replace(matches[1].Value, max.ToString($"F{decimalsMax}"));
+
+                tag = new ItemPropertyTagCollection()[$"{Name}DurationMin"];
+                string? durationFormat = new GameLocalizationService().GetLocalizedValueByTagAsync(tag).Result;
+
+                if (durationFormat is null)
+                {
+
+                }
+                string duration = rgx.Replace(durationFormat, match =>
+                    {
+                        int decimals = int.Parse(match.Groups["decimals"].Value);
+                        string plusIndicator = match.Groups["plusIndicator"].Value;
+                        return $"{plusIndicator}{DurationMin.ToString($"F{decimals}")}";
+                    });
+
+                result = $"{range}{localizedName}{duration}";
+            }
+
+            else if (HasDurationMin && HasMin)
+            {
+                result = localizedName.StartsWith('%')
+                    ? $"{Min}{localizedName}"
+                    : (Min * DurationMin) + localizedName;
 
                 tag = new ItemPropertyTagCollection()[$"{Name}DurationMin"];
                 string? durationFormat = new GameLocalizationService().GetLocalizedValueByTagAsync(tag).Result;
@@ -64,6 +136,10 @@ namespace TQVaultAE.Model.Items.ItemProperties
                             string plusIndicator = match.Groups["plusIndicator"].Value;
                             return $"{plusIndicator}{DurationMin.ToString($"F{decimals}")}";
                         });
+                }
+                else
+                {
+
                 }
             }
 
@@ -107,9 +183,11 @@ namespace TQVaultAE.Model.Items.ItemProperties
                 {
                     tag = new ItemPropertyTagCollection()[$"{Name}Modifier"];
                     localizedName = new GameLocalizationService().GetLocalizedValueByTagAsync(tag).Result;
+                }
 
-                    if (string.IsNullOrEmpty(localizedName))
-                        result = Name;
+                if (string.IsNullOrEmpty(localizedName))
+                {
+                    result = Name;
                 }
                 else
                 {
@@ -122,6 +200,10 @@ namespace TQVaultAE.Model.Items.ItemProperties
                             })
                         : $"{Modifier}{localizedName}";
                 }
+            }
+            else
+            {
+
             }
 
             return $"{(IsGlobal ? "\t" : "")}{result}";
