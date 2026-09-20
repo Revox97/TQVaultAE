@@ -3,6 +3,7 @@ using System.Runtime.Versioning;
 using TQVaultAE.FileFormats.Arz;
 using TQVaultAE.Model.Enumerations;
 using TQVaultAE.Model.Items;
+using TQVaultAE.Model.Items.ItemProperties;
 
 namespace TQVaultAE.Application.Factories.ItemCreationStrategies
 {
@@ -21,7 +22,7 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
                     Scale = itemRecord["scale"]?.Get<float>(0) ?? 0.0f,
                     Name = await GetLocalizedValueAsync(itemRecord, "description"),
                     Description = await GetLocalizedValueAsync(itemRecord, "itemText"),
-                    Properties = new ObservableCollection<ItemProperty>(GetItemAttributes(itemRecord)),
+                    Properties = new ObservableCollection<ItemProperty>(GetItemProperties(itemRecord)),
                     Bonuses = GetBonuses(itemRecord),
                     Icon = await GetIconAsync(itemRecord, "bitmap") ?? null!,
                     GameDlc = await GetGameDlcAsync(itemRecord, "description"),

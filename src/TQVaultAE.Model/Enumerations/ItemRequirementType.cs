@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using TQVaultAE.Model.Attributes;
 
 namespace TQVaultAE.Model.Enumerations
 {
@@ -12,6 +13,7 @@ namespace TQVaultAE.Model.Enumerations
         [Description("intelligenceRequirement")]
         Intelligence,
         [Description("levelRequirement")]
+        [LocalizationTag("LevelRequirement")]
         Level,
         [Description("strengthRequirement")]
         Strenth

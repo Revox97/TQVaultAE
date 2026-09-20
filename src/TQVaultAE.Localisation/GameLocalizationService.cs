@@ -16,12 +16,16 @@ namespace TQVaultAE.Localisation
             "quest.txt",
             "xquest.txt",
             "ui.txt",
+            "skills.txt",
             "xcommonequipment.txt",
             "xuniqueequipment.txt",
+            "xskills.txt",
             "x2commonequipment.txt",
             "x2uniqueequipment.txt",
             "x2quest.txt",
+            "x2skills.txt",
             "x3items_nonvoiced.txt",
+            "x3basegame_nonvoiced.txt",
             "x4items_nonvoiced.txt",
             "x4basegame_nonvoiced.txt",
         ];
@@ -29,7 +33,7 @@ namespace TQVaultAE.Localisation
         // TODO Make dynamic. Harcoded for testing purposes.
         private static readonly string s_localizationPath = Path.Combine(@"C:\Program Files (x86)\Steam\steamapps\common\Titan Quest Anniversary Edition\Text\Text_EN.arc");
 
-        public async Task<string?> GetLocalizedValueByTag(string tag)
+        public async Task<string?> GetLocalizedValueByTagAsync(string tag)
         {
             ArgumentException.ThrowIfNullOrEmpty(tag);
             string? value = s_localization.TryGetValue(tag, out string? result) ? result : null;

@@ -5,7 +5,7 @@
              xmlns:cvtr="using:TQVaultAE.Converters"
              mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="350"
              x:Name="root"
-             MaxWidth="300"
+             MaxWidth="400"
              x:Class="TQVaultAE.Views.Controls.ItemPopup"
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <UserControl.Resources>

@@ -4,9 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.CompilerServices;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Documents;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using TQVaultAE.Model.Enumerations;
+using TQVaultAE.Model.Items.ItemProperties;
 
 namespace TQVaultAE.Model.Items
 {
@@ -183,26 +185,38 @@ namespace TQVaultAE.Model.Items
             return new TextBlock();
         }
 
-        protected List<string> GetItemDescriptionProperties()
+        protected virtual List<Inline> GetItemDescriptionProperties(List<ItemProperty>? properties = null)
         {
-            List<string> properties = [];
+            List<ItemProperty> actualProperties = properties ?? [.. Properties];
+            List<Inline> propertyValues = [];
 
-            foreach (ItemProperty property in Properties)
+            Dictionary<Type, int> order = new()
             {
-                // TODO Implement
-            }
+                { typeof(OffensiveItemProperty), 0 },
+                { typeof(OffensiveSlowItemProperty), 1 },
+                { typeof(DefensiveItemProperty), 2 },
+                { typeof(DefensiveSlowItemProperty), 3 },
+                { typeof(RetaliationItemProperty), 4 },
+                { typeof(RetaliationSlowItemProperty), 5 },
+                { typeof(CharacterItemProperty), 6 },
+                { typeof(SkillItemProperty), 7 },
+                { typeof(GlobalItemProperty), 8 }
+            };
 
-            return properties;
+            List<ItemProperty> orderedProperties = [.. actualProperties.OrderBy(x => order[x.GetType()])];
+
+            foreach (ItemProperty property in orderedProperties)
+                propertyValues.AddRange(property.GetDescription());
+
+            return propertyValues;
         }
 
         protected List<string> GetItemDescriptionRequirements()
         {
             List<string> requirements = [];
 
-            foreach (ItemRequirement requirement in Requirements)
-            {
-                // TODO Implement
-            }
+            foreach (ItemRequirement requirement in Requirements.OrderBy(x => x.Type))
+                requirements.Add(requirement.ToString());
 
             return requirements;
         }

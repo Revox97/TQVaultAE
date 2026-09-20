@@ -9,8 +9,8 @@ namespace TQVaultAE.Converters
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            return value is System.Drawing.Color color
-                ? new SolidColorBrush((uint)color.ToArgb())
+            return value is Color color
+                ? new SolidColorBrush(color)
                 : value;
         }
 

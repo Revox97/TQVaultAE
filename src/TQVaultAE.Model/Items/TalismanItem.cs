@@ -120,20 +120,7 @@ namespace TQVaultAE.Model.Items
 
             result.Inlines.Add(new LineBreak());
             result.Inlines.Add(new LineBreak());
-
-            List<string> properties = GetItemDescriptionProperties();
-
-            foreach (string property in properties)
-            {
-                result.Inlines.Add(new Run()
-                {
-                    Text = property,
-                    Foreground = new SolidColorBrush(TitanQuestColors.Blue),
-                    Classes = { ClassSelectorRunItemDefault }
-                });
-                result.Inlines.Add(new LineBreak());
-            }
-
+            result.Inlines.AddRange(GetItemDescriptionProperties());
             result.Inlines.Add(new LineBreak());
 
             List<string> requirements = GetItemDescriptionRequirements();

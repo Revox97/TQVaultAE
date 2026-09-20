@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
+using TQVaultAE.Model.Attributes;
 
 namespace TQVaultAE.Model.Enumerations
 {
@@ -37,6 +38,28 @@ namespace TQVaultAE.Model.Enumerations
 
             string? description = field.GetCustomAttribute<DescriptionAttribute>()?.Description;
             return description ?? field.Name;
+        }
+
+        public static string? GetLocalizationTag<TEnum>(this TEnum value) where TEnum : struct, Enum
+        {
+            FieldInfo? field = typeof(TEnum).GetField(value.ToString());
+
+            if (field == null)
+                return null;
+
+            string? localizationTag = field.GetCustomAttribute<LocalizationTagAttribute>()?.LocalizationTag;
+            return localizationTag ?? null;
+        }
+
+        public static string GetLocalizationTagOrEnumValue<TEnum>(this TEnum value) where TEnum : struct, Enum
+        {
+            FieldInfo? field = typeof(TEnum).GetField(value.ToString());
+
+            if (field == null)
+                return value.ToString();
+
+            string? localizationTag = field.GetCustomAttribute<LocalizationTagAttribute>()?.LocalizationTag;
+            return localizationTag ?? value.ToString();
         }
     }
 }

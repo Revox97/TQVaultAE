@@ -65,6 +65,9 @@ namespace TQVaultAE.FileFormats.Arz
             if (typeof(T).IsEnum && valueRaw is not null)
                 return (T)Enum.Parse(typeof(T), valueRaw.ToString() ?? string.Empty);
 
+            if (typeof(T) == typeof(bool) && valueRaw is int valueInt)
+                return (T)(object)(valueInt == 1);
+
             if (valueRaw is T value)
                 return value;
 

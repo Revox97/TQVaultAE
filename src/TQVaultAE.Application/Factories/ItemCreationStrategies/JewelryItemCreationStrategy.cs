@@ -3,6 +3,7 @@ using System.Runtime.Versioning;
 using TQVaultAE.FileFormats.Arz;
 using TQVaultAE.Model.Enumerations;
 using TQVaultAE.Model.Items;
+using TQVaultAE.Model.Items.ItemProperties;
 
 namespace TQVaultAE.Application.Factories.ItemCreationStrategies
 {
@@ -21,7 +22,7 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
                     Classification = itemRecord["itemClassification"]?.Get<ItemClassification>(0) ?? default,
                     Cost = itemRecord["cost"]?.Get<int>(0) ?? 0,
                     BaseName = await GetLocalizedValueAsync(itemRecord, "itemNameTag"),
-                    Properties = new ObservableCollection<ItemProperty>(GetItemAttributes(itemRecord)),
+                    Properties = new ObservableCollection<ItemProperty>(GetItemProperties(itemRecord)),
                     Requirements = new ObservableCollection<ItemRequirement>(GetItemRequirements(itemRecord)),
                     Icon = await GetIconAsync(itemRecord, "bitmap") ?? null!,
                     HidePrefixName = itemRecord["hidePrefixName"]?.Get<bool>(0) ?? false,

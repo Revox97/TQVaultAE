@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Runtime.Versioning;
 using TQVaultAE.FileFormats.Arz;
-using TQVaultAE.Localisation;
 using TQVaultAE.Model.Enumerations;
 using TQVaultAE.Model.Items;
 

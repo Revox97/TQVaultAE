@@ -1,5 +1,4 @@
-﻿using System.Runtime.Versioning;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Media.Imaging;
 using TQVaultAE.Application.Services;
 using TQVaultAE.FileFormats.Arz;
@@ -7,6 +6,7 @@ using TQVaultAE.FileFormats.Tex;
 using TQVaultAE.Localisation;
 using TQVaultAE.Model.Enumerations;
 using TQVaultAE.Model.Items;
+using TQVaultAE.Model.Items.ItemProperties;
 
 namespace TQVaultAE.Application.Factories.ItemCreationStrategies
 {
@@ -27,7 +27,7 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
             {
                 Path = affixBase.Path,
                 Name = await GetLocalizedValueAsync(affixRecord, "lootRandomizerName"),
-                Properties = GetItemAttributes(affixRecord), // TODO The tag property needs to be filtered.
+                Properties = GetItemProperties(affixRecord), // TODO The tag property needs to be filtered.
                 Requirements = GetItemRequirements(affixRecord),
                 MarketAdjustmentPercent = affixRecord["marketAdjustmentPercent"]?.GetSingle(0) ?? 0.0f
             };
@@ -39,7 +39,7 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
         protected virtual async Task<string> GetLocalizedValueAsync(ArzRecord itemRecord, string itemNamePropertyName)
         {
             string nameTag = itemRecord[itemNamePropertyName]?.Get<string>(0) ?? string.Empty;
-            return await new GameLocalizationService().GetLocalizedValueByTag(nameTag).ConfigureAwait(false) ?? string.Empty;
+            return await new GameLocalizationService().GetLocalizedValueByTagAsync(nameTag).ConfigureAwait(false) ?? string.Empty;
         }
 
 
@@ -67,6 +67,10 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
             List<ArzRecordProperty> validProperties = [.. itemRecord.Properties.Where(x => x.IsValueRelevant && x.Name.EndsWith("Requirement"))];
 
             List<ItemRequirement> itemRequirements = [];
+
+            // TODO Many requirements seem not to be within the main database.
+            // Figure out, where  they are comming from.
+            // Maybe this is a calculation on some stats.
             foreach (ArzRecordProperty property in validProperties)
             {
                 ItemRequirementType type;
@@ -86,43 +90,55 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
             return itemRequirements;
         }
 
-        protected virtual List<ItemProperty> GetItemAttributes(ArzRecord itemRecord)
+        protected virtual async Task<List<ItemSkillAugment>> GetSkillAugmentsAsync(ArzRecord itemRecord)
         {
-            List<ArzRecordProperty> validProperties = [.. itemRecord.Properties.Where(x => x.IsValueRelevant &&
-            (
-                   x.Name.StartsWith("offensive")
-                || x.Name.StartsWith("defensive")
-                || x.Name.StartsWith("retaliation")
-                || x.Name.StartsWith("skill")
-                || x.Name.StartsWith("character")
-            ))];
+            List<ItemSkillAugment> itemSkillAugments = [];
+            int augmentAllLevel = itemRecord["augmentAllLevel"]?.Get<int>(0) ?? 0;
 
-            List<ItemProperty> itemProperties = [];
-            foreach (ArzRecordProperty property in validProperties)
+            if (augmentAllLevel > 0)
             {
-                ItemPropertyType type;
-                try
+                itemSkillAugments.Add(new ItemSkillAugment(string.Empty, augmentAllLevel)
                 {
-                    type = property.Name.GetEnumValue<ItemPropertyType>();
-                }
-                catch (Exception ex)
-                {
-                    continue;
-                }
-
-                ItemProperty propertyResult = new()
-                {
-                    Type = type,
-                    Value = property.Get<float>(0)
-                };
-
-                itemProperties.Add(propertyResult);
+                    SkillName = "all Skills" // TODO localize
+                });
             }
 
-            return itemProperties;
+            List<ArzRecordProperty?> skillAugmentNames = [.. itemRecord.Properties.Where(x => x.Name.StartsWith("augmentSkillName"))];
+
+            foreach (ArzRecordProperty skillAugmentName in skillAugmentNames.Where(x => x is not null && x.IsValueRelevant).Cast<ArzRecordProperty>())
+            {
+                string matchingPropertyName = $"augmentSkillLevel{skillAugmentName.Name[^1..]}";
+                ArzRecordProperty? skillAugmentLevel = itemRecord.Properties.SingleOrDefault(x => x.Name == matchingPropertyName);
+
+                if (skillAugmentLevel is not null && skillAugmentLevel.IsValueRelevant)
+                {
+                    string? skillResourcePath = skillAugmentName.GetString();
+                    int skillValue = skillAugmentLevel.GetInt32();
+
+                    if (skillResourcePath is null)
+                        continue;
+
+                    ArzRecord skillRecord = await new TitanQuestDatabaseService().GetRecordByPathAsync(skillResourcePath).ConfigureAwait(false);
+                    string skillName = await new GameLocalizationService().GetLocalizedValueByTagAsync(skillRecord["skillDisplayName"]?.Get<string>(0) ?? string.Empty) ?? string.Empty;
+
+                    if (string.IsNullOrEmpty(skillName))
+                        continue;
+
+                    itemSkillAugments.Add(new ItemSkillAugment(skillResourcePath, skillValue)
+                    {
+                        SkillName = skillName
+                    });
+                }
+            }
+
+            return itemSkillAugments;
         }
 
-        [SupportedOSPlatform("windows")]
+        protected virtual List<ItemProperty> GetItemProperties(ArzRecord itemRecord)
+        {
+            return new ItemPropertiesFactory().CreateProperties(itemRecord);
+        }
+
         protected virtual async Task<Bitmap?> GetIconAsync(ArzRecord itemRecord, string bitmapPathPropertyName)
         {
             try
@@ -140,7 +156,6 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
             }
         }
 
-        [SupportedOSPlatform("windows")]
         protected static Size GetItemSize(Bitmap icon)
         {
             if (icon is not null)

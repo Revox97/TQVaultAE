@@ -1,4 +1,5 @@
-﻿using TQVaultAE.Model.Enumerations;
+﻿using TQVaultAE.Localisation;
+using TQVaultAE.Model.Enumerations;
 
 namespace TQVaultAE.Model.Items
 {
@@ -17,6 +18,20 @@ namespace TQVaultAE.Model.Items
         /// </summary>
         public int Value { get; set; } = value;
 
-        public override string ToString() => $"{Type} - {Value}";
+        public override string ToString()
+        {
+            string localisationTag = Type.GetLocalizationTagOrEnumValue();
+
+            // TODO There is a base attack speed tag, that is no property, needs to be removed from item properties!
+            if (localisationTag.EndsWith("Tag"))
+                return string.Empty;
+
+            string requirementName = new GameLocalizationService().GetLocalizedValueByTagAsync(localisationTag).Result ?? string.Empty;
+
+            if (requirementName == string.Empty)
+                return string.Empty;
+
+            return $"Required {requirementName}: {Value}"; // TODO Localize
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Avalonia.Media;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Avalonia.Media;
 using TQVaultAE.Model.Enumerations;
 
 namespace TQVaultAE.Model.Items
@@ -9,6 +10,9 @@ namespace TQVaultAE.Model.Items
         public bool HidePrefixName { get; set; }
 
         public bool HideSuffixName { get; set; }
+
+        [NotMapped]
+        public ItemSkill? ItemSkill { get; set; }
 
         public string BaseName { get; set; } = string.Empty;
 
@@ -47,6 +51,8 @@ namespace TQVaultAE.Model.Items
                 };
             }
         }
+
+        public List<ItemSkillAugment> SkillAugments { get; set; } = [];
 
         private Color GetAccentColorByAffixCount()
         {

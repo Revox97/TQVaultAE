@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using TQVaultAE.Model.Items.ItemProperties;
 
 namespace TQVaultAE.Model.Items
 {
@@ -29,5 +30,15 @@ namespace TQVaultAE.Model.Items
 
         [NotMapped]
         public string Format { get; set; } = string.Empty;
+
+        internal List<string> GetAffixDescriptionProperties()
+        {
+            List<string> propertyValues = [];
+
+            foreach (ItemProperty property in Properties)
+                propertyValues.Add(property.ToString());
+
+            return propertyValues;
+        }
     }
 }

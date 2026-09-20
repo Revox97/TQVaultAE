@@ -2,13 +2,17 @@
 using Avalonia.Controls.Documents;
 using Avalonia.Controls.Shapes;
 using Avalonia.Media;
+using TQVaultAE.Localisation;
 using TQVaultAE.Model.Enumerations;
+using TQVaultAE.Model.Items.ItemProperties;
 
 namespace TQVaultAE.Model.Items
 {
     public class WeaponItem : EquipableItem
     {
         public WeaponItemType WeaponType { get; set; }
+
+        public AttackSpeed AttackSpeed { get; set; }
 
         public WeaponItem(Item item)
         {
@@ -39,7 +43,6 @@ namespace TQVaultAE.Model.Items
             };
         }
 
-        // TODO Move this into own factory?
         public override TextBlock GetItemDescription()
         {
             TextBlock result = new()
@@ -54,46 +57,146 @@ namespace TQVaultAE.Model.Items
                 Foreground = new SolidColorBrush(Color),
                 Classes = { ClassSelectorRunItemName }
             });
-
-            result.Inlines.Add(new LineBreak());
-            // TODO Add damage
-
-            result.Inlines.Add(new LineBreak());
-            // TODO Add speed
-
-            result.Inlines.Add(new LineBreak());
             result.Inlines.Add(new LineBreak());
 
-            List<string> properties = GetItemDescriptionProperties();
-
-            foreach (string property in properties)
+            if (!string.IsNullOrEmpty(Description))
             {
                 result.Inlines.Add(new Run()
                 {
-                    Text = property,
-                    Foreground = new SolidColorBrush(TitanQuestColors.Blue),
+                    Text = Description.Replace("{^s}", string.Empty), // TODO Move into localization
+                    Foreground = new SolidColorBrush(TitanQuestColors.DarkGray),
                     Classes = { ClassSelectorRunItemDefault }
                 });
+
                 result.Inlines.Add(new LineBreak());
             }
 
+            // Elemental might be different, get them from a separate method
+            ItemProperty? offensivePhysicalProperty = Properties.SingleOrDefault(x => x.Name == "offensivePhysical");
+
+            if (offensivePhysicalProperty is not null)
+            {
+                result.Inlines.Add(new Run()
+                {
+                    Text = offensivePhysicalProperty.ToString(),
+                    Classes = { ClassSelectorRunItemDefault }
+                });
+
+                result.Inlines.Add(new LineBreak());
+            }
+
+            ItemProperty? pierceRatioMinProperty = Properties.SingleOrDefault(x => x.Name == "offensivePierceRatio");
+
+            if (pierceRatioMinProperty is not null)
+            {
+                result.Inlines.Add(new Run()
+                {
+                    Text = pierceRatioMinProperty.ToString(),
+                    Classes = { ClassSelectorRunItemDefault }
+                });
+
+                result.Inlines.Add(new LineBreak());
+            }
+
+            string localizationTag = AttackSpeed.GetLocalizationTagOrEnumValue();
+            result.Inlines.Add(new Run()
+            {
+                Text = new GameLocalizationService().GetLocalizedValueByTagAsync(localizationTag).Result,
+                Classes = { ClassSelectorRunItemDefault }
+            });
             result.Inlines.Add(new LineBreak());
-            // TODO Get Prefix properties
+            result.Inlines.Add(new LineBreak());
+            result.Inlines.AddRange(GetItemDescriptionProperties());
+
+            if (SkillAugments.Count > 0)
+            {
+                foreach (ItemSkillAugment augment in SkillAugments)
+                {
+                    result.Inlines.Add(new Run()
+                    {
+                        Text = augment.ToString(),
+                        Foreground = new SolidColorBrush(TitanQuestColors.Yellow),
+                        Classes = { ClassSelectorRunItemDefault }
+                    });
+
+                    result.Inlines.Add(new LineBreak());
+                }
+            }
 
             result.Inlines.Add(new LineBreak());
-            result.Inlines.Add(new LineBreak());
+
+            if (Prefix is not null)
+            {
+                result.Inlines.Add(new Run()
+                {
+                    Text = $"Prefix: {Prefix.Name}", // TODO Localize
+                    Foreground = new SolidColorBrush(TitanQuestColors.Orange),
+                    Classes = { ClassSelectorRunItemDefault }
+                });
+                result.Inlines.Add(new LineBreak());
+
+                List<string> prefixProperties = Prefix.GetAffixDescriptionProperties();
+
+                foreach (string prefixProperty in prefixProperties)
+                {
+                    result.Inlines.Add(new Run()
+                    {
+                        Text = prefixProperty,
+                        Foreground = new SolidColorBrush(TitanQuestColors.Blue),
+                        Classes = { ClassSelectorRunItemDefault }
+                    });
+                    result.Inlines.Add(new LineBreak());
+                }
+
+                // TODO add skill augments
+                result.Inlines.Add(new LineBreak());
+            }
+
             // TODO Get Suffix properties
+            if (Suffix is not null)
+            {
+                result.Inlines.Add(new Run()
+                {
+                    Text = $"Suffix: {Suffix.Name}", // TODO Localize
+                    Foreground = new SolidColorBrush(TitanQuestColors.Orange),
+                    Classes = { ClassSelectorRunItemDefault }
+                });
+                result.Inlines.Add(new LineBreak());
 
-            result.Inlines.Add(new LineBreak());
-            result.Inlines.Add(new LineBreak());
-            // TODO Get RelicOne properties
+                List<string> suffixProperties = Suffix.GetAffixDescriptionProperties();
 
-            result.Inlines.Add(new LineBreak());
-            result.Inlines.Add(new LineBreak());
-            // TODO Get RelicTwo properties
+                foreach (string suffixProperty in suffixProperties)
+                {
+                    result.Inlines.Add(new Run()
+                    {
+                        Text = suffixProperty,
+                        Foreground = new SolidColorBrush(TitanQuestColors.Blue),
+                        Classes = { ClassSelectorRunItemDefault }
+                    });
+                    result.Inlines.Add(new LineBreak());
+                }
 
-            result.Inlines.Add(new LineBreak());
-            result.Inlines.Add(new LineBreak());
+                // TODO add skill augments
+                result.Inlines.Add(new LineBreak());
+            }
+
+            if (TalismanOne is not null)
+            {
+                TextBlock talismanTb = TalismanOne.GetItemDescription();
+                result.Inlines.AddRange(talismanTb.Inlines!);
+                result.Inlines.Add(new LineBreak());
+                result.Inlines.Add(new LineBreak());
+            }
+
+            if (TalismanTwo is not null)
+            {
+                TextBlock talismanTb = TalismanTwo.GetItemDescription();
+                result.Inlines.AddRange(talismanTb.Inlines!);
+                result.Inlines.Add(new LineBreak());
+                result.Inlines.Add(new LineBreak());
+            }
+
+            // TODO Add set information
 
             List<string> requirements = GetItemDescriptionRequirements();
 
@@ -105,10 +208,10 @@ namespace TQVaultAE.Model.Items
                     Foreground = new SolidColorBrush(TitanQuestColors.DarkGray),
                     Classes = { ClassSelectorRunItemDefault }
                 });
+
                 result.Inlines.Add(new LineBreak());
             }
 
-            result.Inlines.Add(new LineBreak());
             result.Inlines.Add(new InlineUIContainer { Child = new Rectangle { Classes = { ClassSelectorRunItemSeparator } } });
             result.Inlines.Add(new LineBreak());
 
@@ -131,8 +234,6 @@ namespace TQVaultAE.Model.Items
                 });
             }
 
-            // TODO Get DLC
-
             // Separator stretch workaround
             result.LayoutUpdated += (_, _) =>
             {
@@ -141,6 +242,13 @@ namespace TQVaultAE.Model.Items
             };
 
             return result;
+        }
+
+        protected override List<Inline> GetItemDescriptionProperties(List<ItemProperty>? properties = null)
+        {
+            List<ItemProperty> actualProperties = [.. Properties
+                .Where(x => x.Name != "offensivePhysical" && x.Name != "offensivePierceRatio")];
+            return base.GetItemDescriptionProperties(actualProperties);
         }
     }
 }

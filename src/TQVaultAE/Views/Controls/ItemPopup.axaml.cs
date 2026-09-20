@@ -31,11 +31,7 @@ public partial class ItemPopup : UserControl, INotifyPropertyChanged
         {
             Name = "Test Item",
             Seed = 12345,
-            Properties = new ObservableCollection<ItemProperty>([
-                new ItemProperty() { Type = ItemPropertyType.CharacterArmorAndDexterityRequirementsReduction, Value = 12f },
-                new ItemProperty() { Type = ItemPropertyType.OffensiveColdModifier, Value = 13f },
-                new ItemProperty() { Type = ItemPropertyType.DefensiveBleeding, Value = 0.5f },
-            ]),
+            Properties = [],
             Requirements = new ObservableCollection<ItemRequirement>([
                 new ItemRequirement(ItemRequirementType.Dexterity, 12),
                 new ItemRequirement(ItemRequirementType.Level, 35),

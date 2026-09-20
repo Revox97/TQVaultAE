@@ -3,6 +3,6 @@
     public interface IGameLocalizationService
     {
         Task InitializeAsync();
-        Task<string?> GetLocalizedValueByTag(string tag);
+        Task<string?> GetLocalizedValueByTagAsync(string tag);
     }
 }
