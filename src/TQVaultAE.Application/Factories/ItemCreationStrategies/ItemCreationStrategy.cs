@@ -38,8 +38,16 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
 
         protected virtual async Task<string> GetLocalizedValueAsync(ArzRecord itemRecord, string itemNamePropertyName)
         {
-            string nameTag = itemRecord[itemNamePropertyName]?.Get<string>(0) ?? string.Empty;
-            return await new GameLocalizationService().GetLocalizedValueByTagAsync(nameTag).ConfigureAwait(false) ?? string.Empty;
+            ArzRecordProperty? tagProperty = itemRecord[itemNamePropertyName];
+
+            if (tagProperty is null)
+                return string.Empty;
+
+            string? tag = tagProperty.Get<string>(0) ?? string.Empty;
+
+            return !string.IsNullOrEmpty(tag)
+                ? await new GameLocalizationService().GetLocalizedValueByTagAsync(tag).ConfigureAwait(false) ?? string.Empty
+                : string.Empty;
         }
 
 
@@ -136,7 +144,7 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
 
         protected virtual List<ItemProperty> GetItemProperties(ArzRecord itemRecord)
         {
-            return new ItemPropertiesFactory().CreateProperties(itemRecord);
+            return ItemPropertiesFactory.Create(itemRecord);
         }
 
         protected virtual async Task<Bitmap?> GetIconAsync(ArzRecord itemRecord, string bitmapPathPropertyName)

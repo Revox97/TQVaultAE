@@ -71,14 +71,23 @@ namespace TQVaultAE.Model.Items
                 result.Inlines.Add(new LineBreak());
             }
 
+            ItemProperty? damageProperty;
+            if (Class is ItemClass.WeaponMagical_Staff)
+            {
+                // TODO Get correct damage type
+                damageProperty = Properties.SingleOrDefault(x => x.Name == "offensiveBaseLightning");
+            }
+            else
+            {
+                damageProperty = Properties.SingleOrDefault(x => x.Name == "offensivePhysical");
+            }
             // Elemental might be different, get them from a separate method
-            ItemProperty? offensivePhysicalProperty = Properties.SingleOrDefault(x => x.Name == "offensivePhysical");
 
-            if (offensivePhysicalProperty is not null)
+            if (damageProperty is not null)
             {
                 result.Inlines.Add(new Run()
                 {
-                    Text = offensivePhysicalProperty.ToString(),
+                    Text = damageProperty.ToString(),
                     Classes = { ClassSelectorRunItemDefault }
                 });
 
@@ -244,10 +253,17 @@ namespace TQVaultAE.Model.Items
             return result;
         }
 
+
+        private readonly List<string> _excludedProperties =
+        [
+            "offensivePhysical",
+            "offensivePierceRatio",
+            "offensiveBaseLightning",
+        ];
+
         protected override List<Inline> GetItemDescriptionProperties(List<ItemProperty>? properties = null)
         {
-            List<ItemProperty> actualProperties = [.. Properties
-                .Where(x => x.Name != "offensivePhysical" && x.Name != "offensivePierceRatio")];
+            List<ItemProperty> actualProperties = [.. Properties.Where(x => !_excludedProperties.Contains(x.Name))];
             return base.GetItemDescriptionProperties(actualProperties);
         }
     }

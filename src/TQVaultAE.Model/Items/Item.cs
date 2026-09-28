@@ -185,25 +185,26 @@ namespace TQVaultAE.Model.Items
             return new TextBlock();
         }
 
+        // TODO Sort by Type and make this abstract, seems to be different for various items
+        private static readonly Dictionary<ItemPropertyType, int> s_itemPropertyOrder = new()
+        {
+            { ItemPropertyType.Offensive, 0},
+            { ItemPropertyType.OffensiveSlow, 1},
+            { ItemPropertyType.Defensive, 2},
+            { ItemPropertyType.DefensiveSlow, 3},
+            { ItemPropertyType.Retaliation, 4},
+            { ItemPropertyType.RetaliationSlow, 5},
+            { ItemPropertyType.Character, 6},
+            { ItemPropertyType.Skill, 7 },
+            { ItemPropertyType.Global, 8 },
+        };
+
         protected virtual List<Inline> GetItemDescriptionProperties(List<ItemProperty>? properties = null)
         {
             List<ItemProperty> actualProperties = properties ?? [.. Properties];
             List<Inline> propertyValues = [];
 
-            Dictionary<Type, int> order = new()
-            {
-                { typeof(OffensiveItemProperty), 0 },
-                { typeof(OffensiveSlowItemProperty), 1 },
-                { typeof(DefensiveItemProperty), 2 },
-                { typeof(DefensiveSlowItemProperty), 3 },
-                { typeof(RetaliationItemProperty), 4 },
-                { typeof(RetaliationSlowItemProperty), 5 },
-                { typeof(CharacterItemProperty), 6 },
-                { typeof(SkillItemProperty), 7 },
-                { typeof(GlobalItemProperty), 8 }
-            };
-
-            List<ItemProperty> orderedProperties = [.. actualProperties.OrderBy(x => order[x.GetType()])];
+            List<ItemProperty> orderedProperties = [.. actualProperties.OrderBy(x => s_itemPropertyOrder[x.Type])];
 
             foreach (ItemProperty property in orderedProperties)
                 propertyValues.AddRange(property.GetDescription());

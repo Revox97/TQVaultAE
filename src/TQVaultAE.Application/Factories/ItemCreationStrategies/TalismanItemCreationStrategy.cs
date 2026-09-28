@@ -9,6 +9,7 @@ namespace TQVaultAE.Application.Factories.ItemCreationStrategies
 {
     internal class TalismanItemCreationStrategy : ItemCreationStrategy
     {
+        // TODO Some properties contain arrays of values (according to the stack size. The correct value has to be pulled)
         [SupportedOSPlatform("windows")]
         internal override async Task<Item> CreateAsync(Item itemBase, ArzRecord itemRecord)
         {

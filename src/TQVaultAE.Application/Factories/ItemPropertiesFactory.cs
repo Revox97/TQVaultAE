@@ -4,9 +4,9 @@ using TQVaultAE.Model.Items.ItemProperties;
 
 namespace TQVaultAE.Application.Factories
 {
-    internal partial class ItemPropertiesFactory
+    public partial class ItemPropertiesFactory
     {
-        internal List<ItemProperty> CreateProperties(ArzRecord itemRecord)
+        public static List<ItemProperty> Create(ArzRecord itemRecord)
         {
             List<ArzRecordProperty> validProperties = [.. itemRecord.Properties.Where(x => x.IsValueRelevant && !x.Name.EndsWith("Tag") &&
             (
@@ -17,329 +17,102 @@ namespace TQVaultAE.Application.Factories
                 || x.Name.StartsWith("character")
             ))];
 
-            // TODO Handle global chances
-            List<ItemProperty> itemProperties = [];
+            Dictionary<string, ItemProperty> itemPropertyMap = [];
+            Regex itemPropertyRegex = PropertyNameRegex();
 
             foreach (ArzRecordProperty property in validProperties)
             {
-                // No relevant property
-                if (property.Name == "characterBaseAttackSpeed")
-                    continue;
-
-                if (property.Name == "offensiveGlobalChance")
+                try
                 {
-                    CreateGlobalItemProperty(ref itemProperties, property);
-                    continue;
+                    if (property.Name == "characterBaseAttackSpeed")
+                        continue;
+
+                    Match result = itemPropertyRegex.Match(property.Name);
+                    string propertyName = result.Groups[1].Value;
+                    string type = result.Groups[2].Value;
+                    string variable = result.Groups[3].Value;
+
+                    ItemProperty? currentProperty = itemPropertyMap.FirstOrDefault(x => x.Key == propertyName).Value;
+
+                    if (currentProperty is null)
+                    {
+                        currentProperty = propertyName.EndsWith("Global")
+                            ? new GlobalItemProperty() { Name = propertyName }
+                            : new NormalItemProperty() { Name = propertyName };
+
+                        itemPropertyMap.Add(propertyName, currentProperty);
+                    }
+
+                    if (variable == "Chance")
+                    {
+                        currentProperty.Chance = property.Get<float>(0);
+                        continue;
+                    }
+
+                    if (currentProperty is not NormalItemProperty normalProperty)
+                        continue;
+
+                    if (string.IsNullOrEmpty(variable))
+                    {
+                        normalProperty.Min = property.Get<float>(0);
+                        continue;
+                    }
+
+                    switch (variable)
+                    {
+                        case "Global":
+                            normalProperty.IsGlobal = true;
+                            break;
+                        case "Min":
+                            normalProperty.Min = property.Get<float>(0);
+                            break;
+                        case "Max":
+                            normalProperty.Max = property.Get<float>(0);
+                            break;
+                        case "DurationMin":
+                            normalProperty.Duration = property.Get<float>(0);
+                            break;
+                        case "DurationModifier":
+                            normalProperty.DurationModifier = property.Get<float>(0);
+                            break;
+                        case "XOR":
+                            normalProperty.XOR = true;
+                            break;
+                        default:
+                            break;
+                    }
                 }
-
-                Regex propertyRegex = PropertyNameRegex();
-                Match match = propertyRegex.Match(property.Name);
-
-                string propertyName = match.Groups[1].Value;
-                string type = match.Groups[2].Value;
-                string variableName = match.Groups[3].Value;
-
-                switch (type)
+                catch (Exception ex)
                 {
-                    case "character":
-                        ProcessCharacterProperty(ref itemProperties, property, propertyName);
-                        break;
-                    case "defensive":
-                        ProcessDefensiveProperty(ref itemProperties, property, propertyName);
-                        break;
-                    case "defensiveSlow":
-                        ProcessDefensiveSlowProperty(ref itemProperties, property, propertyName);
-                        break;
-                    case "skill":
-                        ProcessSkillProperty(ref itemProperties, property, propertyName);
-                        break;
-                    case "offensive":
-                        ProcessOffensiveProperty(ref itemProperties, property, propertyName, variableName, validProperties);
-                        break;
-                    case "offensiveSlow":
-                        ProcessOffensiveSlowProperty(ref itemProperties, property, propertyName, variableName, validProperties);
-                        break;
-                    case "retaliation":
-                        ProcessRetaliationProperty(ref itemProperties, property, propertyName, variableName);
-                        break;
-                    case "retaliationSlow":
-                        ProcessRetaliationSlowProperty(ref itemProperties, property, propertyName, variableName);
-                        break;
-                    default:
-                        string bReak = "";
-                        break;
+
                 }
             }
 
-            return itemProperties;
+            return AddPropertiesToGlobalProperties([.. itemPropertyMap.Values]);
         }
 
-        private static void ProcessRetaliationSlowProperty(ref List<ItemProperty> itemProperties, ArzRecordProperty property, string propertyName, string variableName)
+        private static List<ItemProperty> AddPropertiesToGlobalProperties(List<ItemProperty> properties)
         {
-            RetaliationSlowItemProperty? retaliationSlowProperty = (RetaliationSlowItemProperty?)itemProperties.SingleOrDefault(x => x.Name == propertyName);
+            // TODO Can there be multiple? If so needs special handling.
+            GlobalItemProperty? globalProperty = (GlobalItemProperty?)properties.SingleOrDefault(x => x.GetType() == typeof(GlobalItemProperty));
 
-            if (retaliationSlowProperty is null)
+            if (globalProperty is null)
+                return properties;
+
+            List<NormalItemProperty> normalProperties = [.. properties.Where(x => x.GetType() == typeof(NormalItemProperty)).Cast<NormalItemProperty>()];
+            foreach (NormalItemProperty normalProperty in normalProperties)
             {
-                retaliationSlowProperty = new()
+                if (normalProperty.IsGlobal)
                 {
-                    Name = propertyName
-                };
-
-                itemProperties.Add(retaliationSlowProperty);
+                    globalProperty.SubProperties.Add(normalProperty);
+                    properties.Remove(normalProperty);
+                }
             }
 
-            switch (variableName)
-            {
-                case "Chance":
-                    retaliationSlowProperty.Chance = property.Get<float>(0);
-                    break;
-                case "Global":
-                    retaliationSlowProperty.IsGlobal = property.Get<bool>(0);
-                    break;
-                case "DurationMax":
-                    retaliationSlowProperty.DurationMax = property.Get<float>(0);
-                    break;
-                case "DurationMin":
-                    retaliationSlowProperty.DurationMin = property.Get<float>(0);
-                    break;
-                case "Max":
-                    retaliationSlowProperty.Max = property.Get<float>(0);
-                    break;
-                case "Min":
-                    retaliationSlowProperty.Min = property.Get<float>(0);
-                    break;
-                default:
-                    string breakS = "";
-                    break;
-            }
+            return properties;
         }
 
-        private static void ProcessDefensiveSlowProperty(ref List<ItemProperty> itemProperties, ArzRecordProperty property, string propertyName)
-        {
-            itemProperties.Add(new DefensiveSlowItemProperty()
-            {
-                Name = propertyName,
-                Value = property.Get<float>(0),
-            });
-        }
-
-        private static void ProcessOffensiveSlowProperty(ref List<ItemProperty> itemProperties, ArzRecordProperty property, string propertyName, string variableName, List<ArzRecordProperty> propertyRecords)
-        {
-            OffensiveSlowItemProperty? offensiveSlowProperty = (OffensiveSlowItemProperty?)itemProperties
-                .SingleOrDefault(x => x.Name == propertyName);
-
-            offensiveSlowProperty ??= (OffensiveSlowItemProperty?)((GlobalItemProperty?)itemProperties
-                .SingleOrDefault(x => x.Name == "offensiveGlobalChance"))?.Children
-                .SingleOrDefault(x => x.Name == propertyName) ?? null;
-
-            if (offensiveSlowProperty is null)
-            {
-                offensiveSlowProperty = new()
-                {
-                    Name = propertyName,
-                };
-
-                itemProperties.Add(offensiveSlowProperty);
-            }
-
-            switch (variableName)
-            {
-                case "Chance":
-                    offensiveSlowProperty.Chance = property.Get<float>(0);
-                    break;
-                case "DurationMin":
-                    offensiveSlowProperty.DurationMin = property.Get<float>(0);
-                    break;
-                case "DurationMax":
-                    offensiveSlowProperty.DurationMax = property.Get<float>(0);
-                    break;
-                case "Global":
-                    offensiveSlowProperty.IsGlobal = property.Get<bool>(0);
-
-                    if (offensiveSlowProperty.IsGlobal)
-                        AddItemPropertyToGlobalItemProperty(ref itemProperties, offensiveSlowProperty, property, propertyName, propertyRecords);
-
-                    break;
-                case "Max":
-                    offensiveSlowProperty.Max = property.Get<float>(0);
-                    break;
-                case "Min":
-                    offensiveSlowProperty.Min = property.Get<float>(0);
-                    break;
-                case "Modifier":
-                    offensiveSlowProperty.Modifier = property.Get<float>(0);
-                    break;
-                default:
-                    string breakS = "";
-                    break;
-            }
-        }
-
-        private static void CreateGlobalItemProperty(ref List<ItemProperty> itemProperties, ArzRecordProperty property)
-        {
-            if (itemProperties.Any(x => x.Name == property.Name))
-                return;
-
-            itemProperties.Add(new GlobalItemProperty()
-            {
-                Name = property.Name,
-                Value = property.Get<float>(0),
-            });
-        }
-
-        private static void ProcessRetaliationProperty(ref List<ItemProperty> itemProperties, ArzRecordProperty property, string propertyName, string variableName)
-        {
-            RetaliationItemProperty? retaliationProperty = (RetaliationItemProperty?)itemProperties.SingleOrDefault(x => x.Name == propertyName);
-
-            if (retaliationProperty is null)
-            {
-                retaliationProperty = new()
-                {
-                    Name = propertyName
-                };
-
-                itemProperties.Add(retaliationProperty);
-            }
-
-            switch (variableName)
-            {
-                case "Chance":
-                    retaliationProperty.Chance = property.Get<float>(0);
-                    break;
-                case "DurationMax":
-                    retaliationProperty.DurationMax = property.Get<float>(0);
-                    break;
-                case "DurationMin":
-                    retaliationProperty.DurationMin = property.Get<float>(0);
-                    break;
-                case "Global":
-                    retaliationProperty.IsGlobal = property.Get<bool>(0);
-                    break;
-                case "Max":
-                    retaliationProperty.Max = property.Get<float>(0);
-                    break;
-                case "Min":
-                    retaliationProperty.Min = property.Get<float>(0);
-                    break;
-                default:
-                    string breakS = "";
-                    break;
-            }
-        }
-
-        private static void ProcessOffensiveProperty(ref List<ItemProperty> itemProperties, ArzRecordProperty property, string propertyName, string variableName, List<ArzRecordProperty> propertyRecords)
-        {
-            OffensiveItemProperty? offensiveProperty = (OffensiveItemProperty?)itemProperties.SingleOrDefault(x => x.Name == propertyName);
-
-            offensiveProperty ??= (OffensiveItemProperty?)((GlobalItemProperty?)itemProperties
-                .SingleOrDefault(x => x.Name == "offensiveGlobalChance"))?.Children
-                .SingleOrDefault(x => x.Name == propertyName) ?? null;
-
-            if (offensiveProperty is null)
-            {
-                offensiveProperty = (OffensiveItemProperty?)((GlobalItemProperty?)itemProperties.SingleOrDefault(x => x.Name == "offensiveGlobalChance"))?
-                    .Children.SingleOrDefault(x => x.Name == propertyName) ?? null;
-
-                offensiveProperty = new()
-                {
-                    Name = propertyName,
-                };
-
-                itemProperties.Add(offensiveProperty);
-            }
-
-            switch (variableName)
-            {
-                case "Chance":
-                    offensiveProperty.Chance = property.Get<float>(0);
-                    break;
-                case "DamageRatio":
-                    offensiveProperty.DamageRatio = property.Get<float>(0);
-                    break;
-                case "DurationMin":
-                    offensiveProperty.DurationMin = property.Get<float>(0);
-                    break;
-                case "DurationMax":
-                    offensiveProperty.DurationMax = property.Get<float>(0);
-                    break;
-                case "DrainMax":
-                    offensiveProperty.DrainMax = property.Get<float>(0);
-                    break;
-                case "DrainMin":
-                    offensiveProperty.DrainMin = property.Get<float>(0);
-                    break;
-                case "Global":
-                    offensiveProperty.IsGlobal = property.Get<bool>(0);
-
-                    if (offensiveProperty.IsGlobal)
-                        AddItemPropertyToGlobalItemProperty(ref itemProperties, offensiveProperty, property, propertyName, propertyRecords);
-
-                    break;
-                case "Max":
-                    offensiveProperty.Max = property.Get<float>(0);
-                    break;
-                case "Min":
-                    offensiveProperty.Min = property.Get<float>(0);
-                    break;
-                case "Modifier":
-                    offensiveProperty.Modifier = property.Get<float>(0);
-                    break;
-                default:
-                    string breakS = "";
-                    break;
-            }
-        }
-
-        private static void AddItemPropertyToGlobalItemProperty(ref List<ItemProperty> itemProperties, ItemProperty itemProperty, ArzRecordProperty property, string propertyName, List<ArzRecordProperty> propertyRecords)
-        {
-
-            if (!itemProperties.Any(x => x.GetType() == typeof(GlobalItemProperty) && x.Name == "offensiveGlobalChance"))
-            {
-                ArzRecordProperty? globalPropertyRecord = propertyRecords.FirstOrDefault(x => x.Name == "offensiveGlobalChance");
-
-                if (globalPropertyRecord is null)
-                    return;
-
-                CreateGlobalItemProperty(ref itemProperties, globalPropertyRecord);
-            }
-
-            GlobalItemProperty? globalItemProperty = (GlobalItemProperty?)itemProperties.FirstOrDefault(x => x.Name == "offensiveGlobalChance");
-
-            if (globalItemProperty is null)
-                return;
-
-            itemProperties.Remove(itemProperty);
-            globalItemProperty.Children.Add(itemProperty);
-        }
-
-        private static void ProcessCharacterProperty(ref List<ItemProperty> itemProperties, ArzRecordProperty property, string fullPropertyName)
-        {
-            itemProperties.Add(new CharacterItemProperty()
-            {
-                Name = fullPropertyName,
-                Value = property.Get<float>(0)
-            });
-        }
-
-        private static void ProcessDefensiveProperty(ref List<ItemProperty> itemProperties, ArzRecordProperty property, string fullPropertyName)
-        {
-            itemProperties.Add(new DefensiveItemProperty()
-            {
-                Name = fullPropertyName,
-                Value = property.Get<float>(0)
-            });
-        }
-
-        private static void ProcessSkillProperty(ref List<ItemProperty> itemProperties, ArzRecordProperty property, string fullPropertyName)
-        {
-            itemProperties.Add(new SkillItemProperty()
-            {
-                Name = fullPropertyName,
-                Value = property.Get<float>(0)
-            });
-        }
-
-        [GeneratedRegex(@"^((character|defensiveSlow|defensive|offensiveSlow|offensive|retaliationSlow|retaliation|skill)[A-Za-z]+?)(Chance|DamageRatio|DurationMin|DurationMax|DrainMax|DrainMin|Global|Min|Max|Modifier|XOR)?$")]
+        [GeneratedRegex(@"^((character|defensiveSlow|defensive|offensiveSlow|offensive|retaliationSlow|retaliation|skill)[A-Za-z]+?)(Chance|DamageRatio|DurationMax|DurationMin|DurationModifier|DrainMax|DrainMin|Global|Min|Max|XOR)?$")]
         internal static partial Regex PropertyNameRegex();
     }
 }

@@ -16,7 +16,8 @@ namespace TQVaultAE.Application.Factories
         {
             try
             {
-                ArzRecord itemRecord = await new TitanQuestDatabaseService().GetRecordByPathAsync(item.ResourcePath);
+                string resourcePath = item.ResourcePath.Replace('/', '\\');
+                ArzRecord itemRecord = await new TitanQuestDatabaseService().GetRecordByPathAsync(resourcePath);
                 return await CreateItemByClassAsync(item, itemRecord).ConfigureAwait(false);
             }
             catch (Exception ex)

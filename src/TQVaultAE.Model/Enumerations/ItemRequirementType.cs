@@ -16,6 +16,6 @@ namespace TQVaultAE.Model.Enumerations
         [LocalizationTag("LevelRequirement")]
         Level,
         [Description("strengthRequirement")]
-        Strenth
+        Strength
     }
 }

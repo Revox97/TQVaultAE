@@ -35,7 +35,7 @@ public partial class ItemPopup : UserControl, INotifyPropertyChanged
             Requirements = new ObservableCollection<ItemRequirement>([
                 new ItemRequirement(ItemRequirementType.Dexterity, 12),
                 new ItemRequirement(ItemRequirementType.Level, 35),
-                new ItemRequirement(ItemRequirementType.Strenth, 120),
+                new ItemRequirement(ItemRequirementType.Strength, 120),
             ]),
         };
     }

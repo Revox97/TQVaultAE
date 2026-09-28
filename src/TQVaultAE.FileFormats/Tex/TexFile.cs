@@ -99,7 +99,7 @@ namespace TQVaultAE.FileFormats.Tex
             int stride = width * 4;
 
             if (pixelData.Length < stride * height)
-                throw new ArgumentException( $"Pixel data is too small. Expected {stride * height} bytes, got {pixelData.Length}.", nameof(pixelData));
+                throw new ArgumentException($"Pixel data is too small. Expected {stride * height} bytes, got {pixelData.Length}.", nameof(pixelData));
 
             WriteableBitmap bitmap = new(new PixelSize(width, height), new Vector(96, 96), PixelFormat.Bgra8888, AlphaFormat.Premul);
             using ILockedFramebuffer framebuffer = bitmap.Lock();

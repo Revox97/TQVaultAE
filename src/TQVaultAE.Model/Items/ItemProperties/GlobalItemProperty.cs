@@ -1,49 +1,26 @@
-﻿using System.Text.RegularExpressions;
-using Avalonia.Controls.Documents;
+﻿using Avalonia.Controls.Documents;
 using Avalonia.Media;
-using TQVaultAE.Localisation;
 using TQVaultAE.Model.Enumerations;
 
 namespace TQVaultAE.Model.Items.ItemProperties
 {
-    public partial class GlobalItemProperty : ItemProperty
+    public class GlobalItemProperty : ItemProperty
     {
-        public List<ItemProperty> Children { get; set; } = [];
+        public List<ItemProperty> SubProperties { get; set; } = [];
 
-        public float Value { get; set; }
-
-        public override float GetValueBySeed(int seed)
+        public GlobalItemProperty()
         {
-            throw new NotImplementedException();
+            Type = ItemPropertyType.Global;
         }
 
         public override string ToString()
         {
-            string tag = new ItemPropertyTagCollection()[Name];
-            string? localizedName = new GameLocalizationService().GetLocalizedValueByTagAsync(tag).Result;
+            string propertyValue = GetLocalizedValue(Name);
 
-            if (string.IsNullOrEmpty(localizedName) || tag == "<<UNKNOWN>>")
-            {
-                if (tag == "<<UNKNOWN>>")
-                    return Name;
-
-                return Name;
-            }
-
-            Regex rgx = PropertyValuePlaceHolderRegex();
-
-            string result = rgx.Replace(localizedName, match =>
-            {
-                int decimals = int.Parse(match.Groups["decimals"].Value);
-                string plusIndicator = match.Groups["plusIndicator"].Value;
-                return $"{plusIndicator}{Value.ToString($"F{decimals}")}";
-            });
-
-            return result;
+            return !propertyValue.StartsWith("<<UNKNOWN>>")
+                ? ReplaceSingleValueInString(propertyValue, Chance)
+                : propertyValue;
         }
-
-        [GeneratedRegex(@"{%(?<plusIndicator>\+?)\.(?<decimals>[0-9])f(?<index>[0-9])}")]
-        internal static partial Regex PropertyValuePlaceHolderRegex();
 
         public override List<Inline> GetDescription()
         {
@@ -58,7 +35,7 @@ namespace TQVaultAE.Model.Items.ItemProperties
 
             result.Add(new LineBreak());
 
-            foreach (ItemProperty itemProperty in Children)
+            foreach (ItemProperty itemProperty in SubProperties)
                 result.AddRange(itemProperty.GetDescription());
 
             return result;
