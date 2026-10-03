@@ -1,5 +1,6 @@
 ﻿using Avalonia.Controls.Documents;
 using Avalonia.Media;
+using TQVaultAE.Localisation;
 using TQVaultAE.Model.Enumerations;
 
 namespace TQVaultAE.Model.Items.ItemProperties
@@ -8,7 +9,7 @@ namespace TQVaultAE.Model.Items.ItemProperties
     {
         public List<ItemProperty> SubProperties { get; set; } = [];
 
-        public GlobalItemProperty()
+        public GlobalItemProperty(IGameLocalizationService? gameLocalizationService = null) : base(gameLocalizationService)
         {
             Type = ItemPropertyType.Global;
         }
@@ -29,7 +30,7 @@ namespace TQVaultAE.Model.Items.ItemProperties
             result.Add(new Run()
             {
                 Text = ToString(),
-                Foreground = new SolidColorBrush(TitanQuestColors.Blue),
+                Foreground = new SolidColorBrush(TitanQuestColors.Blue), // TODO Replace with Colors!
                 Classes = { "Run__ItemDefault" },
             });
 

@@ -11,8 +11,7 @@ namespace TQVaultAE.Model.Enumerations
         /// </summary>
         public static TEnum GetEnumValue<TEnum>(this string value) where TEnum : struct, Enum
         {
-            if (string.IsNullOrWhiteSpace(value))
-                throw new ArgumentException("Value cannot be null or empty.", nameof(value));
+            ArgumentException.ThrowIfNullOrEmpty(value);
 
             foreach (FieldInfo field in typeof(TEnum).GetFields(BindingFlags.Public | BindingFlags.Static))
             {
@@ -33,7 +32,7 @@ namespace TQVaultAE.Model.Enumerations
         {
             FieldInfo? field = typeof(TEnum).GetField(value.ToString());
 
-            if (field == null)
+            if (field is null)
                 return value.ToString();
 
             string? description = field.GetCustomAttribute<DescriptionAttribute>()?.Description;

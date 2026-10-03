@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.FileFormats", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.Localisation", "src\TQVaultAE.Localisation\TQVaultAE.Localisation.csproj", "{A12DE089-7CA1-4B7C-8ADD-62AABBF855C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TQVaultAE.ModelTests", "src\tests\TQVaultAE.ModelTests\TQVaultAE.ModelTests.csproj", "{63FCE771-4672-44AB-BAAD-6B2C408B0C9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -94,12 +96,17 @@ Global
 		{A12DE089-7CA1-4B7C-8ADD-62AABBF855C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A12DE089-7CA1-4B7C-8ADD-62AABBF855C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A12DE089-7CA1-4B7C-8ADD-62AABBF855C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63FCE771-4672-44AB-BAAD-6B2C408B0C9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63FCE771-4672-44AB-BAAD-6B2C408B0C9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63FCE771-4672-44AB-BAAD-6B2C408B0C9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63FCE771-4672-44AB-BAAD-6B2C408B0C9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{92547FAD-6502-4971-9FE1-FD2D534015FB} = {07A64351-D990-44C5-85B7-E64B47F1F6D8}
+		{63FCE771-4672-44AB-BAAD-6B2C408B0C9A} = {07A64351-D990-44C5-85B7-E64B47F1F6D8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B01F052C-256B-4CDD-848F-338522FC5644}

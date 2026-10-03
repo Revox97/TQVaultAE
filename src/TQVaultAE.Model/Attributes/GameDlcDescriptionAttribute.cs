@@ -1,6 +1,6 @@
 ﻿namespace TQVaultAE.Model.Attributes
 {
-    [AttributeUsage(AttributeTargets.All)]
+    [AttributeUsage(AttributeTargets.Field)]
     public class GameDlcDescriptionAttribute(string gameExtensionCode, string translationTag) : Attribute
     {
         public readonly string Code = gameExtensionCode;

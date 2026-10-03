@@ -1,5 +1,7 @@
 ﻿namespace TQVaultAE.Model.Attributes
 {
+    // TODO Add tests, if it will be used, otherwise remove
+
     [AttributeUsage(AttributeTargets.Field, Inherited = true, AllowMultiple = false)]
     public class GearTypeDescriptionAttribute(string @class, string requirementEquationPrefix) : Attribute
     {

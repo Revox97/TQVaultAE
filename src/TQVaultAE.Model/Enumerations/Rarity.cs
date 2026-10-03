@@ -1,5 +1,6 @@
 ﻿namespace TQVaultAE.Model.Enumerations
 {
+    // TODO Delete if not used, otherwise write tests
     public enum Rarity
     {
         NoGear,

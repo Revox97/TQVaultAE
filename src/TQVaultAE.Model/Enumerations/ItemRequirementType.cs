@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Text.Json.Serialization;
 using TQVaultAE.Model.Attributes;
 
 namespace TQVaultAE.Model.Enumerations

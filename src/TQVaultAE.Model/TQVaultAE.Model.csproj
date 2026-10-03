@@ -15,4 +15,9 @@
     <ProjectReference Include="..\TQVaultAE.Localisation\TQVaultAE.Localisation.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="TQVaultAE.ModelTests" />
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+  </ItemGroup>
+
 </Project>

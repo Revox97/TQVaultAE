@@ -1,5 +1,6 @@
 ﻿using Avalonia.Media;
 
+// TODO Merge into colors, currently both types are used...
 namespace TQVaultAE.Model.Enumerations
 {
     public static class TitanQuestColors

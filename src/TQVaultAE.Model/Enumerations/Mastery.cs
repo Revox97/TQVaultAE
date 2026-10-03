@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 
 // TODO verify whether this needs flag, otherwise assign normal integer values.
+// TODO Delete if not used, otherwise write tests
 namespace TQVaultAE.Model.Enumerations
 {
     [Flags]

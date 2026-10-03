@@ -13,6 +13,8 @@ namespace TQVaultAE.Model.Items.ItemProperties
     // TOdo Also merge item properties, that are belonging together
     public abstract partial class ItemProperty
     {
+        private readonly IGameLocalizationService _gameLocalizationService;
+
         /// <summary>
         /// Gets or sets the name of the <see cref="ItemProperty"/>.
         /// </summary>
@@ -25,7 +27,10 @@ namespace TQVaultAE.Model.Items.ItemProperties
 
         public float Chance { get; set; }
 
-        internal ItemProperty() { }
+        internal ItemProperty(IGameLocalizationService? gameLocalizationService = null)
+        {
+            _gameLocalizationService = gameLocalizationService ?? new GameLocalizationService();
+        }
 
         public virtual List<Inline> GetDescription()
         {
@@ -42,10 +47,10 @@ namespace TQVaultAE.Model.Items.ItemProperties
             return result;
         }
 
-        protected static string GetLocalizedValue(string input)
+        protected string GetLocalizedValue(string input)
         {
             string tag = new ItemPropertyTagCollection()[input];
-            string? localizedName = new GameLocalizationService().GetLocalizedValueByTagAsync(tag).Result;
+            string? localizedName = _gameLocalizationService.GetLocalizedValueByTagAsync(tag).Result;
 
             return !string.IsNullOrEmpty(localizedName) ? localizedName : $"<<UNKNOWN>> - {input}";
         }

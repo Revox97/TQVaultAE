@@ -17,7 +17,7 @@ namespace TQVaultAE.Model.Enumerations
         [Description("bonusManaPercent")]
         ManaPercent,
         [Description("bonusManaPoints")]
-        BonusManaPoints,
+        ManaPoints,
         [Description("bonusSkillPoints")]
         SkillPoints
     }
