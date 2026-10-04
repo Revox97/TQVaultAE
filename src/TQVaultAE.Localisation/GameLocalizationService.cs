@@ -41,12 +41,11 @@ namespace TQVaultAE.Localisation
             if (value is null)
                 return null;
 
-            value = value.Replace("{^n}", "\n");
-            value = value.Replace("{^N}", "\n");
-            value = value.Replace("{^y}", string.Empty);
-            value = value.Replace("{^l}", string.Empty);
-
-            return value;
+            return value.Replace("{^n}", "\n")
+                        .Replace("{^N}", "\n")
+                        .Replace("{^y}", string.Empty)
+                        .Replace("{^l}", string.Empty)
+                        .Split("//")[0]; // Remove comment
         }
 
         public async Task InitializeAsync()

@@ -21,10 +21,13 @@ namespace TQVaultAE.Model.Items.ItemProperties
         public string Name { get; set; } = string.Empty;
 
         /// <summary>
-        /// The type of the property. Used for sorting.
+        /// Gets or sets the type of the <see cref="ItemProperty"/>. Used for sorting.
         /// </summary>
         public ItemPropertyType Type { get; set; }
 
+        /// <summary>
+        /// Gets or sets the chance, with which the effect of the <see cref="ItemProperty"/> will be triggered.
+        /// </summary>
         public float Chance { get; set; }
 
         internal ItemProperty(IGameLocalizationService? gameLocalizationService = null)
@@ -32,6 +35,10 @@ namespace TQVaultAE.Model.Items.ItemProperties
             _gameLocalizationService = gameLocalizationService ?? new GameLocalizationService();
         }
 
+        /// <summary>
+        /// Gets UI elements, that can be used to display the <see cref="ItemProperty"/> as part of a <see cref="Avalonia.Controls.TextBlock"/>.
+        /// </summary>
+        /// <returns>A list of <see cref="Inline"/>s.</returns>
         public virtual List<Inline> GetDescription()
         {
             List<Inline> result = [];
