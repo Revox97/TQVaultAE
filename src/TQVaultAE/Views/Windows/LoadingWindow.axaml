@@ -12,6 +12,7 @@
         Height="500"
         Window.WindowDecorations="None"
         WindowStartupLocation="CenterScreen"
+        Icon="/Assets/Img/icon_majestic_chest.png"
         Title="Titan Quest Vault">
     <Window.Background>
         <ImageBrush Source="avares://TQVaultAE/Assets/Img/NewSplashScreen.png"
